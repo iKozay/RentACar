@@ -24,7 +24,7 @@ aspects that set our project apart.
 Providing step-by-step instructions on how to install and set up the project locally. We need to include any dependencies or prerequisites 
 needed.
 
-# Example Installation Steps
+Example Of Installation Steps:
 git clone https://github.com/your-username/our-project.git
 cd our-project
 npm install

@@ -25,9 +25,10 @@ Providing step-by-step instructions on how to install and set up the project loc
 needed.
 
 Example Of Installation Steps:
-git clone https://github.com/your-username/our-project.git
-cd our-project
-npm install
+
+1. git clone https://github.com/your-username/our-project.git
+2. cd our-project
+3. npm install
 
 
 ## Usage

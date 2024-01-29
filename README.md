@@ -1,8 +1,8 @@
-# Project Name
+# A Car-rental Web Application
 
 ## Overview
 
-Description the purpose and goals of the project. We will need to include information on the problem our web application aims to solve or the value it provides.
+A comprehensive car rental application designed to streamline the process of renting vehicles for short durations. The application acts as an intermediary platform connecting customers with the car rental company, providing a user-friendly experience for vehicle selection, reservation, and management.
 
 ## Table of Contents
 
@@ -16,8 +16,49 @@ Description the purpose and goals of the project. We will need to include inform
 
 ## Features
 
-Highlighting the key features of our  web application. This could include functionalities, user interactions, or any unique 
-aspects that set our project apart.
+Customer Features:
+
+    1. User Registration and Authentication:
+        Allow customers to create accounts and log in securely.
+
+    2. Profile Management:
+        Enable users to update personal information and preferences.
+
+    3. Vehicle Search and Filtering:
+        Implement an intuitive search interface with filters for type, category, and price range.
+
+    4. Reservation Management:
+        View, modify, and cancel reservations easily.
+
+    5. Location-based Services:
+        Provide a branch locator using postal codes or airport information.
+
+    6. Rating and Reviews:
+        Allow customers to provide feedback and ratings for rented vehicles and overall experience.
+
+    7. Extra Equipment Add-Ons:
+
+  Customer Service Representative (CSR) Features:
+
+    1. Check-in Process:
+        Manage the check-in process for customers with or without reservations.
+
+    2. Reservation Confirmation:
+        Confirm reservations, verify customer details, and process payments.
+
+    3. Check-out Process:
+        Facilitate the return process, inspect the vehicle, and process final billing.
+
+  System Administrator Features:
+
+    1. Vehicle Management:
+        CRUD operations for adding, updating, and removing vehicles from the system.
+
+    2. User Account Management:
+        CRUD operations for managing user accounts.
+
+    3. Reservation Management:
+        CRUD operations for handling reservations efficiently.
 
 ## Installation
 

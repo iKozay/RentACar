@@ -16,49 +16,63 @@ A comprehensive car rental application designed to streamline the process of ren
 
 ## Features
 
+
+
 Customer Features:
-
-    1. User Registration and Authentication:
+  1. User Registration and Authentication:
         Allow customers to create accounts and log in securely.
-
-    2. Profile Management:
+     
+  2. Profile Management:
         Enable users to update personal information and preferences.
-
-    3. Vehicle Search and Filtering:
+     
+  3. Vehicle Search and Filtering:
         Implement an intuitive search interface with filters for type, category, and price range.
-
-    4. Reservation Management:
+     
+  4. Reservation Management:
         View, modify, and cancel reservations easily.
 
-    5. Location-based Services:
+  5. Location-based Services:
         Provide a branch locator using postal codes or airport information.
 
-    6. Rating and Reviews:
+  6. Rating and Reviews:
         Allow customers to provide feedback and ratings for rented vehicles and overall experience.
 
-    7. Extra Equipment Add-Ons:
+  7. Extra Equipment Add-Ons:
+        During the reservation process, offer additional equipment at an extra cost.
 
-  Customer Service Representative (CSR) Features:
 
-    1. Check-in Process:
+
+Customer Service Representative (CSR) Features:
+  1. Check-in Process:
         Manage the check-in process for customers with or without reservations.
 
-    2. Reservation Confirmation:
+  2. Reservation Confirmation:
         Confirm reservations, verify customer details, and process payments.
 
-    3. Check-out Process:
+  3. Check-out Process:
         Facilitate the return process, inspect the vehicle, and process final billing.
 
-  System Administrator Features:
 
-    1. Vehicle Management:
+
+System Administrator Features:
+  1. Vehicle Management:
         CRUD operations for adding, updating, and removing vehicles from the system.
 
-    2. User Account Management:
+  2. User Account Management:
         CRUD operations for managing user accounts.
 
-    3. Reservation Management:
+  3. Reservation Management:
         CRUD operations for handling reservations efficiently.
+
+
+ Additional Features (To Be Reviewed):
+  1. User Loyalty Program:
+        Implement a loyalty program to reward customers for repeated business.
+  
+  2. User Loyalty Program:
+        Implement a loyalty program to reward customers for repeated business.
+  
+  
 
 ## Installation
 
@@ -97,7 +111,7 @@ Indicating the license under which our project is released. This can be an open-
 
 ## Contact
 
-Providing contact information for team members. We can include links to relevant social media profiles or 
-communication channels.
+Contact Information For Team Members:
+1. Miskat Mahmud (email: miskat.mahmud@mail.concordia.ca)
 
 

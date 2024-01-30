@@ -81,10 +81,20 @@ needed.
 
 Example Of Installation Steps:
 
-1. git clone https://github.com/your-username/our-project.git
-2. cd our-project
-3. npm install
+Follow these steps to set up and run the project:
 
+1. **Clone the Repository:**
+   Clone the project repository to your local machine using the following command:
+   ```bash
+   git clone https://github.com/your-username/our-project.git
+2. **Change to the Project Directory:**
+   Navigate into the project directory with the command:
+   ```bash
+   cd our-project
+3. **Install Dependencies:**
+   Install project dependencies using the following command:
+   ```bash
+   npm install
 
 ## Usage
 

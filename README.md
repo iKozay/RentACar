@@ -21,7 +21,7 @@ A comprehensive car rental application designed to streamline the process of ren
 * Zeiad Badawy -  40247477 - <strong>Scrum master/Front-end DEV</strong>
 * Mohamed Saidi - 40248103 - <strong>Backend DEV</strong>
 * Miskat Mahmud - 40250110 - <strong>Backend DEV</strong>
-* Matteo Sansone - XXXXXXXX - <strong>Front-end DEV</strong>
+* Matteo Sansone - 40242278 - <strong>Front-end DEV</strong>
 * Abdel-Rahman Khalifa - 40253332 - <strong>Fullstack DEV</strong>
 
 

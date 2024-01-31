@@ -113,5 +113,5 @@ Indicating the license under which our project is released. This can be an open-
 
 Contact Information For Team Members:
 1. Miskat Mahmud (email: miskat.mahmud@mail.concordia.ca)
-
+2. Abdel-Rahman Khalifa (email: abdelrahmanwaleed0000@gmail.com)
 

@@ -159,3 +159,4 @@ Contact Information For Team Members:
 2. Abdel-Rahman Khalifa (email: abdelrahmanwaleed0000@gmail.com)
 3. Zeiad Badawy (email: zeiadbadawy@gmail.com)
 4. Matteo Sansone (email: matteo.sansone@mail.concordia.ca)
+5. Mohamed Saidi (email: saidimoha.pro@gmail.com)

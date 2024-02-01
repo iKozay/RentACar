@@ -158,3 +158,4 @@ Contact Information For Team Members:
 1. Miskat Mahmud (email: miskat.mahmud@mail.concordia.ca)
 2. Abdel-Rahman Khalifa (email: abdelrahmanwaleed0000@gmail.com)
 3. Zeiad Badawy (email: zeiadbadawy@gmail.com)
+4. Matteo Sansone (email: matteo.sansone@mail.concordia.ca)

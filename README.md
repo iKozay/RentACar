@@ -126,11 +126,11 @@ Follow these steps to set up and run the project:
 1. **Clone the Repository:**
    Clone the project repository to your local machine using the following command:
    ```bash
-   git clone https://github.com/your-username/our-project.git
+   git clone [https://github.com/your-username/our-project.git](https://github.com/iKozay/GazaBrigade-soen341projectW2024.git)
 2. **Change to the Project Directory:**
    Navigate into the project directory with the command:
    ```bash
-   cd our-project
+   cd GazaBrigade-soen341projectW2024
 3. **Install Dependencies:**
    Install project dependencies using the following command:
    ```bash

@@ -145,12 +145,11 @@ actions, and any other relevant usage details.
 
 ## Contributing
 
-Providing guidelines on how all the teammates contributed to the project. This may include information on how we reported issues, submitted 
-feature requests, and contributed to code.
+Please review the (Git Rules)[https://github.com/iKozay/GazaBrigade-soen341projectW2024/wiki/Git-Rules] section on our Wiki page for guidelines on contributions
 
 ## License
 
-Indicating the license under which our project is released. This can be an open-source license like MIT or GPL.
+(Apache-2.0 license)[https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=Apache-2.0-1-ov-file#]
 
 ## Contact
 

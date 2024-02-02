@@ -5,14 +5,54 @@
 A comprehensive car rental application designed to streamline the process of renting vehicles for short durations. The application acts as an intermediary platform connecting customers with the car rental company, providing a user-friendly experience for vehicle selection, reservation, and management.
 
 ## Table of Contents
+1. [Team & Roles]
+2. [Technologies]
+3. [Features]
+4. [Installation]
+5. [Usage]
+6. [Contributing]
+7. [License]
+8. [Contact]
+   
 
-1. [Features]
-2. [Installation]
-3. [Usage]
-4. [Technologies]
-5. [Contributing]
-6. [License]
-7. [Contact]
+## Team & Roles
+
+
+* Zeiad Badawy -  40247477 - <strong>Scrum master/Front-end DEV</strong>
+* Mohamed Saidi - 40248103 - <strong>Backend DEV</strong>
+* Miskat Mahmud - 40250110 - <strong>Backend DEV</strong>
+* Matteo Sansone - 40242278 - <strong>Front-end DEV</strong>
+* Abdel-Rahman Khalifa - 40253332 - <strong>Fullstack DEV</strong>
+
+
+
+## Technologies
+
+The following are the major frameworks we will be using to develop the project:
+* [![React][React.js]][React-url]
+* [![Node.js][NodeJS]][NodeJS-url]
+* [![Express.js][Express.js]][Express-url]
+* [![Mongo DB][MongoDB]][MongoDB-url]
+
+
+- Frontend: [React](https://reactjs.org/)
+- Backend: [Node.js](https://nodejs.org/) with [Express](https://expressjs.com/)
+- Database: [MongoDB](https://www.mongodb.com/)
+
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com
+[Express.js]:https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB
+[Express-url]:https://expressjs.com/
+[NodeJS]:https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
+[NodeJS-url]:https://nodejs.org/en
+[MongoDB]:https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white
+[MongoDB-url]:https://www.mongodb.com/
+[GoogleMaps]: https://img.shields.io/badge/Google%20Maps-black?style=for-the-badge&logo=google-maps&logoColor=aqua
+[GoogleMaps-url]: https://developers.google.com/maps
+
+
 
 ## Features
 
@@ -81,24 +121,27 @@ needed.
 
 Example Of Installation Steps:
 
-1. git clone https://github.com/your-username/our-project.git
-2. cd our-project
-3. npm install
+Follow these steps to set up and run the project:
 
+1. **Clone the Repository:**
+   Clone the project repository to your local machine using the following command:
+   ```bash
+   git clone https://github.com/your-username/our-project.git
+2. **Change to the Project Directory:**
+   Navigate into the project directory with the command:
+   ```bash
+   cd our-project
+3. **Install Dependencies:**
+   Install project dependencies using the following command:
+   ```bash
+   npm install
 
 ## Usage
 
 Clearly explaining how users can use our web application. We will need to include information on how to navigate the interface, perform 
 actions, and any other relevant usage details.
 
-## Technologies
 
-List the technologies, frameworks, and libraries used in our project. This helps users and contributors understand the 
-underlying tech stack.
-
-- Frontend: [React](https://reactjs.org/)
-- Backend: [Node.js](https://nodejs.org/) with [Express](https://expressjs.com/)
-- Database: [MongoDB](https://www.mongodb.com/)
 
 ## Contributing
 
@@ -113,4 +156,6 @@ Please review the (Git Rules)[https://github.com/iKozay/GazaBrigade-soen341proje
 Contact Information For Team Members:
 1. Miskat Mahmud (email: miskat.mahmud@mail.concordia.ca)
 2. Abdel-Rahman Khalifa (email: abdelrahmanwaleed0000@gmail.com)
-
+3. Zeiad Badawy (email: zeiadbadawy@gmail.com)
+4. Matteo Sansone (email: matteo.sansone@mail.concordia.ca)
+5. Mohamed Saidi (email: saidimoha.pro@gmail.com)

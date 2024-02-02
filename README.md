@@ -102,8 +102,7 @@ underlying tech stack.
 
 ## Contributing
 
-Providing guidelines on how all the teammates contributed to the project. This may include information on how we reported issues, submitted 
-feature requests, and contributed to code.
+Please review the (Git Rules)[https://github.com/iKozay/GazaBrigade-soen341projectW2024/wiki/Git-Rules] section on our Wiki page for guidelines on contributions
 
 ## License
 

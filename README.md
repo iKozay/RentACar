@@ -107,7 +107,7 @@ feature requests, and contributed to code.
 
 ## License
 
-Indicating the license under which our project is released. This can be an open-source license like MIT or GPL.
+(Apache-2.0 license)[https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=Apache-2.0-1-ov-file#]
 
 ## Contact
 

@@ -51,7 +51,7 @@ The following are the major frameworks we will be using to develop the project:
 [MongoDB-url]:https://www.mongodb.com/
 [GoogleMaps]: https://img.shields.io/badge/Google%20Maps-black?style=for-the-badge&logo=google-maps&logoColor=aqua
 [GoogleMaps-url]: https://developers.google.com/maps
-
+See [Technology Stack](https://github.com/iKozay/GazaBrigade-soen341projectW2024/wiki/Project-Approach-and-Technology-Stack-Selection#3-technology-stack) in Wiki for more details.
 
 
 ## Features
@@ -145,11 +145,11 @@ actions, and any other relevant usage details.
 
 ## Contributing
 
-Please review the (Git Rules)[https://github.com/iKozay/GazaBrigade-soen341projectW2024/wiki/Git-Rules] section on our Wiki page for guidelines on contributions
+Please review the [Git Rules](https://github.com/iKozay/GazaBrigade-soen341projectW2024/wiki/Git-Rules) section on our Wiki page for guidelines on contributions
 
 ## License
 
-(Apache-2.0 license)[https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=Apache-2.0-1-ov-file#]
+[Apache-2.0 license](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=Apache-2.0-1-ov-file#)
 
 ## Contact
 

@@ -2,7 +2,12 @@
 
 ## Overview
 
-A comprehensive car rental application designed to streamline the process of renting vehicles for short durations. The application acts as an intermediary platform connecting customers with the car rental company, providing a user-friendly experience for vehicle selection, reservation, and management.
+The Car-rental Web Application is designed to simplify the vehicle rental process for customers, offering a 
+straightforward interface. Users can browse and reserve vehicles based on location, dates, and specific preferences. 
+The system accommodates customization with options to modify or cancel reservations. Customer Service Representatives 
+manage check-in, check-out, and payment processes, ensuring a smooth experience. System Administrators handle backend 
+operations, including managing vehicles, user accounts, and reservations. Overall, the application prioritizes 
+user-friendly interactions to enhance the efficiency and convenience of renting vehicles.
 
 ## Table of Contents
 1. [Team & Roles]

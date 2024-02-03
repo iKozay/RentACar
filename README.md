@@ -10,14 +10,14 @@ operations, including managing vehicles, user accounts, and reservations. Overal
 user-friendly interactions to enhance the efficiency and convenience of renting vehicles.
 
 ## Table of Contents
-1. [Team & Roles]
-2. [Technologies]
-3. [Features]
-4. [Installation]
-5. [Usage]
-6. [Contributing]
-7. [License]
-8. [Contact]
+1. [Team & Roles](https://github.com/iKozay/GazaBrigade-soen341projectW2024#team--roles)
+2. [Technologies](https://github.com/iKozay/GazaBrigade-soen341projectW2024#technologies)
+3. [Features](https://github.com/iKozay/GazaBrigade-soen341projectW2024#features)
+4. [Installation](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=readme-ov-file#installation)
+5. [Usage](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=readme-ov-file#usage)
+6. [Contributing](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=readme-ov-file#contributing)
+7. [License](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=readme-ov-file#license)
+8. [Contact](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=readme-ov-file#contact)
    
 
 ## Team & Roles

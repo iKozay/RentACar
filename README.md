@@ -79,11 +79,11 @@ Customer Features:
   5. Location-based Services:
         Provide a branch locator using postal codes or airport information.
 
-  6. Rating and Reviews:
-        Allow customers to provide feedback and ratings for rented vehicles and overall experience.
-
-  7. Extra Equipment Add-Ons:
+  6. Extra Equipment Add-Ons:
         During the reservation process, offer additional equipment at an extra cost.
+
+  7. Rating and Reviews:
+        Allow customers to provide feedback and ratings for rented vehicles and overall experience.
 
 
 
@@ -113,9 +113,10 @@ System Administrator Features:
  Additional Features (To Be Reviewed):
   1. User Loyalty Program:
         Implement a loyalty program to reward customers for repeated business.
+
+  2. Addition of second driver:
+        Allow customers to add a second driver to their rental reservation.
   
-  2. User Loyalty Program:
-        Implement a loyalty program to reward customers for repeated business.
   
   
 

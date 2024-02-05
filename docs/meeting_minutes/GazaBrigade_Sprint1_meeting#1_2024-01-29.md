@@ -56,4 +56,3 @@ To Do element:
 Review project requirements.
 Share credentials for Mongo Atlas securely.
 Familiarize with GitHub workflow.
-The Meeting was adjourned at 6:00.

@@ -1,12 +1,12 @@
 Project Name: A Car Rental Web Application for SOEN 341
 Team Name: GazaBrigade
 
-Sprint: NA
-Meeting Number: 01/30
-Date: NA
+Sprint: 1
+Meeting Number: 3
+Date: February 2, 2024
 Duration: 30 minutes
-Meeting Mode: NA
-Meeting Location: NA
+Meeting Mode: In-Person
+Meeting Location: Concordia University H-523
 
 Members:
 
@@ -15,7 +15,7 @@ Members:
     Miskat Mahmud (40250110) Present
     Mohamed Saidi (40248103) Present
     Matteo Sansone (40242278) Present
-The meeting was called to start at 10:00, 10:30.
+The meeting was called to start at 5:15pm.
 
 Meeting Agenda:
 
@@ -27,6 +27,7 @@ Use of branches instead of forks
 Naming convention for commits, including the nature of the commit
 Deletion of branches after successful merge (Change setting on GitHub)
 Scrum master assigns tasks
+
 Discussion Points:
 
 Established rules for contributing to the project.
@@ -36,6 +37,7 @@ Agreed on implementing validation from another user before pushing to developmen
 Decided to use branches instead of forks.
 Clarified the process of deleting branches after successful merge.
 Assigned the responsibility of task assignment to the Scrum master.
+
 Summary of Discussion:
 
 Agreed on a clear and structured workflow for contributing to the project.
@@ -44,10 +46,12 @@ Discussed the importance of validation before pushing changes to development and
 Decided to use branches directly instead of forks for collaboration.
 Agreed on the practice of deleting branches post successful merge to maintain repository cleanliness.
 Assigned the Scrum master as the point of contact for task assignments.
+
 Action Items assigned:
 
 Team members to adhere to the established rules for contributing.
 Scrum master to assign tasks for the upcoming sprint.
+
 Decision Taken:
 
 Established rules for using the development branch as an intermediary.
@@ -55,11 +59,15 @@ Defined clear naming conventions for issues, commits, and branches.
 Implemented a validation process before pushing changes to development and main branches.
 Decided to use branches directly and delete them after successful merges.
 Task assignment responsibility assigned to the Scrum master.
+
 Next Steps:
 
 Team members to implement the agreed-upon rules during development.
 Scrum master to initiate task assignments for the next sprint.
+
 To Do element:
 
 Adhere to the established rules for contributing.
 Check with the Scrum master for assigned tasks.
+
+The Meeting was adjourned at 5:45pm.

@@ -19,42 +19,29 @@ Meeting Location: CL Building
 
 Members:
 
-    Zeiad Badawy (40247477) (Present Online or InPerson) or Absent
-    Abdel-Rahman Khalifa (40253332) (Present Online or InPerson) or Absent
-    Miskat Mahmud (40250110) (Present Online or InPerson) or Absent
-    Mohamed Saidi (40248103) (Present Online or InPerson) or Absent
-    Matteo Sansone (40242278) (Present Online or InPerson) or Absent
+    Zeiad Badawy (40247477) Present 
+    Abdel-Rahman Khalifa (40253332) Present
+    Miskat Mahmud (40250110) Present
+    Mohamed Saidi (40248103) Present
+    Matteo Sansone (40242278) Present
 
-The meeting was called to start at <Enter Time>, <Enter Date>.
+The meeting was called to start at 10:00 am , 31/01/2024.
 
 Meeting Agenda
 
-    Write the main topic that would be discussed during the meeting
-    (These topic should be announced at the start of the meeting)
+   - Went over the six user stories and how it would look like on our Web Application (Features)
+
 
 Discussion Points
 
-     Make a list of all the discussion points
-
+- Mohamed (Starting reservation)
+- Matteo (Browse a Vehicle)
+- CRUD Operations (Abderrahmane and Sami)
+- View reservation - Cancel, add features, etc (Zeiad) 
+ 
 Summary of Discussion:
 
-     For each item mentionned in the previous list give a summary of the discussion.
+   - Shared the user stories between the teammates
 
 
-Action Items assigned:
-
-     Mention here if any action are assigned to any of the team member
-
-Decision Taken:
-
-     Mention here if any new decision is taken for the project development.
-
-Next Steps:
-
-     Whatver decision was taken as the next step, mention here as a list
-
-To Do element:
-
-     If any task that needs to be done as soon as possible, mention here as a list
-
-The Meeting was adjourned at <Enter Time>.
+The Meeting was adjourned at 10:30 am.

@@ -1,39 +1,36 @@
 Project Name: A Car Rental Web Application for SOEN 341
 Team Name: GazaBrigade
 
-Sprint: 1
-Meeting Number: 2
-Date: 31st January 10:00 am
+Sprint: 01
+Meeting Number: 02
+Date: Wednesday 31 January 2024
 Duration: 30 min
 Meeting Mode: In Person 
 Meeting Location: CL Building
 
 Members:
-
+    
     Zeiad Badawy (40247477) Present 
     Abdel-Rahman Khalifa (40253332) Present
     Miskat Mahmud (40250110) Present
     Mohamed Saidi (40248103) Present
     Matteo Sansone (40242278) Present
     
-The meeting was called to start at 10:00 am , 31/01/2024.
-
+The meeting was called to start at 10:00 am, 31 January 2024.
 
 Meeting Agenda
 
    - Went over the six user stories and how it would look like on our Web Application (Features)
 
-
 Discussion Points
 
-- Mohamed (Starting reservation)
-- Matteo (Browse a Vehicle)
-- CRUD Operations (Abderrahmane and Sami)
-- View reservation - Cancel, add features, etc (Zeiad) 
- 
+   - Mohamed (Starting reservation)
+   - Matteo (Browse a Vehicle)
+   - CRUD Operations (Abderrahmane and Miskat)
+   - View reservation - Cancel, add features, etc (Zeiad) 
+         
 Summary of Discussion:
-
-   - Shared the user stories between the teammates
-
+       
+    -Shared the user stories between the teammates
 
 The Meeting was adjourned at 10:30 am.

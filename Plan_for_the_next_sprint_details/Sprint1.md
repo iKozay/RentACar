@@ -13,7 +13,7 @@
 
 | Issue | Task Title                                                   | Story Points | Associated User Story | Priority |
 |-------|--------------------------------------------------------------|--------------|------------------------|----------|
-| #     | Task - Implement vehicle browsing feature                    | 2            |                        | High     |
+| #     | Task - Implement vehicle browsing feature                    | 2            | Matteo                 | High     |
 | #     | Task - Develop reservation initiation functionality          | 3            |                        | High     |
 | #     | Task - Implement reservation viewing/modification/cancel     | 3            |                        | High     |
 | #     | Task - Develop branch locator feature                        | 2            |                        | Medium   |

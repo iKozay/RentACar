@@ -1,4 +1,4 @@
-Sprint 1 - User Stories Board
+# Sprint 1 - User Stories Board
 
 | Issue | User Story Title                                        | Story Points | Due Date    | Associated Tasks                    | Priority | Risk                                         | Responsible/Owner |
 |-------|----------------------------------------------------------|--------------|-------------|-------------------------------------|----------|----------------------------------------------|-------------------|
@@ -13,7 +13,7 @@ Sprint 1 - User Stories Board
 | #9    | CRUD operations on user accounts                       | 4            | February 12 | #24, #25, #26, #27                  | High     | Medium: User authentication and management | Abdel & Miskat    |
 | #10   | CRUD operations on reservations                        | 4            | February 12 | #28, #29, #30, #31                  | High     | Medium: Reservation management           | Abdel & Miskat    |
 
-Sprint 1 - Task Board
+# Sprint 1 - Task Board
 
 | Issue | Task Title                                                   | Story Points | Associated User Story | Priority |
 |-------|--------------------------------------------------------------|--------------|------------------------|----------|

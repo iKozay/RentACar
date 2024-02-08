@@ -15,11 +15,11 @@
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|------------------------------------------------------------------|
 | Minutes meeting files       | 20 min    |                         |
-| Wiki for Plan next Sprint   | 120 min    |                                                    |
+| Wiki for Plan next Sprint   | 180 min    |                                                    |
 | Wiki for minutes file and Contribution | 120 min | 
 | Created a user storie of one of the 6 core features | 30 min |                           |
-| Project Description         | 30 min    |                                                        |
-| Read me file Template       |    30 min       |                                                     |
+| Project Description         | 15 min    |                                                        |
+| Read me file Template       |    20 min       |                                                     |
 
 
 

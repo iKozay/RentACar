@@ -21,13 +21,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install backend dependencies
-        working-directory: src/backend
-        run: npm install
-
-      - name: Start backend server
-        working-directory: src/backend
-        run: npm start
 
       - name: Install frontend dependencies
         working-directory: src/frontend
@@ -36,3 +29,11 @@ jobs:
       - name: Start frontend server
         working-directory: src/frontend
         run: npm run dev
+
+      - name: Install backend dependencies
+        working-directory: src/backend
+        run: npm install
+
+      - name: Start backend server
+        working-directory: src/backend
+        run: npm run start

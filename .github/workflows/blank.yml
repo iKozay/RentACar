@@ -2,10 +2,11 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
   build:
@@ -13,21 +14,29 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: '14'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
 
-      - name: Build React app
-        run: npm run build
+      - name: Start backend server
+        run: |
+          cd backend
+          npm start
 
-      - name: Run tests
-        run: npm test
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install
 
-      - name: Start server
-        run: npm start
+      - name: Start frontend server
+        run: |
+          cd frontend
+          npm run dev

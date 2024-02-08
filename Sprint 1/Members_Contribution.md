@@ -19,7 +19,7 @@
 | Wiki for minutes file and Contribution | 120 min | 
 | Created a user storie of one of the 6 core features | 30 min |                           |
 | Project Description         | 30 min    |                                                        |
-| Read me file Template       |           |                                                     |
+| Read me file Template       |    30 min       |                                                     |
 
 
 
@@ -32,7 +32,6 @@
 | Created a user storie of one of the 6 core features | 90 min |                           |
 | Updated readme file to include a technology we will use for implementing a feature | 10 min |                                             |
 | Minutes meeting files       | 90 min    |                         |
-| Wiki for minutes file and Contribution | 60 min | 
 | Team Contribution Google Doc| 60 min   |
 
 
@@ -40,8 +39,7 @@
 ### Matteo Sansone - 40242278 - Front-end DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|------------------------------------------------------------------|
-| Task Breakdown              | 60 min    |                                                        |
-| Minutes meeting files       | 90 min    |                         |
+| Minutes meeting file        | 30 min    |                         |
 | Created a user storie of one of the 6 core features | 90 min |                           |
 
 

@@ -8,16 +8,16 @@
 | Participate in issue writing during meeting | during meetings |  |
 | Wiki for Plan next Sprint - filled out information missing | 40 min |                                             |
 | Wiki for git rule - filled out information missing | 30 min |                                             |
-| Created a user storie of one of the 6 core features | 90 min |                           |
+| Created a user story of one of the 6 core features | 90 min |                           |
 
 
 ### Mohamed Saidi - 40248103 - Backend DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|------------------------------------------------------------------|
-| Minutes meeting files       | 20 min    |                         |
+| Meeting Minutes files       | 20 min    |                         |
 | Wiki for Plan next Sprint   | 180 min    |                                                    |
 | Wiki for minutes file and Contribution | 120 min | 
-| Created a user storie of one of the 6 core features | 30 min |                           |
+| Created a user story of one of the 6 core features | 30 min |                           |
 | Project Description         | 15 min    |                                                        |
 | Read me file Template       |    20 min       |                                                     |
 
@@ -31,7 +31,7 @@
 |-----------------------------|-----------|------------------------------------------------------------------|
 | Created a user story of one of the 6 core features | 90 min |                           |
 | Updated readme file to include a technology we will use for implementing a feature | 10 min |                                             |
-| Minutes meeting files       | 90 min    |                         |
+| Meeting minutes files       | 90 min    |                         |
 | Team Contribution Google Doc| 60 min   |
 | Addition of features in the read me file| 90 min   |
 
@@ -40,8 +40,8 @@
 ### Matteo Sansone - 40242278 - Front-end DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|------------------------------------------------------------------|
-| Minutes meeting file        | 30 min    |                         |
-| Created a user storie of one of the 6 core features | 90 min |                           |
+| Meeting minutes file        | 30 min    |                         |
+| Created a user story of one of the 6 core features | 90 min |                           |
 
 
 

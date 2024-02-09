@@ -21,7 +21,10 @@ jobs:
         with:
           node-version: '20'
 
-
+      - name: Install src file dependencies
+        working-directory: src
+        run: npm install
+        
       - name: Install frontend dependencies
         working-directory: src/frontend
         run: npm install

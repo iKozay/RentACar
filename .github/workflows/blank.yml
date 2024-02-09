@@ -25,15 +25,11 @@ jobs:
       - name: Install frontend dependencies
         working-directory: src/frontend
         run: npm install
-
-      - name: Start frontend server
-        working-directory: src/frontend
-        run: npm run dev
-
+        
       - name: Install backend dependencies
         working-directory: src/backend
         run: npm install
-
-      - name: Start backend server
-        working-directory: src/backend
-        run: npm run start
+        
+      - name: Start backend and frontend server
+        working-directory: src
+        run: npm start

@@ -29,10 +29,11 @@
 ### Miskat Mahmud - 40250110 - Backend DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|------------------------------------------------------------------|
-| Created a user storie of one of the 6 core features | 90 min |                           |
+| Created a user story of one of the 6 core features | 90 min |                           |
 | Updated readme file to include a technology we will use for implementing a feature | 10 min |                                             |
 | Minutes meeting files       | 90 min    |                         |
 | Team Contribution Google Doc| 60 min   |
+| Addition of features in the read me file| 90 min   |
 
 
 

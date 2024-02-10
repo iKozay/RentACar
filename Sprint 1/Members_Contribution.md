@@ -40,8 +40,9 @@
 ### Matteo Sansone - 40242278 - Front-end DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|------------------------------------------------------------------|
-| Meeting minutes file        | 30 min    |                         |
+| Meeting minutes files        | 60 min    |                         |
 | Created a user story of one of the 6 core features | 90 min |                           |
+| Created a user story for an additional feature | 60 min |                           |
 
 
 

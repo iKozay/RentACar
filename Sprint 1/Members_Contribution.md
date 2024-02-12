@@ -47,10 +47,16 @@
 
 
 ### Abdel-Rahman Khalifa - 40253332 - Fullstack DEV
-| Item                        | Time      | Notes (If needed)                                               |
-|-----------------------------|-----------|------------------------------------------------------------------|
-| Readme file (Choice of technologies & Project Approach) | 120 min |                                       |
-| Wiki risk and priority      | 40 min    |  
-| Created two user stories for two of the 6 core features | 90 min |                           |
-| Created issues for all tasks| 90 min    |               |
+| Item                        | Time      | Notes (If needed)                                                 |
+|-----------------------------|-----------|-------------------------------------------------------------------|
+| Wiki Git Rules Page      | 60 min    | Rules regarding merging, branch naming, pull requests                |
+| Created two user stories for two of the 6 core features | 60 min | User stories: #16 & #30                  |
+| Created issues for several tasks| 90 min    | Tasks: #66, #74, #75, #76, #77, #78, #79, #80, #81, #82, #85  |             |
+| Developed the YAML workflow file for the pipeline| 75 min | Now a build is executed with each PR            |
+| Implemented Task #85 | 30 min | Created an initial structure for the project to test the pipeline           |
+| Updated the structure of some meeting minutes files | 45 min | To match the meeting minutes template        |
+| Readme file (Installation section and some updates in the Contribution section) | 45 min |                  |
+| 
+
+
 

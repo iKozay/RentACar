@@ -48,6 +48,7 @@
 | Meeting minutes files        | 60 min    |                         |
 | Created a user story of one of the 6 core features | 90 min |                           |
 | Created a user story for an additional feature | 60 min |                           |
+| Created issues for tasks | 120 min | Issue #: 93, 94, 95, 96, 97, 98|
 
 
 

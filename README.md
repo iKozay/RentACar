@@ -134,13 +134,17 @@ Follow these steps to set up and run the project:
    ```bash
    git clone https://github.com/iKozay/GazaBrigade-soen341projectW2024.git
 2. **Change to the Project Directory:**
-   Navigate into the project directory with the command:
+   Navigate into the project **src** directory  with the command:
    ```bash
-   cd GazaBrigade-soen341projectW2024
+   cd GazaBrigade-soen341projectW2024/src
 3. **Install Dependencies:**
    Install project dependencies using the following command:
    ```bash
    npm install
+4. **Run Frontend and  Backend servers:**
+   Run the following command in the src directory:
+   ```bash
+   npm start
 
 ## Usage
 

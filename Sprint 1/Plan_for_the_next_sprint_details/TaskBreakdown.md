@@ -1,14 +1,12 @@
-# Sprint 1 - User Stories Board
+| Issue | User Story Title                  | Story Points | Due Date    | Associated Tasks    | Priority | Risk                                 | Responsible/Owner |
+|-------|----------------------------------|--------------|-------------|---------------------|----------|--------------------------------------|-------------------|
+| #22   | Browse vehicles for rent         | 5            | February 12 | Refer to task board| High     | Medium: Database interaction        | Matteo            |
+| #19   | Start a reservation              | 8            | February 12 | Refer to task board| High     | High: Complex reservation logic     | Mohamed           |
+| #40   | View/Modify/Cancel reservation  | 6            | February 12 | Refer to task board| High     | High: Database interaction          | Zeiad             |
+| #30   | CRUD operations on vehicles      | 4            | February 12 | Refer to task board| High     | Medium: Database management         | Abdelrahman      |
+| #16   | CRUD operations on user accounts | 4            | February 12 | Refer to task board| High     | Medium: User authentication and management | Abdelrahman |
+| #35   | CRUD operations on reservations  | 4            | February 12 | Refer to task board| High     | Medium: Reservation management      | Miskat            |
 
-| Issue | User Story Title                                        | Story Points | Due Date     | Associated Tasks                    | Priority | Risk                                         | Responsible/Owner |
-|-------|----------------------------------------------------------|--------------|-------------|-------------------------------------|----------|----------------------------------------------|-------------------|
-
-| #22   | Browse vehicles for rent                                 | 5            | February 12 | Refer to task board                                 | High     | Medium: Database interaction                 | Matteo            |
-| #19   | Start a reservation                                      | 8            | February 12 | Refer to task board                               | High     | High: Complex reservation logic              | Mohamed           |
-| #40   | View/Modify/Cancel reservation                           | 6            | February 12 | Refer to task board                             | High     | High: Database interaction                   | Zeiad             |
-| #30   | CRUD operations on vehicles                              | 4            | February 12 | Refer to task board                             | High     | Medium: Database management                  | Abdelrahman       |
-| #16   | CRUD operations on user accounts                         | 4            | February 12 | Refer to task board                             | High     | Medium: User authentication and management   | Abdelrahman        |
-| #35   | CRUD operations on reservations                          | 4            | February 12 | Refer to task board                             | High     | Medium: Reservation management               | Miskat            |
  
 
 # Sprint 1 - Task Board

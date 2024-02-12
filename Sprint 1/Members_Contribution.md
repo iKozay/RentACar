@@ -29,11 +29,16 @@
 ### Miskat Mahmud - 40250110 - Backend DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|------------------------------------------------------------------|
-| Created a user story of one of the 6 core features | 90 min |                           |
-| Updated readme file to include a technology we will use for implementing a feature | 10 min |                                             |
-| Meeting minutes files       | 90 min    |                         |
-| Team Contribution Google Doc| 60 min   |
-| Addition of features in the read me file| 90 min   |
+| Created a user story of one of the 6 core features | 90 min |  US-6, Issue number #35                         |
+| Updated readme file to include a technology  | 30 min |      Technology Selection                                       |
+| Meeting minutes files       | 90 min    |    Created a template, writing meeting minutes                     |
+| Team Contribution Google Doc| 60 min   |  team contribution in a google sheet file
+| Addition of features in the read me file| 90 min   | User, CRUD or extra features
+| Created an additional user story  | 90 min |    US-9, Issue number #105                       |
+| Updating plan for next sprint  | 60 min |    Associated tasks and Associated User Story                       |
+| Assigning team member for each issue  | 30 min |    Every task related to corresponding User story owner                       |
+| Created Issues for Several tasks  | 120 min |    Issue Number: #101, #102, #103, #104, #105, #106, #107, #108                      |
+| Verifying every checklist item for Sprint 1 and Submission  | 90 min |    Fixing if anything is not right                       |
 
 
 

@@ -17,9 +17,9 @@
 ### Mohamed Saidi - 40248103 - Backend DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|------------------------------------------------------------------|
-|Creating and filling Plan next Sprint Table   | 180 min    |      6th February 2024                                              |
-| Creating and filling Team members Contribution Table | 120 min | 7th February 2024
-| Creating and filling Task Break down table       |    120 min       |           8th of January 2024                                          |
+|Creating and filling "Plan next Sprint" Table   | 180 min    |      6th February 2024                                              |
+| Creating and filling "Team members Contribution" Table | 120 min | 7th February 2024
+| Creating and filling "Task Break down" table       |    120 min       |           8th of January 2024                                          |
 | Meeting Minutes files       | 20 min    |      31st January 2024                   |
 | Created a user story of one of the 6 core features | 30 min |     2nd of February 2024                     |
 | Project Description         | 15 min    |                  29th of January 2024                                      |

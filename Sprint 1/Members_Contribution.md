@@ -9,6 +9,9 @@
 | Wiki for Plan next Sprint - filled out information missing | 40 min |                                             |
 | Wiki for git rule - filled out information missing | 30 min |                                             |
 | Created a user story of one of the 6 core features | 90 min |                           |
+| Created tasks based on user story | 90 min |                           |
+| Flowchart in preparation for Sprint 2 | 60 min |                           |
+| Design DB Schema | 90 min |                           |
 
 
 ### Mohamed Saidi - 40248103 - Backend DEV

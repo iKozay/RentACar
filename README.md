@@ -2,17 +2,22 @@
 
 ## Overview
 
-A comprehensive car rental application designed to streamline the process of renting vehicles for short durations. The application acts as an intermediary platform connecting customers with the car rental company, providing a user-friendly experience for vehicle selection, reservation, and management.
+The Car-rental Web Application is designed to simplify the vehicle rental process for customers, offering a 
+straightforward interface. Users can browse and reserve vehicles based on location, dates, and specific preferences. 
+The system accommodates customization with options to modify or cancel reservations. Customer Service Representatives 
+manage check-in, check-out, and payment processes, ensuring a smooth experience. System Administrators handle backend 
+operations, including managing vehicles, user accounts, and reservations. Overall, the application prioritizes 
+user-friendly interactions to enhance the efficiency and convenience of renting vehicles.
 
 ## Table of Contents
-1. [Team & Roles]
-2. [Technologies]
-3. [Features]
-4. [Installation]
-5. [Usage]
-6. [Contributing]
-7. [License]
-8. [Contact]
+1. [Team & Roles](https://github.com/iKozay/GazaBrigade-soen341projectW2024#team--roles)
+2. [Technologies](https://github.com/iKozay/GazaBrigade-soen341projectW2024#technologies)
+3. [Features](https://github.com/iKozay/GazaBrigade-soen341projectW2024#features)
+4. [Installation](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=readme-ov-file#installation)
+5. [Usage](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=readme-ov-file#usage)
+6. [Contributing](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=readme-ov-file#contributing)
+7. [License](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=readme-ov-file#license)
+8. [Contact](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=readme-ov-file#contact)
    
 
 ## Team & Roles
@@ -51,7 +56,7 @@ The following are the major frameworks we will be using to develop the project:
 [MongoDB-url]:https://www.mongodb.com/
 [GoogleMaps]: https://img.shields.io/badge/Google%20Maps-black?style=for-the-badge&logo=google-maps&logoColor=aqua
 [GoogleMaps-url]: https://developers.google.com/maps
-
+See [Technology Stack](https://github.com/iKozay/GazaBrigade-soen341projectW2024/wiki/Project-Approach-and-Technology-Stack-Selection#3-technology-stack) in Wiki for more details.
 
 
 ## Features
@@ -74,11 +79,11 @@ Customer Features:
   5. Location-based Services:
         Provide a branch locator using postal codes or airport information.
 
-  6. Rating and Reviews:
-        Allow customers to provide feedback and ratings for rented vehicles and overall experience.
-
-  7. Extra Equipment Add-Ons:
+  6. Extra Equipment Add-Ons:
         During the reservation process, offer additional equipment at an extra cost.
+
+  7. Rating and Reviews:
+        Allow customers to provide feedback and ratings for rented vehicles and overall experience.
 
 
 
@@ -108,9 +113,10 @@ System Administrator Features:
  Additional Features (To Be Reviewed):
   1. User Loyalty Program:
         Implement a loyalty program to reward customers for repeated business.
+
+  2. Addition of second driver:
+        Allow customers to add a second driver to their rental reservation.
   
-  2. User Loyalty Program:
-        Implement a loyalty program to reward customers for repeated business.
   
   
 
@@ -126,15 +132,19 @@ Follow these steps to set up and run the project:
 1. **Clone the Repository:**
    Clone the project repository to your local machine using the following command:
    ```bash
-   git clone https://github.com/your-username/our-project.git
+   git clone https://github.com/iKozay/GazaBrigade-soen341projectW2024.git
 2. **Change to the Project Directory:**
-   Navigate into the project directory with the command:
+   Navigate into the project **src** directory  with the command:
    ```bash
-   cd our-project
+   cd GazaBrigade-soen341projectW2024/src
 3. **Install Dependencies:**
    Install project dependencies using the following command:
    ```bash
    npm install
+4. **Run Frontend and  Backend servers:**
+   Run the following command in the src directory:
+   ```bash
+   npm start
 
 ## Usage
 
@@ -145,12 +155,11 @@ actions, and any other relevant usage details.
 
 ## Contributing
 
-Providing guidelines on how all the teammates contributed to the project. This may include information on how we reported issues, submitted 
-feature requests, and contributed to code.
+Please review the [Git Rules](https://github.com/iKozay/GazaBrigade-soen341projectW2024/wiki/Git-Rules) section on our Wiki page for guidelines on contributions
 
 ## License
 
-Indicating the license under which our project is released. This can be an open-source license like MIT or GPL.
+[Apache-2.0 license](https://github.com/iKozay/GazaBrigade-soen341projectW2024?tab=Apache-2.0-1-ov-file#)
 
 ## Contact
 

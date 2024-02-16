@@ -31,32 +31,32 @@ Goal: Develop and deploy a fully functional vehicle rental system with essential
 
 ## Task Breakdown
 
-Issue | Task Title | Story Points | Associated User Story | Priority
--- | -- | -- | -- | --
-|#85 | Task - Create a MERN project structure | 2 | | High
-|#60 | Task – Reservation frontend design | 2 | #19 | High
-|#61 | Task – Implement reservation form | 3 | #19 | High
-|#62 | Task – Reservation form validation | 3 | #19 | High
-|#63 | Task – Implement view reservation page | 2 | #40 | High
-|#64 | Task – Implement modify reservation page | 3 | #40 | High
-|#65 | Task – Implement cancel reservation page | 2 | #40 | High
-|#66 | Task – Implement users CRUD operations | 4 | #16 | High
-|#67 | Task – Implement vehicle CRUD operations | 4 | #30 | High
-|#68 | Task – Implement reservations CRUD operations | 4 | #35 | High
-|#69 | Task – Design DB Schema | 3 |   | High
-|#74 | Task - Implement Read User Account Functionality | 0 | #16 | High
-|#76 | Task - Implement Update User Account Functionality | 0 | #16 | High
-|#79 | Task - Implement Add New Vehicle Functionality | 0 |#30   | High
-|#80 | Task - Implement View Vehicle Details Functionality | 0 | #30 | High
-|#81 | Task - Implement Edit Vehicle Information Functionality | 0 | #30 | High
-|#82 | Task - Implement Delete Vehicle Functionality | 0 | #30 | High
-|#93 | Task - Sorting and Filtering Options While Browsing | 3 | #22 | High
-|#94 | Task - Create Browsing Page | 2 | #22 | High
-|#95 | Task - Display Vehicles in Browse Page | 2 | #22 | High
-|#96 | Task - Create Login Pop-Up Page | 2 | #56 | High
-|#97 | Task - Implement Sign-Up Option | 2 | #56 | High
-|#98 | Task - Implement "Forgot Password" Functionality | 2 | #56 | High
-|#114 | Task - Implement find a branch page | 5 | #112 | Med
+Issue | Task Title | Story Points | Associated User Story | Priority | Estimated effort | Dependencies
+-- | -- | -- | -- | -- | -- | -- |
+|#85 | Task - Create a MERN project structure | 2 | | High | 2days/person | #69
+|#60 | Task – Reservation frontend design | 2 | #19 | High | 2days/person | 
+|#61 | Task – Implement reservation form | 3 | #19 | High | 3days/person | #60
+|#62 | Task – Reservation form validation | 3 | #19 | High | 2days/person | #61
+|#63 | Task – Implement view reservation page | 2 | #40 | High | 2days/person | 
+|#64 | Task – Implement modify reservation page | 3 | #40 | High | 1day/person | #63
+|#65 | Task – Implement cancel reservation page | 2 | #40 | High | 1day/person | #63
+|#66 | Task – Implement users CRUD operations | 4 | #16 | High | 1day/person | 
+|#67 | Task – Implement vehicle CRUD operations | 4 | #30 | High | 2days/person | 
+|#68 | Task – Implement reservations CRUD operations | 4 | #35 | High | 1day/person | 
+|#69 | Task – Design DB Schema | 3 |   | High | 2days/person | 
+|#74 | Task - Implement Read User Account Functionality | 0 | #16 | High | 2days/person | #66
+|#76 | Task - Implement Update User Account Functionality | 0 | #16 | High | 2days/person | #66
+|#79 | Task - Implement Add New Vehicle Functionality | 0 |#30   | High | 3days/person | #67
+|#80 | Task - Implement View Vehicle Details Functionality | 0 | #30 | High | 2days/person | #67
+|#81 | Task - Implement Edit Vehicle Information Functionality | 0 | #30 | High | 2days/person | #67
+|#82 | Task - Implement Delete Vehicle Functionality | 0 | #30 | High | 2days/person | #69
+|#93 | Task - Sorting and Filtering Options While Browsing | 3 | #22 | High | 2days/person | #94 #95
+|#94 | Task - Create Browsing Page | 2 | #22 | High | 2days/person | 
+|#95 | Task - Display Vehicles in Browse Page | 2 | #22 | High | 1day/person | 
+|#96 | Task - Create Login Pop-Up Page | 2 | #56 | High | 3days/person | 
+|#97 | Task - Implement Sign-Up Option | 2 | #56 | High | 2days/person | #96
+|#98 | Task - Implement "Forgot Password" Functionality | 2 | #56 | High | 2days/person | #96
+|#114 | Task - Implement find a branch page | 5 | #112 | Med | 5days/person | 
 
 
 

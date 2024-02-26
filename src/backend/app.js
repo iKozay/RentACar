@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routers middleware set up
 app.use('*',cors());// Enable cross origin resource sharing for all routes 
-app.use('/users',routes.users);
+app.use('/api/users',routes.users);
 
 // Error handling middleware functions (for standard error returns)
 app.use(function(req, res, next) {

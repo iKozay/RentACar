@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run start-react & npm run start-express & wait",
+    "start": "npm run start-express & npm run start-react & wait",
     "start-react": "cd frontend && npm run dev &",
-    "start-express": "cd backend && npm start &"
+    "start-express": "cd backend && npm start &",
+    "begin": "concurrently \"npm run start-express \" \"npm run start-react\""
   },
   "keywords": [],
   "author": "",

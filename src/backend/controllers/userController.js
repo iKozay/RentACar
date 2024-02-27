@@ -13,5 +13,5 @@ exports.user_detail = asyncHandler (async (req,res)=>{
     if(user === null){
         res.status(404).json({error:"User doesn't exist"})
     }
-    res.json(user);
+    res.status(200).json(user);
 })

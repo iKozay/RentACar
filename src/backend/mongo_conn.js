@@ -14,7 +14,6 @@ const connect_db = async () => {
 
     });
 
-    console.log(conn);
    
   } catch (err) {
     console.log(err);

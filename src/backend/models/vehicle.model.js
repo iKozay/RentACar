@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 // Creating a new schema for the property model for the make an offer.
 
-const vehiculeSchema = new Schema({
+const vehicleSchema = new Schema({
   make: {
     type: String,
     required: false,
@@ -58,4 +58,4 @@ const vehiculeSchema = new Schema({
 
 });
 
-module.exports = mongoose.model("Vehicule", vehiculeSchema);
+module.exports = mongoose.model("Vehicle", vehicleSchema);

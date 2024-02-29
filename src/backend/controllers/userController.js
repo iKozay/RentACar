@@ -1,7 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/users");
-const bcrpyt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
+const {promisify} = require('util');
+const hashPassword = promisify(bcrypt.hash);
+const mongoose = require('mongoose');
 
 exports.user_list = asyncHandler(async (req, res, next) => {
   const users = await User.find({}).sort({ last_name: 1 }).exec();
@@ -93,10 +96,8 @@ exports.user_create = [
     if (!errors.isEmpty()) {
       res.status(400).json({ errors: errors.array() });
     }
-    bcrpyt.hash(req.body.password, 10, async (err, hashPassword) => {
-      if (err) {
-        return next(err);
-      }
+    try{
+    await hashPassword(req.body.password, 10);
       const user = new User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -109,6 +110,18 @@ exports.user_create = [
       });
       await user.save();
       res.status(201).json(user);
-    });
-  }),
+ 
+  }
+  catch(error){
+    // if (error.name==='MongoError') 
+   
+      if (error.code === 11000) {
+        res.status(400).json({"error":"duplicate key"})
+      } else {
+        res.status(400).json({"error":"Mongodb related error"})
+      }
+    // Other errors
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}),
 ];

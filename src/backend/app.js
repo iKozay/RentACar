@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routers middleware set up
 app.use('*',cors());// Enable cross origin resource sharing for all routes 
-app.use('/api/users',routes.users);
+app.use('/api/users',routes.userRoute);
 
 // Error handling middleware functions (for standard error returns)
 app.use(function(req, res, next) {
@@ -44,4 +44,6 @@ app.use(function(req, res, next) {
     // send JSON error response
     res.status(err.status || 500).json({ error: err.message });
   });
+
+  
 module.exports = app;

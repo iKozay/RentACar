@@ -1,5 +1,5 @@
-const users=require('./users');
+const userRoute=require('./userRoute');
 
 module.exports = {
-  users
+  userRoute
 };

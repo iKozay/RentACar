@@ -5,8 +5,9 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const routes = require('./routes');
-const cors = require('cors');
 
+
+const cors = require('cors');
 const app = express();
 
 
@@ -29,6 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routers middleware set up
 app.use('*',cors());// Enable cross origin resource sharing for all routes 
 app.use('/api/users',routes.userRoute);
+
+app.use('/api/vehicles',routes.vehicleRoute);
 
 // Error handling middleware functions (for standard error returns)
 app.use(function(req, res, next) {

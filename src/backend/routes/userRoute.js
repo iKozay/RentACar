@@ -6,6 +6,8 @@ const user_controller = require('../controllers/userController');
 router.get('/',user_controller.user_list );
 // GET a user by his id 
 router.get('/:userId',user_controller.user_detail)
-module.exports = router;
+
 // POST a user
 router.post('/',user_controller.user_create)
+
+module.exports = router;

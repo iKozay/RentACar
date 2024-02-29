@@ -1,5 +1,7 @@
-const users=require('./users');
+const userRoute= require('./userRoute');
+const vehicleRoute =require('./vehicleRoute');
 
 module.exports = {
-  users
+  userRoute,
+  vehicleRoute
 };

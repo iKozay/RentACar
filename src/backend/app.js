@@ -5,17 +5,18 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const routes = require('./routes');
-const cors = require('cors');
 
+
+const cors = require('cors');
 const app = express();
 
 
 // initiating database connection
-const mongoDB = process.env.MONGO_DB;
-main().then(_=>console.log("Successfully connected to mongoDB.")).catch(err=>console.log(err));
-async function main(){
-    await mongoose.connect(mongoDB);
-}
+// const mongoDB = process.env.MONGO_DB;
+// main().then(_=>console.log("Successfully connected to mongoDB.")).catch(err=>console.log(err));
+// async function main(){
+//     await mongoose.connect(mongoDB);
+// }
 
 // Initializing middlewares 
 app.use(logger('dev'));
@@ -28,7 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routers middleware set up
 app.use('*',cors());// Enable cross origin resource sharing for all routes 
-app.use('/api/users',routes.users);
+app.use('/api/users',routes.userRoute);
+
+app.use('/api/vehicles',routes.vehicleRoute);
 
 // Error handling middleware functions (for standard error returns)
 app.use(function(req, res, next) {
@@ -44,4 +47,6 @@ app.use(function(req, res, next) {
     // send JSON error response
     res.status(err.status || 500).json({ error: err.message });
   });
+
+
 module.exports = app;

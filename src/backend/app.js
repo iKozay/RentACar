@@ -30,8 +30,9 @@ const port = process.env.PORT || 5001;
 app.use(express.json());
 
 
+const VehicleRouter = require("./routes/vehicle.route");
 
-
+app.use("/api/vehicle",VehicleRouter);
 
 // Router listening for root and responding with  Comptan real estate
 app.get("/", (req, res) => {

@@ -11,11 +11,11 @@ const app = express();
 
 
 // initiating database connection
-const mongoDB = process.env.MONGO_DB;
-main().then(_=>console.log("Successfully connected to mongoDB.")).catch(err=>console.log(err));
-async function main(){
-    await mongoose.connect(mongoDB);
-}
+// const mongoDB = process.env.MONGO_DB;
+// main().then(_=>console.log("Successfully connected to mongoDB.")).catch(err=>console.log(err));
+// async function main(){
+//     await mongoose.connect(mongoDB);
+// }
 
 // Initializing middlewares 
 app.use(logger('dev'));
@@ -45,5 +45,5 @@ app.use(function(req, res, next) {
     res.status(err.status || 500).json({ error: err.message });
   });
 
-  
+
 module.exports = app;

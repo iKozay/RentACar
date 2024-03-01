@@ -10,4 +10,7 @@ router.get('/:userId',user_controller.user_detail)
 // POST a user
 router.post('/',user_controller.user_create)
 
+// PUT (update) a user
+
+router.put('/:userId',user_controller.user_update)
 module.exports = router;

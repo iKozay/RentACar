@@ -47,3 +47,33 @@ Create a New User
 * **Response:**
     * `200 OK`: Returns user details in a JSON
     * `400 bad request`: JSON object containing errors in request body
+
+Update a User by ID
+* **URL: `/api/users/:userId`**
+* **Method: `PUT`**
+* **Description:** update a user with the given ID.
+* **Request body:**: 
+    ```
+    {
+    "first_name": "Alice",
+    "last_name": "Smith",
+    "email": "alice.smith@example.com",
+    "phone_number": "+1987654321",
+    "date_of_birth": "1985-10-20",
+    "profile_picture": "https://exampleImage.com",
+    "password": "SecurePassword987!"
+    }
+    ```
+* **Response:**
+    * `200 OK`: Returns user details in a JSON
+    * `400 bad request`: JSON object containing errors in request body
+    * `404`: User not found
+
+Delete a user by ID
+* **URL: `/api/users/:userId`**
+* **Method: `DELETE`**
+* **Description:** delete a user by ID.
+* **Response:**
+    * `200 OK`: Returns a success message, and user details in a JSON
+    * `404 Not found`: user not found
+     * `400 bad request`: JSON object containing errors

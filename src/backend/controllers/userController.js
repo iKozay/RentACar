@@ -94,14 +94,14 @@ exports.user_create = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
     try{
-    await hashPassword(req.body.password, 10);
+      const hashedPassword = await hashPassword(req.body.password, 10);
       const user = new User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
-        password: hashPassword,
+        password: hashedPassword,
         email: req.body.email,
         phone_number: req.body.phone_number,
         date_of_birth: req.body.date_of_birth,

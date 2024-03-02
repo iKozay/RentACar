@@ -1,4 +1,5 @@
 const express = require('express');
+const createError = require('http-errors'); // this module is required in the error handling middleware below
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');

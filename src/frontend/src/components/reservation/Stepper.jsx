@@ -1,5 +1,5 @@
 import React from 'react';
-export function Stepper ({currentStep, numberOfSteps, steps}) {
+export default function Stepper ({currentStep, numberOfSteps, steps}) {
     const activeColor = (index) => currentStep >= index ? 'bg-blue-500' : 'bg-gray-300'
     const activeSection = (index) => currentStep === index ? 'font-bold text-lg' : 'font-normal text-base'
     const isFinalStep = (index) => index === numberOfSteps

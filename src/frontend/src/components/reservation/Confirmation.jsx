@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Confirmation() {
+export default function Confirmation() {
     const firstName = "John";
     const lastName = "Doe";
     const email = "john.doe@example.com";

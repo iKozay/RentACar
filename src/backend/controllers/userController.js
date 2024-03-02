@@ -96,7 +96,9 @@ exports.user_create = [
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    try {
+
+    try{
+
       const hashedPassword = await hashPassword(req.body.password, 10);
       const user = new User({
         first_name: req.body.first_name,

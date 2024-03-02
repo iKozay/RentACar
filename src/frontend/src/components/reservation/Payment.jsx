@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Payment() {
+export default function Payment() {
     return (
         <div className="flex ">
             <div

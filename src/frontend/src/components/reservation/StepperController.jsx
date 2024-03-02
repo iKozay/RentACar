@@ -1,6 +1,6 @@
 import React from "react";
 
-export function StepperController({ prevStep, nextStep, firstStep, lastStep }) {
+export default function StepperController({ prevStep, nextStep, firstStep, lastStep }) {
     // change name of button to submit if last step
     const prevButtonText = firstStep ? 'Cancel' : 'Back';
     const nextButtonText = lastStep ? 'Submit' : 'Next';

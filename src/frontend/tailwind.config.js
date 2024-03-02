@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const forms = require('@tailwindcss/forms');
 export default {
   content: [
     "./index.html",
@@ -7,6 +8,6 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/aspect-ratio'), require('@tailwindcss/forms'),],
+  plugins: [forms,require('@tailwindcss/aspect-ratio'), require('@tailwindcss/forms'),],
 }
 

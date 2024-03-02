@@ -19,6 +19,7 @@
     "concurrently": "^8.2.2"
   },
   "dependencies": {
-    "http-errors": "^2.0.0"
+    "http-errors": "^2.0.0",
+    "react-datepicker": "^6.2.0"
   }
 }

@@ -1,16 +1,18 @@
+import "./App.css";
 
-import './App.css'
+import VehicleList from "./components/browsingPage/VehicleList";
+import BrowserHeader from "./components/browsingPage/BrowseHeader";
+// import  CarSelection from "./components/reservation/CarSelection";
+// import Confirmation from "./components/reservation/Confirmation";
+// import LoginButton from "./LoginButton";
 
 export default function App() {
-
-
   return (
     <>
-        <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+      <VehicleList />
+      <BrowserHeader />
+
+      {/* <div>Hello</div> */}
     </>
-  )
+  );
 }
-
-

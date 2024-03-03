@@ -1,9 +1,10 @@
 const { body, validationResult } = require("express-validator");
-const jwt = require('jwt');
+const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 const {validateUserData} = require('./../middlewares/userValidation');
 const User = require('./../models/userModel');
 const bcrypt = require('bcryptjs');
+const { promisify } = require("util");
 
 const hashPassword = promisify(bcrypt.hash);
 const jwtSecret = process.env.JWT_SECRET;

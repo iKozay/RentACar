@@ -7,3 +7,4 @@ router.post('/login',(req,res)=>{
 })
 
 router.post('/signup',auth_controller.auth_signup);
+module.exports = router;

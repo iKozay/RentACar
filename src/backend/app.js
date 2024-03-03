@@ -25,15 +25,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser());
+
 
 
 
 // Routers middleware set up
 app.use('*',cors());// Enable cross origin resource sharing for all routes 
-app.use('/api/users',routes.userRoute);
+app.use('/api/users',routes.usersRoute);
 
-app.use('/api/vehicles',routes.vehicleRoute);
+app.use('/api/vehicles',routes.vehiclesRoute);
+app.use('/api/auth',routes.authRoute);
 
 // Error handling middleware functions (for standard error returns)
 app.use(function(req, res, next) {

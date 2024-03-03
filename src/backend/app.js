@@ -33,6 +33,8 @@ app.use('/api/users',routes.userRoute);
 
 app.use('/api/vehicles',routes.vehicleRoute);
 
+app.use('/api/reservations',routes.reservationRoute);
+
 // Error handling middleware functions (for standard error returns)
 app.use(function(req, res, next) {
     next(createError(404));

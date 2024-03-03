@@ -60,6 +60,11 @@ exports.auth_login = [
             if(!passwordMatch){
                 return res.status(401).json({error:"Invalid password"})
             }
+            req.user = {
+                id: user._id,
+                username: user.username,
+                role: user.role
+            };
             try{
                 const accessToken = jwt.sign(
                     {
@@ -104,3 +109,37 @@ exports.auth_login = [
         }
     }
 ]
+
+exports.auth_refreshToken = async(req,res,next)=>{
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) {
+        return res.status(401).json({ error: "Refresh token not provided" });
+    }
+
+    try {  
+        const decoded = jwt.verify(refreshToken, jwtSecret);
+
+        if (!decoded) {
+            return res.status(401).json({ error: "Invalid refresh token" });
+        }
+
+        const { id, username, role } = decoded;
+        const accessToken = jwt.sign(
+            {
+                id,
+                username,
+                role,
+            },
+            jwtSecret,
+            {
+                expiresIn: "2min",
+            }
+        );
+
+        res.status(200).json({ token: accessToken });
+    } catch (error) {
+        res.status(401).json({ error: "Invalid refresh token" });
+    }
+
+}

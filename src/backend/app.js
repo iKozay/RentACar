@@ -1,11 +1,13 @@
 const express = require('express');
+const createError = require('http-errors'); // this module is required in the error handling middleware below
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const session = require('express-session');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const routes = require('./routes');
-
+const passport = require('./config/passport');
 
 const cors = require('cors');
 const app = express();
@@ -19,6 +21,12 @@ const app = express();
 // }
 
 // Initializing middlewares 
+app.use(session({
+  secret:process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -27,11 +35,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
+
+// app.use(passport.initialize());
 // Routers middleware set up
 app.use('*',cors());// Enable cross origin resource sharing for all routes 
-app.use('/api/users',routes.userRoute);
 
-app.use('/api/vehicles',routes.vehicleRoute);
+app.use('/api/users',routes.usersRoute);
+
+app.get('/fetch',(req,res)=>{
+  res.sendFile(path.join(__dirname,"/public/fetch.html"));
+})
+app.use('/api/vehicles',routes.vehiclesRoute);
+app.use('/api/auth',routes.authRoute);
 
 app.use('/api/reservations',routes.reservationRoute);
 

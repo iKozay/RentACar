@@ -6,7 +6,7 @@ import { CarSelection } from "./CarSelection.jsx";
 import { Payment } from "./Payment.jsx";
 import { Confirmation } from "./Confirmation.jsx";
 
-export function MakeReservation() {
+export default function MakeReservation() {
     // stateless data
     const numOfSteps = 4;
     const rsvSteps = [

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refresh Token Form</title>
+</head>
+<body>
+    <h2>Refresh Token Form</h2>
+    <button onclick="refreshToken()">Refresh Token</button>
+
+    <script>
+        async function refreshToken() {
+            try {
+                const response = await fetch('/api/auth/refreshToken', {
+                    method: 'GET',
+                    credentials: 'include' ,// Include cookies in the request
+                    mode: 'cors' // Enable CORS
+                
+                });
+                console.log(response);
+                const data = await response.json();
+                console.log(data); // Log the token in the response
+            } catch (error) {
+                console.error('Error refreshing token:', error);
+            }
+        }
+    </script>
+</body>
+</html>

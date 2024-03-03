@@ -1,5 +1,5 @@
 const passport = require('passport');
-const jwt = require('jwt');
+const jwt = require('jsonwebtoken');
 const {Strategy:JwtStrategy,ExtractJwt}=require('passport-jwt');
 const jwtSecret= process.env.JWT_SECRET;
 const User = require('./../models/userModel');
@@ -30,5 +30,16 @@ passport.use(strategy);
 
 module.exports={
     initialize: passport.initialize(),
-    authenticate: passport.authenticate('jwt',{session:true})
+    authenticate:  (req, res, next) => {
+        passport.authenticate('jwt', { session: false }, (err, user, info) => {
+            if (err) {
+                return res.status(500).json({ error: "Internal Server Error" });
+            }
+            if (!user) {
+                return res.status(401).json({ error: "Unauthorized" }); // Adjust this error message as needed
+            }
+            req.user = user;
+            next();
+        })(req, res, next);
+    }
 }

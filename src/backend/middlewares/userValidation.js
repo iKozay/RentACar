@@ -40,11 +40,7 @@ const validateUserData =
       .withMessage(
         "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
       )
-      .not()
-      .matches(/^.*(.)\1{2,}.*$/)
-      .withMessage(
-        "Password cannot contain repeating characters more than twice"
-      ),
+    ,
     body("email")
       .trim()
       .notEmpty()
@@ -95,7 +91,19 @@ const validateUserData =
       .withMessage("Invalid role. Role must be one of 'customer', 'admin', or 'representative'")
 ];
 
+const validateLoginData = [
+    body("username")
+    .trim()
+    .notEmpty()
+    .withMessage("Username is required")
+    ,
+    body("password")
+      .trim()
+      .notEmpty()
+      .withMessage("Password is required")
+]
 
 module.exports = {
     validateUserData
+    ,validateLoginData
 }

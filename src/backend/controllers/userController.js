@@ -30,6 +30,7 @@ exports.user_create = [
     try {
       const hashedPassword = await hashPassword(req.body.password, 10);
       const user = new User({
+        username:req.body.username,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         password: hashedPassword,
@@ -38,6 +39,7 @@ exports.user_create = [
         date_of_birth: req.body.date_of_birth,
         // Assuming the profile picture is optional and may not be provided
         profile_picture: req.body.profile_picture || null,
+        role:req.body.role
       });
       await user.save();
       res.status(201).json(user);
@@ -66,6 +68,7 @@ exports.user_update = [
       const hashedPassword = await hashPassword(req.body.password, 10);
       const updates = new User({
         _id:req.params.userId,
+        username:req.body.username,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         password: hashedPassword,
@@ -74,6 +77,7 @@ exports.user_update = [
         date_of_birth: req.body.date_of_birth,
         // Assuming the profile picture is optional and may not be provided
         profile_picture: req.body.profile_picture || null,
+        role:req.body.role
       });
       const updatedUser = await User.findOneAndUpdate(
         { _id: req.params.userId },

@@ -1,6 +1,13 @@
 const { body} = require("express-validator");
 const validateUserData = 
-[
+[   body("username")
+    .trim()
+    .notEmpty()
+    .withMessage("Username is required")
+    .isLength({ min: 3 })
+    .withMessage("Username must be at least 3 characters")
+    .isLength({ max: 30 })
+    .withMessage("Username cannot be more than 30 characters"),
     body("first_name")
       .trim()
       .notEmpty()
@@ -8,15 +15,19 @@ const validateUserData =
       .isAlpha()
       .withMessage("First name can only contain alphabetic characters")
       .isLength({ min: 3 })
-      .withMessage("First name must be at least 3 characters"),
+      .withMessage("First name must be at least 3 characters")
+      .isLength({ max: 30 })
+      .withMessage("First name cannot be more than 30 characters"),
     body("last_name")
       .trim()
       .notEmpty()
-      .withMessage("First name is required")
+      .withMessage("Last name is required")
       .isAlpha()
-      .withMessage("First name can only contain alphabetic characters")
+      .withMessage("Last name can only contain alphabetic characters")
       .isLength({ min: 3 })
-      .withMessage("First name must be at least 3 characters"),
+      .withMessage("Last name must be at least 3 characters")
+      .isLength({ max: 30 })
+      .withMessage("Last name cannot be more than 30 characters"),
     body("password")
       .trim()
       .notEmpty()
@@ -71,8 +82,19 @@ const validateUserData =
         } catch (error) {
           throw new Error("Error validating profile picture URL");
         }
+      }),
+    body("role")
+      .optional()
+      .custom((value,{req})=>{
+        if(!value){
+            req.body.role = 'customer';//role is customer by default
+        }
+        return true;
       })
-    ];
+      .isIn(['customer', 'admin', 'representative'])
+      .withMessage("Invalid role. Role must be one of 'customer', 'admin', or 'representative'")
+];
+
 
 module.exports = {
     validateUserData

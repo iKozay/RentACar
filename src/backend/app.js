@@ -43,7 +43,7 @@ app.use('*',cors());// Enable cross origin resource sharing for all routes
 app.use(passport.initialize);
 app.use('/api/users',routes.usersRoute);
 
-app.get('/fetch',(req,res)=>{
+app.get('/test/fetch',(req,res)=>{// Just for testing purposes
   res.sendFile(path.join(__dirname,"/public/fetch.html"));
 })
 app.use('/api/vehicles',routes.vehiclesRoute);

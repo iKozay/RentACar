@@ -10,11 +10,13 @@
     <h2>Refresh Token Form</h2>
     <button onclick="refreshToken()">Refresh Token</button>
     <button onclick="login()">login</button>
-    <button onclick="user()">user</button>
-    <button onclick="users()">all users</button>
-    <input type="text" id="username" value="sophie456" />
-    <input type="text" id="password" value="WFwrw3WWEFWS3$!" />
-    
+    <button onclick="user()">current user</button>
+    <button onclick="users()">all users (admin)</button>
+   <div>
+    <label for="">Username <input type="text" id="username" value="sophie456" /></label>
+    <label for="">Password <input type="text" id="password" value="WFwrw3WWEFWS3$!" /></label>
+   </div>
+    <button onclick="logout()">logout</button>
 
     <script>
       async function login() {
@@ -53,7 +55,6 @@
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           });
-          console.log(response);
           const data = await response.json();
           localStorage.setItem("token", data.token);
           console.log(data); // Log the token in the response
@@ -72,7 +73,6 @@
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           });
-          console.log(response);
           const data = await response.json();
           console.log(data); // Log the token in the response
         } catch (error) {
@@ -90,9 +90,26 @@
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           });
-          console.log(response);
           const data = await response.json();
           console.log(data); // Log the token in the response
+        } catch (error) {
+          console.error("Error refreshing token:", error);
+        }
+      }
+      async function logout() {
+        try {
+          const response = await fetch("/api/auth/logout", {
+            method: "GET",
+            credentials: "include", // Include cookies in the request
+            mode: "cors", // Enable CORS
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          const data = await response.json();
+          console.log(data); // Log the token in the response
+          localStorage.removeItem('token');
         } catch (error) {
           console.error("Error refreshing token:", error);
         }

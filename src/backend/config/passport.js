@@ -37,21 +37,21 @@ passport.use(strategy);
 
 module.exports = {
     initialize: passport.initialize(),
-    authenticate:passport.authenticate('jwt',{session:false})
-    // authenticate: (req, res, next) => {
-    //     console.log("Authentication middleware invoked");
-    //     passport.authenticate('jwt', { session: false }, (err, user, info) => {
-    //         if (err) {
-    //             console.error("Error during authentication:", err);
-    //             return res.status(500).json({ error: "Internal Server Error" });
-    //         }
-    //         if (!user) {
-    //             console.log("User not authenticated");
-    //             return res.status(401).json({ error: "Unauthorized" });
-    //         }
-    //         console.log("User authenticated:", user);
-    //         req.user = user;
-    //         next();
-    //     })(req, res, next);
-    // }
+    // authenticate:passport.authenticate('jwt',{session:false})
+    authenticate: (req, res, next) => {
+        console.log("Authentication middleware invoked");
+        passport.authenticate('jwt', { session: false }, (err, user, info) => {
+            if (err) {
+                console.error("Error during authentication:", err);
+                return res.status(500).json({ error: "Internal Server Error" });
+            }
+            if (!user) {
+                console.log("User not authenticated");
+                return res.status(401).json({ error: "Unauthorized" });
+            }
+            console.log("User authenticated:", user);
+            req.user = user;
+            next();
+        })(req, res, next);
+    }
 };

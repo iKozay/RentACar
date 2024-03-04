@@ -133,7 +133,7 @@ exports.auth_refreshToken = async(req,res,next)=>{
             },
             jwtSecret,
             {
-                expiresIn: "2min",
+                expiresIn: "30sec",
             }
         );
 
@@ -143,3 +143,24 @@ exports.auth_refreshToken = async(req,res,next)=>{
     }
 
 }
+
+exports.auth_logout = [
+  authenticate,
+  (req,res,next)=>{
+    try{
+      res.clearCookie("refreshToken");
+
+      req.session.destroy((err)=>{
+        if (err) {
+          return res.status(500).json({ error: "Error destroying session" });
+        }
+        // If there's no error, respond with a success message
+        return res.status(200).json({ message: "Logout successful" })
+      } 
+      )
+    }catch(error){
+
+    }
+
+  }
+]

@@ -9,9 +9,9 @@ const {validateUserData} = require('./../middlewares/userValidation');
 const {authenticate} = require('./../config/passport');
 
 exports.user_list = [ 
-  authenticate,
+  authenticate,// Authenticating the user
   asyncHandler(async (req, res, next) => {
-  if(req.user.role!='admin')
+  if(req.user.role!='admin') // only admins
     return res.status(400).json({error:'unauthorized'})
   const users = await User.find({}).sort({ last_name: 1 }).exec();
   res.status(200).json(users || []);

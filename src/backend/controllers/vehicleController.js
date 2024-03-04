@@ -18,8 +18,11 @@ const addVehicle = async (req, res) => {
  * and return the deleted vehicle
  */
 const deleteVehicle = async (req, res) => {
+
+  console.log("delete");
   try {
     const { id } = req.params;
+
     const vehicle = await Vehicle.findByIdAndDelete(id);
     if (!vehicle) {
       return res.status(404).json({ message: "Cannot find any vehicle with id " + id + " to delete." })
@@ -31,4 +34,4 @@ const deleteVehicle = async (req, res) => {
   }
 }
 
-module.exports = { addVehicle, deleteVehicle };
+module.exports = { addVehicle, deleteVehicle, getVehicles };

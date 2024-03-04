@@ -61,7 +61,7 @@ const vehicleSchema = new Schema({
   },
 
   electricalOrFuel:{
-    type: Boolean,
+    type: String,
     required: false,
   },
 

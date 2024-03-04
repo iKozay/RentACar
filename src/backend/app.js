@@ -42,15 +42,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('*',cors());// Enable cross origin resource sharing for all routes 
 app.use(passport.initialize);
 app.use('/api/users',routes.usersRoute);
+app.use('/api/vehicles',routes.vehiclesRoute);
+app.use('/api/auth',routes.authRoute);
+app.use('/api/reservations',routes.reservationsRoute);
+
 
 app.get('/test/fetch',(req,res)=>{// Just for testing purposes
   res.sendFile(path.join(__dirname,"/public/fetch.html"));
 })
-app.use('/api/vehicles',routes.vehiclesRoute);
-app.use('/api/auth',routes.authRoute);
-
-app.use('/api/reservations',routes.reservationRoute);
-
 // Error handling middleware functions (for standard error returns)
 app.use(function(req, res, next) {
     next(createError(404));

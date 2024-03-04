@@ -2,11 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reservationSchema = new Schema({
-                    reservationID: {
-                        type: String,
-                        required: true,
-                        unique: true
-                    },
+                    
                     vin: {
                         type: String,
                         required: true

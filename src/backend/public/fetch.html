@@ -18,6 +18,9 @@
    </div>
     <button onclick="logout()">logout</button>
 
+    <h2>Check the console to view logs</h2>
+
+
     <script>
       async function login() {
         const username = document.getElementById("username").value;
@@ -52,7 +55,7 @@
             mode: "cors", // Enable CORS
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+
             },
           });
           const data = await response.json();
@@ -66,8 +69,6 @@
         try {
           const response = await fetch("/api/auth/user", {
             method: "GET",
-            credentials: "include", // Include cookies in the request
-            mode: "cors", // Enable CORS
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

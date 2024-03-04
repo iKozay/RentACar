@@ -12,7 +12,9 @@ exports.user_list = [
   authenticate,// Authenticating the user
   asyncHandler(async (req, res, next) => {
   if(req.user.role!='admin') // only admins
-    return res.status(400).json({error:'unauthorized'})
+
+    return res.status(401).json({error:'unauthorized'})
+
   const users = await User.find({}).sort({ last_name: 1 }).exec();
   res.status(200).json(users || []);
 })];
@@ -20,7 +22,9 @@ exports.user_detail = [
   authenticate,
   asyncHandler(async (req, res) => {
     if(req.user.role!='admin')
-      return res.status(400).json({error:'unauthorized'})
+
+      return res.status(401).json({error:'unauthorized'})
+
   const userId = req.params.userId;
   const user = await User.findById(userId).exec();
   if (user === null) {
@@ -35,7 +39,10 @@ exports.user_create = [
   validateUserData,
   asyncHandler(async (req, res, next) => {
     if(req.user.role!='admin')
-      return res.status(400).json({error:'unauthorized'})
+
+      return res.status(401).json({error:'unauthorized'})
+
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });

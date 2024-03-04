@@ -39,7 +39,7 @@ exports.auth_signup = [
       if (error.code === 11000) {
         return res.status(400).json({ error: "duplicate key" });
       } else {
-        return res.status(400).json({ error: "Mongodb related error" });
+        return res.status(500).json({ error: "Mongodb related error" });
       }
     }
   },
@@ -75,7 +75,7 @@ exports.auth_login = [
                     },
                     jwtSecret,
                     {
-                      expiresIn: "2min",
+                      expiresIn: "30sec",
                     }
                   );
                   const refreshToken = jwt.sign(
@@ -102,7 +102,7 @@ exports.auth_login = [
                   });
                   res.status(201).json({ token: accessToken });
               }catch(error){
-                return res.status(500).json({error:"error creating JSON WEB TOKENS"})
+                return res.status(501).json({error:"error creating JSON Web Tokens"})
               }
         }catch(error){
             res.status(500).json({ error: "Internal Server Error" });
@@ -152,14 +152,15 @@ exports.auth_logout = [
 
       req.session.destroy((err)=>{
         if (err) {
-          return res.status(500).json({ error: "Error destroying session" });
+
+          return res.status(501).json({ error: "Error destroying session" });
         }
         // If there's no error, respond with a success message
-        return res.status(200).json({ message: "Logout successful" })
+        return res.status(200).json({ message: "Logout successfully" })
       } 
       )
     }catch(error){
-
+      return res.status(500).json({ error: "Internal server error" });
     }
 
   }

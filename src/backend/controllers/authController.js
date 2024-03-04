@@ -5,7 +5,7 @@ const { validateUserData, validateLoginData } = require("./../middlewares/userVa
 const User = require("./../models/userModel");
 const bcrypt = require("bcryptjs");
 const { promisify } = require("util");
-
+const {authenticate}= require('./../config/passport');
 const hashPassword = promisify(bcrypt.hash);
 const comparePassword = promisify(bcrypt.compare);
 const jwtSecret = process.env.JWT_SECRET;
@@ -60,11 +60,11 @@ exports.auth_login = [
             if(!passwordMatch){
                 return res.status(401).json({error:"Invalid password"})
             }
-            req.user = {
-                id: user._id,
-                username: user.username,
-                role: user.role
-            };
+            // req.user = {
+            //     id: user._id,
+            //     username: user.username,
+            //     role: user.role
+            // };
             try{
                 const accessToken = jwt.sign(
                     {

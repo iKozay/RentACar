@@ -6,23 +6,36 @@ const { promisify } = require("util");
 const hashPassword = promisify(bcrypt.hash);
 const mongoose = require("mongoose");
 const {validateUserData} = require('./../middlewares/userValidation');
+const {authenticate} = require('./../config/passport');
 
-exports.user_list = asyncHandler(async (req, res, next) => {
+exports.user_list = [ 
+  authenticate,
+  asyncHandler(async (req, res, next) => {
+  if(req.user.role!='admin')
+    return res.status(400).json({error:'unauthorized'})
   const users = await User.find({}).sort({ last_name: 1 }).exec();
   res.status(200).json(users || []);
-});
-exports.user_detail = asyncHandler(async (req, res) => {
+})];
+exports.user_detail = [
+  authenticate,
+  asyncHandler(async (req, res) => {
+    if(req.user.role!='admin')
+      return res.status(400).json({error:'unauthorized'})
   const userId = req.params.userId;
   const user = await User.findById(userId).exec();
   if (user === null) {
     res.status(404).json({ error: "User doesn't exist" });
   }
   res.status(200).json(user);
-});
+})
+];
 
 exports.user_create = [
+  authenticate,
   validateUserData,
   asyncHandler(async (req, res, next) => {
+    if(req.user.role!='admin')
+      return res.status(400).json({error:'unauthorized'})
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -56,7 +69,7 @@ exports.user_create = [
 ];
 
 exports.user_update = [
-
+  authenticate,
   validateUserData,
 
   asyncHandler(async (req, res, next) => {

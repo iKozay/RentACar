@@ -1,6 +1,6 @@
-import React from "react";
+// import react from "react";
 
-export function CarSelection() {
+export default function CarSelection() {
 
     // TODO: get car details
 

@@ -17,7 +17,9 @@
     <label for="">Password <input type="text" id="password" value="WFwrw3WWEFWS3$!" /></label>
    </div>
     <button onclick="logout()">logout</button>
+
     <h2>Check the console to view logs</h2>
+
 
     <script>
       async function login() {
@@ -53,7 +55,7 @@
             mode: "cors", // Enable CORS
             headers: {
               "Content-Type": "application/json",
-            
+
             },
           });
           const data = await response.json();
@@ -67,7 +69,6 @@
         try {
           const response = await fetch("/api/auth/user", {
             method: "GET",
-
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

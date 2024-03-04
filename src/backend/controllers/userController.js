@@ -24,6 +24,8 @@ exports.user_detail = [
     if(req.user.role!='admin')
 
       return res.status(401).json({error:'unauthorized'})
+=======
+
 
   const userId = req.params.userId;
   const user = await User.findById(userId).exec();
@@ -40,8 +42,8 @@ exports.user_create = [
   asyncHandler(async (req, res, next) => {
     if(req.user.role!='admin')
 
-      return res.status(401).json({error:'unauthorized'})
 
+      return res.status(401).json({error:'unauthorized'})
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

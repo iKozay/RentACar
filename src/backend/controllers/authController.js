@@ -152,6 +152,7 @@ exports.auth_logout = [
 
       req.session.destroy((err)=>{
         if (err) {
+
           return res.status(501).json({ error: "Error destroying session" });
         }
         // If there's no error, respond with a success message

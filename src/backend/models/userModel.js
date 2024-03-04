@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema ({
-    uid:{type:String,unique:true},
+    username: { type: String, required: true, unique: true },
     first_name:{type:String,required:true,maxLength:30},
     last_name:{type:String,required:true,maxLength:30},
     password:{type:String,required:true},
@@ -19,6 +19,12 @@ const userSchema = new Schema ({
         message:props => 'Users must be at least 18 years old.'
 
     }
+    },
+    role: {
+        type: String,
+        enum: ['customer', 'admin', 'representative'],
+        default: 'customer', // Set default value to 'customer'
+        required: true
     },
     profile_picture:{type:String}
 }, { timestamps: true })

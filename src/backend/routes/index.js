@@ -1,5 +1,11 @@
-const users=require('./users');
+const usersRoute= require('./usersRoute');
+const vehiclesRoute =require('./vehiclesRoute');
+const reservationsRoute =require('./reservationsRoute');
+const authRoute = require('./authRoute');
 
 module.exports = {
-  users
+  authRoute,
+  usersRoute,
+  vehiclesRoute,
+  reservationsRoute
 };

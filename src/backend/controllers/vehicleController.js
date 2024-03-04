@@ -56,4 +56,6 @@ const deleteVehicle = async (req, res) => {
   }
 }
 
+
 module.exports = { addVehicle, deleteVehicle, getVehicles,getVehicle };
+

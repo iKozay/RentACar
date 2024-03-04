@@ -24,7 +24,7 @@ exports.user_detail = [
     if(req.user.role!='admin')
 
       return res.status(401).json({error:'unauthorized'})
-=======
+
 
 
   const userId = req.params.userId;

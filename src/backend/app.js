@@ -49,6 +49,8 @@ app.get('/test/fetch',(req,res)=>{// Just for testing purposes
 app.use('/api/vehicles',routes.vehiclesRoute);
 app.use('/api/auth',routes.authRoute);
 
+app.use('/api/reservations',routes.reservationRoute);
+
 // Error handling middleware functions (for standard error returns)
 app.use(function(req, res, next) {
     next(createError(404));

@@ -58,7 +58,10 @@ const deleteVehicle = async (req, res) => {
 
 
 
-
+/**
+ * Updates vehicle from the database
+ * and return the updated vehicle
+ */
 const updateVehicle = async (req, res) => {
 
   console.log("update");

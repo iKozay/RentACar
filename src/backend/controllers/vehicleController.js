@@ -57,5 +57,31 @@ const deleteVehicle = async (req, res) => {
 }
 
 
-module.exports = { addVehicle, deleteVehicle, getVehicles,getVehicle };
+
+
+const updateVehicle = async (req, res) => {
+
+  console.log("update");
+  try {
+    const { id } = req.params;
+
+    const vehicle = await Vehicle.findByIdAndUpdate(id,{...req.body});
+    if (!vehicle) {
+      return res.status(404).json({ message: "Cannot find any vehicle with id " + id + " to update." })
+    }
+
+    const uvehicle = await Vehicle.findById(id);
+    if (!uvehicle) {
+      return res.status(404).json({ messahe: "Vehicle not found with id " + id })
+    }
+    res.status(200).json(uvehicle);
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+
+
+module.exports = { addVehicle, deleteVehicle, getVehicles,getVehicle, updateVehicle };
 

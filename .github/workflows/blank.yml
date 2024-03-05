@@ -36,10 +36,10 @@ jobs:
         run: |
           npm install
           touch .env
-          echo "NODE_ENV=${{ env.MONGO_DB }}" >> .env
-          echo "NODE_ENV=${{ env.PORT }}" >> .env
-          echo "NODE_ENV=${{ env.JWT_SECRET }}" >> .env
-          echo "NODE_ENV=${{ env.SESSION_SECRET }}" >> .env
+          echo "MONGO_DB=${{ env.MONGO_DB }}" >> .env
+          echo "PORT=${{ env.PORT }}" >> .env
+          echo "JWT_SECRET=${{ env.JWT_SECRET }}" >> .env
+          echo "SESSION_SECRET=${{ env.SESSION_SECRET }}" >> .env
           npm install
           npm run build --if-present
           npm run test --if-present

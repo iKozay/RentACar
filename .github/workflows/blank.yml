@@ -36,6 +36,7 @@ jobs:
         run: |
           npm install
           touch .env
+          echo "${{ github.TEST_VAR }}""
           echo "MONGO_DB=${{ github.MONGO_DB }}" >> .env
           echo "PORT=${{ github.PORT }}" >> .env
           echo "JWT_SECRET=${{ github.JWT_SECRET }}" >> .env

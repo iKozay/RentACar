@@ -35,10 +35,10 @@ jobs:
         working-directory: src/backend
         run: |
           touch .env
-          echo "MONGO_DB=${{ github.MONGO_DB }}" >> .env
-          echo "PORT=${{ github.PORT }}" >> .env
-          echo "JWT_SECRET=${{ github.JWT_SECRET }}" >> .env
-          echo "SESSION_SECRET=${{ github.SESSION_SECRET }}" >> .env
+          echo "MONGO_DB=${{ vars.MONGO_DB }}" >> .env
+          echo "PORT=${{ vars.PORT }}" >> .env
+          echo "JWT_SECRET=${{ vars.JWT_SECRET }}" >> .env
+          echo "SESSION_SECRET=${{ vars.SESSION_SECRET }}" >> .env
           cat .env
           npm install
           npm run build --if-present

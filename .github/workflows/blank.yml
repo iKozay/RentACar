@@ -34,13 +34,12 @@ jobs:
       - name: Install backend dependencies
         working-directory: src/backend
         run: |
-          npm install
           touch .env
-          echo "${{ github.TEST_VAR }}""
           echo "MONGO_DB=${{ github.MONGO_DB }}" >> .env
           echo "PORT=${{ github.PORT }}" >> .env
           echo "JWT_SECRET=${{ github.JWT_SECRET }}" >> .env
           echo "SESSION_SECRET=${{ github.SESSION_SECRET }}" >> .env
+          cat .env
           npm install
           npm run build --if-present
           npm run test --if-present

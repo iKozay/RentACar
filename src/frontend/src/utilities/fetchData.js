@@ -6,7 +6,12 @@ const fetchData = async (url, options) => {
      if (!response.ok) {
        throw new Error('Network response was not ok');
      }
-     result.data = await response.json();
+     const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      result.data = await response.json();
+    } else {
+      result.data = await response.text(); // If not JSON, store as text
+    }
    } catch (error) {
      result.error = error;
    } finally {

@@ -14,7 +14,7 @@ export default function ReservationForm({selectedVehicle, currentUser, setReserv
                 </tr>
                 <tr>
                     <td>
-                        <Payment cancel={goToBrowsing} submit={setReservationBooked} vehicleID={selectedVehicle.id} userID={currentUser.id}/>
+                        <Payment cancel={goToBrowsing} submit={setReservationBooked} vehicleID={selectedVehicle._id} userID={currentUser.id}/>
                     </td>
                 </tr>
                 </tbody>

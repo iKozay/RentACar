@@ -8,7 +8,7 @@ export default function VehicleViewer({vehicle, changeSelection}) {
                         <div className={'hover:text-sky-700 cursor-pointer'} onClick={changeSelection}>Change Selection</div>
                     </div>
                     <div className={'box-border border-inherit border-2 flex justify-center items-center'}>
-                        <img src={vehicle.imageSrc}/>
+                        <img src={vehicle.Image}/>
                     </div>
                     <div className={"flex justify-center"}>
                         <div className="mb-2 text-2xl font-bold tracking-tight">{vehicle.fromDate} - {vehicle.toDate} ({computeNumOfDays(vehicle.fromDate,vehicle.toDate)} days)</div>
@@ -16,12 +16,12 @@ export default function VehicleViewer({vehicle, changeSelection}) {
                     <div className={"flex justify-center"}>
                         <div className="mb-3 font-normal text-stone-600 inline-block">
                             <div className={'flex justify-center'}>
-                                <div className={'block mr-2 mb-2'}>{vehicle.name}</div>
+                                <div className={'block mr-2 mb-2'}>{vehicle.make}</div>
                                 <div className={'block mb-2'}>{vehicle.price}$/day</div>
                             </div>
                             <div className={'flex justify-center'}>
                                 <div className={'block mr-2 mb-2'}>Total: </div>
-                                <div className={'block mr-2 mb-2'}>{computeTotal(vehicle.fromDate,vehicle.toDate,vehicle.price)}$</div>
+                                {/* <div className={'block mr-2 mb-2'}>{computeTotal(vehicle.fromDate,vehicle.toDate,vehicle.price)}$</div> */}
                             </div>
                         </div>
                     </div>

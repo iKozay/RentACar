@@ -1,32 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReservationForm from "./ReservationForm.jsx";
+import { useParams } from "react-router-dom";
 
 export default function MakeReservation() {
-//////////////////////////////////////
-// The following data is for testing purposes. Normally it would be passed in as props
-    const selectedVehicle =
-        {
-            id: 1,
-            name: 'Mclaren 765LT',
-            href: '#',
-            price: 50,
-            imageSrc: 'https://www.gearpatrol.com/wp-content/uploads/sites/2/2021/07/mclaren-765lt-6-1624918618-jpg.webp',
-            imageAlt: 'car',
-            fromDate: 'Jan 25, 2024',
-            toDate: 'Jan 30, 2024',
-        };
+    const [selectedVehicle, setSelectedVehicle] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const { vehicleId } = useParams(); // Extract vehicleId from URL params
+
+    useEffect(() => {
+        async function fetchVehicle() {
+            try {
+                const response = await fetch(`http://localhost:3000/api/vehicles/vehicle/${vehicleId}`, {
+                    method: "GET",
+                    credentials: "include", // Include cookies in the request
+                    mode: "cors", // Enable CORS
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error("Failed to fetch vehicle");
+                }
+                const vehicleData = await response.json();
+                setSelectedVehicle(vehicleData);
+            } catch (error) {
+                console.error("Error fetching vehicle:", error);
+                // Handle error (e.g., display error message)
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchVehicle();
+    }, [vehicleId]); // Fetch when vehicleId changes
+
     const currentUser = {
         id: 1
         // other info here
-    }
-//////////////////////////////////////
-    return(
+    };
+
+    const goToConfirmation = () => {
+        window.open("/reservation/confirmation", "_self");
+    };
+
+    return (
         <div>
-            <ReservationForm selectedVehicle={selectedVehicle} currentUser={currentUser} setReservationBooked={goToConfirmation}/>
+            {loading && <div>Loading</div>}
+            {!loading && selectedVehicle && (
+                <div>
+                    <ReservationForm selectedVehicle={selectedVehicle} currentUser={currentUser} setReservationBooked={goToConfirmation} />
+                </div>
+            )}
         </div>
     );
-}
-
-function goToConfirmation() {
-    window.open("/reservation/confirmation", "_self");
 }

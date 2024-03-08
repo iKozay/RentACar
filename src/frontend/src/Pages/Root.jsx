@@ -7,7 +7,7 @@ import getUser from "../utilities/getUser";
 import Header from "../components/header/Header.jsx";
 import {createContext, useContext} from "react"
 
-const UserContext = createContext(null);
+export const UserContext = createContext(null);
 const Root = () => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);

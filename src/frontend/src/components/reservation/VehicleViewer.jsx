@@ -1,7 +1,9 @@
 import React from "react";
-// import {useContext} from "context";
-
+import {useContext} from "react";
+import {UserContext} from "../../Pages/Root";
+import createReservation from "../../utilities/createReservation";
 export default function VehicleViewer({vehicle, changeSelection}) {
+    const {user} = useContext(UserContext);
     return (
         <div className="flex justify-center">
                 <div className="p-5">
@@ -26,8 +28,8 @@ export default function VehicleViewer({vehicle, changeSelection}) {
                             </div>
                         </div>
                     </div>
-                    {/* <button style={{padding:"10px",backgroundColor:"#999",color:"white",fontWeight:"bold",borderRadius:"10px"}
-                onClick={()=>{createReservation()}}}>Create a Reservation</button> */}
+                    <button style={{padding:"10px",backgroundColor:"#999",color:"white",fontWeight:"bold",borderRadius:"10px"}}
+                onClick={()=>createReservation(vehicle._id,user.id)}>Create a Reservation</button>
                     <hr className={'border-1 border-stone-300'}/>
                 </div>
         </div>

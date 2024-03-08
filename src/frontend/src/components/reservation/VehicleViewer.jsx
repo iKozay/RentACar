@@ -1,4 +1,5 @@
 import React from "react";
+// import {useContext} from "context";
 
 export default function VehicleViewer({vehicle, changeSelection}) {
     return (
@@ -15,16 +16,18 @@ export default function VehicleViewer({vehicle, changeSelection}) {
                     </div>
                     <div className={"flex justify-center"}>
                         <div className="mb-3 font-normal text-stone-600 inline-block">
-                            <div className={'flex justify-center'}>
+                            <div >
                                 <div className={'block mr-2 mb-2'}>{vehicle.make}</div>
                                 <div className={'block mb-2'}>{vehicle.price}$/day</div>
                             </div>
                             <div className={'flex justify-center'}>
-                                <div className={'block mr-2 mb-2'}>Total: </div>
+                                {/* <div className={'block mr-2 mb-2'}>Total: </div> */}
                                 {/* <div className={'block mr-2 mb-2'}>{computeTotal(vehicle.fromDate,vehicle.toDate,vehicle.price)}$</div> */}
                             </div>
                         </div>
                     </div>
+                    {/* <button style={{padding:"10px",backgroundColor:"#999",color:"white",fontWeight:"bold",borderRadius:"10px"}
+                onClick={()=>{createReservation()}}}>Create a Reservation</button> */}
                     <hr className={'border-1 border-stone-300'}/>
                 </div>
         </div>

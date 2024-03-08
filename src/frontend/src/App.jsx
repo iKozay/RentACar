@@ -9,9 +9,8 @@ import BrowserHeader from "./components/browsingPage/BrowseHeader";
 export default function App() {
   return (
     <>
-      <VehicleList />
-      <BrowserHeader />
-
+      {/*<VehicleList />*/}
+      {/*<BrowserHeader />*/}
       {/* <div>Hello</div> */}
     </>
   );

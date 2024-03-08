@@ -36,11 +36,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-
 // app.use(passport.initialize());
 // Routers middleware set up
-app.use('*',cors());// Enable cross origin resource sharing for all routes 
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  credentials: true
+};
+app.use(cors(corsOptions));
+
+app.use('*',cors(corsOptions));// Enable cross origin resource sharing for all routes 
 app.use(passport.initialize);
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // Replace with your React app's origin
+  res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies)
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 app.use('/api/users',routes.usersRoute);
 app.use('/api/vehicles',routes.vehiclesRoute);
 app.use('/api/auth',routes.authRoute);
@@ -50,6 +62,8 @@ app.use('/api/reservations',routes.reservationsRoute);
 app.get('/test/fetch',(req,res)=>{// Just for testing purposes
   res.sendFile(path.join(__dirname,"/public/fetch.html"));
 })
+
+
 // Error handling middleware functions (for standard error returns)
 app.use(function(req, res, next) {
     next(createError(404));

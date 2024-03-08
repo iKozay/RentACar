@@ -1,39 +1,57 @@
-import React from "react";
-import { Stepper } from "./Stepper.jsx";
-import { StepperController } from "./StepperController.jsx";
-import { CustomerInformationForm } from "./CustomerInformationForm.jsx";
-import { CarSelection } from "./CarSelection.jsx";
-import { Payment } from "./Payment.jsx";
-import { Confirmation } from "./Confirmation.jsx";
+import React, { useState, useEffect } from "react";
+import ReservationForm from "./ReservationForm.jsx";
+import { useParams,useOutletContext } from "react-router-dom";
 
 export default function MakeReservation() {
-    // stateless data
-    const numOfSteps = 4;
-    const rsvSteps = [
-        {name: 'Customer Information', component: <CustomerInformationForm/>},
-        {name: 'Car Selection', component: <CarSelection/>},
-        {name: 'Deposit', component: <Payment/>},
-        {name: 'Confirmation', component: <Confirmation/>}
-    ];
+    const {user} = useOutletContext()
+    const [selectedVehicle, setSelectedVehicle] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const { vehicleId } = useParams(); // Extract vehicleId from URL params
 
-    // stateful data
-    const [currentStep, setStep] = React.useState(0);
-    const nextStep = () => {
-        if(currentStep < numOfSteps-1) {
-            setStep(currentStep + 1);
+    useEffect(() => {
+        async function fetchVehicle() {
+            try {
+                const response = await fetch(`http://localhost:3000/api/vehicles/vehicle/${vehicleId}`, {
+                    method: "GET",
+                    credentials: "include", // Include cookies in the request
+                    mode: "cors", // Enable CORS
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error("Failed to fetch vehicle");
+                }
+                const vehicleData = await response.json();
+                setSelectedVehicle(vehicleData);
+            } catch (error) {
+                console.error("Error fetching vehicle:", error);
+                // Handle error (e.g., display error message)
+            } finally {
+                setLoading(false);
+            }
         }
-    }
-    const prevStep = () => {
-        if(currentStep > 0) {
-            setStep(currentStep - 1);
-        }
-    }
+        fetchVehicle();
+    }, [vehicleId]); // Fetch when vehicleId changes
+
+    const currentUser = {
+        id: 1
+        // other info here
+    };
+
+    const goToConfirmation = () => {
+        window.open("/reservation/confirmation", "_self");
+    };
 
     return (
         <div>
-            <Stepper currentStep={currentStep} numberOfSteps={numOfSteps} steps={rsvSteps}/>
-            {rsvSteps[currentStep].component}
-            <StepperController prevStep={prevStep} nextStep={nextStep} firstStep={currentStep===0} lastStep={currentStep === numOfSteps-1}/>
+            {loading && <div>Loading</div>}
+            {!loading && selectedVehicle && (
+                <div>
+                    <ReservationForm selectedVehicle={selectedVehicle} currentUser={currentUser} setReservationBooked={goToConfirmation} />
+                </div>
+            )}
         </div>
     );
-};
+}

@@ -68,7 +68,7 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
         if(validate()){
             // TODO: backend api call to process reservation
             console.log('Processing payment');
-            submit(true);
+            submit();
         }
     }
 

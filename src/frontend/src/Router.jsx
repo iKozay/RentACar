@@ -3,6 +3,7 @@ import App from "./App";
 import VehicleList from "./components/browsingPage/VehicleList";
 import BrowsingPage from "./Pages/BrowsingPage";
 import MakeReservationPage from "./Pages/MakeReservationPage";
+import ConfirmationPage from "./Pages/ConfirmationPage";
 const Router = () => {
   const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const Router = () => {
     {
       path: "reservation/book",
       element: <MakeReservationPage />,
+    },
+    {
+        path: "reservation/confirmation",
+        element: <ConfirmationPage />,
     },
 
   ]);

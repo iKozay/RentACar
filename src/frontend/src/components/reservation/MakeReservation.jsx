@@ -20,16 +20,13 @@ export default function MakeReservation() {
         // other info here
     }
 //////////////////////////////////////
-    const [reservationBooked, setReservationBooked] = React.useState(false);
-    return (
+    return(
         <div>
-            {!reservationBooked ? <ReservationForm selectedVehicle={selectedVehicle} currentUser={currentUser} setReservationBooked={setReservationBooked}/> : <p>Confirmation goes Here</p>}
+            <ReservationForm selectedVehicle={selectedVehicle} currentUser={currentUser} setReservationBooked={goToConfirmation}/>
         </div>
     );
-};
+}
 
-
-
-function goToConfirmation(setReservationBooked) {
-    setReservationBooked(true);
+function goToConfirmation() {
+    window.open("/reservation/confirmation", "_self");
 }

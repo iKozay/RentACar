@@ -49,34 +49,78 @@ const Login = () => {
     };
   
     return (
-      <div>
-        <h2>Login</h2>
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", width: "300px" }}
-        >
-          <input
-            type="text"
-            name="username"
-            required
-            value={username}
-            onChange={handleUsername}
-          />
-          <input
-            type="password"
-            name="password"
-            required
-            value={password}
-            onChange={handlePassword}
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
-       
-        {error && <div>Error logging in</div>}
-        {success && <div>Successfully logged in</div>}
+
+      <div className="max-w-md mx-auto p-6 rounded-md shadow-md bg-neutral-200 mt-10">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Sign in to your account
+          </h2>
+        </div>
+
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <div className="flex justify-start">
+                <label className="block text-sm font-medium leading-6 text-gray-900">
+                  Username
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="username"
+                  required
+                  value={username}
+                  onChange={handleUsername}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <label className="block text-sm font-medium leading-6 text-gray-900">
+                  Password
+                </label>
+                <div className="text-sm">
+                  <a href="#" className="font-semibold text-slate-600 hover:text-slate-400">
+                    Forgot password?
+                  </a>
+                </div>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="password"
+                  name="password"
+                  required
+                  value={password}
+                  onChange={handlePassword}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-neutral-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-neutral-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                disabled={loading}>
+                {loading ? "Logging in..." : "Login"}
+              </button>
+            </div>
+          </form>
+
+          <p className="mt-10 text-center text-sm text-gray-500">
+            Don't have an account?{' '}
+            <a href="#" className="font-semibold leading-6 text-slate-600 hover:text-slate-400">
+              Sign-up
+            </a>
+          </p>
+        </div>
+        {error && <div className=" text-red-400 text-sm">Error logging in</div>}
+          {success && <div>Successfully logged in</div>}
       </div>
+
     );
   };
   

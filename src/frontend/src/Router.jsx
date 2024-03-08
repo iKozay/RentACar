@@ -7,6 +7,7 @@ import VehicleList from "./Pages/VehicleList";
 import MakeReservationPage from "./Pages/MakeReservationPage";
 import ConfirmationPage from "./Pages/ConfirmationPage";
 import ViewReservationPage from "./Pages/ViewReservationPage";
+import ReservationDetailsPage from "./Pages/ReservationDetailsPage.jsx";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const Router = () => {
         {
           path: "user/reservation",
           element: <ViewReservationPage />,
+        },
+        {
+          path: "reservation/details/:reservationId",
+          element: <ReservationDetailsPage />,
         },
       ],
     },

@@ -25,6 +25,5 @@ export default function Confirmation() {
     );
 }
 function goToReserveration(){
-    console.log('go to reservation');
-    // add route to account
+    window.open("/user/reservation", "_self");
 }

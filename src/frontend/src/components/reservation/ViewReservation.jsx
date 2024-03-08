@@ -109,6 +109,7 @@ function tabContent(upcoming) {
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className={"text-xs text-gray-700 uppercase bg-gray-50"}>
                 <tr>
+                    <th className="px-6 py-3">ID</th>
                     <th className="px-6 py-3">Vehicle</th>
                     <th className="px-6 py-3">From</th>
                     <th className="px-6 py-3">To</th>
@@ -118,6 +119,7 @@ function tabContent(upcoming) {
                 <tbody>
                 {response.map((reservation) => (
                         <tr key={reservation.id} className={"odd:bg-white even:bg-gray-50 border-b"}>
+                            <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.id}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.vehicle}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.fromDate}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.toDate}</td>
@@ -134,5 +136,5 @@ function tabContent(upcoming) {
 }
 
 function goToReservationDetails(reservationID) {
-    window.open("/user/reservation/details", "_self");
+    window.open("/reservation/details/"+reservationID, "_self");
 }

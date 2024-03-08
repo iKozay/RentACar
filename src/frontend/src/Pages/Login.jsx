@@ -46,6 +46,7 @@ const Login = () => {
         setError(true);
       }
       setLoading(false);
+      window.open("/", "_self");
     };
   
     return (

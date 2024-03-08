@@ -1,39 +1,35 @@
 import React from "react";
-import { Stepper } from "./Stepper.jsx";
-import { StepperController } from "./StepperController.jsx";
-import { CustomerInformationForm } from "./CustomerInformationForm.jsx";
-import { CarSelection } from "./CarSelection.jsx";
-import { Payment } from "./Payment.jsx";
-import { Confirmation } from "./Confirmation.jsx";
+import ReservationForm from "./ReservationForm.jsx";
 
 export default function MakeReservation() {
-    // stateless data
-    const numOfSteps = 4;
-    const rsvSteps = [
-        {name: 'Customer Information', component: <CustomerInformationForm/>},
-        {name: 'Car Selection', component: <CarSelection/>},
-        {name: 'Deposit', component: <Payment/>},
-        {name: 'Confirmation', component: <Confirmation/>}
-    ];
-
-    // stateful data
-    const [currentStep, setStep] = React.useState(0);
-    const nextStep = () => {
-        if(currentStep < numOfSteps-1) {
-            setStep(currentStep + 1);
-        }
+//////////////////////////////////////
+// The following data is for testing purposes. Normally it would be passed in as props
+    const selectedVehicle =
+        {
+            id: 1,
+            name: 'Mclaren 765LT',
+            href: '#',
+            price: 50,
+            imageSrc: 'https://www.gearpatrol.com/wp-content/uploads/sites/2/2021/07/mclaren-765lt-6-1624918618-jpg.webp',
+            imageAlt: 'car',
+            fromDate: 'Jan 25, 2024',
+            toDate: 'Jan 30, 2024',
+        };
+    const currentUser = {
+        id: 1
+        // other info here
     }
-    const prevStep = () => {
-        if(currentStep > 0) {
-            setStep(currentStep - 1);
-        }
-    }
-
+//////////////////////////////////////
+    const [reservationBooked, setReservationBooked] = React.useState(false);
     return (
         <div>
-            <Stepper currentStep={currentStep} numberOfSteps={numOfSteps} steps={rsvSteps}/>
-            {rsvSteps[currentStep].component}
-            <StepperController prevStep={prevStep} nextStep={nextStep} firstStep={currentStep===0} lastStep={currentStep === numOfSteps-1}/>
+            {!reservationBooked ? <ReservationForm selectedVehicle={selectedVehicle} currentUser={currentUser} setReservationBooked={setReservationBooked}/> : <p>Confirmation goes Here</p>}
         </div>
     );
 };
+
+
+
+function goToConfirmation(setReservationBooked) {
+    setReservationBooked(true);
+}

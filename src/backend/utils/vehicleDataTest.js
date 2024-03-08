@@ -10,8 +10,8 @@ numberOfDoors: 2,
 numberOfBaggage: 2,
 kilometrage: 5000,
 electricalOrFuel: "Petrol",
-availability: "In Stock"
-
+availability: "In Stock",
+Image: "https://cdn.motor1.com/images/mgl/ozYE4/s3/bulletproof-mercedes-amg-g63-by-inkas.jpg"
 }
 
 module.exports = { car };

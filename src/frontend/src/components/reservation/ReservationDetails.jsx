@@ -1,5 +1,6 @@
 import React from "react";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 export default function ReservationDetails({reservation, vehicle}) {
     // display reservation details
     const [fromDate, setFromDate] = React.useState(new Date(reservation.fromDate));

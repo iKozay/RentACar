@@ -1,5 +1,6 @@
 import React from "react";
-import ReactPlayer from 'react-player'
+// import ReactPlayer from 'react-player'
+
 import confirmVideo from '../../assets/confirm.mp4'
 
 export default function Confirmation() {

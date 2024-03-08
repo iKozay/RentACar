@@ -6,14 +6,13 @@ const { promisify } = require("util");
 const hashPassword = promisify(bcrypt.hash);
 const mongoose = require("mongoose");
 const {validateUserData} = require('./../middlewares/userValidation');
-const {authenticate} = require('./../config/passport');
-
+const { authenticate } = require("./../config/passport");
 exports.user_list = [ 
   authenticate,// Authenticating the user
   asyncHandler(async (req, res, next) => {
-  if(req.user.role!='admin') // only admins
+  // if(req.user.role!='admin') // only admins
 
-    return res.status(401).json({error:'unauthorized'})
+  //   return res.status(401).json({error:'unauthorized'})
 
   const users = await User.find({}).sort({ last_name: 1 }).exec();
   res.status(200).json(users || []);

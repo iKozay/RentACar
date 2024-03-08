@@ -2,20 +2,25 @@ import { useState, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
 import decodeToken from "../utilities/decodeToken";
 import logout from "../utilities/logout";
+import refreshToken from "../utilities/refreshToken";
+import getUser from "../utilities/getUser";
+
 const Root = () => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-  const logoutUser = () => {
-    setUser(null);
-    logout();
-    setToken(null);
+  const logoutUser = async () => {
+    await logout(setToken);
   };
   useEffect(() => {
-    setToken(localStorage.getItem("Token"));
+    setToken(localStorage.getItem("token"));
+    // refreshToken(setToken);
   }, []);
   useEffect(() => {
     if (token) {
       setUser(decodeToken(token));
+    }
+    else{
+      setUser(null);
     }
   }, [token]);
   return (
@@ -24,20 +29,26 @@ const Root = () => {
         className="mx-auto flex items-center justify-between p-6 bg-slate-300"
         aria-label="Global"
       >
-        <div className="p-4">
-          <h1 className="text-2xl font-bold text-black">Rentals.co</h1>
-        </div>
+        <Link to="/">
+          <div className="p-4">
+            <h1 className="text-2xl font-bold text-black">Rentals.co</h1>
+          </div>
+        </Link>
         {/* <div className="flex-grow flex items-center justify-center">
       <SearchBox />
     </div> */}
-            <div>
+        <div>
           <Link to="vehicles">
-          <button  style={{
+            <button
+              style={{
                 backgroundColor: "white",
                 padding: "5px",
-              }}>Browse Vehicles</button>
+              }}
+            >
+              Browse Vehicles
+            </button>
           </Link>
-            </div>
+        </div>
         {!user && (
           <Link to="/login">
             <div className="p-4">
@@ -74,13 +85,18 @@ const Root = () => {
                 padding: "3px",
                 marginLeft: "5px",
               }}
-              onClick={logoutUser}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                logoutUser(token);
+              }}
             >
               logout
             </button>
+            <button onClick={() => refreshToken(setToken)}>refresh</button>{" "}
+            <button onClick={() => getUser()}>getVehicles</button>
           </div>
         )}
-
       </nav>
       <div>
         <Outlet context={{ user, setUser, token, setToken }} />

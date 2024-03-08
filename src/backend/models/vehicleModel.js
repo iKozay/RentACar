@@ -70,6 +70,10 @@ const vehicleSchema = new Schema({
     required: false,
 
   },
+  Image:{
+    type: String,
+    required: true
+  }
 
 });
 

@@ -8,8 +8,10 @@ router.post("/login", auth_controller.auth_login);
 router.post("/signup", auth_controller.auth_signup);
 module.exports = router;
 
-router.get("/refreshToken",auth_controller.auth_refreshToken);
+router.get("/refreshToken", auth_controller.auth_refreshToken);
 
-router.get("/user", authenticate,(req, res) => {res.status(200).json(req.user)});
+router.get("/user",authenticate, (req, res) => {
+  res.status(200).json(req.user);
+});
 
-router.get('/logout',auth_controller.auth_logout)
+router.get("/logout", auth_controller.auth_logout);

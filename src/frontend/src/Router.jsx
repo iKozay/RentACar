@@ -1,17 +1,29 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
+import Login from "./Pages/Login";
+import Root from "./Pages/Root";
 import VehicleList from "./components/browsingPage/VehicleList";
-import BrowsingPage from "./Pages/BrowsingPage";
+// import BrowsingPage from "./Pages/BrowsingPage";
 const Router = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <BrowsingPage />,
+      element: <Root />,
+      children:[
+        {
+          index: true,
+          element:<div>Welcome to CarRentals</div>
+        },{
+          path: "vehicles",
+          element: <VehicleList />,
+        },
+        {
+          path:"login",
+          element: <Login/>,
+    
+        }
+      ]
     },
-    {
-      path: "vehicles",
-      element: <VehicleList />,
-    },
+   
   ]);
   return <RouterProvider router={router} />;
 };

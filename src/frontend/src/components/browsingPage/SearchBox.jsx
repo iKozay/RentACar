@@ -10,8 +10,8 @@ export default function SearchBox(){
     return(
 
         <form className="flex mt-1">
-            <div className="bg-white mx-1 flex w-1/2 p-1 border-solid h-9 border-black">
-                <input placeholder='    Location' className='mx-0 flex p-1 h-auto border-none'></input>
+            <div className="flex items-stretch border-solid h-9 border-black mx-10">
+                <input placeholder='    Location' className='flex-grow h-auto'></input>
             </div>
             <div>
                 <DatePicker showIcon selected={pickupDate} onChange={(date) => setPickupDate(date)} showTimeSelect timeFormat='HH:mm' timeIntervals={30} timeCaption='Time' dateFormat="MM/d/yyyy h:mm aa"/>

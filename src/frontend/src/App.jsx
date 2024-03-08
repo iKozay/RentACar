@@ -1,7 +1,7 @@
 import "./App.css";
 
-import VehicleList from "./components/browsingPage/VehicleList";
-import BrowserHeader from "./components/browsingPage/BrowseHeader";
+// import VehicleList from "./components/browsingPage/VehicleList";
+// import BrowserHeader from "./components/browsingPage/BrowseHeader";
 // import  CarSelection from "./components/reservation/CarSelection";
 // import Confirmation from "./components/reservation/Confirmation";
 // import LoginButton from "./LoginButton";

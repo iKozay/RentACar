@@ -1,9 +1,9 @@
 import {useState, useEffect} from "react";
 import {useOutletContext,redirect,useNavigate} from "react-router-dom";
 import fetchData from "../utilities/fetchData";
-
+import logout from "../utilities/logout";
 const Login = () => {
-    const {setToken} = useOutletContext();
+    const {token, setToken} = useOutletContext();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
@@ -11,7 +11,7 @@ const Login = () => {
     const [success, setSuccess] = useState(false);
   
     useEffect(() => {
-      const token = localStorage.getItem("token");
+      // const token = localStorage.getItem("token");
       if (token) {
         // Decode the token to get user information
         const decodedToken = decodeToken(token);
@@ -26,7 +26,7 @@ const Login = () => {
     const handlePassword = (e) => {
       setPassword(e.target.value);
     };
-  
+   
     const handleSubmit = async (e) => {
       e.preventDefault();
       setLoading(true);
@@ -38,7 +38,7 @@ const Login = () => {
         body: JSON.stringify({ username, password }),
       });
       if (response.data) {
-        localStorage.setItem("Token",response.data.token);
+        localStorage.setItem("token",response.data.token);
         setToken(response.data.token);
         redirect("/");
         setSuccess(true);

@@ -1,7 +1,7 @@
 import fetchData from "./fetchData";
-export default async function logout(setToken) {
+export default async function getUser() {
   
-    const response = await fetchData("http://localhost:3000/api/auth/logout", {
+    const response = await fetchData("http://localhost:3000/api/users", {
       method: "GET",
       credentials: "include", // Include cookies in the request
       mode: "cors", // Enable CORS
@@ -10,10 +10,7 @@ export default async function logout(setToken) {
         "Authorization": `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    if(response.data){
-         localStorage.removeItem("token");
-         setToken(null);
-         console.log("done");
-    }
+ console.log(response);
+//    console.log(response.error);
    
     }

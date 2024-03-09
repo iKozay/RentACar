@@ -252,7 +252,7 @@ Delete a user by ID
 *replace userId or reservationId with actual ID taken from database
 
 1. **View all reservations for a user**
-   - **URL**: `http://localhost:3000/api/reservations/userId`
+   - **URL**: `http://localhost:3000/api/reservations/user/:userId`
    - **Method**: `GET`
    - **Description**: Retrieves all reservations associated with the specified user ID.
    - **Required Headers**: Authorization

@@ -3,7 +3,7 @@ const router = express.Router();
 
 const reservation_controller = require('../controllers/reservationController');
 // GET users listing.
-router.get('/:userId',reservation_controller.view_user_reservations );
+router.get('/user/:userId', reservation_controller.view_user_reservations);
 // GET a reservation by its id 
 router.get('/:reservationId',reservation_controller.view_reservation)
 

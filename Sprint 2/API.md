@@ -248,3 +248,54 @@ Delete a user by ID
     * `400 bad request`: JSON object containing errors
     * `401`: Unauthorized
 
+### API Endpoints for Reservation Management
+*replace userId or reservationId with actual ID taken from database
+
+1. **View all reservations for a user**
+   - **URL**: `http://localhost:3000/api/reservations/userId`
+   - **Method**: `GET`
+   - **Description**: Retrieves all reservations associated with the specified user ID.
+   - **Required Headers**: Authorization
+
+2. **View a reservation by its ID**
+   - **URL**: `http://localhost:3000/api/reservations/reservationId`
+   - **Method**: `GET`
+   - **Description**: Retrieves a reservation by its ID.
+   - **Required Headers**: Authorization
+
+3. **Create a new reservation**
+   - **URL**: `http://localhost:3000/api/reservations`
+   - **Method**: `POST`
+   - **Description**: Creates a new reservation.
+   - **Required Headers**: Authorization
+   - **Request Body**:
+     ```json
+     {
+       "vin": "ABC123456789",
+       "reservationDate": "2024-03-05T12:00:00Z",
+       "pickupDate": "2024-03-10T10:00:00Z",
+       "returnDate": "2024-03-15T10:00:00Z",
+       "userID": "609df157b9b34014f4c9b8a1"
+     }
+     ```
+
+4. **Modify a reservation**
+   - **URL**: `http://localhost:3000/api/reservations/reservationId`
+   - **Method**: `PUT`
+   - **Description**: Modifies an existing reservation with the provided changes.
+   - **Required Headers**: Authorization
+   - **Request Body**:
+     ```json
+     {
+       "pickupDate": "2024-03-12T10:00:00Z",
+       "returnDate": "2024-03-17T10:00:00Z"
+     }
+     ```
+
+5. **Cancel a reservation**
+   - **URL**: `http://localhost:3000/api/reservations/reservationId`
+   - **Method**: `DELETE`
+   - **Description**: Cancels a reservation by its ID.
+   - **Required Headers**: Authorization
+
+

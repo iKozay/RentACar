@@ -1,8 +1,8 @@
 import fetchData from "./fetchData"
 
-export default async function createReservation({vin,userId}){
+export default async function createReservation(vin,userId){
 
-    const response = await fetchData("http://localhost:3000/api/reservations", {
+    const response = await fetchData(`http://localhost:3000/api/reservations/`, {
     method: "POST",
     mode: "cors",
     credentials: "include",
@@ -11,7 +11,7 @@ export default async function createReservation({vin,userId}){
         "Authorization": `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({
-        vin,
+        vin:vin,
         reservationDate: new Date("2024/3/8"), // Convert string to Date object
         pickupDate: new Date("2024/3/9"), // Convert string to Date object
         returnDate: new Date("2024/3/15"), // Convert string to Date object

@@ -100,8 +100,10 @@ exports.auth_login = [
         );
         
         res.cookie("refreshToken", refreshToken, {
+          origin:"http://localhost:5173",
           httpOnly: true,
           secure: true,
+          // sameSite:"none"
         });
         res.status(201).json({ token: accessToken });
       } catch (error) {

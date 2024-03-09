@@ -9,7 +9,7 @@ export default function ViewReservation() {
     console.log(user);
     useEffect(()=>{
         async function fetchReservations(){
-         let response = await fetch(`http://localhost:3000/api/reservations/${user.id}`,{
+         let response = await fetch(`http://localhost:3000/api/reservations/user/${user.id}`,{
              method: "GET",
              credentials: "include", // Include cookies in the request
              mode: "cors", // Enable CORS

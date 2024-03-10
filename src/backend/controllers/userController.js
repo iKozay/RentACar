@@ -35,6 +35,19 @@ exports.user_detail = [
 })
 ];
 
+exports.customer_list = [
+  authenticate,
+  asyncHandler(async (req, res) => {
+    if (req.user.role !== 'admin') {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const customers = await User.find({ role: 'customer' }).exec();
+    res.status(200).json(customers);
+  })
+];
+
+
 exports.user_create = [
   authenticate,
   validateUserData,

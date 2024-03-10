@@ -11,6 +11,7 @@ import ReservationDetailsPage from "./Pages/ReservationDetailsPage.jsx";
 import Dashboard from "./Pages/Dashboard.jsx";
 import Customers from "./Pages/Customers.jsx";
 import Account from "./Pages/Account.jsx";
+import Customer from "./Pages/Customer.jsx";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -56,6 +57,10 @@ const Router = () => {
                 {
                   path:"customers",
                   element:<Customers/>
+                },
+                {
+                  path:"customers/:customerId",
+                  element:<Customer/>
                 },
                 {
                   path:"account",

@@ -58,91 +58,20 @@ export default function ViewReservation() {
                     <button className={tabStyle+selectedTab(0)}  onClick={(e) => setCurrentTab(0)}>Upcoming</button>
                     <button className={tabStyle+selectedTab(1)} onClick={(e) => setCurrentTab(1)}>Past</button>
                 </div>
-                {response && currentTab === 0 ? tabContent(response) : tabContent(response)}
+                {response && currentTab === 0 ? tabContent(currentTab === 0,response) : tabContent(currentTab === 0,response)}
             </div>
         </div>
     );
 }
 
-function tabContent(response, vehicle) {
-    // const upcomingReservations = [
-    //     {
-    //         id: 34,
-    //         vehicle: 'Mclaren 765LT',
-    //         fromDate: 'Jan 25, 2024',
-    //         toDate: 'Jan 30, 2024',
-    //     },
-    //     {
-    //         id: 57,
-    //         vehicle: 'Lamborghini Aventador',
-    //         fromDate: 'Feb 25, 2024',
-    //         toDate: 'Feb 30, 2024',
-    //     },
-    //     {
-    //         id: 79,
-    //         vehicle: 'Ferrari 488 Pista',
-    //         fromDate: 'Mar 25, 2024',
-    //         toDate: 'Mar 30, 2024',
-    //     },
-    //     {
-    //         id: 90,
-    //         vehicle: 'Porsche 911 GT3',
-    //         fromDate: 'Apr 25, 2024',
-    //         toDate: 'Apr 30, 2024',
-    //     },
+function tabContent(upcoming,response) {
 
-    // ];
-    // const pastReservations = [
-    //     {
-    //         id: 18,
-    //         vehicle: 'Mercedes G-Wagon',
-    //         fromDate: 'Dec 20, 2023',
-    //         toDate: 'Jan 5, 2024',
-    //     },
-    //     {
-    //         id: 56,
-    //         vehicle: 'Lamborghini Aventador',
-    //         fromDate: 'Feb 25, 2024',
-    //         toDate: 'Feb 30, 2024',
-    //     },
-    //     {
-    //         id: 78,
-    //         vehicle: 'Ferrari 488 Pista',
-    //         fromDate: 'Mar 25, 2024',
-    //         toDate: 'Mar 30, 2024',
-    //     },
-    //     {
-    //         id: 90,
-    //         vehicle: 'Porsche 911 GT3',
-    //         fromDate: 'Apr 25, 2024',
-    //         toDate: 'Apr 30, 2024',
-    //     },
-    //     {
-    //         id: 12,
-    //         vehicle: 'Audi R8',
-    //         fromDate: 'May 25, 2024',
-    //         toDate: 'May 30, 2024',
-    //     },
-    //     {
-    //         id: 34,
-    //         vehicle: 'Mclaren 765LT',
-    //         fromDate: 'Jan 25, 2024',
-    //         toDate: 'Jan 30, 2024',
-    //     },
-    // ];
-    // var response = [];
-    // if(upcoming){
-    //     // api call to get upcoming reservations
-    //     // clear response
-    //     response = [];
-    //     response = upcomingReservations;
-    // }else{
-    //     // api call to get past reservations
-    //     response = [];
-    //     response = pastReservations;
-    // }
-
-    
+    // modify the response to only include upcoming or past reservations
+    if(upcoming){
+        response = response.filter((reservation) => new Date(reservation.returnDate) > new Date());
+    }else {
+        response = response.filter((reservation) => new Date(reservation.returnDate) < new Date());
+    }
     
     // return table displaying the reservations
     return (
@@ -161,7 +90,10 @@ function tabContent(response, vehicle) {
                 {response.map((reservation) => (
                         <tr key={reservation._id} className={"odd:bg-white even:bg-gray-50 border-b"}>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation._id}</td>
-                            <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.vehicle.make}</td>
+                            <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>
+                                <img src={reservation.vehicle.Image} alt="Vehicle" width="15%" height="15%" className={"float-left"}/>
+                                <p>{reservation.vehicle.make}</p>
+                            </td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.pickupDate}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.returnDate}</td>
                             <td className="font-medium text-blue-600 hover:underline ">

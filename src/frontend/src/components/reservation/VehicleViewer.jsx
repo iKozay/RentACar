@@ -9,8 +9,8 @@ export default function VehicleViewer({vehicle}) {
     // set vehicle to date to feb 6rd 2024
     //////////////////
     // Temporary code
-    vehicle.fromDate = new Date("2024/3/9").toDateString();
-    vehicle.toDate = new Date("2024/3/15").toDateString();
+    vehicle.pickupDate = new Date("2024/4/9").toDateString();
+    vehicle.returnDate = new Date("2024/4/15").toDateString();
     //////////////////
     return (
         <div className="flex justify-center">
@@ -24,7 +24,7 @@ export default function VehicleViewer({vehicle}) {
                         <img src={vehicle.Image}/>
                     </div>
                     <div className={"flex justify-center"}>
-                        <div className="mb-2 text-2xl font-bold tracking-tight">{vehicle.fromDate} - {vehicle.toDate} ({computeNumOfDays(vehicle.fromDate,vehicle.toDate)} days)</div>
+                        <div className="mb-2 text-2xl font-bold tracking-tight">{vehicle.pickupDate} - {vehicle.returnDate} ({computeNumOfDays(vehicle.pickupDate,vehicle.returnDate)} days)</div>
                     </div>
                     <div className={"flex justify-center"}>
                         <div className="mb-3 font-normal text-stone-600 inline-block">
@@ -43,7 +43,7 @@ export default function VehicleViewer({vehicle}) {
                     <div className={"flex justify-center pb-1"}>
                         <Link to="/reservation/confirmation">
                             <button className={'bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded'}
-                                onClick={()=>createReservation(vehicle._id,user.id)}>Book Vehicle</button>
+                                onClick={()=>createReservation(vehicle._id,user.id,vehicle.pickupDate,vehicle.returnDate)}>Book Vehicle</button>
                         </Link>
                     </div>
                     <hr className={'border-1 border-stone-300'}/>

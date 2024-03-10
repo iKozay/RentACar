@@ -150,12 +150,15 @@ exports.auth_refreshToken = async (req, res, next) => {
   }
 };
 
+exports.auth_checkToken=[
+  authenticate
+]
 exports.auth_logout = [
-  authenticate,
+  // authenticate,
   (req, res, next) => {
    
     try {
-      res.clearCookie("refreshToken");
+      // res.clearCookie("refreshToken");
 
       req.session.destroy((err) => {
         if (err) {

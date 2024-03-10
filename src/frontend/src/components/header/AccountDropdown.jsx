@@ -34,10 +34,10 @@ function showAccountButton(setToken,user){
             {isDropdownVisible && (
                 <div className={"absolute overflow-auto z-10 bg-gray-800 text-white p-2"}>
                     <p className={"p-2 block cursor-pointer hover:bg-gray-600"}>My Account</p>
-                    <p className={"p-2 block cursor-pointer hover:bg-gray-600"} onClick={()=> window.open("/user/reservation", "_self")}>My Reservations</p>
-                    {(user && user.role==="admin") &&  <Link to="admin"><p className={"p-2 block cursor-pointer hover:bg-slate-600"}>Admin Dashboard</p></Link>}
+                    <Link to="/user/reservation"><p className={"p-2 block cursor-pointer hover:bg-gray-600"}>My Reservations</p></Link>
+                    {(user && user.role==="admin") &&  <Link to="/admin"><p className={"p-2 block cursor-pointer hover:bg-slate-600"}>Admin Dashboard</p></Link>}
                     <hr/>
-                    <p className={"p-2 block cursor-pointer hover:bg-slate-600"} onClick={()=>logoutAccount(setToken)}>Logout</p>
+                    <Link to="/"><p className={"p-2 block cursor-pointer hover:bg-slate-600"} onClick={()=>logoutAccount(setToken)}>Logout</p></Link>
                     
                 </div>
             )}
@@ -54,5 +54,4 @@ function showLoginButton() {
 // async function calling logout function
 async function logoutAccount(setToken){
     await logout(setToken);
-    window.open("/", "_self");
 }

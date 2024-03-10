@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from 'react-router-dom';
 import { UserContext } from "../../Pages/Root";
 import {useContext, useState, useEffect} from "react";
 export default function ViewReservation() {
@@ -34,7 +34,9 @@ export default function ViewReservation() {
         <div>
             <div className="p-6 my-6 mx-10 bg-white rounded-md shadow-2xl shadow-stone-300">
                 <div>
-                    <button className="float-right ml-20 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={(e)=>window.open("/", "_self")}>Make Reservation</button>
+                    <Link to="/">
+                        <button className="float-right ml-20 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Make Reservation</button>
+                    </Link>
                 </div>
                 <div className="overflow-hidden border">
                     <button className={tabStyle+selectedTab(0)}  onClick={(e) => setCurrentTab(0)}>Upcoming</button>
@@ -141,13 +143,15 @@ function tabContent(response) {
                 </thead>
                 <tbody>
                 {response.map((reservation) => (
-                        <tr key={reservation.id} className={"odd:bg-white even:bg-gray-50 border-b"}>
+                        <tr key={reservation._id} className={"odd:bg-white even:bg-gray-50 border-b"}>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation._id}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.pickupDate}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.returnDate}</td>
                             <td className="font-medium text-blue-600 hover:underline ">
-                                <button className="font-medium text-blue-600 hover:underline" onClick={(e)=>goToReservationDetails(reservation._id)}>View</button>
+                                <Link to={"/reservation/details/"+reservation._id}>
+                                    <button className="font-medium text-blue-600 hover:underline">View</button>
+                                </Link>
                             </td>
                         </tr>
                     )
@@ -156,8 +160,4 @@ function tabContent(response) {
             </table>
         </div>
     );
-}
-
-function goToReservationDetails(reservationID) {
-    window.open("/reservation/details/"+reservationID, "_self");
 }

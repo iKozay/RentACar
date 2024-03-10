@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ReservationDetails from "./ReservationDetails.jsx";
 import VehicleDetails from "./VehicleDetails.jsx";
 
@@ -48,8 +49,8 @@ export default function ModifyReservation() {
                 </tr>
                 <tr>
                     <td>
-                        <button className="mt-5 float-left bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={(e)=>window.open("http://localhost:5173/user/reservation", "_self")}>Back</button>
-                        <button className="mt-5 float-right bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={(e)=>cancelReservation(reservationId)}>Cancel</button>
+                        <Link to="/user/reservation"><button className="mt-5 float-left bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Back</button></Link>
+                        <Link to="/user/reservation"><button className="mt-5 float-right bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={(e)=>cancelReservation(reservationId)}>Cancel</button></Link>
                     </td>
                 </tr>
             </table>
@@ -61,5 +62,5 @@ function cancelReservation(reservationId) {
     //////////////////////////////////////////////////////////////
     // API call to cancel reservation
     //////////////////////////////////////////////////////////////
-    window.open("http://localhost:5173/user/reservation", "_self");
+
 }

@@ -2,22 +2,23 @@ import React from 'react';
 import LoginButton from "./LoginButton";
 import logout from "../../utilities/logout";
 import {useContext} from 'react';
+import { Link } from 'react-router-dom';
 import {UserContext} from "./../../Pages/Root";
 
 export default function AccountDropdown() {
+    const {user} = useContext(UserContext);
+    const {setToken,token} = useContext(UserContext);
 
-    const {setToken} = useContext(UserContext);
-
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
     const isLoggedIn = (token !== null);
     if(isLoggedIn){
-        return showAccountButton(setToken);
+        return showAccountButton(setToken,user);
     }else {
         return showLoginButton();
     }
 
 }
-function showAccountButton(setToken){
+function showAccountButton(setToken,user){
     const [isDropdownVisible, setDropdownVisible] = React.useState(false);
     window.onclick = function(event) {
         if (!event.target.matches('.relative')) {
@@ -33,9 +34,11 @@ function showAccountButton(setToken){
             {isDropdownVisible && (
                 <div className={"absolute overflow-auto z-10 bg-gray-800 text-white p-2"}>
                     <p className={"p-2 block cursor-pointer hover:bg-gray-600"}>My Account</p>
-                    <p className={"p-2 block cursor-pointer hover:bg-gray-600"} onClick={(e)=> window.open("/user/reservation", "_self")}>My Reservations</p>
+                    <p className={"p-2 block cursor-pointer hover:bg-gray-600"} onClick={()=> window.open("/user/reservation", "_self")}>My Reservations</p>
+                    {(user && user.role==="admin") &&  <Link to="admin"><p className={"p-2 block cursor-pointer hover:bg-slate-600"}>Admin Dashboard</p></Link>}
                     <hr/>
-                    <p className={"p-2 block cursor-pointer hover:bg-slate-600"} onClick={(e)=>logoutAccount(setToken)}>Logout</p>
+                    <p className={"p-2 block cursor-pointer hover:bg-slate-600"} onClick={()=>logoutAccount(setToken)}>Logout</p>
+                    
                 </div>
             )}
         </div>

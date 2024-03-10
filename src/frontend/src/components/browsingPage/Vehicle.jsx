@@ -5,7 +5,7 @@ import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 const Vehicle = ({vehicle}) => {
     return (
-        <a key={vehicle._id} href={vehicle.href} className="flex border border-gray-400 rounded-lg overflow-hidden h-48 lg:h-100 hover:border-gray-900 duration-200 p-1 group">
+        <div key={vehicle._id} href={vehicle.href} className="flex border border-gray-400 rounded-lg overflow-hidden h-48 lg:h-100 hover:border-gray-900 duration-200 p-1 group">
         <div className="basis-2/5 overflow-hidden">
           <img
             src={vehicle.Image}
@@ -24,7 +24,7 @@ const Vehicle = ({vehicle}) => {
 
         </div>
  
-      </a>
+      </div>
      
     )
 }

@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Pages/Login";
 import Root from "./Pages/Root";
-import VehicleList from "./Pages/VehicleList";
+import BrowsingPage from "./Pages/BrowsingPage"
 
 
 import MakeReservationPage from "./Pages/MakeReservationPage";
@@ -21,7 +21,7 @@ const Router = () => {
         // },
         {
           index: true,
-          element: <VehicleList />,
+          element: <BrowsingPage />,
         },
         {
           path: "login",

@@ -9,17 +9,20 @@ export default function SearchBox(){
 
     return(
 
-        <form className="flex mt-1">
-            <div className="bg-white mx-1 flex w-1/2 p-1 border-solid h-9 border-black">
-                <input placeholder='    Location' className='mx-0 flex p-1 h-auto border-none'></input>
-            </div>
-            <div>
-                <DatePicker showIcon selected={pickupDate} onChange={(date) => setPickupDate(date)} showTimeSelect timeFormat='HH:mm' timeIntervals={30} timeCaption='Time' dateFormat="MM/d/yyyy h:mm aa"/>
-            </div>
-            <div>
-                <DatePicker showIcon selected={dropOffDate} onChange={(date) => setDropOffDate(date)} showTimeSelect timeFormat='HH:mm' timeIntervals={30} timeCaption='Time' dateFormat="MM/d/yyyy h:mm aa"/>
-            </div>
-        </form>
+        <div className='flex my-4 justify-center mb-10'>
+            <form className="flex mt-10 bg-slate-800 rounded-full p-4">
+                <div className="flex items-stretch border-solid h-9 border-black mx-1">
+                    <input placeholder='Location' className='flex-grow h-auto'></input>
+                </div>
+                <div>
+                    <DatePicker showIcon selected={pickupDate} onChange={(date) => setPickupDate(date)} showTimeSelect timeFormat='HH:mm' timeIntervals={30} timeCaption='Time' dateFormat="MM/d/yyyy h:mm aa"/>
+                </div>
+                <div>
+                    <DatePicker showIcon selected={dropOffDate} onChange={(date) => setDropOffDate(date)} showTimeSelect timeFormat='HH:mm' timeIntervals={30} timeCaption='Time' dateFormat="MM/d/yyyy h:mm aa"/>
+                </div>
+                <button type='button' className='text-black bg-white hover:bg-neutral-200 font-medium rounded-full px-4 py-2 ml-2'>Search</button>
+            </form>
+        </div>
 
     );
   

@@ -20,6 +20,7 @@ const Root = () => {
     async function updateToken(){
 
     const isTokenValid =await isTokenValide();
+    console.log(isTokenValid);
     if(!isTokenValid) await logoutUser();
     setToken(localStorage.getItem("token"));
     }

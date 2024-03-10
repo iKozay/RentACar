@@ -18,3 +18,4 @@ router.put('/:userId',user_controller.user_update)
 router.delete('/:userId',user_controller.user_delete)
 module.exports = router;
 
+router.get('/customers',user_controller.customer_list);

@@ -42,11 +42,12 @@ export default function Customers() {
                 </div>
                 {success ? (
                     customers.map((customer, index) => (
+                        (customer.role=="customer")?
                         <Link key={customer._id} to={`${customer._id}`} className={`flex p-2 ${index % 2 === 0 ? 'bg-gray-200' : 'bg-white'} border hover:border-gray-700`}>
                             <div className="flex-1">{customer.username}</div>
                             <div className="flex-1">{customer["full_name"]}</div>
                             <div className="flex-1">{customer.email}</div>
-                        </Link>
+                        </Link>:""
                     ))
                 ) : (
                     <div className="p-2">{loading ? "Loading..." : "Failed to load customers"}</div>

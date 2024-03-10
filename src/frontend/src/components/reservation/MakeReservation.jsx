@@ -40,16 +40,13 @@ export default function MakeReservation() {
         // other info here
     };
 
-    const goToConfirmation = () => {
-        window.open("/reservation/confirmation", "_self");
-    };
 
     return (
         <div>
             {loading && <div>Loading</div>}
             {!loading && selectedVehicle && (
                 <div>
-                    <ReservationForm selectedVehicle={selectedVehicle} currentUser={currentUser} setReservationBooked={goToConfirmation} />
+                    <ReservationForm selectedVehicle={selectedVehicle} currentUser={currentUser} />
                 </div>
             )}
         </div>

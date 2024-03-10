@@ -34,4 +34,6 @@ userSchema.virtual('full_name').get(function(){
 userSchema.virtual('url').get(function(){
     return `/api/users/${this._id}`;
 })
+
+userSchema.set("toJSON", { getters: true });
 module.exports = mongoose.model('User',userSchema);

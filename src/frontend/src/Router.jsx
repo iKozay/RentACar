@@ -8,8 +8,9 @@ import MakeReservationPage from "./Pages/MakeReservationPage";
 import ConfirmationPage from "./Pages/ConfirmationPage";
 import ViewReservationPage from "./Pages/ViewReservationPage";
 import ReservationDetailsPage from "./Pages/ReservationDetailsPage.jsx";
-import AdminVerification from "./Pages/AdminVerification.jsx";
 import Dashboard from "./Pages/Dashboard.jsx";
+import Customers from "./Pages/Customers.jsx";
+import Account from "./Pages/Account.jsx";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -46,16 +47,22 @@ const Router = () => {
           path: "reservation/details/:reservationId",
           element: <ReservationDetailsPage />,
         },
-        {
-          path:"admin",
-          element:<AdminVerification/>,
-          children:[
-            {
-              index: true,
-              element:<Dashboard/>
+       
+        { 
+            path:"dashboard",
+            element:<Dashboard/>,
+            children:[
+       
+                {
+                  path:"customers",
+                  element:<Customers/>
+                },
+                {
+                  path:"account",
+                  element:<Account/>
+                }
+              ]
             }
-          ]
-        }
       ],
     },
   ]);

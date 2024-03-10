@@ -1,13 +1,13 @@
 import React from 'react';
 import LoginButton from "./LoginButton";
-import {useState, useEffect} from "react";
-import {useOutletContext} from "react-router-dom";
 import logout from "../../utilities/logout";
+import {useContext} from 'react';
+import {UserContext} from "./../../Pages/Root";
 
-export default function AccountDropdown(LogIn) {
-    // get token using outlet context
-//    const outlet = useOutletContext();
-    const setToken = LogIn.LogIn.LogIn;
+export default function AccountDropdown() {
+
+    const {setToken} = useContext(UserContext);
+
     const token = localStorage.getItem("token");
     const isLoggedIn = (token !== null);
     if(isLoggedIn){

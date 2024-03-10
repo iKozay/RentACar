@@ -1,6 +1,6 @@
 import React from "react";
 import ReactPlayer from 'react-player'
-
+import { Link } from 'react-router-dom';
 import confirmVideo from '../../assets/confirm.mp4'
 
 export default function Confirmation() {
@@ -20,10 +20,7 @@ export default function Confirmation() {
                 controls = {false}
                 playing={true}
             />
-            <button className="mt-2 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={goToReserveration}>Go to My Reservation</button>
+            <Link to="/user/reservation"><span className="mt-2 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Go to My Reservation</span></Link>
         </div>
     );
-}
-function goToReserveration(){
-    window.open("/user/reservation", "_self");
 }

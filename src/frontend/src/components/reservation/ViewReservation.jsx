@@ -91,11 +91,11 @@ function tabContent(upcoming,response) {
                         <tr key={reservation._id} className={"odd:bg-white even:bg-gray-50 border-b"}>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation._id}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>
-                                <img src={reservation.vehicle.Image} alt="Vehicle" width="15%" height="15%" className={"float-left"}/>
+                                <img src={reservation.vehicle.Image} alt="Vehicle" width="12%" height="12%" className={"float-left"}/>
                                 <p>{reservation.vehicle.make}</p>
                             </td>
-                            <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.pickupDate}</td>
-                            <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.returnDate}</td>
+                            <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{new Date(reservation.pickupDate).toISOString().split('T')[0]}</td>
+                            <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{new Date(reservation.returnDate).toISOString().split('T')[0]}</td>
                             <td className="font-medium text-blue-600 hover:underline ">
                                 <Link to={"/reservation/details/"+reservation._id}>
                                     <button className="font-medium text-blue-600 hover:underline">View</button>

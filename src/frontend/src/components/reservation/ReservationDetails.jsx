@@ -1,6 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import modifyReservation from "../../utilities/modifyReservation";
 export default function ReservationDetails({reservation, vehicle}) {
     // display reservation details
     const [fromDate, setFromDate] = React.useState(new Date(reservation.pickupDate));
@@ -15,17 +16,14 @@ export default function ReservationDetails({reservation, vehicle}) {
             {(new Date(reservation.returnDate) > new Date()) ? <DatePicker selected={toDate} onChange={(date) => setToDate(date)} showTimeSelect timeFormat='HH:mm' timeIntervals={30} timeCaption='Time' dateFormat="MM/d/yyyy h:mm aa"/>
             : <p className={"font-bold"}>{toDate.toDateString()}</p>}
             <p>Total: ${computeTotal(fromDate, toDate, vehicle.price)}</p>
-            {(new Date(reservation.returnDate) > new Date()) ? <button className="float-right ml-3 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={(e)=>modifyReservation(reservation._id,fromDate,toDate)}>Modify</button>
+            {(new Date(reservation.returnDate) > new Date()) ? <button className="float-right ml-3 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={(e)=>modifyRsv(reservation._id,fromDate,toDate)}>Modify</button>
             : null}
         </div>
     );
 }
 
-function modifyReservation(reservationId, fromDate, toDate) {
-    /////////////////////
-    // API call to modify reservation
-    /////////////////////
-    console.log("Reservation modified");
+async function modifyRsv(reservationId, fromDate, toDate) {
+    await modifyReservation(reservationId, fromDate, toDate);
     // reload the page
     location.reload();
 }

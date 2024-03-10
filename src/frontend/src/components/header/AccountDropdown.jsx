@@ -29,13 +29,13 @@ function showAccountButton(setToken,user){
         <div>
             <button id="accountBtn" className="relative inline-block bg-white text-black font-bold py-2 px-4 rounded"
                     onClick={() => setDropdownVisible(!isDropdownVisible)}>
-                My Account
+                {user && user.username}
             </button>
             {isDropdownVisible && (
                 <div className={"absolute overflow-auto z-10 bg-gray-800 text-white p-2"}>
                     <p className={"p-2 block cursor-pointer hover:bg-gray-600"}>My Account</p>
-                    <Link to="/user/reservation"><p className={"p-2 block cursor-pointer hover:bg-gray-600"}>My Reservations</p></Link>
-                    {(user && user.role==="admin") &&  <Link to="/admin"><p className={"p-2 block cursor-pointer hover:bg-slate-600"}>Admin Dashboard</p></Link>}
+                    <p className={"p-2 block cursor-pointer hover:bg-gray-600"} onClick={()=> window.open("/user/reservation", "_self")}>My Reservations</p>
+                    {(user && user.role === "admin") &&  <Link to="dashboard"><p className={"p-2 block cursor-pointer hover:bg-slate-600"}>Admin Dashboard</p></Link>}
                     <hr/>
                     <Link to="/"><p className={"p-2 block cursor-pointer hover:bg-slate-600"} onClick={()=>logoutAccount(setToken)}>Logout</p></Link>
                     

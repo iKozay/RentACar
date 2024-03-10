@@ -7,7 +7,7 @@ import getUser from "../utilities/getUser";
 import Header from "../components/header/Header.jsx";
 import { createContext, useContext } from "react";
 import styles from "./../styles/Root.module.css";
-
+import isTokenValide from "../utilities/isTokenValide.js";
 export const UserContext = createContext(null);
 const Root = () => {
   const [user, setUser] = useState(null);
@@ -17,7 +17,13 @@ const Root = () => {
     // <Navigate to="/" replace />
   };
   useEffect(() => {
+    async function updateToken(){
+
+    const isTokenValid =await isTokenValide();
+    if(!isTokenValid) await logoutUser();
     setToken(localStorage.getItem("token"));
+    }
+    updateToken();
   }, []);
   
   useEffect(() => {

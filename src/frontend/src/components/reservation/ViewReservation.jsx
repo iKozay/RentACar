@@ -8,6 +8,19 @@ export default function ViewReservation() {
     const [response,setResponse] = useState([]);
     console.log(user);
     useEffect(()=>{
+        async function fetchVehicle(vin){
+            let vehicle = await fetch(`http://localhost:3000/api/vehicles/vehicle/${vin}`,{
+                method: "GET",
+                credentials: "include", // Include cookies in the request
+                mode: "cors", // Enable CORS
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                }
+            });
+            vehicle = await vehicle.json();
+            return vehicle;
+        }
         async function fetchReservations(){
          let response = await fetch(`http://localhost:3000/api/reservations/user/${user.id}`,{
              method: "GET",
@@ -19,10 +32,13 @@ export default function ViewReservation() {
              }
          });
          response = await response.json();
+            for(let i = 0; i < response.length; i++){
+                let vehicle = await fetchVehicle(response[i].vin);
+                response[i].vehicle = vehicle;
+            }
          setResponse(response);
-         console.log(response);
- 
         }
+
         fetchReservations();
      },[user])
     const tabStyle = "p-3 transition duration-300 ease-in-out w-1/2";
@@ -48,7 +64,7 @@ export default function ViewReservation() {
     );
 }
 
-function tabContent(response) {
+function tabContent(response, vehicle) {
     // const upcomingReservations = [
     //     {
     //         id: 34,
@@ -145,7 +161,7 @@ function tabContent(response) {
                 {response.map((reservation) => (
                         <tr key={reservation._id} className={"odd:bg-white even:bg-gray-50 border-b"}>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation._id}</td>
-                            <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{}</td>
+                            <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.vehicle.make}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.pickupDate}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation.returnDate}</td>
                             <td className="font-medium text-blue-600 hover:underline ">

@@ -9,8 +9,8 @@ export default function VehicleViewer({vehicle}) {
     // set vehicle to date to feb 6rd 2024
     //////////////////
     // Temporary code
-    vehicle.fromDate = new Date(2024, 2, 1).toDateString();
-    vehicle.toDate = new Date(2024, 2, 6).toDateString();
+    vehicle.fromDate = new Date("2024/3/9").toDateString();
+    vehicle.toDate = new Date("2024/3/15").toDateString();
     //////////////////
     return (
         <div className="flex justify-center">

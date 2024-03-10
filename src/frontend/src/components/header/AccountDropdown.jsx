@@ -29,7 +29,7 @@ function showAccountButton(setToken,user){
         <div>
             <button id="accountBtn" className="relative inline-block bg-white text-black font-bold py-2 px-4 rounded"
                     onClick={() => setDropdownVisible(!isDropdownVisible)}>
-                My Account
+                {user && user.username}
             </button>
             {isDropdownVisible && (
                 <div className={"absolute overflow-auto z-10 bg-gray-800 text-white p-2"}>

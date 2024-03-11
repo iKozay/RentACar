@@ -67,7 +67,7 @@ export default function ModifyReservation() {
                     <tr>
                         <td>
                             <Link to="/user/reservation"><button className="mt-5 float-left bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Back</button></Link>
-                            { (new Date(response.returnDate) > new Date()) ? <button className="mt-5 float-right bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={(e)=>cancel(reservationId,setCancelConfirmation)}>Cancel</button>
+                            { (new Date(response.returnDate) > new Date()) ? <button className="mt-5 float-right bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={(e)=>cancel(reservationId)}>Cancel</button>
                             : null}
                         </td>
                     </tr>
@@ -78,7 +78,7 @@ export default function ModifyReservation() {
 }
 
 
-function cancel(reservationId,setCancelConfirmation) {
+function cancel(reservationId) {
 // show confirmation dialog
     if (window.confirm("Are you sure you want to cancel this reservation?")) {
         cancelReservation(reservationId);

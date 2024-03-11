@@ -16,14 +16,13 @@ Members Contribution For Sprint 2
 ### Mohamed Saidi - 40248103 - Backend DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
+| Implemented Create Vehicle functionality |    4h       |    Had to solve many problemes related to the database and to the project structure proposed by abderrahmane|
+| Implemented Read Vehicle functionality   |   1h        |                                                                 |
+| Implemented Update Vehicle functionality |   1h        |                                                                 |
+| Implemented Delete Vehicle functionality |   1h        |                                                                 |
+| Implemeted the pipeline on Github for Vehicle functionalities   |  5h         |                                                                 |
+| Implemented the unit testing for Vehicles functionalities                           |   2h        |                                                                 |
+| Documentation                            |      10h     |                                                                 |
 
 
 ### Miskat Mahmud - 40250110 - Backend DEV

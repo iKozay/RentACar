@@ -40,4 +40,11 @@ Goal: At the end of Sprint 3, the system will provide complete functionality for
 | #125  | Process Payment                          |              | US-11: Check-in Process                      |          |                  |              |
 | #125  | Complete Check-in Process                |              | US-11: Check-in Process                      |          |                  |              |
 | #125  | Implement check-out process             | 7            |  US-11: Check-in Process |          |                  |              |
+| #122  | Implement Branch Locator Page            |              | US-10: Find a Branch |          |                  |              |
+| #122  | Implement Search Functionality           |              |  US-10: Find a Branch                     |          |                  |              |
+| #122  | Handle Postal Code Search                |              |  US-10: Find a Branch                     |          |                  |              |
+| #122  | Handle Airport Name/Code Search         |              |   US-10: Find a Branch                    |          |                  |              |
+| #122  | Sort Branches by Proximity              |              |   US-10: Find a Branch                    |          |                  |              |
+| #122  | Display Results                          |              |  US-10: Find a Branch                     |          |                  |              |
+| #122  | Handle No Results Found                  |              |  US-10: Find a Branch                     |          |                  |              |
 

@@ -29,5 +29,15 @@ Goal: At the end of Sprint 3, the system will provide complete functionality for
 
 ## Task Breakdown
 
-Issue | Task Title | Story Points | Associated User Story | Priority | Estimated effort | Dependencies
--- | -- | -- | -- | -- | -- | -- |
+| Issue | Task Title                               | Story Points | Associated User Story | Priority | Estimated Effort | Dependencies |
+|-------|------------------------------------------|--------------|-----------------------|----------|------------------|--------------|
+| #125  | Implement user authentication            |              | US-11: Check-in Process |          |                  |              |
+| #125  | Develop branch location search           |              | US-11: Check-in Process                     |          |                  |              |
+| #125  | Verify Customer Information              |              | US-11: Check-in Process |        |                  |              |
+| #125  | Check Reservation Status                 |              | US-11: Check-in Process                      |          |                  |              |
+| #125  | Create a New Reservation (if necessary)  |              | US-11: Check-in Process                      |          |                  |              |
+| #125  | Review Rental Agreement                  |              | US-11: Check-in Process                      |          |                  |              |
+| #125  | Process Payment                          |              | US-11: Check-in Process                      |          |                  |              |
+| #125  | Complete Check-in Process                |              | US-11: Check-in Process                      |          |                  |              |
+| #125  | Implement check-out process             | 7            |  US-11: Check-in Process |          |                  |              |
+

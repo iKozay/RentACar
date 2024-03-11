@@ -47,4 +47,26 @@ Goal: At the end of Sprint 3, the system will provide complete functionality for
 | #122  | Sort Branches by Proximity              |              |   US-10: Find a Branch                    |          |                  |              |
 | #122  | Display Results                          |              |  US-10: Find a Branch                     |          |                  |              |
 | #122  | Handle No Results Found                  |              |  US-10: Find a Branch                     |          |                  |              |
+| #172  | Confirm Return of Rental Vehicle         |              | US-12: Check-out Process        |          |                  |              |
+| #172      | Verify Vehicle Details                   |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Verify Vehicle Details                   |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Compare with Reservation Information     |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Inspect for Damages                      |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Use Digital Inspection Tools             |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Document Damages                         |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Review Additional Charges                |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Identify Late Fees, Fuel Charges, etc.   |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Review Charges with Customer             |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Process Final Payment                    |              |  US-12: Check-out Process                     |          |                  |              |
+|  #172     | Calculate Final Rental Cost              |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Collect Payment                          |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Provide Receipt                          |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Provide Necessary Documentation          |              |  US-12: Check-out Process                     |          |                  |              |
+| #172      | Offer Digital Copies of Documents        |              |  US-12: Check-out Process                     |          |                  |              |
+|  #172     | Explain Terms and Conditions             |              |   US-12: Check-out Process                    |          |                  |              |
+| #172      | Complete Check-out Process               |              |   US-12: Check-out Process                    |          |                  |              |
+| #172      | Update Reservation Status                |              |   US-12: Check-out Process                    |          |                  |              |
+|  #172     | Return Deposited Funds                   |              |   US-12: Check-out Process                    |          |                  |              |
+|  #172     | Hand Over Documentation                  |              |   US-12: Check-out Process                    |          |                  |              |
+|  #172     | Express Gratitude to Customer            |              |   US-12: Check-out Process                    |          |                  |              |
 

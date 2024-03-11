@@ -248,6 +248,68 @@ Delete a user by ID
     * `400 bad request`: JSON object containing errors
     * `401`: Unauthorized
 
+
+### API Endpoints for Create a Vehicle
+
+1. **Create a new Vehicle**
+   - **URL**: `http://localhost:3000/api/vehicles/add`
+   - **Method**: `POST`
+   - **Description**: Creates a new Vehicle and stores it in the database.
+   - **Required Headers**: Authorization
+   - **Request body**:
+    ```
+    {
+    "make": "Audi",
+    "model": "A4",
+    "price": 35000,
+    "transmisssion": "Automatic",
+    "numberOfSeats": 5,
+    "address": "123 Main Street, Anytown, USA",
+    "colour": "Black",
+    "numberOfDoors": 4,
+    "numberOfBaggage": 2,
+    "kilometrage": 25000,
+    "electricalOrFuel": "Fuel",
+    "Avaibality": "Available",
+    "Image": "https://example.com/audi_a4.jpg"
+    }
+    ```
+
+
+2. **View all Vehicles**
+   - **URL**: `http://localhost:3000/api/vehicles/vehicles`
+   - **Method**: `GET`
+   - **Description**: Retrieves all Vehicles in the database.
+   - **Required Headers**: Authorization
+
+3. **View a Vehicle by its ID**
+   - **URL**: `http://localhost:3000/api/vehicles/vehicle/:id`
+   - **Method**: `GET`
+   - **Description**: Retrieves the vehicle with the mentioned id.
+   - **Required Headers**: Authorization
+     
+
+4. **Update a Vehicle**
+   - **URL**: `http://localhost:3000/api/vehicles/update/:id`
+   - **Method**: `PUT`
+   - **Description**: Modifies an existing vehicle with the provided changes.
+   - **Required Headers**: Authorization
+   - **Request Body**:
+     ```
+     {
+       "transmisssion": "Manual"
+     }
+     ```
+
+5. **Delete a Vehicle**
+   - **URL**: `http://localhost:3000/api/vehicles/delete/:id`
+   - **Method**: `DELETE`
+   - **Description**: Deletes a vehicle by its ID.
+   - **Required Headers**: Authorization
+  
+
+
+
 ### API Endpoints for Reservation Management
 *replace userId or reservationId with actual ID taken from database
 

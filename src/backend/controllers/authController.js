@@ -151,7 +151,9 @@ exports.auth_refreshToken = async (req, res, next) => {
 };
 
 exports.auth_checkToken=[
-  authenticate
+  authenticate,(req,res)=>{
+    res.status(201).json({message:"valid token"});
+  }
 ]
 exports.auth_logout = [
   // authenticate,

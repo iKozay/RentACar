@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const { promisify } = require("util");
 const hashPassword = promisify(bcrypt.hash);
 const mongoose = require("mongoose");
-const {validateUserData} = require('./../middlewares/userValidation');
+const {validateUserData, validateUpdateUserData} = require('./../middlewares/userValidation');
 const { authenticate } = require("./../config/passport");
 exports.user_list = [ 
   authenticate,// Authenticating the user
@@ -91,7 +91,7 @@ exports.user_create = [
 
 exports.user_update = [
   authenticate,
-  validateUserData,
+  validateUpdateUserData,
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
@@ -99,24 +99,41 @@ exports.user_update = [
       return res.status(400).json({ errors: errors.array() });
     }
     try {
-      const hashedPassword = await hashPassword(req.body.password, 10);
-      const updates = new User({
-        _id:req.params.userId,
-        username:req.body.username,
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        password: hashedPassword,
-        email: req.body.email,
-        phone_number: req.body.phone_number,
-        date_of_birth: req.body.date_of_birth,
-        // Assuming the profile picture is optional and may not be provided
-        profile_picture: req.body.profile_picture || null,
-        role:req.body.role
-      });
+      let updates = {};
+      // Check if each field is provided in the request body and add it to updates if present
+      if (req.body.username) {
+        updates.username = req.body.username;
+      }
+      if (req.body.first_name) {
+        updates.first_name = req.body.first_name;
+      }
+      if (req.body.last_name) {
+        updates.last_name = req.body.last_name;
+      }
+      if (req.body.email) {
+        updates.email = req.body.email;
+      }
+      if (req.body.phone_number) {
+        updates.phone_number = req.body.phone_number;
+      }
+      if (req.body.date_of_birth) {
+        updates.date_of_birth = req.body.date_of_birth;
+      }
+      if (req.body.profile_picture) {
+        updates.profile_picture = req.body.profile_picture;
+      }
+      if (req.body.role) {
+        updates.role = req.body.role;
+      }
+      // Check if password is provided, hash it and add it to updates
+      if (req.body.password) {
+        const hashedPassword = await hashPassword(req.body.password, 10);
+        updates.password = hashedPassword;
+      }
       const updatedUser = await User.findOneAndUpdate(
         { _id: req.params.userId },
         updates,
-        {new: true}
+        { new: true }
       );
       if (!updatedUser) {
         return res.status(404).json({ error: "User not found" });
@@ -124,15 +141,14 @@ exports.user_update = [
       res.status(200).json(updatedUser);
     } catch (error) {
       if (error.code === 11000) {
-        return res.status(400).json({ error: "duplicate key" });
+        return res.status(400).json({ error: "Duplicate key" });
       } else {
-        return res.status(400).json({ error: "Mongodb related error"});
+        return res.status(400).json({ error: "MongoDB related error" });
       }
-      // Other errors
-      res.status(500).json({ error: "Internal Server Error" });
     }
   }),
 ];
+
 
 exports.user_delete = asyncHandler(async (req,res,next) => {
     const userId = req.params.userId;

@@ -19,7 +19,7 @@ Members Contribution For Sprint 2
 | Implemented Delete Vehicle functionality |   1h        |                                                                 |
 | Implemeted the pipeline on Github for Vehicle functionalities   |  5h         |                                                                 |
 | Implemented the unit testing for Vehicles functionalities                           |   2h        |                                                                 |
-| Documentation                            |      1h     |                                                                 |
+| Documentation                            |      3h     |                                                                 |
 
 
 ### Miskat Mahmud - 40250110 - Backend DEV

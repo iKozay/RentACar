@@ -1,7 +1,5 @@
 Members Contribution For Sprint 2
 
-<<<<<<< HEAD
-
 ### Zeiad Badawy - 40247477 - Scrum master/Front-end DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
@@ -10,19 +8,6 @@ Members Contribution For Sprint 2
 |   Modify reservation form for Customers                          |    4h       |                                                                 |
 |   Cancel reservation form for Customers                         |     1h      |                                                                 |
 |           Acceptance Tests for Start/View/modify/cancel a reservation                |      2h     |                                                                 |
-=======
-### Zeiad Badawy - 40247477 - Scrum master/Front-end DEV
-| Item                        | Time      | Notes (If needed)                                               |
-|-----------------------------|-----------|-----------------------------------------------------------------|
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
->>>>>>> development
 
 
 ### Mohamed Saidi - 40248103 - Backend DEV
@@ -34,11 +19,7 @@ Members Contribution For Sprint 2
 | Implemented Delete Vehicle functionality |   1h        |                                                                 |
 | Implemeted the pipeline on Github for Vehicle functionalities   |  5h         |                                                                 |
 | Implemented the unit testing for Vehicles functionalities                           |   2h        |                                                                 |
-<<<<<<< HEAD
 | Documentation                            |      1h     |                                                                 |
-=======
-| Documentation                            |      10h     |                                                                 |
->>>>>>> development
 
 
 ### Miskat Mahmud - 40250110 - Backend DEV
@@ -78,8 +59,4 @@ Members Contribution For Sprint 2
 |                             |           |                                                                 |
 |                             |           |                                                                 |
 |                             |           |                                                                 |
-<<<<<<< HEAD
-=======
 
-
->>>>>>> development

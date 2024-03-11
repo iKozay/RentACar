@@ -347,9 +347,11 @@ export default function Customer() {
             </form>
           </div>
         )
-      ) : (
-        <div className="text-center text-gray-500">Loading...</div>
-      )}
+      ) : loading? ( 
+        <h2 className="text-center text-gray-500">Loading...</h2>
+      ):error?(
+        <h2 className = "bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">Error</h2>
+      ):""}
     </div>
   );
 }

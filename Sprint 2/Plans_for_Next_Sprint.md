@@ -20,11 +20,11 @@ Goal: At the end of Sprint 3, the system will provide complete functionality for
 
 ## User Stories Board
 
-| Issue | User Story Title         | Story Points | Due Date | Associated Tasks       | Priority | Risk   | Responsible/Owner |
-|-------|--------------------------|--------------|----------|------------------------|----------|--------|-------------------|
-| #122  | US-10: Find a Branch     | 3            | Mar. 25  | Implement Branch Locator Page, Implement Search Functionality, Handle Postal Code Search, Handle Airport Name/Code Search, Sort Branches by Proximity, Display Results, Handle No Results Found | Medium   | Medium | Mohamed & Zeiad |
-| #125  | US-11: Check-in Process  |              | Mar. 25  |                        |          |        | Abderahmane & Miskat |
-| #172  | US-12: Check-out Process | 7            | Mar. 25  | Confirm Return of Rental Vehicle, Verify Vehicle Details, Compare with Reservation Information, Inspect for Damages, Use Digital Inspection Tools, Document Damages, Review Additional Charges, Identify Late Fees, Fuel Charges, etc., Review Charges with Customer, Process Final Payment, Calculate Final Rental Cost, Collect Payment, Provide Receipt, Provide Necessary Documentation, Offer Digital Copies of Documents, Explain Terms and Conditions, Complete Check-out Process, Update Reservation Status, Return Deposited Funds, Hand Over Documentation, Express Gratitude to Customer | High     | High   | Matteo & Abderahmane |
+| Issue | User Story Title         | Story Points | Due Date | Associated Tasks       | Priority | Risk   | Responsible/Owner   |
+|-------|--------------------------|--------------|----------|------------------------|----------|--------|---------------------|
+| #122  | US-10: Find a Branch     | 3            | Mar. 25  | Implement Branch Locator Page, Implement Search Functionality, Handle Postal Code Search, Handle Airport Name/Code Search, Sort Branches by Proximity, Display Results, Handle No Results Found | Medium   | Medium | Mohamed & Zeiad      |
+| #125  | US-11: Check-in Process  | 5            | Mar. 25  | Verify Customer Information, Check Reservation Status, Create a New Reservation (if necessary), Review Rental Agreement, Process Payment, Complete Check-in Process   | High     | Medium | Abderahmane & Miskat |
+| #172  | US-12: Check-out Process | 7            | Mar. 25  | Confirm Return of Rental Vehicle, Verify Vehicle Details, Compare with Reservation Information, Inspect for Damages, Use Digital Inspection Tools, Document Damages, Review Additional Charges, Identify Late Fees, Fuel Charges, etc., Review Charges with Customer, Process Final Payment, Calculate Final Rental Cost, Collect Payment, Provide Receipt, Provide Necessary Documentation, Offer Digital Copies of Documents, Explain Terms and Conditions, Complete Check-out Process, Update Reservation Status, Return Deposited Funds, Hand Over Documentation, Express Gratitude to Customer | High     | High   | Matteo & Abderahmane|
 
 
 

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const request = require("supertest");
 const app = require("../app");
 const Reservation = require('../models/reservationModel');
-const { reservationData } = require('../utils/reservationDataTest');
+const { reservation } = require('../utils/reservationDataTest');
 
 require("dotenv").config();
 
@@ -19,10 +19,10 @@ afterEach(async () => {
 describe('Reservation Routes', () => {
     describe('GET /api/reservations/:reservationId', () => {
         it('should return a specific reservation', async () => {
-            const newReservation = await Reservation.create(reservationData);
+            const newReservation = await Reservation.create(reservation);
             const res = await request(app).get(`/api/reservations/${newReservation._id}`);
             expect(res.status).toBe(200);
-            expect(res.body).toHaveProperty('_id', newReservation._id.toString());
+            expect(res.body).toHaveProperty('vin', newReservation.vin.toString());
         });
     });
 
@@ -36,15 +36,19 @@ describe('Reservation Routes', () => {
 
     describe('POST /api/reservations', () => {
         it('should create a new reservation', async () => {
-            const res = await request(app).post('/api/reservations').send(reservationData);
+            const res = await request(app).post('/api/reservations').send(reservation);
             expect(res.status).toBe(201);
-            expect(res.body).toHaveProperty('vin', reservationData.vin);
+            expect(res.body).toHaveProperty('vin', "ABC123");
+            expect(res.body).toHaveProperty('reservationDate', new Date("2024/3/8").toISOString());
+            expect(res.body).toHaveProperty('pickupDate', new Date("2024/3/9").toISOString());
+            expect(res.body).toHaveProperty('returnDate', new Date("2024/3/10").toISOString());
+            expect(res.body).toHaveProperty('userID', "65ef29928e591664663d138d");
         });
     });
 
     describe('PUT /api/reservations/:reservationId', () => {
         it('should update an existing reservation', async () => {
-            const newReservation = await Reservation.create(reservationData);
+            const newReservation = await Reservation.create(reservation);
             const updates = {
                 pickupDate: new Date(),
                 returnDate: new Date()
@@ -58,7 +62,7 @@ describe('Reservation Routes', () => {
 
     describe('DELETE /api/reservations/:reservationId', () => {
         it('should delete an existing reservation', async () => {
-            const newReservation = await Reservation.create(reservationData);
+            const newReservation = await Reservation.create(reservation);
             const res = await request(app).delete(`/api/reservations/${newReservation._id}`);
             expect(res.status).toBe(200);
             expect(res.body).toHaveProperty('message', 'Reservation canceled successfully');

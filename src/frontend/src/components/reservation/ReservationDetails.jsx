@@ -2,22 +2,19 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import modifyReservation from "../../utilities/modifyReservation";
+import { useState } from "react";
+
 export default function ReservationDetails({reservation, vehicle}) {
     // display reservation details
-    const [fromDate, setFromDate] = React.useState(new Date(reservation.pickupDate));
-    const [toDate, setToDate] = React.useState(new Date(reservation.returnDate));
+    const [dateRange, setDateRange] = useState([new Date(reservation.pickupDate), new Date(reservation.returnDate)]);
+    const [fromDate, toDate] = dateRange;
     return (
         <div className={"pl-3"}>
             <p>Vehicle: {vehicle.make} {vehicle.model}</p>
-            <p>From: </p>
-            {(new Date(reservation.returnDate) > new Date()) ? <DatePicker selected={fromDate} onChange={(date) => setFromDate(date)} showTimeSelect timeFormat='HH:mm' timeIntervals={30} timeCaption='Time' dateFormat="MM/d/yyyy h:mm aa"/>
-            : <p className={"font-bold"}>{fromDate.toDateString()}</p>}
-            <p>To: </p>
-            {(new Date(reservation.returnDate) > new Date()) ? <DatePicker selected={toDate}  {/* disabled if retrunDate>new Date*/} onChange={(date) => setToDate(date)} showTimeSelect timeFormat='HH:mm' timeIntervals={30} timeCaption='Time' dateFormat="MM/d/yyyy h:mm aa"/>
-            : <p className={"font-bold"}>{toDate.toDateString()}</p>}
-            <p>Total: ${computeTotal(fromDate, toDate, vehicle.price)}</p>
-            {(new Date(reservation.returnDate) > new Date()) ? <button className="float-right ml-3 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={(e)=>modifyRsv(reservation._id,fromDate,toDate)}>Modify</button>
-            : null}
+            <p>Reservation dates:</p>
+            {new Date(reservation.returnDate) > new Date() ? <DatePicker selectsRange={true} startDate={fromDate} endDate={toDate} minDate={new Date()} onChange={(update) => {setDateRange(update);}}/> 
+            : <DatePicker selectsRange={true} disabled startDate={fromDate} endDate={toDate} minDate={new Date()} onChange={(update) => {setDateRange(update);}}/>}
+            {new Date(reservation.returnDate) > new Date() ? <button className="float-right ml-3 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={(e)=>modifyRsv(reservation._id,fromDate,toDate)}>Modify</button> : null}
         </div>
     );
 }

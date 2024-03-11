@@ -9,8 +9,8 @@ export default function VehicleViewer({vehicle}) {
     // set vehicle to date to feb 6rd 2024
     //////////////////
     // Temporary code
-    vehicle.pickupDate = new Date("2024/4/9").toDateString();
-    vehicle.returnDate = new Date("2024/4/15").toDateString();
+    vehicle.pickupDate = new Date(localStorage.getItem("startDate")).toISOString().split('T')[0];
+    vehicle.returnDate = new Date(localStorage.getItem("endDate")).toISOString().split('T')[0];
     //////////////////
     return (
         <div className="flex justify-center">

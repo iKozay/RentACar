@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const reservationSchema = new Schema({
                     
                     vin: {
-                        type: String,
+                        type: Schema.Types.ObjectId,
+                        ref:"Vehicle",
                         required: true
                     },
                     reservationDate: {

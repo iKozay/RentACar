@@ -41,9 +41,9 @@ export default function VehicleViewer({vehicle}) {
                         </div>
                     </div>
                     <div className={"flex justify-center pb-1"}>
-                        <Link to="/reservation/confirmation">
+                        <Link to={user?`/reservation/confirmation`:'/login'}>
                             <button className={'bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded'}
-                                onClick={()=>createReservation(vehicle._id,user.id,vehicle.pickupDate,vehicle.returnDate)}>Book Vehicle</button>
+                                onClick={()=>{user? createReservation(vehicle._id,user.id,vehicle.pickupDate,vehicle.returnDate):()=>{}}}> Book Vehicle</button>
                         </Link>
                     </div>
                     <hr className={'border-1 border-stone-300'}/>

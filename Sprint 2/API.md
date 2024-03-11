@@ -248,8 +248,8 @@ Delete a user by ID
     * `400 bad request`: JSON object containing errors
     * `401`: Unauthorized
 
+
 ### API Endpoints for Create a Vehicle
-*replace userId or reservationId with actual ID taken from database
 
 1. **Create a new Vehicle**
    - **URL**: `http://localhost:3000/api/vehicles/add`

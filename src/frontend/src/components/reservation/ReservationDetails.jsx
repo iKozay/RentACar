@@ -13,7 +13,7 @@ export default function ReservationDetails({reservation, vehicle}) {
             {(new Date(reservation.returnDate) > new Date()) ? <DatePicker selected={fromDate} onChange={(date) => setFromDate(date)} showTimeSelect timeFormat='HH:mm' timeIntervals={30} timeCaption='Time' dateFormat="MM/d/yyyy h:mm aa"/>
             : <p className={"font-bold"}>{fromDate.toDateString()}</p>}
             <p>To: </p>
-            {(new Date(reservation.returnDate) > new Date()) ? <DatePicker selected={toDate} onChange={(date) => setToDate(date)} showTimeSelect timeFormat='HH:mm' timeIntervals={30} timeCaption='Time' dateFormat="MM/d/yyyy h:mm aa"/>
+            {(new Date(reservation.returnDate) > new Date()) ? <DatePicker selected={toDate}  {/* disabled if retrunDate>new Date*/} onChange={(date) => setToDate(date)} showTimeSelect timeFormat='HH:mm' timeIntervals={30} timeCaption='Time' dateFormat="MM/d/yyyy h:mm aa"/>
             : <p className={"font-bold"}>{toDate.toDateString()}</p>}
             <p>Total: ${computeTotal(fromDate, toDate, vehicle.price)}</p>
             {(new Date(reservation.returnDate) > new Date()) ? <button className="float-right ml-3 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={(e)=>modifyRsv(reservation._id,fromDate,toDate)}>Modify</button>

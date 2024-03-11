@@ -289,7 +289,7 @@ Delete a user by ID
    - **Required Headers**: Authorization
      
 
-4. **Update a reservation**
+4. **Update a Vehicle**
    - **URL**: `http://localhost:3000/api/vehicles/update/:id`
    - **Method**: `PUT`
    - **Description**: Modifies an existing vehicle with the provided changes.

@@ -39,6 +39,10 @@ describe('Reservation Routes', () => {
             const res = await request(app).post('/api/reservations').send(reservationData);
             expect(res.status).toBe(201);
             expect(res.body).toHaveProperty('vin', reservationData.vin);
+            expect(res.body).toHaveProperty('reservationDate', new Date("2024/3/8"));
+            expect(res.body).toHaveProperty('pickupDate', new Date("2024/3/9"));
+            expect(res.body).toHaveProperty('returnDate', new Date("2024/3/10"));
+            expect(res.body).toHaveProperty('userID', "65e411c2751c4a87d73f4530");
         });
     });
 

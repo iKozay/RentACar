@@ -301,7 +301,7 @@ Delete a user by ID
      }
      ```
 
-5. **Cancel a reservation**
+5. **Delete a Vehicle**
    - **URL**: `http://localhost:3000/api/vehicles/delete/:id`
    - **Method**: `DELETE`
    - **Description**: Deletes a vehicle by its ID.
@@ -310,7 +310,7 @@ Delete a user by ID
 
 
 
-      ### API Endpoints for Reservation Management
+### API Endpoints for Reservation Management
 *replace userId or reservationId with actual ID taken from database
 
 1. **View all reservations for a user**

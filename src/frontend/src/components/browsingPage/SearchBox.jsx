@@ -15,12 +15,19 @@ export default function SearchBox(){
                     <input placeholder='Location' className='flex-grow h-auto'></input>
                 </div>
                 <div>
-                <DatePicker selectsRange={true} startDate={startDate} endDate={endDate} minDate={new Date()} onChange={(update) => {setDateRange(update);}}/>
+                <DatePicker selectsRange={true} startDate={startDate} endDate={endDate} minDate={new Date()} onChange={(update) => updateDates(setDateRange,update)}/>
                 </div>
                 <button type='button' className='text-black bg-white hover:bg-neutral-200 font-medium rounded-full px-4 py-2 ml-2'>Search</button>
             </form>
         </div>
 
     );
-  
-};
+}
+
+function updateDates(setDateRange,update){
+    setDateRange(update);
+    localStorage.setItem('startDate',update[0].toDateString());
+    localStorage.setItem('endDate',update[1].toDateString());
+}
+
+

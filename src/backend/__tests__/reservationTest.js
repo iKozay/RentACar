@@ -27,7 +27,7 @@ afterEach(async () => {
 
 //         });
 //     });
-
+describe('Reservation Routes', () => {
     describe('GET /api/reservations/user/:userId', () => {
         it('should return all reservations for a specific user', async () => {
             const res = await request(app).get('/api/reservations/user/65e411c2751c4a87d73f4530'); // Assuming valid user ID

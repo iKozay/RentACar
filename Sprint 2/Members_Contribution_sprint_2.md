@@ -25,14 +25,14 @@ Members Contribution For Sprint 2
 ### Miskat Mahmud - 40250110 - Backend DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
+|Created User Story 12                             |   2h        |                                                                 |
+|Creted Tasks for us-12                             |     2h      |                                                                 |
+|Unit Test for Reservation management                    |      6h     |                                                                 |
+|Updating the Reservation Schema                          |   2h        |                                                                 |
+|Documentation                          |     2h      |        api endpoints update                                                    |
+|Testing and Debugging                             |  5h         |                                                                 |
+|External Documentation                           |   1h        | member contribution file, Plan for next sprint file                                                                 |
+
 
 
 ### Matteo Sansone - 40242278 - Front-end DEV

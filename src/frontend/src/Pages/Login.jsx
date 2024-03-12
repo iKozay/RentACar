@@ -2,7 +2,7 @@ import { useState, useEffect,useContext } from "react";
 import { UserContext } from "./Root";
 import { useNavigate } from "react-router-dom";
 import fetchData from "../utilities/fetchData";
-import logout from "../utilities/logout";
+
 const Login = () => {
   const navigate=useNavigate();
   const { token, setToken } = useContext(UserContext)
@@ -121,7 +121,7 @@ const Login = () => {
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <a
             href="#"
             className="font-semibold leading-6 text-slate-600 hover:text-slate-400"

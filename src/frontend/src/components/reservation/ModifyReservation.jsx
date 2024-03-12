@@ -12,19 +12,7 @@ export default function ModifyReservation() {
     const [response,setResponse] = useState([]);
     console.log(user);
     useEffect(()=>{
-        async function fetchVehicle(vin){
-            let vehicle = await fetch(`http://localhost:3000/api/vehicles/vehicle/${vin}`,{
-                method: "GET",
-                credentials: "include", // Include cookies in the request
-                mode: "cors", // Enable CORS
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                }
-            });
-            vehicle = await vehicle.json();
-            return vehicle;
-        }
+       
         async function fetchReservation(){
             let response = await fetch(`http://localhost:3000/api/reservations/${reservationId}`,{
                 method: "GET",
@@ -36,8 +24,6 @@ export default function ModifyReservation() {
                 }
             });
             response = await response.json();
-            let vehicle = await fetchVehicle(response.vin);
-            response.vehicle = vehicle;
             setResponse(response);
             console.log(response);
         }
@@ -45,7 +31,7 @@ export default function ModifyReservation() {
         fetchReservation();
     },[user])
     //////////////////////////////////////////////////////////////
-    if(response!==undefined && response.vehicle!==undefined){
+    if(response!==undefined && response.vin!==undefined){
         return (
 
             <div className="p-6 my-6 mx-10 bg-white rounded-md shadow-2xl shadow-stone-300">
@@ -58,10 +44,10 @@ export default function ModifyReservation() {
                     </thead>
                     <tr>
                         <td className={"w-1/2"}>
-                            <VehicleDetails vehicle={response.vehicle} />
+                            <VehicleDetails vehicle={response.vin} />
                         </td>
                         <td className={"w-1/2"}>
-                            <ReservationDetails reservation={response} vehicle={response.vehicle} />
+                            <ReservationDetails reservation={response}  />
                         </td>
                     </tr>
                     <tr>

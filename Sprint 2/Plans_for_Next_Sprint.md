@@ -28,6 +28,8 @@ Goal: At the end of Sprint 3, the system will provide complete functionality for
 
 
 
+## Task Breakdown
+
 | Issue | Task Title                               | Story Points | Associated User Story | Priority | Estimated Effort | Dependencies            |
 |-------|------------------------------------------|--------------|-----------------------|----------|------------------|-------------------------|
 | #125  | Implement user authentication            | 2            | US-11: Check-in Process | Medium   | 3                | None                    |

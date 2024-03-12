@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import fetchData from "../utilities/fetchData";
 
@@ -12,31 +12,27 @@ export default function Customer() {
   const [updateBtn, setUpdateBtn] = useState(false);
   const [deleting, setDeleting] = useState(null);
   const [updating, setUpdating] = useState(null);
-  const [reservations, setReservations]=useState([]);
+  const [reservations, setReservations] = useState([]);
+  const [viewReservation, setViewReservation] = useState(false);
   useEffect(() => {
     async function fetchUser() {
       setLoading(true);
-      const [getCustomer,getReservations] = await Promise.all([fetchData(
-        `http://localhost:3000/api/users/${customerId}`,
-        {
+      const [getCustomer, getReservations] = await Promise.all([
+        fetchData(`http://localhost:3000/api/users/${customerId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
-      ),
-      fetchData(
-        `http://localhost:3000/api/reservations/user/${customerId}`,
-        {
+        }),
+        fetchData(`http://localhost:3000/api/reservations/user/${customerId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
-      ),
-    ])
+        }),
+      ]);
       if (getCustomer.data && getReservations.data) {
         setCustomer(getCustomer.data);
         setReservations(getReservations.data);
@@ -77,25 +73,25 @@ export default function Customer() {
     );
     setDeleting(response);
   };
-  
+
   const handleUpdateUser = async (event) => {
     event.preventDefault();
     const updatedData = {
-        username: document.getElementById("username").value,
-        first_name: document.getElementById("firstName").value,
-        last_name: document.getElementById("lastName").value,
-        email: document.getElementById("email").value,
-        date_of_birth: document.getElementById("dateOfBirth").value,
-        role: document.getElementById("role").value,
-        profile_picture: document.getElementById("picture").value,
-        phone_number: document.getElementById("phoneNumber").value,
-      };
-      
-      const passwordValue = document.getElementById("password").value.trim();
-      if (passwordValue !== "") {
-        updatedData.password = passwordValue;
-      }
-      
+      username: document.getElementById("username").value,
+      first_name: document.getElementById("firstName").value,
+      last_name: document.getElementById("lastName").value,
+      email: document.getElementById("email").value,
+      date_of_birth: document.getElementById("dateOfBirth").value,
+      role: document.getElementById("role").value,
+      profile_picture: document.getElementById("picture").value,
+      phone_number: document.getElementById("phoneNumber").value,
+    };
+
+    const passwordValue = document.getElementById("password").value.trim();
+    if (passwordValue !== "") {
+      updatedData.password = passwordValue;
+    }
+
     console.log(updatedData);
     // Make PUT request to update customer information
     const response = await fetchData(
@@ -125,13 +121,72 @@ export default function Customer() {
               <p className="text-gray-500 mb-2">{customer.email}</p>
               <p className="text-gray-500 mb-2">{customer.phone_number}</p>
               <p className="text-gray-500 mb-2">Role: {customer.role}</p>
-              <hr/>
-              <p  className="text-medium font-semibold mb-2">Reservations</p>
-              {
-                reservations.map(reservation=>(
-                  <div></div>
-                ))
-              }
+              <hr />
+              <p className="text-medium font-semibold mb-2">Reservations</p>
+              {viewReservation && (
+                <>
+                  {reservations.map((reservation) => (
+                    <Link
+                      to={`../reservations/${reservation._id}`}
+                      key={reservation._id}
+                      className="border rounded p-4 mb-4 hover:border-gray-700 duration-200 block w-full"
+                      style={{
+                        textDecoration: "none",
+                        transition: "background-color 0.3s",
+                      }}
+                    >
+                      <div className="flex">
+                        <div
+                          className="mb-2 mr-2"
+                          style={{ fontWeight: "lighter" }}
+                        >
+                          <strong>Reservation ID:</strong> {reservation._id}
+                        </div>
+                        <div
+                          className="mb-2 mr-2"
+                          style={{ fontWeight: "lighter" }}
+                        >
+                          <strong>Vehicle ID:</strong> {reservation.vin._id}
+                        </div>
+                        <div
+                          className="mb-2 mr-2"
+                          style={{ fontWeight: "lighter" }}
+                        >
+                          <strong>Reservation Date:</strong>{" "}
+                          {new Date(
+                            reservation.reservationDate
+                          ).toLocaleString()}
+                        </div>
+                        <div
+                          className="mb-2 mr-2"
+                          style={{ fontWeight: "lighter" }}
+                        >
+                          <strong>Pickup Date:</strong>{" "}
+                          {new Date(reservation.pickupDate).toLocaleString()}
+                        </div>
+                        <div className="mb-2" style={{ fontWeight: "lighter" }}>
+                          <strong>Return Date:</strong>{" "}
+                          {new Date(reservation.returnDate).toLocaleString()}
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                  <button
+                    onClick={() => setViewReservation(false)}
+                    className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-2"
+                  >
+                    Minimize
+                  </button>
+                </>
+              )}
+              {!viewReservation && (
+                <button
+                  onClick={() => setViewReservation(true)}
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
+                >
+                  View Reservations
+                </button>
+              )}
             </div>
             <div className="flex justify-end p-6">
               <button
@@ -367,11 +422,15 @@ export default function Customer() {
             </form>
           </div>
         )
-      ) : loading? ( 
+      ) : loading ? (
         <h2 className="text-center text-gray-500">Loading...</h2>
-      ):error?(
-        <h2 className = "bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">Error</h2>
-      ):""}
+      ) : error ? (
+        <h2 className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">
+          Error
+        </h2>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

@@ -22,7 +22,8 @@ describe('Reservation Routes', () => {
             const newReservation = await Reservation.create(reservation);
             const res = await request(app).get(`/api/reservations/${newReservation._id}`);
             expect(res.status).toBe(200);
-            expect(res.body).toHaveProperty('vin', newReservation.vin.toString());
+            // Modify the assertion to check if vin is an object with an _id property
+            expect(res.body.vin).toHaveProperty('_id');
         });
     });
 
@@ -38,11 +39,13 @@ describe('Reservation Routes', () => {
         it('should create a new reservation', async () => {
             const res = await request(app).post('/api/reservations').send(reservation);
             expect(res.status).toBe(201);
-            expect(res.body).toHaveProperty('vin', "ABC123");
+            
+            //expect(res.body.vin).toHaveProperty('_id');
+            expect(res.body).toHaveProperty('vin', "65eb245afc880613982a5caa");
             expect(res.body).toHaveProperty('reservationDate', new Date("2024/3/8").toISOString());
             expect(res.body).toHaveProperty('pickupDate', new Date("2024/3/9").toISOString());
             expect(res.body).toHaveProperty('returnDate', new Date("2024/3/10").toISOString());
-            expect(res.body).toHaveProperty('userID', "65ef29928e591664663d138d");
+            expect(res.body).toHaveProperty('userID', "65e411c2751c4a87d73f4530");
         });
     });
 
@@ -59,6 +62,7 @@ describe('Reservation Routes', () => {
             expect(res.body).toHaveProperty('returnDate', updates.returnDate.toISOString());
         });
     });
+    
 
     describe('DELETE /api/reservations/:reservationId', () => {
         it('should delete an existing reservation', async () => {

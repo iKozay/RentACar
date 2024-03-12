@@ -23,7 +23,8 @@ describe('Reservation Routes', () => {
             const res = await request(app).get(`/api/reservations/${newReservation._id}`);
             expect(res.status).toBe(200);
             // Modify the assertion to check if vin is an object with an _id property
-            expect(res.body.vin).toHaveProperty('_id');
+            expect(res.body.vin._id).toBe("65eb245afc880613982a5caa");
+
         });
     });
 

@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, Outlet, Navigate } from "react-router-dom";
+import {Outlet, } from "react-router-dom";
 import decodeToken from "../utilities/decodeToken";
 import logout from "../utilities/logout";
-import refreshToken from "../utilities/refreshToken";
-import getUser from "../utilities/getUser";
+
 import Header from "../components/header/Header.jsx";
-import { createContext, useContext } from "react";
-import styles from "./../styles/Root.module.css";
+import { createContext,  } from "react";
+
 import isTokenValide from "../utilities/isTokenValide.js";
 export const UserContext = createContext(null);
 const Root = () => {
@@ -22,7 +21,7 @@ const Root = () => {
     const isTokenValid =await isTokenValide();
     console.log(isTokenValid);
     if(!isTokenValid) await logoutUser();
-    setToken(localStorage.getItem("token"));
+    else setToken(localStorage.getItem("token"));
     }
     updateToken();
   }, []);

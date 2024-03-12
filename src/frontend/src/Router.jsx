@@ -48,7 +48,6 @@ const Router = () => {
           path: "reservation/details/:reservationId",
           element: <ReservationDetailsPage />,
         },
-       
         { 
             path:"dashboard",
             element:<Dashboard/>,

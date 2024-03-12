@@ -333,12 +333,13 @@ Delete a user by ID
    - **Request Body**:
      ```json
      {
-       "vin": "ABC123456789",
-       "reservationDate": "2024-03-05T12:00:00Z",
-       "pickupDate": "2024-03-10T10:00:00Z",
-       "returnDate": "2024-03-15T10:00:00Z",
-       "userID": "609df157b9b34014f4c9b8a1"
+      "vin": "65e52b7f3a6b6fac482c8278",
+      "reservationDate": "2024-03-08T12:00:00Z",
+      "pickupDate": "2024-03-09T10:00:00Z",
+      "returnDate": "2024-03-10T10:00:00Z",
+      "userID": "65ef29928e591664663d138d"
      }
+
      ```
 
 4. **Modify a reservation**

@@ -11,7 +11,7 @@ export default function AdminVerification() {
   }
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-full">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-800 text-white">
         <div className="p-6">
@@ -34,13 +34,21 @@ export default function AdminVerification() {
                   Customers
                 </Link>
               </li>
-              {/* Add more sidebar links as needed */}
+              <li>
+                <Link
+                  to="vehicles"
+                  className="block py-2 px-4 hover:bg-gray-700"
+                >
+                  Vehicles
+                </Link>
+              </li>
+            
             </ul>
           </nav>
         </div>
       </aside>
 
-      {/* Main content */}
+
       <main className="flex-1 bg-gray-100 p-8">
         <Outlet />
       </main>

@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import {UserContext} from "./../../Pages/Root";
 
 export default function AccountDropdown() {
-    const {user} = useContext(UserContext);
-    const {setToken,token} = useContext(UserContext);
+
+    const {user,setToken,token} = useContext(UserContext);
 
     // const token = localStorage.getItem("token");
     const isLoggedIn = (token !== null);

@@ -8,19 +8,19 @@ export default function ViewReservation() {
     const [response,setResponse] = useState([]);
     console.log(user);
     useEffect(()=>{
-        async function fetchVehicle(vin){
-            let vehicle = await fetch(`http://localhost:3000/api/vehicles/vehicle/${vin}`,{
-                method: "GET",
-                credentials: "include", // Include cookies in the request
-                mode: "cors", // Enable CORS
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                }
-            });
-            vehicle = await vehicle.json();
-            return vehicle;
-        }
+        // async function fetchVehicle(vin){
+        //     let vehicle = await fetch(`http://localhost:3000/api/vehicles/vehicle/${vin}`,{
+        //         method: "GET",
+        //         credentials: "include", // Include cookies in the request
+        //         mode: "cors", // Enable CORS
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        //         }
+        //     });
+        //     vehicle = await vehicle.json();
+        //     return vehicle;
+        // }
         async function fetchReservations(){
          let response = await fetch(`http://localhost:3000/api/reservations/user/${user.id}`,{
              method: "GET",
@@ -32,10 +32,6 @@ export default function ViewReservation() {
              }
          });
          response = await response.json();
-            for(let i = 0; i < response.length; i++){
-                let vehicle = await fetchVehicle(response[i].vin);
-                response[i].vehicle = vehicle;
-            }
          setResponse(response);
         }
 
@@ -91,8 +87,8 @@ function tabContent(upcoming,response) {
                         <tr key={reservation._id} className={"odd:bg-white even:bg-gray-50 border-b"}>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation._id}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>
-                                <img src={reservation.vehicle.Image} alt="Vehicle" width="12%" height="12%" className={"float-left"}/>
-                                <p>{reservation.vehicle.make}</p>
+                                <img src={reservation.vin.Image} alt="Vehicle" width="12%" height="12%" className={"float-left"}/>
+                                <p>{reservation.vin.make}</p>
                             </td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{new Date(reservation.pickupDate).toISOString().split('T')[0]}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{new Date(reservation.returnDate).toISOString().split('T')[0]}</td>

@@ -3,7 +3,6 @@ const request = require("supertest");
 const app = require("../app");
 const Reservation = require('../models/reservationModel');
 const { reservation } = require('../utils/reservationDataTest');
-const {user1} = require("../utils/userDataTest");
 
 require("dotenv").config();
 

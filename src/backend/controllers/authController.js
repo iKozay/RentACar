@@ -40,7 +40,8 @@ exports.auth_signup = [
       res.status(201).json(user);
     } catch (error) {
       if (error.code === 11000) {
-        return res.status(400).json({ error: "duplicate key" });
+        console.log(error);
+        return res.status(405).json({ error: "duplicate key" });
       } else {
         return res.status(500).json({ error: "Mongodb related error" });
       }

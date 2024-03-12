@@ -103,7 +103,7 @@ export default function Reservation() {
               <img src={`${reservation.vin.Image}`} alt="Car" />
               <Link to={`../customers/${reservation.userID._id}`} className="text-blue-500 hover:underline">View Customer</Link>
               <p className="text-medium font-semibold mb-2">Reservation ID: {reservation._id}</p>
-              <p className="text-gray-500 mb-2">Vehicle ID: {reservation.vin._id}</p>
+              <p className="text-gray-500 mb-2">Vehicle ID: <Link to={`../vehicles/${reservation.vin._id}`} className="text-blue-500 hover:underline">{reservation.vin._id}</Link></p>
               <p className="text-gray-500 mb-2">Reservation Date: {new Date(reservation.reservationDate).toLocaleString()}</p>
               <p className="text-gray-500 mb-2">Pickup Date: {new Date(reservation.pickupDate).toLocaleString()}</p>
               <p className="text-gray-500 mb-2">Return Date: {new Date(reservation.returnDate).toLocaleString()}</p>

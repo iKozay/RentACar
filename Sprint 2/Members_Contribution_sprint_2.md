@@ -51,12 +51,15 @@ Members Contribution For Sprint 2
 ### Abdel-Rahman Khalifa - 40253332 - Fullstack DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-
+|Task#74 read user account functionality | 2h |           backend                                                      |
+| Task#66 create user account functionality | 1.5h |          backend                                                       |
+| API documentation  | 1.5h | documentation for our API         |  documentation
+| Task#76 create user account functionality |  1h  |                     backend                                            |
+| Task#75 create user account functionality |  1h  |                     backend                                           |
+| Task#94 create browsing page|  2h  | contributed to the task            frontend                         |
+| Task#78 implement signup functionality| 1h |             backend                                                    |
+| Task#77 implement login functionality| 2h | authentication with Tokens     backend                                  |
+| Task#96 create login pop up page | 1h | frontend                                                          |
+| Task#95 display vehicles in browse page | 1h | frontend                                                          |
+| Task#184 implement admin dashboard | 6h | frontend/backend                                                          |
+| Documented User Story 11 | 30min | documentation   |

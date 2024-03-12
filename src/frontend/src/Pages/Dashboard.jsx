@@ -11,7 +11,8 @@ export default function AdminVerification() {
   }
 
   return (
-    <div className="flex h-full">
+    <div className="bg-gray-800 h-full">
+    <div className="flex h-screen">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-800 text-white">
         <div className="p-6">
@@ -52,6 +53,7 @@ export default function AdminVerification() {
       <main className="flex-1 bg-gray-100 p-8">
         <Outlet />
       </main>
+    </div>
     </div>
   );
 }

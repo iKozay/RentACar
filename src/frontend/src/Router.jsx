@@ -15,7 +15,7 @@ import Customer from "./Pages/Customer.jsx";
 import Reservation from "./Pages/Reservation.jsx";
 import Vehicles from "./Pages/Vehicles.jsx";
 import Vehicle from "./Pages/Vehicle.jsx";
-
+import AddVehicle from "./Pages/AddVehicle.jsx";
 const Router = () => {
   const router = createBrowserRouter([
     {
@@ -80,6 +80,10 @@ const Router = () => {
                 ,{
                   path:"vehicles/:vehicleId",
                   element:<Vehicle/>
+                }
+                ,{
+                  path:"vehicles/add-vehicle",
+                  element:<AddVehicle/>
                 }
               ]
             }

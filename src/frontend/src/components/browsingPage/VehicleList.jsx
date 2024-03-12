@@ -34,7 +34,7 @@ export default function VehicleList() {
 
   return (
     <div className="bg-white">
-      <SortFilterButtons setSortedVehicles={handleSortFilter} vehicles={vehicles} />
+      <SortFilterButtons setVehicles={handleSortFilter} vehicles={vehicles} />
       <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <hr className="my-8"/>
         <h2 className="sr-only">Vehicles</h2>

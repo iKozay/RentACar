@@ -12,10 +12,11 @@ export default function Customer() {
   const [updateBtn, setUpdateBtn] = useState(false);
   const [deleting, setDeleting] = useState(null);
   const [updating, setUpdating] = useState(null);
+  const [reservations, setReservations]=useState([]);
   useEffect(() => {
     async function fetchUser() {
       setLoading(true);
-      const response = await fetchData(
+      const [getCustomer,getReservations] = await Promise.all([fetchData(
         `http://localhost:3000/api/users/${customerId}`,
         {
           method: "GET",
@@ -24,19 +25,31 @@ export default function Customer() {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
-      );
-      if (response.data) {
-        setCustomer(response.data);
+      ),
+      fetchData(
+        `http://localhost:3000/api/reservations/user/${customerId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      ),
+    ])
+      if (getCustomer.data && getReservations.data) {
+        setCustomer(getCustomer.data);
+        setReservations(getReservations.data);
         setLoading(false);
         setSuccess(true);
-      } else if (response.error) {
+      } else if (getCustomer.error || getReservations.error) {
         setLoading(false);
         setError(true);
       }
       setLoading(false);
     }
     fetchUser();
-  }, []);
+  }, [customerId]);
 
   const handleClickUpdateUser = () => {
     setUpdateBtn(true);
@@ -64,7 +77,7 @@ export default function Customer() {
     );
     setDeleting(response);
   };
-
+  
   const handleUpdateUser = async (event) => {
     event.preventDefault();
     const updatedData = {
@@ -112,6 +125,13 @@ export default function Customer() {
               <p className="text-gray-500 mb-2">{customer.email}</p>
               <p className="text-gray-500 mb-2">{customer.phone_number}</p>
               <p className="text-gray-500 mb-2">Role: {customer.role}</p>
+              <hr/>
+              <p  className="text-medium font-semibold mb-2">Reservations</p>
+              {
+                reservations.map(reservation=>(
+                  <div></div>
+                ))
+              }
             </div>
             <div className="flex justify-end p-6">
               <button

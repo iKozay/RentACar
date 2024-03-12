@@ -140,12 +140,15 @@ Follow these steps to set up and run the project:
 3. **Install Dependencies:**
    Install project dependencies using the following command:
    ```bash
-   npm install
+   npm run install:all
 4. **Run Frontend and  Backend servers:**
    Run the following command in the src directory:
    ```bash
-   npm start
-
+   npm run dev
+5. **The following variables are required inside /backend/.env:**
+   * MONGO_DB
+   * JWT_SECRET
+   * SESSION_SECRET
 ## Usage
 
 Clearly explaining how users can use our web application. We will need to include information on how to navigate the interface, perform 

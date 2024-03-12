@@ -1,6 +1,6 @@
 import { useState, useEffect,useContext } from "react";
 import { UserContext } from "./Root";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import fetchData from "../utilities/fetchData";
 
 const Login = () => {
@@ -122,12 +122,12 @@ const Login = () => {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Don&apos;t have an account?{" "}
-          <a
-            href="#"
+          <Link
+            to="/signup"
             className="font-semibold leading-6 text-slate-600 hover:text-slate-400"
           >
             Sign-up
-          </a>
+          </Link>
         </p>
       </div>
       {error && <div className=" text-red-400 text-sm">Error logging in</div>}

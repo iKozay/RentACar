@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Pages/Login";
 import Root from "./Pages/Root";
 import BrowsingPage from "./Pages/BrowsingPage"
-
+import Signup from "./Pages/Signup.jsx";
 
 import MakeReservationPage from "./Pages/MakeReservationPage";
 import ConfirmationPage from "./Pages/ConfirmationPage";
@@ -33,6 +33,10 @@ const Router = () => {
         {
           path: "login",
           element: <Login />,
+        },
+        {
+          path: "signup",
+          element: <Signup />,
         },
         {
           path: "reservation/book/:vehicleId",

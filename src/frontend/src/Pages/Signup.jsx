@@ -18,11 +18,11 @@ export default function Signup() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [errors,setErrors]=useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(JSON.stringify(formData));
     const response = await fetchData("http://localhost:3000/api/auth/signup", {
       method: "POST",
       headers: {
@@ -37,8 +37,13 @@ export default function Signup() {
     } else if (response.error) {
       setLoading(false);
       setError(true);
+      // Check if response.error is an array, otherwise convert it to an array
+      const errorArray = Array.isArray(response.error.errors) ? response.error.errors : [response.error];
+      setErrors(errorArray);
+    
     }
   };
+  
 
   const handleChange = (e) => {
     setFormData({
@@ -51,10 +56,10 @@ export default function Signup() {
     <div className="max-w-md mx-auto p-6 rounded-md shadow-md bg-neutral-200 mt-10">
       {!success && (
         <>
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-3 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign up for an account
           </h2>
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <form className="mt-3 space-y-2" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium leading-6 text-gray-900">
                 First Name
@@ -170,9 +175,17 @@ export default function Signup() {
           </form>
         </>
       )}
-      {error && (
-        <h2 className="text-red-400 text-sm mt-2">Error signing up</h2>
-      )}
+     {error && (
+  <div className="mt-4">
+    <h2 className="text-red-400 text-sm">Error signing up</h2>
+    <ul className="mt-2 list-disc list-inside">
+      {errors.map((Error, index) => (
+        <li key={index} className="text-red-500 text-sm">{Error.msg}</li>
+      ))}
+    </ul>
+  </div>
+)}
+
       {success && (
         <h2 className="text-green-400 text-sm mt-2">
           Successfully signed up

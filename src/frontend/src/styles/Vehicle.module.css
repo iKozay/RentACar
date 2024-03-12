@@ -1,0 +1,17 @@
+.anchor{
+    display:flex;
+    border:1px solid #777;
+    border-radius: 10px;
+    overflow: hidden;
+    height:100%;
+}
+.image{
+  flex-basis:40%;
+}
+.image img{
+    width:100%;
+    height:100%;
+}
+.info{
+  flex-basis:60%;
+}

@@ -1,0 +1,61 @@
+Project Name: A Car Rental Web Application for SOEN 341
+Team Name: GazaBrigade
+
+Sprint: 2
+Meeting Number: 7
+Date: March 11, 2024
+Duration: 30 minutes
+Meeting Mode: Online
+Meeting Location: Discord
+
+Members:
+
+    Zeiad Badawy (40247477) (Present Online)
+    Abdel-Rahman Khalifa (40253332) (Present Online)
+    Miskat Mahmud (40250110) (Present Online)
+    Mohamed Saidi (40248103) (Present Online)
+    Matteo Sansone (40242278) (Present Online)
+
+The meeting was called to start at 5:30pm, March 11.
+
+Meeting Agenda
+
+    - Review sprint 2 submission
+    - Make everything is good.
+
+Discussion Points
+
+     - Review sprint 2 rubric
+
+Summary of Discussion:
+
+    - Admin dashboard almost done.
+    - Additional buttons will be added to browse page.
+    - Finish unit tests.
+    - Planning for sprint 3 done.
+    - Finalize members contribution.
+    - Add sign-up page.
+
+
+Action Items assigned:
+
+    - Acceptance Tests (Browsing and CRUD)
+    - Unit test (users backend) Zeiad
+    - Tasks for US-10 (Zeiad) and US-11 (Mohamed)
+    - Detailed log for each team member (Abdelrahman, Sami, Matteo)
+    - Update ReadME
+    - Create demo video (matteo)
+
+Decision Taken:
+
+    - Finish sprint 2.
+
+Next Steps:
+
+     N/A
+
+To Do element:
+
+     N/A
+
+The Meeting was adjourned at 6:00pm.

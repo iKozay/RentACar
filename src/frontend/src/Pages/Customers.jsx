@@ -43,11 +43,17 @@ export default function Customers() {
                 {success ? (
                     customers.map((customer, index) => (
                         (customer.role=="customer")?
-                        <Link key={customer._id} to={`${customer._id}`} className={`flex p-2 ${index % 2 === 0 ? 'bg-gray-200' : 'bg-white'} border hover:border-gray-700`}>
-                            <div className="flex-1">{customer.username}</div>
-                            <div className="flex-1">{customer["full_name"]}</div>
-                            <div className="flex-1">{customer.email}</div>
-                        </Link>:""
+                        <Link 
+                        key={customer._id} 
+                        to={`${customer._id}`} 
+                        className={`flex items-center p-4 ${index % 2 === 0 ? 'bg-gray-200' : 'bg-white'} border border-gray-300 hover:border-gray-700 rounded-md`}
+                        style={{ textDecoration: 'none' }}
+                      >
+                        <div className="flex-1">{customer.username}</div>
+                        <div className="flex-1">{customer["full_name"]}</div>
+                        <div className="flex-1">{customer.email}</div>
+                      </Link>
+                      :""
                     ))
                 ) : (
                     <div className="p-2">{loading ? "Loading..." : "Failed to load customers"}</div>

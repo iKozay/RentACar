@@ -42,10 +42,7 @@ Members Contribution For Sprint 2
 | Meeting minutes (2,3,6,7)   |    2h     |                                                                 |
 | Created login page          |    3h     |                                                                 |
 | Created browse page         |    8h     |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
-|                             |           |                                                                 |
+
 
 
 ### Abdel-Rahman Khalifa - 40253332 - Fullstack DEV

@@ -196,7 +196,7 @@ export default function SortFilterButtons({ setVehicles, vehicles }) {
           </div>
         )}
 
-        {/* Button 3 */}
+        {/* Button 3
         <button ref={buttonRef3} onClick={toggleDropdown3} className="text-white bg-neutral-700 hover:bg-neutral-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-8 w-36"
           type="button">
           {selectedCategory3 || 'Sort by Price'}
@@ -241,7 +241,7 @@ export default function SortFilterButtons({ setVehicles, vehicles }) {
               </li>
             </ul>
           </div>
-        )}
+        )} */}
 
         {/* Button 4 */}
         <button ref={buttonRef4} onClick={resetAllFilters} className="text-white bg-neutral-700 hover:bg-neutral-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex mr-8"

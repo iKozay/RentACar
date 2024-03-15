@@ -1,4 +1,4 @@
-import React from "react";
+
 import ReactPlayer from 'react-player'
 import { Link } from 'react-router-dom';
 import confirmVideo from '../../assets/confirm.mp4'

@@ -34,12 +34,7 @@ const validateUserData = [
     .withMessage("Password is required")
     .isLength({ min: 8 })
     .withMessage("Password must be at least 8 characters long")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
-    )
-    .withMessage(
-      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-    ),
+,
   body("email")
     .trim()
     .notEmpty()
@@ -51,7 +46,8 @@ const validateUserData = [
     .trim()
     .notEmpty()
     .withMessage("Phone number is required")
-    .matches(/^\+(?:[0-9] ?){6,14}[0-9]$/)
+    .matches(/^\+?(?:[0-9] ?){6,14}[0-9]$/
+    )
     .withMessage("Enter a valid phone number"),
   body("date_of_birth")
     .trim()
@@ -129,12 +125,13 @@ const validateUpdateUserData = [
     .trim()
     .isLength({ min: 8 })
     .withMessage("Password must be at least 8 characters long")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
-    )
-    .withMessage(
-      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-    ),
+    // .matches(
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+    // )
+    // .withMessage(
+    //   "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+    // )
+    ,
   body("email")
     .optional()
     .trim()
@@ -148,7 +145,7 @@ const validateUpdateUserData = [
     .trim()
     .notEmpty()
     .withMessage("Phone number is required")
-    .matches(/^\+(?:[0-9] ?){6,14}[0-9]$/)
+    .matches(/^\+?(?:[0-9] ?){6,14}[0-9]$/)
     .withMessage("Enter a valid phone number"),
   body("date_of_birth")
     .optional()

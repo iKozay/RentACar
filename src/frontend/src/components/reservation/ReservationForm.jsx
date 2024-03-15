@@ -1,6 +1,6 @@
-import React from 'react';
+
 import VehicleViewer from "./VehicleViewer.jsx";
-import Payment from "./Payment.jsx";
+// import Payment from "./Payment.jsx";
 
 export default function ReservationForm({selectedVehicle, currentUser}) {
     return(
@@ -22,3 +22,4 @@ export default function ReservationForm({selectedVehicle, currentUser}) {
         </div>
     );
 }
+

@@ -83,11 +83,11 @@ function tabContent(upcoming,response) {
                 </tr>
                 </thead>
                 <tbody>
-                {response.map((reservation) => (
-                        <tr key={reservation._id} className={"odd:bg-white even:bg-gray-50 border-b"}>
+                {response && response.map((reservation) => (
+                       reservation.vin &&  <tr key={reservation._id} className={"odd:bg-white even:bg-gray-50 border-b"}>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{reservation._id}</td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>
-                                <img src={reservation.vin.Image} alt="Vehicle" width="12%" height="12%" className={"float-left"}/>
+                            <img src={reservation.vin.Image} alt="Vehicle" width="12%" height="12%" className={"float-left"}/>
                                 <p>{reservation.vin.make}</p>
                             </td>
                             <td className={"px-6 py-4 font-medium text-gray-900 whitespace-nowrap"}>{new Date(reservation.pickupDate).toISOString().split('T')[0]}</td>

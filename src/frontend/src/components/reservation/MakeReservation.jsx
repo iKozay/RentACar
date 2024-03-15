@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ReservationForm from "./ReservationForm.jsx";
-import { useParams,useOutletContext } from "react-router-dom";
+import { useParams} from "react-router-dom";
 
 export default function MakeReservation() {
-    const {user} = useOutletContext()
+
     const [selectedVehicle, setSelectedVehicle] = useState(null);
     const [loading, setLoading] = useState(true);
     const { vehicleId } = useParams(); // Extract vehicleId from URL params

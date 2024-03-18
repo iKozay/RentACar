@@ -57,6 +57,7 @@ app.use('/api/users',routes.usersRoute);
 app.use('/api/vehicles',routes.vehiclesRoute);
 app.use('/api/auth',routes.authRoute);
 app.use('/api/reservations',routes.reservationsRoute);
+app.use('/api/branches',routes.branchRoute);
 
 
 app.get('/test/fetch',(req,res)=>{// Just for testing purposes

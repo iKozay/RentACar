@@ -3,6 +3,19 @@ const { validationResult } = require("express-validator");
 const { authenticate } = require("./../config/passport");
 const {validateBranchData} = require('./../middlewares/branchValidation');
 
+exports.branch_list = [
+    authenticate,
+    async (req,res)=>{
+        try{
+            const branches = await Branch.find({}).sort({name: 1}).exec();
+            res.status(200).json(branches);
+        }catch(error){
+            console.log("Error"+error);
+            res.status(500).json({ error: 'MongoDB server Error' });
+        }
+    }
+]
+
 exports.branch_create = [
     authenticate,
     validateBranchData,

@@ -22,7 +22,7 @@ const branchSchema = new Schema({
 branchSchema.virtual('address').get(function() {
   return `${this.location.street}, ${this.location.city}, ${this.location.province}`;
 });
-
+branchSchema.set("toJSON", { getters: true });
 const Branch = mongoose.model('Branch', branchSchema);
 
 module.exports = Branch;

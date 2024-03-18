@@ -23,6 +23,7 @@ export default function Map({ location }) {
         <Marker position={loc}>
           <Popup>{currentCity.display_name}</Popup>
         </Marker>
+ 
         <FlyMapTo position={loc} />
       </MapContainer>
     </div>

@@ -15,7 +15,20 @@ exports.branch_list = [
         }
     }
 ]
-
+exports.branch_detail=[
+    authenticate,
+    async (req,res)=>{
+        try{
+            const branch= await Branch.findById(req.params.branchId).exec();
+            if(branch === null)
+            res.status(400).json({"error":"branch "+req.params.branchId+" doesn't exist"});
+            res.status(200).json(branch);
+        }catch(error){
+            console.log("Error"+error);
+            res.status(500).json({ error: 'MongoDB server Error' });
+        }
+    }
+]
 exports.branch_create = [
     authenticate,
     validateBranchData,

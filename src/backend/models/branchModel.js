@@ -10,7 +10,7 @@ const branchSchema = new Schema({
     street: String, 
     postal_code: String,
     city: String,
-    country: String
+    province: String
   },
   vehicles: [{
     type: Schema.Types.ObjectId,
@@ -20,7 +20,7 @@ const branchSchema = new Schema({
 
 
 branchSchema.virtual('address').get(function() {
-  return `${this.location.street}, ${this.location.city}, ${this.location.postal_code}, ${this.location.country}`;
+  return `${this.location.street}, ${this.location.city}, ${this.location.province}`;
 });
 
 const Branch = mongoose.model('Branch', branchSchema);

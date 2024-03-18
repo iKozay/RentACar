@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Map from "../components/location/Map";
+import fetchData from "../utilities/fetchData";
 
 function LocationMap() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [branches, setBranches] = useState([]);
+  const [branchNotFound, setBranchNotFound] = useState(false);
   const [currentLocation, setCurrentLocation] = useState({
     latitude: 0,
     longitude: 0,
@@ -52,18 +54,61 @@ function LocationMap() {
     }
   }, [lastFetchTime]);
 
+  useEffect(() => {
+    async function fetchBranches() {
+      const response = await fetchData("http://localhost:3000/api/branches", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.data) {
+        setBranches(response.data);
+        setBranchNotFound(false);
+      } else if (response.error) {
+        setBranchNotFound(true);
+      }
+    }
+    fetchBranches();
+  }, []);
+
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
-      <h1>Select a branch</h1>
-      {loading && <h3 className="text-lg">Loading...</h3>}
-      {!loading && error && (
-        <h3 className="text-lg text-red-500">Error loading the map</h3>
-      )}
-      {!loading && !error && (
-        <div className="w-500 h-500">
-          <Map location={currentLocation} />
+      <h1 className="text-3xl font-bold mb-4">Select a Branch</h1>
+      <div>
+        {loading && <h3 className="text-lg">Loading...</h3>}
+        {!loading && error && (
+          <h3 className="text-lg text-red-500">Error loading the map</h3>
+        )}
+        {!loading && !error && currentLocation && branches && (
+          <div className="w-500 h-500">
+            <Map location={currentLocation} branches={branches} />
+          </div>
+        )}
+      </div>
+      <div className="mt-4">
+        <h2 className="text-xl font-semibold mb-2">Branches</h2>
+        <div className="space-y-4">
+          {branches.length > 0 ? (
+            branches.map((branch, index) => (
+              <div
+                key={index}
+                className="p-4 bg-gray-100 rounded-lg flex flex-col"
+              >
+                {/* Display branch information */}
+                <p className="text-lg font-semibold">{branch.name}</p>
+                <p className="text-gray-600">{branch.address}</p>
+              </div>
+            ))
+          ) : (
+            <div className="text-red-500">No branches found</div>
+          )}
         </div>
-      )}
+        {branchNotFound && (
+          <div className="text-red-500">Error retrieving branches</div>
+        )}
+      </div>
     </div>
   );
 }

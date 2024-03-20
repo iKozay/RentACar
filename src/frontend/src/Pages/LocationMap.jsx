@@ -4,7 +4,7 @@ import fetchData from "../utilities/fetchData";
 import isSelected from "../utilities/isSelected";
 import { branchContext } from "../components/browsingPage/SearchBox";
 import handleChangeBranch from "../utilities/handleChangeBranch";
-import getGeocodeFromAddress from "../utilities/getGeocodeFromAddress";
+
 
 function LocationMap() {
   const { setBranchName } = useContext(branchContext);
@@ -13,7 +13,7 @@ function LocationMap() {
   const [loading, setLoading] = useState(false);
   const [branches, setBranches] = useState([]);
   const [branchNotFound, setBranchNotFound] = useState(false);
-  const [trigger, setTrigger] = useState(false);
+
   const [loc, setLoc] = useState([0, 0]);
 
   const [currentLocation, setCurrentLocation] = useState({
@@ -72,13 +72,8 @@ function LocationMap() {
         },
       });
       if (response.data) {
-        const updatedBranches = await Promise.all(
-          response.data.map(async (branch) => {
-            branch.latLng = await getGeocodeFromAddress(branch.address);
-            return branch;
-          })
-        );
-        setBranches(updatedBranches);
+    
+        setBranches(response.data);
         setBranchNotFound(false);
       } else if (response.error) {
         setBranchNotFound(true);
@@ -119,7 +114,7 @@ function LocationMap() {
                         <button
                           onClick={() => {
                             handleChangeBranch(branch.name);
-                            setTrigger(!trigger);
+                            setLoc(branch.latLon);
                             setBranchName(branch.name);
                           }}
                         >
@@ -142,7 +137,7 @@ function LocationMap() {
                         <button
                           onClick={async () => {
                             handleChangeBranch(branch.name);
-                            setLoc(branch.latLng);
+                            setLoc(branch.latLon);
                             setBranchName(branch.name);
                           }}
                         >

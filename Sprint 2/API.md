@@ -361,4 +361,67 @@ Delete a user by ID
    - **Description**: Cancels a reservation by its ID.
    - **Required Headers**: Authorization
 
+### API Endpoints for Transaction Management
+*replace userId or transactionId or reservationId with actual ID taken from database
+
+1. **Create a new transaction**
+    - **URL**: `http://localhost:3000/api/transactions/add`
+    - **Method**: `POST`
+    - **Description**: Creates a new transaction.
+    - **Required Headers**: Authorization
+    - **Request Body**:
+      ```json
+      {
+        "name": "Alice Smith",
+        "cardNumber": "1234567890123456",
+        "expiryDate": "12/22",
+        "cvv": "123",
+        "date": "2024-03-08T12:00:00Z",
+        "amount": 35000,
+        "reservationID": "65ef29928e591664663d138d",
+        "userID": "65ef29928e591664663d138d"
+      }
+      ```
+    - **Response**:
+    - `200 OK`: Returns transaction details in a JSON
+    - `400 bad request`: JSON object containing errors in request body
+    - `404`: User not found and/or Reservation not found
+
+2. **View all transactions**
+    - **URL**: `http://localhost:3000/api/transactions`
+    - **Method**: `GET`
+    - **Description**: Retrieves all transactions in the database.
+    - **Required Headers**: Authorization
+    - **Response**: 
+      * `200 OK`: Returns an array of transaction objects.
+
+3. **View a transaction by its ID**
+    - **URL**: `http://localhost:3000/api/transactions/transactionId`
+    - **Method**: `GET`
+    - **Description**: Retrieves a transaction by its ID.
+    - **Required Headers**: Authorization
+    - **Response**:
+        * `200 OK`: Returns transaction details in a JSON
+        * `404 Not found`: Transaction not found
+
+
+4. **View all transactions for a user**
+   - **URL**: `http://localhost:3000/api/transactions/user/userId`
+   - **Method**: `GET`
+   - **Description**: Retrieves all transactions associated with the specified user ID.
+   - **Required Headers**: Authorization
+   - **Response**: 
+     * `200 OK`: Returns an array of transaction objects.
+     * `404 Not found`: User not found
+
+5. **View all transactions for a reservation**
+   - **URL**: `http://localhost:3000/api/transactions/reservation/reservationId`
+   - **Method**: `GET`
+   - **Description**: Retrieves all transactions associated with the specified reservation ID.
+   - **Required Headers**: Authorization
+   - **Response**: 
+     * `200 OK`: Returns an array of transaction objects.
+     * `404 Not found`: Reservation not found
+
+
 

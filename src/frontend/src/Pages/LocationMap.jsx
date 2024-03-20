@@ -4,6 +4,7 @@ import fetchData from "../utilities/fetchData";
 import isSelected from "../utilities/isSelected";
 import { branchContext } from "../components/browsingPage/SearchBox";
 import handleChangeBranch from "../utilities/handleChangeBranch";
+import getGeocodeFromAddress from "../utilities/getGeocodeFromAddress";
 
 function LocationMap() {
   const { setBranchName } = useContext(branchContext);
@@ -13,6 +14,8 @@ function LocationMap() {
   const [branches, setBranches] = useState([]);
   const [branchNotFound, setBranchNotFound] = useState(false);
   const [trigger, setTrigger] = useState(false);
+  const [loc, setLoc] = useState([0, 0]);
+
   const [currentLocation, setCurrentLocation] = useState({
     latitude: 0,
     longitude: 0,
@@ -69,7 +72,13 @@ function LocationMap() {
         },
       });
       if (response.data) {
-        setBranches(response.data);
+        const updatedBranches = await Promise.all(
+          response.data.map(async (branch) => {
+            branch.latLng = await getGeocodeFromAddress(branch.address);
+            return branch;
+          })
+        );
+        setBranches(updatedBranches);
         setBranchNotFound(false);
       } else if (response.error) {
         setBranchNotFound(true);
@@ -88,12 +97,13 @@ function LocationMap() {
         )}
         {!loading && !error && currentLocation && branches && (
           <div className="flex">
-            <div className="w-300 h-300">
+            <div className="w-400 h-400">
               <Map
                 location={currentLocation}
                 branches={branches}
-                trigger={trigger}
-                setTrigger={setTrigger}
+                loc={loc}
+                setLoc={setLoc}
+          
               />
             </div>
             <div className="overflow-y-scroll p-3 border h-350">
@@ -113,9 +123,7 @@ function LocationMap() {
                             setBranchName(branch.name);
                           }}
                         >
-                          <p className="text-lg font-semibold">
-                            {branch.name}
-                          </p>
+                          <p className="text-lg font-semibold">{branch.name}</p>
                           <p className="text-gray-600">{branch.address}</p>
                         </button>
                       </div>
@@ -132,15 +140,13 @@ function LocationMap() {
                         className={`p-4 rounded-lg flex flex-col bg-gray-100 hover:bg-green-100`}
                       >
                         <button
-                          onClick={() => {
+                          onClick={async () => {
                             handleChangeBranch(branch.name);
-                            setTrigger(!trigger);
+                            setLoc(branch.latLng);
                             setBranchName(branch.name);
                           }}
                         >
-                          <p className="text-lg font-semibold">
-                            {branch.name}
-                          </p>
+                          <p className="text-lg font-semibold">{branch.name}</p>
                           <p className="text-gray-600">{branch.address}</p>
                         </button>
                       </div>
@@ -150,9 +156,7 @@ function LocationMap() {
                 })}
               </div>
               {branchNotFound && (
-                <div className="text-red-500">
-                  Error retrieving branches
-                </div>
+                <div className="text-red-500">Error retrieving branches</div>
               )}
             </div>
           </div>

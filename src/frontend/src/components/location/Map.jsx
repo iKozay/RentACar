@@ -1,10 +1,8 @@
 import { TileLayer, MapContainer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useEffect, useState ,useContext} from "react";
+import { useEffect ,useContext} from "react";
 import { branchContext } from "../browsingPage/SearchBox";
 import { useMap } from "react-leaflet";
-
-import getGeocodeFromAddress from "../../utilities/getGeocodeFromAddress";
 import L from "leaflet";
 import isSelected from "../../utilities/isSelected";
 import handleChangeBranch from "../../utilities/handleChangeBranch";
@@ -12,7 +10,7 @@ import handleChangeBranch from "../../utilities/handleChangeBranch";
 export default function Map({ location, branches, loc, setLoc}) {
 
   const {setBranchName} = useContext(branchContext);
-  const [branchLocations, setBranchLocations] = useState([]);
+
   useEffect(()=>{
     function setter(){
       setLoc([location.latitude,location.longitude]);
@@ -46,20 +44,6 @@ export default function Map({ location, branches, loc, setLoc}) {
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
   });
-  useEffect(() => {
-    async function fetchBranchLocations() {
-      const branchLocationsData = await Promise.all(
-        branches.map(async (branch) => {
-          return {
-            position: await getGeocodeFromAddress(branch.address),
-            name: branch.name,
-          };
-        })
-      );
-      setBranchLocations(branchLocationsData);
-    }
-    fetchBranchLocations();
-  }, [branches]);
 
   return (
     <div className="w-full h-full border border-gray-300 rounded-md">
@@ -90,21 +74,18 @@ export default function Map({ location, branches, loc, setLoc}) {
           }}>
           <Popup>{currentCity.display_name}</Popup>
         </Marker>
-        {branchLocations.map((branchLocation, index) => (
+        {branches.map((branch, index) => (
           <Marker
             key={index}
-            position={[
-              branchLocation.position.lat,
-              branchLocation.position.lon,
-            ]}
+            position={branch.latLon}
             icon={
-              isSelected(branchLocation.name) ? selectedPurpleIcon : blueIcon
+              isSelected(branch.name) ? selectedPurpleIcon : blueIcon
             }
             eventHandlers={{
               click: (e) => {
                 const position = e.target.getLatLng();
-                handleChangeBranch(branchLocation.name);
-                setBranchName(branchLocation.name);
+                handleChangeBranch(branch.name);
+                setBranchName(branch.name);
                setLoc([position.lat,position.lng])
 
               },
@@ -119,7 +100,7 @@ export default function Map({ location, branches, loc, setLoc}) {
 
             }}
           >
-            <Popup>{branchLocation.name}</Popup>
+            <Popup>{branch.name}</Popup>
           </Marker>
         ))}
         <FlyMapTo position={loc} />

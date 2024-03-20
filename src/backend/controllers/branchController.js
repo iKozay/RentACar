@@ -2,7 +2,7 @@ const Branch = require("../models/branchModel");
 const { validationResult } = require("express-validator");
 const { authenticate } = require("./../config/passport");
 const { validateBranchData } = require("./../middlewares/branchValidation");
-const checkAddressValidity = require("../utils/checkAddressValidity");
+const getGeocodeFromAddress=require('./../utils/getGeocodeFromAddress'); 
 exports.branch_list = [
 
   async (req, res) => {
@@ -52,10 +52,13 @@ exports.branch_create = [
         street: req.body.location.street,
       },
       vehicles: req.body.vehicles || [],
+      reservations:req.body.reservations || []
     });
     try {
-      const isAddressFindable = await checkAddressValidity(branch.address);
-      if (!isAddressFindable) return res.status(400).json({ error: "Address in not findable in the map" });
+      const location = await getGeocodeFromAddress(branch.address);
+      if (!location) return res.status(400).json({ error: "Address in not findable in the map" });
+      branch.location.lat=location.lat;
+      branch.location.lon=location.lon;
       await branch.save();
       res.status(201).json(branch);
     } catch (error) {

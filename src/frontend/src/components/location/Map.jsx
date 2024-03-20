@@ -1,11 +1,16 @@
 import { TileLayer, MapContainer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
+import { branchContext } from "../browsingPage/SearchBox";
 import { useMap } from "react-leaflet";
 import getGeocodeFromAddress from "../../utilities/getGeocodeFromAddress";
 import L from "leaflet";
+import isSelected from "../../utilities/isSelected";
+import handleChangeBranch from "../../utilities/handleChangeBranch";
 
-export default function Map({ location, branches }) {
+export default function Map({ location, branches}) {
+
+  const {setBranchName} = useContext(branchContext);
   const [branchLocations, setBranchLocations] = useState([]);
 
   const currentCity = location;
@@ -13,7 +18,22 @@ export default function Map({ location, branches }) {
   const redIcon = new L.Icon({
     iconUrl:
       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
-    // shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
+  const selectedPurpleIcon = new L.Icon({
+    iconUrl:
+      "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
+  const blueIcon = new L.Icon({
+    iconUrl:
+      "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
@@ -37,31 +57,55 @@ export default function Map({ location, branches }) {
   return (
     <div className="w-full h-full border border-gray-300 rounded-md">
       <MapContainer
-        center={[0, 0]}
-        zoom={13}
+        center={loc}
+        zoom={11}
         scrollWheelZoom={true}
         className="h-full w-full"
-        style={{ width: "500px", height: "500px" }} // Tailwind styling
+        style={{ width: "350px", height: "350px" }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={loc} icon={redIcon}>
+        <Marker position={loc} icon={redIcon}
+          eventHandlers={{
+            mouseover:(e)=>{
+              e.target.openPopup();
+            },
+            mouseout:(e)=>{
+              e.target.closePopup();
+            }
+            
+          }}>
           <Popup>{currentCity.display_name}</Popup>
         </Marker>
-        {branchLocations.map((branchLocation) => (
+        {branchLocations.map((branchLocation, index) => (
           <Marker
-            key={`${branchLocation.position.lat}-${branchLocation.position.lon}`}
+            key={index}
             position={[
               branchLocation.position.lat,
               branchLocation.position.lon,
             ]}
+            icon={
+              isSelected(branchLocation.name) ? selectedPurpleIcon : blueIcon
+            }
+            eventHandlers={{
+              click: () => {
+                handleChangeBranch(branchLocation.name);
+                setBranchName(branchLocation.name);
+              },
+              mouseover:(e)=>{
+                e.target.openPopup();
+              },
+              mouseout:(e)=>{
+                e.target.closePopup();
+              }
+              
+            }}
           >
             <Popup>{branchLocation.name}</Popup>
           </Marker>
         ))}
-
         <FlyMapTo position={loc} />
       </MapContainer>
     </div>

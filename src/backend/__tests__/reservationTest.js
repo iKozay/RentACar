@@ -22,11 +22,14 @@ describe('Reservation Routes', () => {
             const newReservation = await Reservation.create(reservation);
             const res = await request(app).get(`/api/reservations/${newReservation._id}`);
             expect(res.status).toBe(200);
-            // Modify the assertion to check if vin is an object with an _id property
-//            expect(res.body.vin._id).toBe("65eb245afc880613982a5caa");
-            // print body in console
-            console.log(res.body);
             expect(res.body.vin).toHaveProperty('_id', "65e52b7f3a6b6fac482c8278");
+        });
+    });
+
+    describe('GET /api/reservations/', () => {
+        it('should return all reservations', async () => {
+            const res = await request(app).get(`/api/reservations/`);
+            expect(res.status).toBe(200);
         });
     });
 

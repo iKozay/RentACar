@@ -1,11 +1,11 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {UserContext} from "../../Pages/Root";
 import {useContext} from "react";
 import createReservation from "../../utilities/createReservation.js";
 import createTransaction from "../../utilities/createTransaction.js";
 
-export default function Payment({setTransaction, vehicle, totalPrice}) {
+export default function Payment({setGoToPayment, vehicle, totalPrice}) {
     const {user} = useContext(UserContext);
 
     const [cardName, setCardName] = React.useState('');
@@ -30,14 +30,12 @@ export default function Payment({setTransaction, vehicle, totalPrice}) {
                 const reservation = await createReservation(vehicle._id, user.id, vehicle.pickupDate, vehicle.returnDate);
                 if(reservation) {
                     // create transaction
-                    console.log(vehicle);
-                    const transaction = await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservation._id);
-                    if(transaction) {
-                        setTransactionDone(true);
-                    }
+                    await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservation._id);
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     const setValidColor = (isValid) => {
@@ -59,9 +57,7 @@ export default function Payment({setTransaction, vehicle, totalPrice}) {
             });
             return false;
         }
-
         if(cardNumber.length !== 16) {
-            alert(cardNumber.length);
             setValid({
                 cardName: valid.cardName,
                 cardNumber: false,
@@ -71,7 +67,7 @@ export default function Payment({setTransaction, vehicle, totalPrice}) {
             valid = false;
         }
         if(expDate.length !== 5) {
-            setValidColor({
+            setValid({
                 cardName: valid.cardName,
                 cardNumber: valid.cardNumber,
                 expDate: false,
@@ -80,7 +76,7 @@ export default function Payment({setTransaction, vehicle, totalPrice}) {
             valid = false;
         }
         if(ccv.length !== 3) {
-            setValidColor({
+            setValid({
                 cardName: valid.cardName,
                 cardNumber: valid.cardNumber,
                 expDate: valid.expDate,
@@ -95,17 +91,18 @@ export default function Payment({setTransaction, vehicle, totalPrice}) {
         // make sure that name is only letters
         var name = e.target.value;
         var formattedName = name.replace(/[^a-zA-Z\s]/g, "");
-        setCardName(formattedName)
+        setCardName(formattedName);
         if(formattedName !== name) {
             e.target.value = formattedName;
             // set valid to true
-            setValid({
-                cardName: true,
-                cardNumber: valid.cardNumber,
-                expDate: valid.expDate,
-                ccv: valid.ccv
-            });
         }
+        setValid({
+            cardName: true,
+            cardNumber: valid.cardNumber,
+            expDate: valid.expDate,
+            ccv: valid.ccv
+        });
+
     }
 
     const onChangeCreditNumber = (e) => {
@@ -115,19 +112,24 @@ export default function Payment({setTransaction, vehicle, totalPrice}) {
         var formattedCardNumber = cardNumber.replace(/[^\d]/g, "");
         formattedCardNumber = formattedCardNumber.substring(0, 16);
 
+        // Add spaces to the card number
+        if (formattedCardNumber.length > 4) {
+            formattedCardNumber = formattedCardNumber.substring(0, 4) + ' ' + formattedCardNumber.substring(4, 8) + ' ' + formattedCardNumber.substring(8, 12) + ' ' + formattedCardNumber.substring(12, 16);
+        }
+
         // If the formmattedCardNumber is different to what is shown, change the value
         if (cardNumber !== formattedCardNumber) {
             e.target.value = formattedCardNumber;
-            e.target.length = formattedCardNumber.length;
-            setCardNumber(e.target.value)
+
+            setCardNumber(formattedCardNumber.replace(/\s/g, ''));
             // set valid to true
-            setValid({
-                cardName: valid.cardName,
-                cardNumber: true,
-                expDate: valid.expDate,
-                ccv: valid.ccv
-            });
         }
+        setValid({
+            cardName: valid.cardName,
+            cardNumber: true,
+            expDate: valid.expDate,
+            ccv: valid.ccv
+        });
     }
 
     const onChangeExpDate = (e) => {
@@ -144,14 +146,13 @@ export default function Payment({setTransaction, vehicle, totalPrice}) {
             e.target.value = formattedExp;
             e.target.length = formattedExp.length;
             // set valid to true
-            setValid({
-                cardName: valid.cardName,
-                cardNumber: valid.cardNumber,
-                expDate: true,
-                ccv: valid.ccv
-            });
-
         }
+        setValid({
+            cardName: valid.cardName,
+            cardNumber: valid.cardNumber,
+            expDate: true,
+            ccv: valid.ccv
+        });
         if(formattedExp.length === 5) {
             // now expiration date is valid
             setExpDate(formattedExp)
@@ -162,20 +163,30 @@ export default function Payment({setTransaction, vehicle, totalPrice}) {
         var ccv = e.target.value;
         var formattedCcv = ccv.replace(/[^\d]/g, "");
         formattedCcv = formattedCcv.substring(0, 3);
-        if(formattedCcv.length === 3) {
-            // now ccv is valid
-            setCcv(formattedCcv)
-        }
         if(formattedCcv !== ccv) {
             e.target.value = formattedCcv;
             e.target.length = formattedCcv.length;
             // set valid to true
-            setValid({
-                cardName: valid.cardName,
-                cardNumber: valid.cardNumber,
-                expDate: valid.expDate,
-                ccv: true,
-            });
+        }
+        setValid({
+            cardName: valid.cardName,
+            cardNumber: valid.cardNumber,
+            expDate: valid.expDate,
+            ccv: true,
+        });
+        if(formattedCcv.length === 3) {
+            // now ccv is valid
+            setCcv(formattedCcv)
+        }
+
+    }
+
+    const navigate = useNavigate()
+    async function delay(e) {
+        e.preventDefault();
+        if(await processPayment()) {
+            setTimeout(() => {navigate("/reservation/confirmation");}, 2000);
+            setPaymentAnimation(false);
         }
     }
 
@@ -198,10 +209,9 @@ export default function Payment({setTransaction, vehicle, totalPrice}) {
                 </div>
             </div>
             <div className="flex justify-between mr-8 ml-8">
-                <button className="bg-blue-500 text-white p-2 rounded-lg w-20" onClick={(e)=>setTransaction(false)}>Back</button>
-                    <Link to={user?(transactionDone?`/reservation/confirmation`:null):'/login'}>
-                        <button className={`${paymentAnimation && "inline-flex items-center"} bg-blue-500 text-white p-2 rounded-lg w-20`}
-                                onClick={(e)=>processPayment()}>
+                <button className={`bg-blue-500 text-white p-2 rounded-lg w-20`} onClick={(e)=>setGoToPayment(false)}>Back</button>
+                    <Link to={user?(`/reservation/confirmation`):'/login'} onClick={delay}>
+                        <button className={`${paymentAnimation && "inline-flex items-center disabled"} bg-blue-500 text-white p-2 rounded-lg w-20`}>
                             {paymentAnimation?
                                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

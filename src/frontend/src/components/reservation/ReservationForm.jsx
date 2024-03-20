@@ -12,38 +12,38 @@ export default function ReservationForm({selectedVehicle}) {
     const vehicleTotalPrice = computeTotalPrice(selectedVehicle.pickupDate, selectedVehicle.returnDate, selectedVehicle.price);
     const [addonPrice, setAddonPrice] = React.useState(0);
 
-    const [transaction, setTransaction] = React.useState(false);
+    const [goToPayment, setGoToPayment] = React.useState(false);
 
     return(
         <div className={"flex justify-center"}>
-            <div className={`${transaction ? "w-1/6 m-6 h-fit flex-none" : "p-6 my-6 mx-auto"}  bg-white rounded-md shadow-2xl shadow-stone-300 lg:max-w-xl`}>
+            <div className={`${goToPayment ? "w-1/6 m-6 flex-none" : "p-6 my-6 mx-auto"}  bg-white rounded-md shadow-2xl shadow-stone-300 lg:max-w-xl`}>
                 <table className={""}>
                     <tbody>
                     <tr>
                         <td>
-                            {!transaction &&
+                            {!goToPayment &&
                                 <VehicleViewer vImage={selectedVehicle.Image} price={selectedVehicle.price} make={selectedVehicle.make} dates={dates} vehicleTotalPrice={vehicleTotalPrice}/>}
                         </td>
                     </tr>
                     <tr>
-                        {!transaction &&
+                        {!goToPayment &&
                             <td><AddonSelector addonPrice={addonPrice} setAddonPrice={setAddonPrice} totalDays={computeNumOfDays(selectedVehicle.pickupDate,selectedVehicle.returnDate)}/></td>}
                     </tr>
                     <tr>
                         <td>
                             <div className={`p-3`}>
-                                {transaction && <div className={""}>
+                                {goToPayment && <div className={""}>
                                     <img src={selectedVehicle.Image}/>
                                 </div>}
-                                <div className={`grid ${transaction?"justify-items-center":"justify-items-end"} mb-2`}>
-                                    <div className={`mb-2 inline-block ${!transaction && "mr-5"}`}>
-                                        {transaction ?
+                                <div className={`grid ${goToPayment?"justify-items-center":"justify-items-end"} mb-2`}>
+                                    <div className={`mb-2 inline-block ${!goToPayment && "mr-5"}`}>
+                                        {goToPayment ?
                                             <div className="text-stone-600">
                                                 <p className={"float-left mr-2"}>Vehicle:</p>
                                                 <p className={"float-right"}> {(Math.round((vehicleTotalPrice) * 100) / 100).toFixed(2)}$</p>
                                             </div> : ""
                                         }
-                                        {transaction ?
+                                        {goToPayment ?
                                             <div className="text-stone-600">
                                                 <p className={"float-left mr-2"}>Addons:</p>
                                                 <p className={"float-right"}> {(Math.round((0.14975*(addonPrice)) * 100) / 100).toFixed(2)}$</p>
@@ -57,7 +57,7 @@ export default function ReservationForm({selectedVehicle}) {
                                             <p className={"float-left mr-2"}>Taxes:</p>
                                             <p className={"float-right"}> {(Math.round((0.14975*(vehicleTotalPrice+addonPrice)) * 100) / 100).toFixed(2)}$</p>
                                         </div>
-                                        <div className="text-stone-600">
+                                        <div className={`text-stone-600`}>
                                             <p className={"float-left mr-2 font-bold text-2xl mt-4"}>Total:</p>
                                             <p className={"float-right text-2xl mt-4"}> {(Math.round((1.14975*(vehicleTotalPrice+addonPrice)) * 100) / 100).toFixed(2)}$</p>
                                         </div>
@@ -67,21 +67,21 @@ export default function ReservationForm({selectedVehicle}) {
                         </td>
                     </tr>
                     <tr>
-                        {!transaction &&
+                        {!goToPayment &&
                             <div className="flex justify-between mr-8 ml-8">
                                 <Link to={"/"}>
                                     <button className="bg-blue-500 text-white p-2 rounded-lg w-20 hover:bg-blue-600">Cancel</button>
                                 </Link>
-                                <button className="bg-blue-500 text-white p-2 rounded-lg w-20 hover:bg-blue-600" onClick={(e)=>setTransaction(true)}>Pay</button>
+                                <button className="bg-blue-500 text-white p-2 rounded-lg w-20 hover:bg-blue-600" onClick={(e)=>setGoToPayment(true)}>Next</button>
                             </div>
                         }
                     </tr>
                     </tbody>
                 </table>
             </div>
-            {transaction &&
+            {goToPayment &&
                 <div className={"w-full p-6 my-6 bg-white rounded-md shadow-2xl shadow-stone-300 lg:max-w-xl"}>
-                    <Payment setTransaction={setTransaction} vehicle={selectedVehicle} totalPrice={((Math.round((1.14975*(vehicleTotalPrice+addonPrice)) * 100) / 100).toFixed(2))}/>
+                    <Payment setGoToPayment={setGoToPayment} vehicle={selectedVehicle} totalPrice={((Math.round((1.14975*(vehicleTotalPrice+addonPrice)) * 100) / 100).toFixed(2))}/>
                 </div>}
         </div>
     );

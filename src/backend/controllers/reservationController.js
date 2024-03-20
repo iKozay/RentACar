@@ -12,6 +12,12 @@ exports.view_reservation = asyncHandler(async (req, res) => {
   res.status(200).json(reservation);
 });
 
+// view all reservations
+exports.view_all_reservations = asyncHandler(async (req, res) => {
+  const reservations = await Reservation.find({}).populate('userID').populate('vin').exec();
+  res.status(200).json(reservations);
+});
+
 // View all reservations for a user
 exports.view_user_reservations = asyncHandler(async (req, res) => {
   const userId = req.params.userId;

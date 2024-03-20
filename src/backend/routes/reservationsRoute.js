@@ -7,6 +7,9 @@ router.get('/user/:userId', reservation_controller.view_user_reservations);
 // GET a reservation by its id 
 router.get('/:reservationId',reservation_controller.view_reservation)
 
+// GET all reservation
+router.get('/',reservation_controller.view_all_reservations)
+
 // create a reservation
 router.post('/',reservation_controller.create_reservation)
 

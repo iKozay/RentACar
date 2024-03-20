@@ -1,0 +1,53 @@
+Project Name: A Car Rental Web Application for SOEN 341
+Team Name: GazaBrigade
+
+Sprint: 3
+Meeting Number: 4
+Date: 2024-03-20
+Duration: 30 minutes
+Meeting Mode: In Person
+Meeting Location: Concordia CL building
+
+Members:
+
+    Zeiad Badawy (40247477) (Present InPerson)
+    Abdel-Rahman Khalifa (40253332) (Present InPerson)
+    Miskat Mahmud (40250110) (Present InPerson)
+    Mohamed Saidi (40248103) (Present InPerson)
+    Matteo Sansone (40242278) (Present InPerson)
+
+The meeting was called to start at 10:00am, March 20.
+
+Meeting Agenda
+
+    - Discuss progress for sprint 3
+
+Discussion Points
+
+    - What is needed in the backend for vehicles.
+    - Frontend progress.
+
+Summary of Discussion:
+
+    - Need license plate and color for vehicles.
+    - Customer representative dashboard for branches.
+
+
+Action Items assigned:
+
+    - add license plate number and color to vehicles.
+    - Make customer representative dashboard with check in and check out options for branches.
+
+Decision Taken:
+
+     NA
+
+Next Steps:
+
+     - Continue working towards finishing sprint 3
+
+To Do element:
+
+     NA
+
+The Meeting was adjourned at 10:30am.

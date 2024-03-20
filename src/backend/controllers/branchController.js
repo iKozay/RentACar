@@ -4,7 +4,7 @@ const { authenticate } = require("./../config/passport");
 const { validateBranchData } = require("./../middlewares/branchValidation");
 const checkAddressValidity = require("../utils/checkAddressValidity");
 exports.branch_list = [
-  authenticate,
+
   async (req, res) => {
     try {
       const branches = await Branch.find({}).sort({ name: 1 }).exec();

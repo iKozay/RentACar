@@ -24,8 +24,10 @@ const Root = () => {
     else setToken(localStorage.getItem("token"));
     }
     updateToken();
-  }, []);
-  
+  });
+  useEffect(()=>{
+    localStorage.setItem("branch","Jean-Talon Ouest Branch");
+  },[])
   useEffect(() => {
     console.log("User in Root:", user);
   }, [user]);
@@ -41,19 +43,9 @@ const Root = () => {
   // }, [token]);
 
   return (
-    <div >
+    <div className="bg-fafbfc">
       <UserContext.Provider value={{ user, setUser, token, setToken }}>
         <Header key={token}  />
-   
-
-        {/* <nav
-  className="mx-auto flex items-center justify-between p-6 bg-slate-300"
-  aria-label="Global"
->
-      <button onClick={() => refreshToken(setToken)}>refresh</button>{" "}
-      <button onClick={() => getUser()}>getVehicles</button>
-</nav>  */}
-
         <div>
           <Outlet context={{ user, setUser, token, setToken }} />
         </div>

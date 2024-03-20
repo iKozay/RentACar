@@ -125,8 +125,8 @@ export default function Customer() {
               <p className="text-medium font-semibold mb-2">Reservations</p>
               {viewReservation && (
                 <>
-                  {reservations.map((reservation) => (
-                    <Link
+                  {reservations && reservations.map((reservation) => (
+                    reservation && <Link
                       to={`../reservations/${reservation._id}`}
                       key={reservation._id}
                       className="border rounded p-4 mb-4 hover:border-gray-700 duration-200 block w-full"

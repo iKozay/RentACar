@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Map from "../components/location/Map";
 import fetchData from "../utilities/fetchData";
+import isSelected from "../utilities/isSelected";
+import { branchContext } from "../components/browsingPage/SearchBox";
+import handleChangeBranch from "../utilities/handleChangeBranch";
 
 function LocationMap() {
+  const { setBranchName } = useContext(branchContext);
+
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [branches, setBranches] = useState([]);
   const [branchNotFound, setBranchNotFound] = useState(false);
+  const [trigger, setTrigger] = useState(false);
   const [currentLocation, setCurrentLocation] = useState({
     latitude: 0,
     longitude: 0,
@@ -30,7 +36,6 @@ function LocationMap() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           setCurrentLocation({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -82,31 +87,75 @@ function LocationMap() {
           <h3 className="text-lg text-red-500">Error loading the map</h3>
         )}
         {!loading && !error && currentLocation && branches && (
-          <div className="w-500 h-500">
-            <Map location={currentLocation} branches={branches} />
-          </div>
-        )}
-      </div>
-      <div className="mt-4">
-        <h2 className="text-xl font-semibold mb-2">Branches</h2>
-        <div className="space-y-4">
-          {branches.length > 0 ? (
-            branches.map((branch, index) => (
-              <div
-                key={index}
-                className="p-4 bg-gray-100 rounded-lg flex flex-col"
-              >
-                {/* Display branch information */}
-                <p className="text-lg font-semibold">{branch.name}</p>
-                <p className="text-gray-600">{branch.address}</p>
+          <div className="flex">
+            <div className="w-300 h-300">
+              <Map
+                location={currentLocation}
+                branches={branches}
+                trigger={trigger}
+                setTrigger={setTrigger}
+              />
+            </div>
+            <div className="overflow-y-scroll p-3 border h-350">
+              <div className="space-y-4">
+                {/* Render selected branch separately */}
+                {branches.map((branch, index) => {
+                  if (isSelected(branch.name)) {
+                    return (
+                      <div
+                        key={index}
+                        className={`p-4 rounded-lg flex flex-col bg-green-200 hover:bg-green-300`}
+                      >
+                        <button
+                          onClick={() => {
+                            handleChangeBranch(branch.name);
+                            setTrigger(!trigger);
+                            setBranchName(branch.name);
+                          }}
+                        >
+                          <p className="text-lg font-semibold">
+                            {branch.name}
+                          </p>
+                          <p className="text-gray-600">{branch.address}</p>
+                        </button>
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
+                {/* Render other branches */}
+                {branches.map((branch, index) => {
+                  if (!isSelected(branch.name)) {
+                    return (
+                      <div
+                        key={index}
+                        className={`p-4 rounded-lg flex flex-col bg-gray-100 hover:bg-green-100`}
+                      >
+                        <button
+                          onClick={() => {
+                            handleChangeBranch(branch.name);
+                            setTrigger(!trigger);
+                            setBranchName(branch.name);
+                          }}
+                        >
+                          <p className="text-lg font-semibold">
+                            {branch.name}
+                          </p>
+                          <p className="text-gray-600">{branch.address}</p>
+                        </button>
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
               </div>
-            ))
-          ) : (
-            <div className="text-red-500">No branches found</div>
-          )}
-        </div>
-        {branchNotFound && (
-          <div className="text-red-500">Error retrieving branches</div>
+              {branchNotFound && (
+                <div className="text-red-500">
+                  Error retrieving branches
+                </div>
+              )}
+            </div>
+          </div>
         )}
       </div>
     </div>

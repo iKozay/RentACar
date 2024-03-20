@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import Addon from "./Addon.jsx";
 
-export default function AddonSelector({addonPrice, setAddonPrice}) {
+export default function AddonSelector({addonPrice, setAddonPrice, totalDays}) {
     // list of addons such as insurance, gps, etc
     const addons = [
         {
@@ -40,7 +40,7 @@ export default function AddonSelector({addonPrice, setAddonPrice}) {
 
             <div className="grid justify-items-end mb-2">
                 <div className="mt-2 inline-block">
-                    <div className="text-stone-600 font-semibold">Add-ons: {(Math.round(addonPrice * 100) / 100).toFixed(2)}$</div>
+                    <div className="text-stone-600 font-semibold">Add-ons: {(Math.round((addonPrice * totalDays) * 100) / 100).toFixed(2)}$</div>
                 </div>
             </div>
             <hr className={'border-1 border-stone-300'}/>

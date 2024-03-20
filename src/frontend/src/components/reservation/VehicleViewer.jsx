@@ -34,12 +34,6 @@ export default function VehicleViewer({vImage, dates, make,price,vehicleTotalPri
                             <div className="text-stone-600 font-semibold">Vehicle: {(Math.round(vehicleTotalPrice * 100) / 100).toFixed(2)}$</div>
                         </div>
                     </div>
-                    {/*<div className={"flex justify-center pb-1"}>*/}
-                    {/*    <Link to={user?`/reservation/confirmation`:'/login'}>*/}
-                    {/*        <button className={'bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded'}*/}
-                    {/*            onClick={()=>{user? createReservation(vehicle._id,user.id,vehicle.pickupDate,vehicle.returnDate):()=>{}}}> Book Vehicle</button>*/}
-                    {/*    </Link>*/}
-                    {/*</div>*/}
                     <hr className={'border-1 border-stone-300'}/>
                 </div>
         </div>

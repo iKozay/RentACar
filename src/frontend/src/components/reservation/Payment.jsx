@@ -1,6 +1,12 @@
 import React from "react";
+import {Link} from "react-router-dom";
+import {UserContext} from "../../Pages/Root";
+import {useContext} from "react";
+import createReservation from "../../utilities/createReservation.js";
+import createTransaction from "../../utilities/createTransaction.js";
 
-export default function Payment({cancel, submit, vehicleID, userID}) {
+export default function Payment({setTransaction, vehicle, totalPrice}) {
+    const {user} = useContext(UserContext);
 
     const [cardName, setCardName] = React.useState('');
     const [cardNumber, setCardNumber] = React.useState('');
@@ -12,7 +18,28 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
         expDate: true,
         ccv: true
     });
-    // is valid function that sets color of input fields to red if invalid
+    const [paymentAnimation, setPaymentAnimation] = React.useState(false);
+    const [transactionDone, setTransactionDone] = React.useState(false);
+
+    // inline async function to process payment
+    const processPayment = async () => {
+        if(validate()) {
+            setPaymentAnimation(true);
+            if(user){
+                // create reservation
+                const reservation = await createReservation(vehicle._id, user.id, vehicle.pickupDate, vehicle.returnDate);
+                if(reservation) {
+                    // create transaction
+                    console.log(vehicle);
+                    const transaction = await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservation._id);
+                    if(transaction) {
+                        setTransactionDone(true);
+                    }
+                }
+            }
+        }
+    }
+
     const setValidColor = (isValid) => {
         if(isValid) {
             return "block w-full px-4 py-2 mt-2 placeholder:text-slate-400 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40";
@@ -62,14 +89,6 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
             valid = false;
         }
         return valid;
-    }
-
-    const processPayment = () => {
-        if(validate()){
-            // TODO: backend api call to process reservation
-            console.log('Processing payment');
-            submit();
-        }
     }
 
     const onChangeCardName = (e) => {
@@ -179,8 +198,21 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
                 </div>
             </div>
             <div className="flex justify-between mr-8 ml-8">
-                <button className="bg-blue-500 text-white p-2 rounded-lg w-20" onClick={cancel}>Cancel</button>
-                <button className="bg-blue-500 text-white p-2 rounded-lg w-20" onClick={processPayment}>Submit</button>
+                <button className="bg-blue-500 text-white p-2 rounded-lg w-20" onClick={(e)=>setTransaction(false)}>Back</button>
+                    <Link to={user?(transactionDone?`/reservation/confirmation`:null):'/login'}>
+                        <button className={`${paymentAnimation && "inline-flex items-center"} bg-blue-500 text-white p-2 rounded-lg w-20`}
+                                onClick={(e)=>processPayment()}>
+                            {paymentAnimation?
+                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                            stroke-width="4"></circle>
+                                    <path className="opacity-75" fill="currentColor"
+                                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>:""
+                            }
+                            Pay</button>
+                    </Link>
             </div>
         </div>
     );

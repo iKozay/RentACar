@@ -28,15 +28,7 @@ const reservationSchema = new Schema({
                     status: {
                         type: String,
                         enum: ['To Pickup', 'Checked In', 'Checked Out'],
-                        default: function() {
-                            if (new Date(this.returnDate) < new Date()) {
-                                return "Past";
-                            } else {
-                                return "To Pickup";
-                            }
-                        }
-
-                            // set multiple default values
+                        default: 'To Pickup'
                     },
                     addons: {
                         insurance: {

@@ -27,10 +27,10 @@ exports.view_user_reservations = asyncHandler(async (req, res) => {
 
 // Create a new reservation
 exports.create_reservation = asyncHandler(async (req, res) => {
-  const { vin, reservationDate, pickupDate, returnDate, userID } = req.body;
+  const { vin, reservationDate, pickupDate, returnDate, userID, status = 'not checked in', addons } = req.body;
 
   // Check if all required fields are present in the request body
-  if (!vin || !reservationDate || !pickupDate || !returnDate || !userID) {
+  if (!vin || !reservationDate || !pickupDate || !returnDate || !userID || !addons) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
@@ -41,7 +41,9 @@ exports.create_reservation = asyncHandler(async (req, res) => {
       reservationDate,
       pickupDate,
       returnDate,
-      userID
+      userID,
+      status,
+      addons
     });
 
     // Save the reservation to the database

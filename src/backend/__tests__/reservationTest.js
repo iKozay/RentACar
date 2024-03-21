@@ -52,6 +52,12 @@ describe('Reservation Routes', () => {
             expect(res.body).toHaveProperty('pickupDate', new Date("2024/3/9").toISOString());
             expect(res.body).toHaveProperty('returnDate', new Date("2024/3/10").toISOString());
             expect(res.body).toHaveProperty('userID', "65ef29928e591664663d138d");
+            expect(res.body).toHaveProperty('status', "not checked in");
+            expect(res.body.addons).toEqual({
+                insurance: true,
+                gps: false,
+                childSeat: 2
+              });
         });
     });
 
@@ -60,12 +66,14 @@ describe('Reservation Routes', () => {
             const newReservation = await Reservation.create(reservation);
             const updates = {
                 pickupDate: new Date(),
-                returnDate: new Date()
+                returnDate: new Date(), 
+                status: 'checked in'
             };
             const res = await request(app).put(`/api/reservations/${newReservation._id}`).send(updates);
             expect(res.status).toBe(200);
             expect(res.body).toHaveProperty('pickupDate', updates.pickupDate.toISOString());
             expect(res.body).toHaveProperty('returnDate', updates.returnDate.toISOString());
+            expect(res.body).toHaveProperty('status', 'checked in');
         });
     });
     

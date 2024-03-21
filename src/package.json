@@ -12,8 +12,8 @@
     "start-express-dev": "cd backend && npm run dev",
     "begin": "concurrently \"npm run start-express \" \"npm run start-react\"",
     "dev": "concurrently \"npm run start-express-dev \" \"npm run start-react-dev\"",
-    "install:frontend": "cd src/frontend && npm install",
-    "install:backend": "cd src/backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && npm install",
     "install:all": "npm run install:frontend && npm run install:backend && npm install"
   },
   "keywords": [],

@@ -24,6 +24,25 @@ const reservationSchema = new Schema({
                         type: Schema.Types.ObjectId,
                         ref: 'User',
                         required: true
+                    },
+                    status: {
+                        type: String,
+                        enum: ['not checked in', 'checked in', 'checked out'],
+                        default: 'not checked in'
+                    },
+                    addons: {
+                        insurance: {
+                            type: Boolean,
+                            required: true
+                        },
+                        gps: {
+                            type: Boolean,
+                            required: true
+                        },
+                        childSeat: {
+                            type: Number,
+                            required: true
+                        }
                     }
                     }, { timestamps: true });
 

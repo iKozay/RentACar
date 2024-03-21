@@ -1,4 +1,4 @@
 export default function isSelected(name) {
-    return name === localStorage.getItem("branch");
-  }
-  
+  const storedBranch = JSON.parse(localStorage.getItem("branch"));
+  return storedBranch && name === storedBranch.name;
+}

@@ -19,7 +19,7 @@ exports.branch_detail = [
   authenticate,
   async (req, res) => {
     try {
-      const branch = await Branch.findById(req.params.branchId).exec();
+      const branch = await Branch.findById(req.params.branchId).populate('vehicles reservations').exec();
       if (branch === null)
         res
           .status(400)

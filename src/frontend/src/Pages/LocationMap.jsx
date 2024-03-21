@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import Map from "../components/location/Map";
 import fetchData from "../utilities/fetchData";
 import isSelected from "../utilities/isSelected";
-import { branchContext } from "../components/browsingPage/SearchBox";
+import { branchContext } from "./BrowsingPage";
 import handleChangeBranch from "../utilities/handleChangeBranch";
 
 
@@ -113,7 +113,7 @@ function LocationMap() {
                       >
                         <button
                           onClick={() => {
-                            handleChangeBranch(branch.name);
+                            handleChangeBranch(branch.name,branch.id);
                             setLoc(branch.latLon);
                             setBranchName(branch.name);
                           }}
@@ -136,7 +136,7 @@ function LocationMap() {
                       >
                         <button
                           onClick={async () => {
-                            handleChangeBranch(branch.name);
+                            handleChangeBranch(branch.name,branch.id);
                             setLoc(branch.latLon);
                             setBranchName(branch.name);
                           }}

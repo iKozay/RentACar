@@ -46,7 +46,7 @@ export default function ReservationForm({selectedVehicle}) {
                                         {goToPayment ?
                                             <div className="text-stone-600">
                                                 <p className={"float-left mr-2"}>Addons:</p>
-                                                <p className={"float-right"}> {(Math.round((0.14975*(addonPrice)) * 100) / 100).toFixed(2)}$</p>
+                                                <p className={"float-right"}> {(Math.round(((addonPrice)*(computeNumOfDays(selectedVehicle.pickupDate,selectedVehicle.returnDate))) * 100) / 100).toFixed(2)}$</p>
                                             </div> : ""
                                         }
                                         <div className="text-stone-600">
@@ -86,6 +86,7 @@ export default function ReservationForm({selectedVehicle}) {
         </div>
     );
 }
+
 function computeNumOfDays(fromDate, toDate) {
     const from = Date.parse(fromDate);
     const to = new Date(toDate);

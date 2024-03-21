@@ -17,6 +17,7 @@ import Vehicles from "./Pages/Vehicles.jsx";
 import Vehicle from "./Pages/Vehicle.jsx";
 import AddVehicle from "./Pages/AddVehicle.jsx";
 import LocationMap from "./Pages/LocationMap.jsx";
+import RepresentativeDashboard from "./Pages/RepresentativeDashboard.jsx";
 import Map from "./components/location/Map.jsx";
 const Router = () => {
   const router = createBrowserRouter([
@@ -61,6 +62,10 @@ const Router = () => {
           path:"reservation/branches",
           element:<LocationMap/>
         },
+        {
+            path:"csr/dashboard",
+            element:<RepresentativeDashboard/>
+        },
 
         { 
             path:"dashboard",
@@ -96,7 +101,9 @@ const Router = () => {
                   element:<AddVehicle/>
                 }
               ]
-            }
+            },
+
+
       ],
     },
   ]);

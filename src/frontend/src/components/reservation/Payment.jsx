@@ -6,6 +6,7 @@ import createReservation from "../../utilities/createReservation.js";
 import createTransaction from "../../utilities/createTransaction.js";
 
 export default function Payment({setGoToPayment, vehicle, totalPrice}) {
+
     const {user} = useContext(UserContext);
 
     const [cardName, setCardName] = React.useState('');
@@ -26,8 +27,15 @@ export default function Payment({setGoToPayment, vehicle, totalPrice}) {
         if(validate()) {
             setPaymentAnimation(true);
             if(user){
+                // get addons from local storage
+                const addons = {
+                    insurance: localStorage.getItem("insurance"),
+                    gps: localStorage.getItem("gps"),
+                    childSeat: localStorage.getItem("childSeat")
+                };
+                console.log(addons);
                 // create reservation
-                const reservation = await createReservation(vehicle._id, user.id, vehicle.pickupDate, vehicle.returnDate);
+                const reservation = await createReservation(vehicle._id, user.id, vehicle.pickupDate, vehicle.returnDate, addons);
                 if(reservation) {
                     // create transaction
                     await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservation._id);

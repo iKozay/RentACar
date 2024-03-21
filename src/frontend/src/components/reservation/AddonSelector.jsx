@@ -8,20 +8,22 @@ export default function AddonSelector({addonPrice, setAddonPrice, totalDays}) {
         {
             name: "Insurance",
             price: 10,
-            max: 1
+            max: 1,
+            storageName: "insurance"
         },
         {
             name: "GPS",
             price: 5,
-            max: 1
+            max: 1,
+            storageName: "gps"
         },
         {
             name: "Child Seat",
             price: 5,
-            max: 2
+            max: 2,
+            storageName: "childSeat"
         }
     ];
-
 
 
     return (

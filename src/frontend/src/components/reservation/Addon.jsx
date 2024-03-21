@@ -1,6 +1,8 @@
 import React from 'react';
 export default function Addon({addon, totalAddonPrice,setAddonPrice}) {
     const [quantity, setQuantity] = React.useState(0);
+    localStorage.setItem(addon.storageName, quantity);
+
     const increment = () => {
         if(quantity < addon.max) {
             setQuantity(quantity+1);
@@ -11,6 +13,7 @@ export default function Addon({addon, totalAddonPrice,setAddonPrice}) {
         if(quantity > 0) {
             setQuantity(quantity-1);
             setAddonPrice(totalAddonPrice-addon.price);
+            // localStorage.setItem(addon.storageName, quantity);
         }
     }
     return (

@@ -114,7 +114,7 @@ function FlyMapTo({ position }) {
 
   useEffect(() => {
     if (position) {
-      map.flyTo(position);
+      map.setView(position);
     }
   }, [map, position]);
 

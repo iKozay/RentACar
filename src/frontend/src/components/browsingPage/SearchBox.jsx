@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LocationMap from "../../Pages/LocationMap";
 import Modal from "./Modal"; // Import the Modal component
-import { createContext,  } from "react";
-export const branchContext = createContext(null);
+import { branchContext } from "../../Pages/BrowsingPage";
 
 export default function SearchBox() {
+  const {branchName, setBranchName} = useContext(branchContext);
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
-  const [branchName, setBranchName] = useState("");
+ 
   const [expandMap, setExpandMap] = useState(false);
 
   useEffect(() => {
-    const storedBranch = localStorage.getItem("branch");
+    const storedBranch = JSON.parse(localStorage.getItem("branch"));
     if (storedBranch) {
-      setBranchName(storedBranch);
+      setBranchName(storedBranch.name);
     }
   }, []);
 
@@ -56,11 +56,11 @@ export default function SearchBox() {
         </form>
       </div>
       {expandMap && (
-        <branchContext.Provider value={{setBranchName}}>
+     
         <Modal onClose={() => setExpandMap(false)}>
           <LocationMap />
         </Modal>
-        </branchContext.Provider>
+      
       )}
     </div>
   );

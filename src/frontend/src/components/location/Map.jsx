@@ -1,7 +1,7 @@
 import { TileLayer, MapContainer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect ,useContext} from "react";
-import { branchContext } from "../browsingPage/SearchBox";
+import { branchContext } from "../../Pages/BrowsingPage";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
 import isSelected from "../../utilities/isSelected";
@@ -84,7 +84,7 @@ export default function Map({ location, branches, loc, setLoc}) {
             eventHandlers={{
               click: (e) => {
                 const position = e.target.getLatLng();
-                handleChangeBranch(branch.name);
+                handleChangeBranch(branch.name,branch.id);
                 setBranchName(branch.name);
                setLoc([position.lat,position.lng])
 
@@ -114,7 +114,7 @@ function FlyMapTo({ position }) {
 
   useEffect(() => {
     if (position) {
-      map.flyTo(position);
+      map.setView(position);
     }
   }, [map, position]);
 

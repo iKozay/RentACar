@@ -43,6 +43,14 @@ export default function AdminVerification() {
                     Vehicles
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="branches"
+                    className="block py-2 px-4 hover:bg-gray-700"
+                  >
+                    Branches
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>

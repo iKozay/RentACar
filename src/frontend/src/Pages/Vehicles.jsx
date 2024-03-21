@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import fetchData from "../utilities/fetchData";
 import { useState, useEffect } from "react";
 
-export default function Vehicles() {
+export default function Branches() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -57,9 +57,10 @@ export default function Vehicles() {
       {!minimized && (
         <div className="border border-collapse">
           <div className="bg-gray-100 flex p-2">
-            <div className="flex-1">Make</div>
-            <div className="flex-1">Model</div>
-            <div className="flex-1">Price</div>
+            <div className="flex-1 text-center">Make</div>
+            <div className="flex-1 text-center">Model</div>
+            <div className="flex-1 text-center">Price</div>
+            <div className="flex-1 text-center">Image</div>
           </div>
           {success ? (
             vehicles.map((vehicle, index) => (
@@ -71,14 +72,14 @@ export default function Vehicles() {
                 } border border-gray-300 hover:border-gray-700 rounded-md`}
                 style={{ textDecoration: "none" }}
               >
-                <div className="flex-1">{vehicle.make}</div>
-                <div className="flex-1">{vehicle.model}</div>
-                <div className="flex-1">{vehicle.price}</div>
-                <div>
+                <div className="flex-1 text-center">{vehicle.make}</div>
+                <div className="flex-1 text-center">{vehicle.model}</div>
+                <div className="flex-1 text-center">{vehicle.price}</div>
+                <div className="flex-1 text-center">
                   <img
                     src={`${vehicle.Image}`}
                     alt=""
-                    style={{ maxWidth: "100px" }}
+                    style={{textAlign:"center", maxWidth: "100px" }}
                   />
                 </div>
               </Link>

@@ -25,7 +25,7 @@ Members Contribution For Sprint 3
 ### Miskat Mahmud - 40250110 - Backend DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-|   |    |                                                                 |
+| Task #249           |  3h   |Added two new fields, Updated the create_reservation function, Modified the modify_reservation, Updated the reservation data , Adjusted the test cases.                                                          |
 |        |        |                                                                 |
 |                  |         |                                                                 |
 |                          |           |                                                                 |
@@ -38,7 +38,7 @@ Members Contribution For Sprint 3
 ### Matteo Sansone - 40242278 - Front-end DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-| Task #249                   |     3h    | Added two new fields, Updated the create_reservation function, Modified the modify_reservation, Updated the reservation data , Adjusted the test cases. |
+|          |        |  |
 |  |     |                                                                 |
 |        |        |                                                                 |
 |         |        |                                                                 |

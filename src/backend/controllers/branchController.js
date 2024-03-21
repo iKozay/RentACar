@@ -16,7 +16,7 @@ exports.branch_list = [
   },
 ];
 exports.branch_detail = [
-  authenticate,
+
   async (req, res) => {
     try {
       const branch = await Branch.findById(req.params.branchId).populate('vehicles reservations').exec();

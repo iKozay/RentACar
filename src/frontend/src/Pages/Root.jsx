@@ -26,7 +26,7 @@ const Root = () => {
     updateToken();
   });
   useEffect(()=>{
-    localStorage.setItem("branch", JSON.stringify({ name: "Jean-Talon Ouest Branch", id: "65fb63c9c13924fc9eed9b07" }));
+    localStorage.setItem("branch", JSON.stringify({ name: "Jean-Talon Ouest Branch", id: "65fc61e79c3eac16cbf846eb" }));
   },[])
   useEffect(() => {
     console.log("User in Root:", user);

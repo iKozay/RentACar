@@ -1,6 +1,6 @@
 import fetchData from "./fetchData"
 
-export default async function createReservation(vin,userId,pickupDate,returnDate){
+export default async function createReservation(vin,userId,pickupDate,returnDate,addons){
 
     const response = await fetchData(`http://localhost:3000/api/reservations/`, {
     method: "POST",
@@ -16,6 +16,7 @@ export default async function createReservation(vin,userId,pickupDate,returnDate
         pickupDate: new Date(pickupDate), // Convert string to Date object
         returnDate: new Date(returnDate), // Convert string to Date object
         userID: userId,
+        addons: addons
     })
 });
     if(response.data){

@@ -27,7 +27,7 @@ exports.view_user_reservations = asyncHandler(async (req, res) => {
 
 // Create a new reservation
 exports.create_reservation = asyncHandler(async (req, res) => {
-  const { vin, reservationDate, pickupDate, returnDate, userID, status = 'not checked in', addons } = req.body;
+  const { vin, reservationDate, pickupDate, returnDate, userID, status = 'To Pickup', addons } = req.body;
 
   // Check if all required fields are present in the request body
   if (!vin || !reservationDate || !pickupDate || !returnDate || !userID || !addons) {

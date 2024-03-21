@@ -4,10 +4,10 @@ const reservation = {
   pickupDate: new Date("2024/3/9").toISOString(),
   returnDate: new Date("2024/3/10").toISOString(),
   userID: "65ef29928e591664663d138d",
-  status: "not checked in",
+  status: "To Pickup",
   addons: {
-    insurance: true,
-    gps: false,
+    insurance: 1,
+    gps: 0,
     childSeat: 2
   }
 };

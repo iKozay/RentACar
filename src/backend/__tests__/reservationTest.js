@@ -52,10 +52,10 @@ describe('Reservation Routes', () => {
             expect(res.body).toHaveProperty('pickupDate', new Date("2024/3/9").toISOString());
             expect(res.body).toHaveProperty('returnDate', new Date("2024/3/10").toISOString());
             expect(res.body).toHaveProperty('userID', "65ef29928e591664663d138d");
-            expect(res.body).toHaveProperty('status', "not checked in");
+            expect(res.body).toHaveProperty('status', "To Pickup");
             expect(res.body.addons).toEqual({
-                insurance: true,
-                gps: false,
+                insurance: 1,
+                gps: 0,
                 childSeat: 2
               });
         });

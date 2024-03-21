@@ -27,21 +27,32 @@ const reservationSchema = new Schema({
                     },
                     status: {
                         type: String,
-                        enum: ['not checked in', 'checked in', 'checked out'],
-                        default: 'not checked in'
+                        enum: ['To Pickup', 'Checked In', 'Checked Out'],
+                        default: function() {
+                            if (new Date(this.returnDate) < new Date()) {
+                                return "Past";
+                            } else {
+                                return "To Pickup";
+                            }
+                        }
+
+                            // set multiple default values
                     },
                     addons: {
                         insurance: {
-                            type: Boolean,
-                            required: true
+                            type: Number,
+                            required: true,
+                            default: 0
                         },
                         gps: {
-                            type: Boolean,
-                            required: true
+                            type: Number,
+                            required: true,
+                            default: 0
                         },
                         childSeat: {
                             type: Number,
-                            required: true
+                            required: true,
+                            default: 0
                         }
                     }
                     }, { timestamps: true });

@@ -332,12 +332,18 @@ Delete a user by ID
    - **Required Headers**: Authorization
    - **Request Body**:
      ```json
-     {
-      "vin": "65e52b7f3a6b6fac482c8278",
-      "reservationDate": "2024-03-08T12:00:00Z",
-      "pickupDate": "2024-03-09T10:00:00Z",
-      "returnDate": "2024-03-10T10:00:00Z",
-      "userID": "65ef29928e591664663d138d"
+      {
+        "vin": "65e52b7f3a6b6fac482c8278",
+        "reservationDate": "2024-03-08T00:00:00.000Z",
+        "pickupDate": "2024-03-09T00:00:00.000Z",
+        "returnDate": "2024-03-10T00:00:00.000Z",
+        "userID": "65ef29928e591664663d138d",
+        "status": "not checked in",
+        "addons": {
+            "insurance": true,
+            "gps": true,
+            "childSeat": 2
+        }
      }
 
      ```
@@ -351,7 +357,8 @@ Delete a user by ID
      ```json
      {
        "pickupDate": "2024-03-12T10:00:00Z",
-       "returnDate": "2024-03-17T10:00:00Z"
+       "returnDate": "2024-03-17T10:00:00Z",
+       "status": "checked in"
      }
      ```
 

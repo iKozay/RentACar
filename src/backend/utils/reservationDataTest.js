@@ -3,7 +3,14 @@ const reservation = {
   reservationDate: new Date("2024/3/8").toISOString(),
   pickupDate: new Date("2024/3/9").toISOString(),
   returnDate: new Date("2024/3/10").toISOString(),
-  userID: "65ef29928e591664663d138d"
+  userID: "65ef29928e591664663d138d",
+  status: "not checked in",
+  addons: {
+    insurance: true,
+    gps: false,
+    childSeat: 2
+  }
 };
-  module.exports = { reservation };
+
+module.exports = { reservation };
   

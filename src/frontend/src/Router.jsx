@@ -25,6 +25,7 @@ import DashboardAnalysis from "./Pages/DashboardAnalysis.jsx";
 import Reservations from "./Pages/Reservations.jsx";
 
 import CheckInPage from "./Pages/CheckInPage.jsx";
+import AddBranch from "./Pages/AddBranch.jsx";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -120,6 +121,10 @@ const Router = () => {
             {
               path: "branches/:branchId",
               element: <Branch />,
+            },
+            {
+              path: "branches/add-branch",
+              element:<AddBranch/>
             },
             {
               path: "reservations",

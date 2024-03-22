@@ -20,6 +20,7 @@ import LocationMap from "./Pages/LocationMap.jsx";
 import RepresentativeDashboard from "./Pages/RepresentativeDashboard.jsx";
 import Branches from "./Pages/Branches.jsx";
 import Branch from "./Pages/branch.jsx";
+import CheckInPage from "./Pages/CheckInPage.jsx";
 const Router = () => {
   const router = createBrowserRouter([
     {
@@ -65,6 +66,10 @@ const Router = () => {
         {
           path: "csr/dashboard",
           element: <RepresentativeDashboard />,
+        },
+        {
+          path: "reservation/checkin/:reservationId",
+          element: <CheckInPage/>,
         },
 
         {

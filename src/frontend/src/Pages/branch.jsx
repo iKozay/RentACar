@@ -107,7 +107,7 @@ export default function Branch() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-semibold mb-4">Branch Details</h1>
+      <h1 className="text-2xl font-semibold mb-4">Customer Details</h1>
       {success ? (
         !deleteBtn && !updateBtn ? (
           <div className="bg-white shadow-md rounded-lg overflow-hidden">

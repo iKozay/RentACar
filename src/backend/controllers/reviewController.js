@@ -25,8 +25,10 @@ const getReviews = async (req, res) => {
 
 const getReviewsByBranchID = async (req, res) => {
   try {
+
     const { id } = req.params;
-    const review = await Review.find({ [branchID]: id });
+    const review = await Review.find({ branchID: id });
+    
     if (!review) {
       return res.status(404).json({ messahe: "Reviews not found with Branch id " + id })
     }

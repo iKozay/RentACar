@@ -38,7 +38,7 @@ export default function Vehicles() {
   return (
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">Vehicles</h2>
+        <h2 className="text-lg font-semibold">Branches</h2>
         <div>
           <button
             onClick={() => setMinimized(!minimized)}

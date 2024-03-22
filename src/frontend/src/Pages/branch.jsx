@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import fetchData from "../utilities/fetchData";
 import ViewVehicles from "../components/dashboard/ViewVehicles";
 import ViewReservations from "../components/dashboard/ViewReservations";
+import Button from "../components/generalPurpose/Button";
 
 export default function Branch() {
   const { branchId } = useParams();
@@ -106,7 +107,7 @@ export default function Branch() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-semibold mb-4">Customer Details</h1>
+      <h1 className="text-2xl font-semibold mb-4">Branch Details</h1>
       {success ? (
         !deleteBtn && !updateBtn ? (
           <div className="bg-white shadow-md rounded-lg overflow-hidden">
@@ -124,22 +125,10 @@ export default function Branch() {
               {viewReservation && (
                 <>
                   {branch.reservations && <ViewReservations reservations={branch.reservations}/>}
-                  <div className="mb-1 mt-1"><button
-                    onClick={() => setViewReservation(false)}
-                    className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-2"
-                  >
-                    Minimize
-                  </button></div>
+                  <Button handler={setViewReservation} value={false} color={"red"} text={"Minimize"}/>
                 </>
               )}
-              {!viewReservation && (
-                <div className="mb-1 mt-1"><button 
-                onClick={() => setViewReservation(true)}
-                className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded"
-              >
-                View Reservations
-              </button></div>
-              )}
+              {!viewReservation && <Button handler={setViewReservation} value={true} color={"green"} text={"view reservations"}/>}
 
               {viewVehicles && (
                 <>
@@ -147,22 +136,10 @@ export default function Branch() {
                   branch.vehicles && (
                     <ViewVehicles vehicles={branch.vehicles} />
                   )}
-                  <div className="mb-1 mt-1"><button
-                    onClick={() => setViewVehicles(false)}
-                    className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-2"
-                  >
-                    Minimize
-                  </button></div>
+                  <Button handler={setViewVehicles} value={false} color={"red"} text={"Minimize"}/>
                 </>
               )}
-              {!viewVehicles && (
-                <div className="mb-1 mt-1"><button
-                  onClick={() => setViewVehicles(true)}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
-                >
-                  View Vehicles
-                </button></div>
-              )}
+              {!viewVehicles && <Button handler={setViewVehicles} value={true} color={"blue"} text={"View Vehicles"}/>}
             </div>
             <div className="flex justify-end p-6">
               <button

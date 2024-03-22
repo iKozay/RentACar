@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import fetchData from "../utilities/fetchData";
+import Button from "../components/generalPurpose/Button";
 
 export default function Vehicle() {
   const { vehicleId } = useParams();
@@ -121,62 +122,59 @@ export default function Vehicle() {
       <h1 className="text-2xl font-semibold mb-4">Vehicle Details</h1>
       {success ? (
         !deleteBtn && !updateBtn ? (
-            <div className="bg-white shadow-md rounded-lg overflow-hidden">
+          <div className="bg-white shadow-md rounded-lg overflow-hidden">
             <div className="p-6 flex flex-col lg:flex-row">
-                <div className="w-full lg:w-1/2 lg:mr-6">
-                    <div className="p-6">
-                        <img
-                            src={vehicle.Image}
-                            alt="Vehicle"
-                            className="object-contain max-h-64 w-full mb-4"
-                        />
-                        {/* Other vehicle details */}
-                    </div>
+              <div className="w-full lg:w-1/2 lg:mr-6">
+                <div className="p-6">
+                  <img
+                    src={vehicle.Image}
+                    alt="Vehicle"
+                    className="object-contain max-h-64 w-full mb-4"
+                  />
+                  {/* Other vehicle details */}
                 </div>
-                <div className="w-full lg:w-1/2">
-                    <div className="p-6">
-                        <p className="text-medium font-semibold mb-2">
-                            Vehicle ID: {vehicle._id}
-                        </p>
-                        <p className="text-gray-500 mb-2">Make: {vehicle.make}</p>
-                        <p className="text-gray-500 mb-2">Model: {vehicle.model}</p>
-                        <p className="text-gray-500 mb-2">Price: {vehicle.price}</p>
-                        <p className="text-gray-500 mb-2">
-                            Number of Seats: {vehicle.numberOfSeats}
-                        </p>
-                        <p className="text-gray-500 mb-2">Address: {vehicle.address}</p>
-                        <p className="text-gray-500 mb-2">Colour: {vehicle.colour}</p>
-                        <p className="text-gray-500 mb-2">
-                            Number of Doors: {vehicle.numberOfDoors}
-                        </p>
-                        <p className="text-gray-500 mb-2">
-                            Number of Baggage: {vehicle.numberOfBaggage}
-                        </p>
-                        <p className="text-gray-500 mb-2">
-                            Kilometrage: {vehicle.kilometrage}
-                        </p>
-                        <p className="text-gray-500 mb-2">
-                            Electrical or Fuel: {vehicle.electricalOrFuel}
-                        </p>
-                    </div>
-                    <div className="flex justify-end p-6">
-                        <button
-                            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded mr-4"
-                            onClick={handleClickUpdateVehicle}
-                        >
-                            Update
-                        </button>
-                        <button
-                            className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
-                            onClick={handleClickDeleteVehicle}
-                        >
-                            Delete
-                        </button>
-                    </div>
+              </div>
+              <div className="w-full lg:w-1/2">
+                <div className="p-6">
+                  <p className="text-medium font-semibold mb-2">
+                    Vehicle ID: {vehicle._id}
+                  </p>
+                  <p className="text-gray-500 mb-2">Make: {vehicle.make}</p>
+                  <p className="text-gray-500 mb-2">Model: {vehicle.model}</p>
+                  <p className="text-gray-500 mb-2">Price: {vehicle.price}</p>
+                  <p className="text-gray-500 mb-2">
+                    Number of Seats: {vehicle.numberOfSeats}
+                  </p>
+                  <p className="text-gray-500 mb-2">
+                    Address: {vehicle.address}
+                  </p>
+                  <p className="text-gray-500 mb-2">Colour: {vehicle.colour}</p>
+                  <p className="text-gray-500 mb-2">
+                    Number of Doors: {vehicle.numberOfDoors}
+                  </p>
+                  <p className="text-gray-500 mb-2">
+                    Number of Baggage: {vehicle.numberOfBaggage}
+                  </p>
+                  <p className="text-gray-500 mb-2">
+                    Kilometrage: {vehicle.kilometrage}
+                  </p>
+                  <p className="text-gray-500 mb-2">
+                    Electrical or Fuel: {vehicle.electricalOrFuel}
+                  </p>
                 </div>
+                <div className="flex justify-end p-6">
+                  <Button
+                    handler={handleClickUpdateVehicle}
+                    color={"blue"}
+                    text={"Update"}
+                    inline={true}
+                  />
+                  <Button handler={handleClickDeleteVehicle} color={"red"} text={"Delete"} inline={true}
+                  />
+                </div>
+              </div>
             </div>
-        </div>
-        
+          </div>
         ) : deleteBtn ? (
           deleting ? (
             deleting.data ? (
@@ -199,19 +197,8 @@ export default function Vehicle() {
                 <span className="text-red-500">vehicle {vehicle._id}</span>?
               </p>
               <div className="flex justify-end">
-                <button
-                  className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-4"
-                  onClick={handleDeleteVehicle}
-                >
-                  Delete
-                </button>
-                <button
-                  className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-
-                      2 rounded"
-                  onClick={handleCancelDelete}
-                >
-                  Cancel
-                </button>
+                <Button handler={handleDeleteVehicle} color={"red"} text={"Delete"} inline={true}/>
+                <Button handler={handleCancelDelete} color="gray" text={"Cancel"} inline={true}/>
               </div>
             </div>
           )

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import fetchData from "../utilities/fetchData";
 import { useState, useEffect } from "react";
 import ViewVehicles from "../components/dashboard/ViewVehicles";
+import Button from "../components/generalPurpose/Button";
 export default function Branches() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -40,15 +41,11 @@ export default function Branches() {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold">Vehicles</h2>
         <div>
-          <button
-            onClick={() => setMinimized(!minimized)}
-            className="px-3 py-2 bg-blue-500 text-white rounded-md mr-2"
-          >
-            {minimized ? "Expand" : "Minimize"}
-          </button>
+          <Button handler={setMinimized} value={!minimized} color={"blue"} text={minimized ? "Expand" : "Minimize"} inline={true}
+          />
           <Link
             to="add-vehicle"
-            className="px-3 py-2 bg-green-500 text-white rounded-md"
+            className=" bg-green-500 text-white font-semibold px-4 py-2 rounded"
           >
             Add Vehicle
           </Link>
@@ -63,7 +60,7 @@ export default function Branches() {
             <div className="flex-1 text-center">Image</div>
           </div>
           {success ? (
-            <ViewVehicles vehicles={vehicles}/>
+            <ViewVehicles vehicles={vehicles} />
           ) : (
             <div className="p-2">
               {loading ? "Loading..." : "Failed to load vehicles"}

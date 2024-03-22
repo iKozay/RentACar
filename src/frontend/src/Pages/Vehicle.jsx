@@ -2,22 +2,24 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import fetchData from "../utilities/fetchData";
 import Button from "../components/generalPurpose/Button";
-
+import ViewReservations from "../components/dashboard/ViewReservations";
 export default function Vehicle() {
   const { vehicleId } = useParams();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [vehicle, setVehicle] = useState(null);
+  const [reservations,setReservations]=useState(null);
   const [deleteBtn, setDeleteBtn] = useState(false);
   const [updateBtn, setUpdateBtn] = useState(false);
   const [deleting, setDeleting] = useState(null);
   const [updating, setUpdating] = useState(null);
-
+  const [showReservations,setShowReservations]=useState(false);
   useEffect(() => {
     async function fetchVehicle() {
       setLoading(true);
-      const vehicleData = await fetchData(
+      const [vehicleData,vehicleReservations] = await Promise.all([
+        fetchData(
         `http://localhost:3000/api/vehicles/vehicle/${vehicleId}`,
         {
           method: "GET",
@@ -26,12 +28,24 @@ export default function Vehicle() {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
-      );
-      if (vehicleData.data) {
+      ),
+      fetchData(
+        `http://localhost:3000/api/reservations/vehicle/${vehicleId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      ),
+    ])
+      if (vehicleData.data && vehicleReservations.data) {
         setVehicle(vehicleData.data);
+        setReservations(vehicleReservations.data)
         setLoading(false);
         setSuccess(true);
-      } else if (vehicleData.error) {
+      } else if (vehicleData.error || vehicleReservations.error) {
         setLoading(false);
         setError(true);
       }
@@ -56,7 +70,19 @@ export default function Vehicle() {
   };
 
   const handleDeleteVehicle = async () => {
-    const response = await fetchData(
+    let response =await fetchData(
+      `http://localhost:3000/api/reservations/vehicle/${vehicleId}`
+      ,{
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
+    ;
+    if(response.data){
+     response = await fetchData(
       `http://localhost:3000/api/vehicles/delete/${vehicleId}`,
       {
         method: "DELETE",
@@ -65,7 +91,7 @@ export default function Vehicle() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
-    );
+    );}
     setDeleting(response);
   };
 
@@ -161,9 +187,21 @@ export default function Vehicle() {
                   <p className="text-gray-500 mb-2">
                     Electrical or Fuel: {vehicle.electricalOrFuel}
                   </p>
+
+                 {showReservations && 
+                 ( <>
+                  <Button text={"minimize"}handler={setShowReservations} value={false} inline={true} color={"red"}/>
+                  <ViewReservations reservations={reservations}/>
+                  </>
+                 )} 
+                {
+                  !showReservations &&
+                  <Button text={"view reservations"}handler={setShowReservations} value={true} inline={true} color={"blue"}/>
+                }
                 </div>
                 <div className="flex justify-end p-6">
                   <Button
+                  
                     handler={handleClickUpdateVehicle}
                     color={"blue"}
                     text={"Update"}
@@ -196,9 +234,12 @@ export default function Vehicle() {
                 Are you sure you want to delete{" "}
                 <span className="text-red-500">vehicle {vehicle._id}</span>?
               </p>
+              <p className="text-lg font-semibold mb-4">
+              <span className="text-red-500">{reservations.length}</span> associated reservations will be  deleted
+              </p>
               <div className="flex justify-end">
                 <Button handler={handleDeleteVehicle} color={"red"} text={"Delete"} inline={true}/>
-                <Button handler={handleCancelDelete} color="gray" text={"Cancel"} inline={true}/>
+                <Button handler={handleCancelDelete} color={"blue"} text={"Cancel"} inline={true}/>
               </div>
             </div>
           )

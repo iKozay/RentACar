@@ -1,4 +1,5 @@
 const Vehicle = require("../models/vehicleModel");
+const {authenticate}=require('../config/passport')
 
 const addVehicle = async (req, res) => {
 
@@ -39,8 +40,10 @@ const getVehicle = async (req, res) => {
  * Deletes vehicle from the database
  * and return the deleted vehicle
  */
-const deleteVehicle = async (req, res) => {
-
+const deleteVehicle = [
+  authenticate,
+  async (req, res) => {
+  
   console.log("delete");
   try {
     const { id } = req.params;
@@ -54,7 +57,7 @@ const deleteVehicle = async (req, res) => {
   catch (err) {
     res.status(500).json({ message: err.message });
   }
-}
+}];
 
 
 

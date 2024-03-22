@@ -21,6 +21,7 @@ router.put('/:reservationId',reservation_controller.modify_reservation);
 // delete a reservation
 
 router.delete('/:reservationId',reservation_controller.cancel_reservation)
+router.delete("/vehicle/:vehicleId",reservation_controller.delete_vehicle_reservations)
 module.exports = router;
 
 

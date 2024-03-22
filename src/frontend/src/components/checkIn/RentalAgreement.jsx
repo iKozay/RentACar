@@ -20,7 +20,7 @@ export default function RentalAgreement({vehicle, user}) {
 
       <div className="mb-8">
         <h2 className="text-lg font-bold mb-2">Rental Agreement Number: [Unique Rental Agreement Number]</h2>
-        <p>This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name], located at [Address], hereinafter referred to as the "Rental Company," and the individual or entity identified below, hereinafter referred to as the "Renter":</p>
+        <p>This Rental Agreement ("Agreement") is entered into between Rentals.com, located at [Address], hereinafter referred to as the "Rental Company," and the individual or entity identified below, hereinafter referred to as the "Renter":</p>
       </div>
 
       <div className="mb-8">

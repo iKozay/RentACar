@@ -1,8 +1,6 @@
 import React from "react";
-import {Link, useNavigate} from "react-router-dom";
 import {UserContext} from "../../Pages/Root";
 import {useContext} from "react";
-import createReservation from "../../utilities/createReservation.js";
 import createTransaction from "../../utilities/createTransaction.js";
 
 export default function Payment({setGoToPayment, vehicle, totalPrice}) {
@@ -167,6 +165,7 @@ export default function Payment({setGoToPayment, vehicle, totalPrice}) {
         <div>
             <div className="flex justify-center">
                 <div className="mb-2 inline-block ">
+                <p className="my-10">A $500 deposit will be charged to your card for this rental.<br/> This will exclusively be used in the case that the car comes back damaged. <br/> Your deposit will be returned upon check-out.</p>
                     <label className="block text-sm font-semibold text-gray-800 ">Name</label>
                     <input placeholder="John Doe" onChange={onChangeCardName} className={setValidColor(valid.cardName)}/>
                     <label className="block text-sm mt-2 font-semibold text-gray-800 ">Card Number</label>

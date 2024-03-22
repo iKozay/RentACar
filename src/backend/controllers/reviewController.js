@@ -71,9 +71,13 @@ const updateReview = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const ureview = await Review.findByIdAndUpdate(id,{...req.body});
-    if (!ureview) {
+    const review = await Review.findByIdAndUpdate(id,{...req.body});
+    if (!review) {
       return res.status(404).json({ message: "Cannot find any review with id " + id + " to update." })
+    }
+    const ureview = await Review.findById(id);
+    if (!ureview) {
+      return res.status(404).json({ message: "Review not found with id " + id })
     }
 
     res.status(200).json(ureview);

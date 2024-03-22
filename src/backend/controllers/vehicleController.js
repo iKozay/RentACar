@@ -84,7 +84,15 @@ const updateVehicle = async (req, res) => {
   }
 }
 
+const getCount= async(req,res)=>{
+  try {
+    const count = await Vehicle.countDocuments({});
+    res.json({ count });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
 
-
-module.exports = { addVehicle, deleteVehicle, getVehicles,getVehicle, updateVehicle };
+module.exports = {getCount, addVehicle, deleteVehicle, getVehicles,getVehicle, updateVehicle };
 

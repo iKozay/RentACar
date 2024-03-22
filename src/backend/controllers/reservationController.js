@@ -86,3 +86,12 @@ exports.cancel_reservation = asyncHandler(async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+exports.reservation_count= async(req,res)=>{
+  try {
+    const count = await Reservation.countDocuments({});
+    res.json({ count });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}

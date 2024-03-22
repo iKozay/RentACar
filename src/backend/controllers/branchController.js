@@ -67,3 +67,12 @@ exports.branch_create = [
     }
   },
 ];
+exports.branch_count= async(req,res)=>{
+  try {
+    const count = await Branch.countDocuments({});
+    res.json({ count });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}

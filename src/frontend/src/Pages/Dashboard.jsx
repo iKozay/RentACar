@@ -27,6 +27,14 @@ export default function AdminVerification() {
                   Account
                 </Link>
               </li> */}
+               <li>
+                  <Link
+                    to="/dashboard"
+                    className="block py-2 px-4 hover:bg-gray-700"
+                  >
+                    home
+                  </Link>
+                </li>
                 <li>
                   <Link
                     to="customers"
@@ -49,6 +57,14 @@ export default function AdminVerification() {
                     className="block py-2 px-4 hover:bg-gray-700"
                   >
                     Branches
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="reservations"
+                    className="block py-2 px-4 hover:bg-gray-700"
+                  >
+                    Reservations
                   </Link>
                 </li>
               </ul>

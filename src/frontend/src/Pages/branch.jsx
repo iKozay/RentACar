@@ -1,6 +1,9 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import fetchData from "../utilities/fetchData";
+import ViewVehicles from "../components/dashboard/ViewVehicles";
+import ViewReservations from "../components/dashboard/ViewReservations";
+import Button from "../components/generalPurpose/Button";
 
 export default function Branch() {
   const { branchId } = useParams();
@@ -17,14 +20,17 @@ export default function Branch() {
   useEffect(() => {
     async function fetchUser() {
       setLoading(true);
-      const getBranch= await fetchData(`http://localhost:3000/api/branches/${branchId}`, {
+      const getBranch = await fetchData(
+        `http://localhost:3000/api/branches/${branchId}`,
+        {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        });
-      if (getBranch.data ) {
+        }
+      );
+      if (getBranch.data) {
         setBranch(getBranch.data);
         setLoading(false);
         setSuccess(true);
@@ -108,139 +114,32 @@ export default function Branch() {
             <div className="p-6">
               <p className="text-lg font-semibold mb-2">{branch.name}</p>
               <p className="text-gray-500 mb-2">{branch.address}</p>
-              <p className="text-gray-500 mb-2">Number of vehicles: {branch.vehicles.length}</p>
-              <p className="text-gray-500 mb-2">Number of reservations: {branch.reservations.length}</p>
+              <p className="text-gray-500 mb-2">
+                Number of vehicles: {branch.vehicles.length}
+              </p>
+              <p className="text-gray-500 mb-2">
+                Number of reservations: {branch.reservations.length}
+              </p>
               <hr />
               <p className="text-medium font-semibold mb-2">Reservations</p>
               {viewReservation && (
                 <>
-                  {branch.reservations && branch.reservations.map((reservation) => (
-                    reservation && <Link
-                      to={`../reservations/${reservation._id}`}
-                      key={reservation._id}
-                      className="border rounded p-4 mb-4 hover:border-gray-700 duration-200 block w-full"
-                      style={{
-                        textDecoration: "none",
-                        transition: "background-color 0.3s",
-                      }}
-                    >
-                      <div className="flex">
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Reservation ID:</strong> {reservation._id}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Vehicle ID:</strong> {reservation.vin._id}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Reservation Date:</strong>{" "}
-                          {new Date(
-                            reservation.reservationDate
-                          ).toLocaleString()}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Pickup Date:</strong>{" "}
-                          {new Date(reservation.pickupDate).toLocaleString()}
-                        </div>
-                        <div className="mb-2" style={{ fontWeight: "lighter" }}>
-                          <strong>Return Date:</strong>{" "}
-                          {new Date(reservation.returnDate).toLocaleString()}
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                  <button
-                    onClick={() => setViewReservation(false)}
-                    className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-2"
-                  >
-                    Minimize
-                  </button>
+                  {branch.reservations && <ViewReservations reservations={branch.reservations}/>}
+                  <Button handler={setViewReservation} value={false} color={"red"} text={"Minimize"}/>
                 </>
               )}
-              {!viewReservation && (
-                <button
-                  onClick={() => setViewReservation(true)}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
-                >
-                  View Reservations
-                </button>
-              )}
+              {!viewReservation && <Button handler={setViewReservation} value={true} color={"green"} text={"view reservations"}/>}
 
-{viewReservation && (
+              {viewVehicles && (
                 <>
-                  {branch.reservations && branch.reservations.map((reservation) => (
-                    reservation && <Link
-                      to={`../reservations/${reservation._id}`}
-                      key={reservation._id}
-                      className="border rounded p-4 mb-4 hover:border-gray-700 duration-200 block w-full"
-                      style={{
-                        textDecoration: "none",
-                        transition: "background-color 0.3s",
-                      }}
-                    >
-                      <div className="flex">
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Reservation ID:</strong> {reservation._id}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Vehicle ID:</strong> {reservation.vin._id}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Reservation Date:</strong>{" "}
-                          {new Date(
-                            reservation.reservationDate
-                          ).toLocaleString()}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Pickup Date:</strong>{" "}
-                          {new Date(reservation.pickupDate).toLocaleString()}
-                        </div>
-                        <div className="mb-2" style={{ fontWeight: "lighter" }}>
-                          <strong>Return Date:</strong>{" "}
-                          {new Date(reservation.returnDate).toLocaleString()}
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                  <button
-                    onClick={() => setViewReservation(false)}
-                    className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-2"
-                  >
-                    Minimize
-                  </button>
+                  {
+                  branch.vehicles && (
+                    <ViewVehicles vehicles={branch.vehicles} />
+                  )}
+                  <Button handler={setViewVehicles} value={false} color={"red"} text={"Minimize"}/>
                 </>
               )}
-              {!viewReservation && (
-                <button
-                  onClick={() => setViewReservation(true)}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
-                >
-                  View Reservations
-                </button>
-              )}
+              {!viewVehicles && <Button handler={setViewVehicles} value={true} color={"blue"} text={"View Vehicles"}/>}
             </div>
             <div className="flex justify-end p-6">
               <button

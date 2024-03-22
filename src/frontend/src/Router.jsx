@@ -20,7 +20,12 @@ import LocationMap from "./Pages/LocationMap.jsx";
 import RepresentativeDashboard from "./Pages/RepresentativeDashboard.jsx";
 import Branches from "./Pages/Branches.jsx";
 import Branch from "./Pages/branch.jsx";
+
+import DashboardAnalysis from "./Pages/DashboardAnalysis.jsx";
+import Reservations from "./Pages/Reservations.jsx";
+
 import CheckInPage from "./Pages/CheckInPage.jsx";
+
 const Router = () => {
   const router = createBrowserRouter([
     {
@@ -77,6 +82,10 @@ const Router = () => {
           element: <Dashboard />,
           children: [
             {
+              index:true,
+              element:<DashboardAnalysis/>
+            },
+            {
               path: "customers",
               element: <Customers />,
             },
@@ -111,6 +120,10 @@ const Router = () => {
             {
               path: "branches/:branchId",
               element: <Branch />,
+            },
+            {
+              path: "reservations",
+              element: <Reservations/>,
             },
           ],
         },

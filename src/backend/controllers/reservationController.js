@@ -25,6 +25,13 @@ exports.view_user_reservations = asyncHandler(async (req, res) => {
   res.status(200).json(reservations);
 });
 
+// View vehicle reservations 
+exports.view_vehicle_reservations=asyncHandler(async (req, res) => {
+  const vehicleId = req.params.vehicleId;
+  const reservations = await Reservation.find({vin: vehicleId}).populate('userID').populate('vin').exec();
+  res.status(200).json(reservations);
+});
+
 // Create a new reservation
 exports.create_reservation = asyncHandler(async (req, res) => {
   const { vin, reservationDate, pickupDate, returnDate, userID, status = 'To Pickup', addons } = req.body;

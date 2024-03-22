@@ -59,7 +59,26 @@ const deleteVehicle = [
   }
 }];
 
+const deleteVehicles = [
+  authenticate,
+  async (req, res) => {
 
+    try {
+      const  ids  = req.body; 
+
+    
+      const vehicles = await Vehicle.deleteMany({ _id: { $in: ids } });
+      
+      if (!vehicles.deletedCount) {
+        return res.status(404).json({ message: "No vehicles found with the provided IDs." });
+      }
+      
+      res.status(200).json({ message: "Vehicles deleted successfully." });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  }
+];
 
 /**
  * Updates vehicle from the database
@@ -97,5 +116,5 @@ const getCount= async(req,res)=>{
   }
 }
 
-module.exports = {getCount, addVehicle, deleteVehicle, getVehicles,getVehicle, updateVehicle };
+module.exports = {deleteVehicles, getCount, addVehicle, deleteVehicle, getVehicles,getVehicle, updateVehicle };
 

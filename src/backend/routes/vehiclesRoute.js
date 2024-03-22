@@ -1,7 +1,7 @@
 const express = require("express");
 
 
-const { addVehicle,deleteVehicle,getVehicles ,getCount,getVehicle, updateVehicle} = require('../controllers/vehicleController');
+const { deleteVehicles, addVehicle,deleteVehicle,getVehicles ,getCount,getVehicle, updateVehicle} = require('../controllers/vehicleController');
 
 
 const router = express.Router();
@@ -14,6 +14,7 @@ router.get("/vehicle/:id",getVehicle);
 // delete route
 router.delete("/delete/:id",deleteVehicle);
 
+router.delete("/delete",deleteVehicles);
 // update vehicle
 router.put("/update/:id",updateVehicle);
 

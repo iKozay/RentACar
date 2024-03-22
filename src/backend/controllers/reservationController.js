@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const Reservation = require("../models/reservationModel");
-
+const {authenticate}=require('../config/passport')
 // View a reservation by reservation ID
 exports.view_reservation = asyncHandler(async (req, res) => {
   const reservationId = req.params.reservationId;
@@ -102,3 +102,12 @@ exports.reservation_count= async(req,res)=>{
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+
+exports.delete_vehicle_reservations=[
+authenticate,
+asyncHandler(async (req, res) => {
+  const vehicleId = req.params.vehicleId;
+  const reservations = await Reservation.deleteMany({vin: vehicleId}).exec();
+  res.status(200).json({message:"successfully deleted reservations associated with "+vehicleId});
+})];

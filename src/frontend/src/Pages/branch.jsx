@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import fetchData from "../utilities/fetchData";
+import ViewVehicles from "../components/dashboard/ViewVehicles";
+import ViewReservations from "../components/dashboard/ViewReservations";
 
 export default function Branch() {
   const { branchId } = useParams();
@@ -17,14 +19,17 @@ export default function Branch() {
   useEffect(() => {
     async function fetchUser() {
       setLoading(true);
-      const getBranch= await fetchData(`http://localhost:3000/api/branches/${branchId}`, {
+      const getBranch = await fetchData(
+        `http://localhost:3000/api/branches/${branchId}`,
+        {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        });
-      if (getBranch.data ) {
+        }
+      );
+      if (getBranch.data) {
         setBranch(getBranch.data);
         setLoading(false);
         setSuccess(true);
@@ -108,138 +113,55 @@ export default function Branch() {
             <div className="p-6">
               <p className="text-lg font-semibold mb-2">{branch.name}</p>
               <p className="text-gray-500 mb-2">{branch.address}</p>
-              <p className="text-gray-500 mb-2">Number of vehicles: {branch.vehicles.length}</p>
-              <p className="text-gray-500 mb-2">Number of reservations: {branch.reservations.length}</p>
+              <p className="text-gray-500 mb-2">
+                Number of vehicles: {branch.vehicles.length}
+              </p>
+              <p className="text-gray-500 mb-2">
+                Number of reservations: {branch.reservations.length}
+              </p>
               <hr />
               <p className="text-medium font-semibold mb-2">Reservations</p>
               {viewReservation && (
                 <>
-                  {branch.reservations && branch.reservations.map((reservation) => (
-                    reservation && <Link
-                      to={`../reservations/${reservation._id}`}
-                      key={reservation._id}
-                      className="border rounded p-4 mb-4 hover:border-gray-700 duration-200 block w-full"
-                      style={{
-                        textDecoration: "none",
-                        transition: "background-color 0.3s",
-                      }}
-                    >
-                      <div className="flex">
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Reservation ID:</strong> {reservation._id}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Vehicle ID:</strong> {reservation.vin._id}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Reservation Date:</strong>{" "}
-                          {new Date(
-                            reservation.reservationDate
-                          ).toLocaleString()}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Pickup Date:</strong>{" "}
-                          {new Date(reservation.pickupDate).toLocaleString()}
-                        </div>
-                        <div className="mb-2" style={{ fontWeight: "lighter" }}>
-                          <strong>Return Date:</strong>{" "}
-                          {new Date(reservation.returnDate).toLocaleString()}
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                  <button
+                  {branch.reservations && <ViewReservations reservations={branch.reservations}/>}
+                  <div className="mb-1 mt-1"><button
                     onClick={() => setViewReservation(false)}
                     className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-2"
                   >
                     Minimize
-                  </button>
+                  </button></div>
                 </>
               )}
               {!viewReservation && (
-                <button
-                  onClick={() => setViewReservation(true)}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
-                >
-                  View Reservations
-                </button>
+                <div className="mb-1 mt-1"><button 
+                onClick={() => setViewReservation(true)}
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded"
+              >
+                View Reservations
+              </button></div>
               )}
 
-{viewReservation && (
+              {viewVehicles && (
                 <>
-                  {branch.reservations && branch.reservations.map((reservation) => (
-                    reservation && <Link
-                      to={`../reservations/${reservation._id}`}
-                      key={reservation._id}
-                      className="border rounded p-4 mb-4 hover:border-gray-700 duration-200 block w-full"
-                      style={{
-                        textDecoration: "none",
-                        transition: "background-color 0.3s",
-                      }}
-                    >
-                      <div className="flex">
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Reservation ID:</strong> {reservation._id}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Vehicle ID:</strong> {reservation.vin._id}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Reservation Date:</strong>{" "}
-                          {new Date(
-                            reservation.reservationDate
-                          ).toLocaleString()}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Pickup Date:</strong>{" "}
-                          {new Date(reservation.pickupDate).toLocaleString()}
-                        </div>
-                        <div className="mb-2" style={{ fontWeight: "lighter" }}>
-                          <strong>Return Date:</strong>{" "}
-                          {new Date(reservation.returnDate).toLocaleString()}
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                  <button
-                    onClick={() => setViewReservation(false)}
+                  {
+                  branch.vehicles && (
+                    <ViewVehicles vehicles={branch.vehicles} />
+                  )}
+                  <div className="mb-1 mt-1"><button
+                    onClick={() => setViewVehicles(false)}
                     className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-2"
                   >
                     Minimize
-                  </button>
+                  </button></div>
                 </>
               )}
-              {!viewReservation && (
-                <button
-                  onClick={() => setViewReservation(true)}
+              {!viewVehicles && (
+                <div className="mb-1 mt-1"><button
+                  onClick={() => setViewVehicles(true)}
                   className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
                 >
-                  View Reservations
-                </button>
+                  View Vehicles
+                </button></div>
               )}
             </div>
             <div className="flex justify-end p-6">

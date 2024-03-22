@@ -27,7 +27,7 @@ const reservationSchema = new Schema({
                     },
                     status: {
                         type: String,
-                        enum: ['To Pickup', 'Checked In', 'Checked Out'],
+                        enum: ['To Pickup', 'Checked In', 'Checked Out', 'Cancelled'],
                         default: 'To Pickup'
                     },
                     addons: {

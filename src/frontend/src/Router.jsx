@@ -26,6 +26,7 @@ import Reservations from "./Pages/Reservations.jsx";
 
 import CheckInPage from "./Pages/CheckInPage.jsx";
 import AddBranch from "./Pages/AddBranch.jsx";
+import CheckOutPage from "./Pages/CheckOutPage.jsx";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -76,6 +77,10 @@ const Router = () => {
         {
           path: "reservation/checkin/:reservationId",
           element: <CheckInPage/>,
+        },
+        {
+          path: "reservation/checkout/:reservationId",
+          element: <CheckOutPage/>,
         },
 
         {

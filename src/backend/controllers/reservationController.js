@@ -103,11 +103,21 @@ exports.reservation_count= async(req,res)=>{
   }
 }
 
-
+// delete vehicle reservations
 exports.delete_vehicle_reservations=[
 authenticate,
 asyncHandler(async (req, res) => {
   const vehicleId = req.params.vehicleId;
   const reservations = await Reservation.deleteMany({vin: vehicleId}).exec();
-  res.status(200).json({message:"successfully deleted reservations associated with "+vehicleId});
+  res.status(200).json({message:"successfully deleted reservations associated with vehicle: "+vehicleId});
 })];
+
+// delete user reservations
+exports.delete_user_reservations=[
+  authenticate,
+asyncHandler(async (req, res) => {
+  const userId = req.params.userId;
+  const reservations = await Reservation.deleteMany({userId: userId}).exec();
+  res.status(200).json({message:"successfully deleted reservations associated with user: "+userId});
+})
+]

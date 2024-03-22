@@ -47,10 +47,10 @@ export default function Vehicles() {
             {minimized ? "Expand" : "Minimize"}
           </button>
           <Link
-            to="add-vehicle"
+            to="add-branch"
             className="px-3 py-2 bg-green-500 text-white rounded-md"
           >
-            Add Vehicle
+            Add Branch
           </Link>
         </div>
       </div>

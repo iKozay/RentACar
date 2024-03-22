@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import fetchData from "../utilities/fetchData";
 import ViewReservations from "../components/dashboard/ViewReservations";
+import Button from "../components/generalPurpose/Button";
 
 export default function Customer() {
   const { customerId } = useParams();
@@ -62,7 +63,18 @@ export default function Customer() {
     setUpdateBtn(false);
   };
   const handleDeleteUser = async () => {
-    const response = await fetchData(
+    let response = await fetchData(
+      `http://localhost:3000/api/reservations/user/${customerId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if(response.data){    
+      await fetchData(
       `http://localhost:3000/api/users/${customerId}`,
       {
         method: "DELETE",
@@ -72,6 +84,7 @@ export default function Customer() {
         },
       }
     );
+    }
     setDeleting(response);
   };
 
@@ -180,19 +193,19 @@ export default function Customer() {
                 Are you sure you want to delete{" "}
                 <span className="text-red-500">{customer.username}</span>?
               </p>
+              {reservations.length>0 &&<p className="text-lg font-semibold mb-4">
+              <span className="text-red-500">{reservations.length}</span> associated reservations will be  deleted
+              </p>}
+              {reservations.length==0 &&
+              <p className="text-lg font-semibold mb-4">
+                 No associated reservations
+              </p>
+              }
+             
               <div className="flex justify-end">
-                <button
-                  className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-4"
-                  onClick={handleDeleteUser}
-                >
-                  Delete
-                </button>
-                <button
-                  className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded"
-                  onClick={handleCancelDelete}
-                >
-                  Cancel
-                </button>
+              <Button handler={handleDeleteUser} inline={true} color={"red"} text={"Delete"}/>
+              <Button handler={handleCancelDelete} inline={true} color={"blue"} text={"Cancel"}/>
+           
               </div>
             </div>
           )

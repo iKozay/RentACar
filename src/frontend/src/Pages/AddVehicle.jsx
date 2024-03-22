@@ -2,14 +2,10 @@ import { useState } from "react";
 import fetchData from "../utilities/fetchData";
 
 export default function AddVehicle() {
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [updateBtn, setUpdateBtn] = useState(false);
+  
   const [adding, setAdding] = useState(null);
 
-  const handleClickUpdateVehicle = () => {
-    setUpdateBtn(true);
-  };
+
 
   const handleCreateVehicle = async (event) => {
     event.preventDefault();

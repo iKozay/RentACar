@@ -234,9 +234,14 @@ export default function Vehicle() {
                 Are you sure you want to delete{" "}
                 <span className="text-red-500">vehicle {vehicle._id}</span>?
               </p>
-              <p className="text-lg font-semibold mb-4">
+              {reservations.length>0 &&<p className="text-lg font-semibold mb-4">
               <span className="text-red-500">{reservations.length}</span> associated reservations will be  deleted
+              </p>}
+              {reservations.length==0 &&
+              <p className="text-lg font-semibold mb-4">
+                 No associated reservations
               </p>
+              }
               <div className="flex justify-end">
                 <Button handler={handleDeleteVehicle} color={"red"} text={"Delete"} inline={true}/>
                 <Button handler={handleCancelDelete} color={"blue"} text={"Cancel"} inline={true}/>

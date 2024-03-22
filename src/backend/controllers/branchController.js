@@ -32,16 +32,16 @@ exports.branch_detail = [
   },
 ];
 exports.branch_create = [
- // authenticate,
+ authenticate,
   validateBranchData,
   async (req, res) => {
-    // if (req.user.role != "admin")
-    //   return res.status(401).json({ error: "unauthorized" });
+    if (req.user.role != "admin")
+      return res.status(401).json({ error: "unauthorized" });
 
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //   return res.status(400).json({ errors: errors.array() });
-    // }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
     const branch = new Branch({
       name: req.body.name,

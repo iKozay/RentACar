@@ -20,7 +20,7 @@ export default function ReservationDetails({ reservation }) {
   const [addonPrice, setAddonPrice] = React.useState(0);
 
   const handleModifyRsv = async () => {
-    await modifyRsv(reservation._id, fromDate, toDate);
+    await modifyRsv(reservation._id, fromDate, toDate, reservation.addons, reservation.status);
     setModify(false);
   };
     const isCSR = (user && user.role === "representative");
@@ -50,7 +50,8 @@ export default function ReservationDetails({ reservation }) {
           <div className="text-stone-600 mb-2">Add extra features to your reservation</div>
           {
             addons.map((a, index) => {
-              localStorage.setItem(a.storageName, reservation.addons[a.storageName]);
+              localStorage.setItem(a.storageName, parseInt(reservation.addons[a.storageName]));
+
               return <Addon key={index} addon={a} totalAddonPrice={addonPrice} setAddonPrice={setAddonPrice}/>
             })
           }
@@ -78,8 +79,8 @@ export default function ReservationDetails({ reservation }) {
   );
 }
 
-async function modifyRsv(reservationId, fromDate, toDate) {
-  await modifyReservation(reservationId, fromDate, toDate);
+async function modifyRsv(reservationId, fromDate, toDate, addons, status) {
+  await modifyReservation(reservationId, fromDate, toDate, addons, status);
 }
 
 function computeTotal(fromDate, toDate, price) {

@@ -121,3 +121,26 @@ asyncHandler(async (req, res) => {
   res.status(200).json({message:"successfully deleted reservations associated with user: "+userId});
 })
 ]
+
+// delete reservations with given ids
+
+exports.delete_reservations=[
+  authenticate,
+  async (req, res) => {
+
+    try {
+      const  ids  = req.body; 
+
+    
+      const reservations = await Reservation.deleteMany({ _id: { $in: ids } });
+      
+      if (!reservations.deletedCount) {
+        return res.status(404).json({ message: "No reservations found with the provided IDs." });
+      }
+      
+      res.status(200).json({ message: "Reservations deleted successfully." });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  }
+];

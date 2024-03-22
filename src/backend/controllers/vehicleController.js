@@ -1,7 +1,4 @@
 const Vehicle = require("../models/vehicleModel");
-
-const Branch = require("../models/branchModel");
-
 const {authenticate}=require('../config/passport')
 
 const addVehicle = async (req, res) => {
@@ -100,23 +97,5 @@ const getCount= async(req,res)=>{
   }
 }
 
-const getVehiclesByBranchId = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const branch = await Branch.findById(id);
-
-    if (!branch) {
-      return res.status(404).json({ messahe: "Branch not found with id " + id })
-    }
-    const vehicleIds = branch.vehicles;
-
-    const vehicles = await Vehicle.find({ _id: { $in: vehicleIds } });
-    
-    res.status(200).json(vehicles);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-module.exports = {getCount, addVehicle, deleteVehicle, getVehicles,getVehicle, updateVehicle ,getVehiclesByBranchId};
+module.exports = {getCount, addVehicle, deleteVehicle, getVehicles,getVehicle, updateVehicle };
 

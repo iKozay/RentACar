@@ -59,11 +59,6 @@ const vehicleSchema = new Schema({
     type: Number,
     required: false,
   },
-  
-  liscencePlate:{
-    type: String,
-    required: false,
-  },
 
   electricalOrFuel:{
     type: String,

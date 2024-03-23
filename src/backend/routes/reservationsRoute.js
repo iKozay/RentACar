@@ -19,10 +19,10 @@ router.post('/',reservation_controller.create_reservation)
 // update a reservation
 router.put('/:reservationId',reservation_controller.modify_reservation);
 // delete a reservation
-router.delete("/",reservation_controller.delete_reservations)
 router.delete('/:reservationId',reservation_controller.cancel_reservation)
 router.delete("/vehicle/:vehicleId",reservation_controller.delete_vehicle_reservations)
 router.delete("/user/:userId",reservation_controller.delete_user_reservations);
+router.delete("/",reservation_controller.delete_reservations)
 
 module.exports = router;
 

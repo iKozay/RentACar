@@ -26,7 +26,7 @@ const getVehicle = async (req, res) => {
     const { id } = req.params;
     const vehicle = await Vehicle.findById(id);
     if (!vehicle) {
-      return res.status(404).json({ messahe: "Vehicle not found with id " + id })
+      return res.status(404).json({ message: "Vehicle not found with id " + id })
     }
     res.status(200).json(vehicle);
   } catch (err) {

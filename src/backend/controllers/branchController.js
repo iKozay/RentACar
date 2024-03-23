@@ -2,7 +2,10 @@ const Branch = require("../models/branchModel");
 const { validationResult } = require("express-validator");
 const { authenticate } = require("./../config/passport");
 const { validateBranchData } = require("./../middlewares/branchValidation");
-const getGeocodeFromAddress=require('./../utils/getGeocodeFromAddress'); 
+const getGeocodeFromAddress=require('./../utils/getGeocodeFromAddress');
+const Vehicle = require('../models/vehicleModel');
+const Reservation = require("../models/reservationModel");
+
 exports.branch_list = [
 
   async (req, res) => {
@@ -67,6 +70,52 @@ exports.branch_create = [
     }
   },
 ];
+
+exports.branch_update = [
+  authenticate,
+  async (req, res) => {
+    try {
+
+      const id  = req.params.branchId; // Extract the branch ID from the request parameters
+      console.log(id);
+      // Extract all fields from the request body
+      const { name, location, vehicles, reservations } = req.body;
+  
+      // Construct the update object
+      const updateObj = {};
+      if (name) {
+        updateObj.$set = { name };
+      }
+      if (location) {
+        updateObj.$set = { ...updateObj.$set, location }; // Update $set with location object
+      }
+      if (vehicles) {
+        updateObj.$set = { ...updateObj.$set, vehicles }; // Update $set with vehicles array
+      }
+      if (reservations) {
+        updateObj.$set = { ...updateObj.$set, reservations }; // Update $set with reservations array
+      }
+  
+      // Update the branch by ID with the constructed update object
+      const updatedBranch = await Branch.findByIdAndUpdate(
+        id,
+        updateObj,
+        { new: true } // To return the updated document
+      );
+  
+      if (!updatedBranch) {
+        return res.status(404).json({ message: "Branch not found" });
+      }
+  
+      // Respond with the updated branch data
+      res.status(200).json(updatedBranch);
+    } catch (error) {
+      console.error("Error updating branch:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+];
+
 exports.branch_count= async(req,res)=>{
   try {
     const count = await Branch.countDocuments({});
@@ -76,3 +125,64 @@ exports.branch_count= async(req,res)=>{
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+exports.branch_delete = [
+  authenticate,
+  async (req,res)=>{
+
+  }
+]
+
+exports.branch_refresh = async (req, res) => {
+  const id = req.params.branchId;
+
+  try {
+    const branch = await Branch.findById(id);
+
+    if (!branch) {
+      return res.status(404).json({ error: "Branch not found" });
+    }
+
+    let modified = false;
+
+    // Check vehicles
+    const vehicleExistenceChecks = branch.vehicles.map(async vehicleId => {
+      const vehicleExists = await Vehicle.exists({ _id: vehicleId });
+      if (!vehicleExists) {
+        modified = true;
+        return false; // Mark for removal
+      }
+      return true;
+    });
+
+    // Check reservations
+    const reservationExistenceChecks = branch.reservations.map(async reservationId => {
+      const reservationExists = await Reservation.exists({ _id: reservationId });
+      if (!reservationExists) {
+        modified = true;
+        return false; // Mark for removal
+      }
+      return true;
+    });
+
+    // Await all existence checks
+    const [vehicleResults, reservationResults] = await Promise.all([
+      Promise.all(vehicleExistenceChecks),
+      Promise.all(reservationExistenceChecks)
+    ]);
+
+    // Update vehicles and reservations arrays
+    branch.vehicles = branch.vehicles.filter((_, index) => vehicleResults[index]);
+    branch.reservations = branch.reservations.filter((_, index) => reservationResults[index]);
+
+    // If any changes were made, update the branch document
+    if (modified) {
+      await branch.save();
+    }
+
+    res.status(200).json({ message: "Branch refreshed successfully" });
+  } catch (error) {
+    console.error("Error refreshing branch:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

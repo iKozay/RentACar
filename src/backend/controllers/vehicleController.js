@@ -47,7 +47,6 @@ const deleteVehicle = [
   authenticate,
   async (req, res) => {
   
-  console.log("delete");
   try {
     const { id } = req.params;
 

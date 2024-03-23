@@ -1,11 +1,15 @@
 import React from "react";
+import {Link, useNavigate} from "react-router-dom";
 import {UserContext} from "../../Pages/Root";
 import {useContext} from "react";
 import createTransaction from "../../utilities/createTransaction.js";
+import modifyReservation from "../../utilities/modifyReservation.js";
 
-export default function Payment({setGoToPayment, vehicle, totalPrice}) {
+export default function RefundForm({back, totalPrice}) {
 
     const {user} = useContext(UserContext);
+    const reservationId = window.location.href.split("/").pop();
+
 
     const [cardName, setCardName] = React.useState('');
     const [cardNumber, setCardNumber] = React.useState('');
@@ -17,6 +21,21 @@ export default function Payment({setGoToPayment, vehicle, totalPrice}) {
         expDate: true,
         ccv: true
     });
+    const [paymentAnimation, setPaymentAnimation] = React.useState(false);
+
+    // inline async function to process payment
+    const processPayment = async () => {
+        if(validate()) {
+            setPaymentAnimation(true);
+            if(user){
+                await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservationId);
+                // send request to modify reservation status to completed
+                await modifyReservation(reservationId, null, null, null, "Checked Out");
+                return true;
+            }
+        }
+        return false;
+    }
 
     const setValidColor = (isValid) => {
         if(isValid) {
@@ -161,11 +180,19 @@ export default function Payment({setGoToPayment, vehicle, totalPrice}) {
 
     }
 
+    const navigate = useNavigate()
+    async function delay(e) {
+        e.preventDefault();
+        if(await processPayment()) {
+            setTimeout(() => {navigate("/reservation/confirmation");}, 2000);
+            setPaymentAnimation(false);
+        }
+    }
+
     return (
         <div>
             <div className="flex justify-center">
                 <div className="mb-2 inline-block ">
-                <p className="my-10">A $500 deposit will be charged to your card for this rental.<br/> This will exclusively be used in the case that the car comes back damaged. <br/> Your deposit will be returned upon check-out.</p>
                     <label className="block text-sm font-semibold text-gray-800 ">Name</label>
                     <input placeholder="John Doe" onChange={onChangeCardName} className={setValidColor(valid.cardName)}/>
                     <label className="block text-sm mt-2 font-semibold text-gray-800 ">Card Number</label>
@@ -179,6 +206,25 @@ export default function Payment({setGoToPayment, vehicle, totalPrice}) {
                         <input placeholder="CVC" onChange={onChangeCcv} className={setValidColor(valid.ccv)}/>
                     </div>
                 </div>
+            </div>
+            <div className="flex justify-center">
+                <label className="block text-lg font-semibold mt-2 text-gray-800 ">Total Price: {totalPrice}$</label>
+            </div>
+            <div className="flex justify-between mr-8 ml-8">
+                <button className={`bg-blue-500 text-white p-2 rounded-lg w-20`} onClick={(e)=>back()}>Back</button>
+                    <Link to={`/csr/dashboard`} onClick={delay}>
+                        <button className={`${paymentAnimation && "inline-flex items-center disabled"} bg-blue-500 text-white p-2 rounded-lg w-20`}>
+                            {paymentAnimation?
+                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                            stroke-width="4"></circle>
+                                    <path className="opacity-75" fill="currentColor"
+                                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>:""
+                            }
+                            Pay</button>
+                    </Link>
             </div>
         </div>
     );

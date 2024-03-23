@@ -9,40 +9,37 @@ export default function Vehicle() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [vehicle, setVehicle] = useState(null);
-  const [reservations,setReservations]=useState(null);
+  const [reservations, setReservations] = useState(null);
   const [deleteBtn, setDeleteBtn] = useState(false);
   const [updateBtn, setUpdateBtn] = useState(false);
   const [deleting, setDeleting] = useState(null);
   const [updating, setUpdating] = useState(null);
-  const [showReservations,setShowReservations]=useState(false);
+  const [showReservations, setShowReservations] = useState(false);
   useEffect(() => {
     async function fetchVehicle() {
       setLoading(true);
-      const [vehicleData,vehicleReservations] = await Promise.all([
+      const [vehicleData, vehicleReservations] = await Promise.all([
+        fetchData(`http://localhost:3000/api/vehicles/vehicle/${vehicleId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }),
         fetchData(
-        `http://localhost:3000/api/vehicles/vehicle/${vehicleId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      ),
-      fetchData(
-        `http://localhost:3000/api/reservations/vehicle/${vehicleId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      ),
-    ])
+          `http://localhost:3000/api/reservations/vehicle/${vehicleId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        ),
+      ]);
       if (vehicleData.data && vehicleReservations.data) {
         setVehicle(vehicleData.data);
-        setReservations(vehicleReservations.data)
+        setReservations(vehicleReservations.data);
         setLoading(false);
         setSuccess(true);
       } else if (vehicleData.error || vehicleReservations.error) {
@@ -70,28 +67,27 @@ export default function Vehicle() {
   };
 
   const handleDeleteVehicle = async () => {
-    let response =await fetchData(
-      `http://localhost:3000/api/reservations/vehicle/${vehicleId}`
-      ,{
+    let response = await 
+      fetchData(`http://localhost:3000/api/reservations/vehicle/${vehicleId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+      });
+      if (response.data) {
+        response = await fetchData(
+          `http://localhost:3000/api/vehicles/delete/${vehicleId}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
       }
-    )
-    ;
-    if(response.data){
-     response = await fetchData(
-      `http://localhost:3000/api/vehicles/delete/${vehicleId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );}
+    
     setDeleting(response);
   };
 
@@ -188,26 +184,40 @@ export default function Vehicle() {
                     Electrical or Fuel: {vehicle.electricalOrFuel}
                   </p>
 
-                 {showReservations && 
-                 ( <>
-                  <Button text={"minimize"}handler={setShowReservations} value={false} inline={true} color={"red"}/>
-                  <ViewReservations reservations={reservations}/>
-                  </>
-                 )} 
-                {
-                  !showReservations &&
-                  <Button text={"view reservations"}handler={setShowReservations} value={true} inline={true} color={"blue"}/>
-                }
+                  {showReservations && (
+                    <>
+                      <Button
+                        text={"minimize"}
+                        handler={setShowReservations}
+                        value={false}
+                        inline={true}
+                        color={"red"}
+                      />
+                      <ViewReservations reservations={reservations} />
+                    </>
+                  )}
+                  {!showReservations && (
+                    <Button
+                      text={"view reservations"}
+                      handler={setShowReservations}
+                      value={true}
+                      inline={true}
+                      color={"blue"}
+                    />
+                  )}
                 </div>
                 <div className="flex justify-end p-6">
                   <Button
-                  
                     handler={handleClickUpdateVehicle}
                     color={"blue"}
                     text={"Update"}
                     inline={true}
                   />
-                  <Button handler={handleClickDeleteVehicle} color={"red"} text={"Delete"} inline={true}
+                  <Button
+                    handler={handleClickDeleteVehicle}
+                    color={"red"}
+                    text={"Delete"}
+                    inline={true}
                   />
                 </div>
               </div>
@@ -234,17 +244,30 @@ export default function Vehicle() {
                 Are you sure you want to delete{" "}
                 <span className="text-red-500">vehicle {vehicle._id}</span>?
               </p>
-              {reservations.length>0 &&<p className="text-lg font-semibold mb-4">
-              <span className="text-red-500">{reservations.length}</span> associated reservations will be  deleted
-              </p>}
-              {reservations.length==0 &&
-              <p className="text-lg font-semibold mb-4">
-                 No associated reservations
-              </p>
-              }
+              {reservations.length > 0 && (
+                <p className="text-lg font-semibold mb-4">
+                  <span className="text-red-500">{reservations.length}</span>{" "}
+                  associated reservations will be deleted
+                </p>
+              )}
+              {reservations.length == 0 && (
+                <p className="text-lg font-semibold mb-4">
+                  No associated reservations
+                </p>
+              )}
               <div className="flex justify-end">
-                <Button handler={handleDeleteVehicle} color={"red"} text={"Delete"} inline={true}/>
-                <Button handler={handleCancelDelete} color={"blue"} text={"Cancel"} inline={true}/>
+                <Button
+                  handler={handleDeleteVehicle}
+                  color={"red"}
+                  text={"Delete"}
+                  inline={true}
+                />
+                <Button
+                  handler={handleCancelDelete}
+                  color={"blue"}
+                  text={"Cancel"}
+                  inline={true}
+                />
               </div>
             </div>
           )

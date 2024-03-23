@@ -3,8 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {UserContext} from "../../Pages/Root";
 import {useContext} from "react";
 import createTransaction from "../../utilities/createTransaction.js";
-import modifyReservation from "../../utilities/modifyReservation.js";
-
+import {CheckOutReservation} from "../../utilities/ReservationUtils.js";
 export default function RefundForm({back, totalPrice}) {
 
     const {user} = useContext(UserContext);
@@ -30,7 +29,7 @@ export default function RefundForm({back, totalPrice}) {
             if(user){
                 await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservationId);
                 // send request to modify reservation status to completed
-                await modifyReservation(reservationId, null, null, null, "Checked Out");
+                await CheckOutReservation(reservationId);
                 return true;
             }
         }

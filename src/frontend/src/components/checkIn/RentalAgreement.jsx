@@ -3,6 +3,7 @@ import { UserContext } from "../../Pages/Root.jsx";
 import Popup from "reactjs-popup";
 import SignaturePad from "react-signature-canvas";
 import "./sigCanvas.css";
+import {FetchReservationById} from "../../utilities/ReservationUtils.js";
 
 export default function RentalAgreement({vehicle}) {
 
@@ -10,29 +11,31 @@ export default function RentalAgreement({vehicle}) {
 const [damageDescription, setDamageDescription] = useState('');
 const reservationId = window.location.pathname.split("/").pop();
 
-const { user } = useContext(UserContext);
 const [response, setResponse] = useState([]);
 
 useEffect(() => {
-  async function fetchReservation() {
-    let response = await fetch(
-      `http://localhost:3000/api/reservations/${reservationId}`,
-      {
-        method: "GET",
-        credentials: "include", // Include cookies in the request
-        mode: "cors", // Enable CORS
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    response = await response.json();
-    setResponse(response);
-  }
-
-  fetchReservation();
-}, [user]);
+  // async function fetchReservation() {
+  //   let response = await fetch(
+  //     `http://localhost:3000/api/reservations/${reservationId}`,
+  //     {
+  //       method: "GET",
+  //       credentials: "include", // Include cookies in the request
+  //       mode: "cors", // Enable CORS
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     }
+  //   );
+  //   response = await response.json();
+  //   setResponse(response);
+  // }
+  //
+  // fetchReservation();
+      FetchReservationById(reservationId).then((res) => {
+          setResponse(res);
+      });
+}, []);
 
 ///////////////////////////////////////////////////
 

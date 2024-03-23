@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from "../../Pages/Root.jsx";
+import {FetchReservationById} from "../../utilities/ReservationUtils.js";
 
 export default function ClientInfo(){
 
@@ -7,29 +8,31 @@ export default function ClientInfo(){
   const [damageDescription, setDamageDescription] = useState('');
   const reservationId = window.location.pathname.split("/").pop();
 
-  const { user } = useContext(UserContext);
   const [response, setResponse] = useState([]);
 
   useEffect(() => {
-    async function fetchReservation() {
-      let response = await fetch(
-        `http://localhost:3000/api/reservations/${reservationId}`,
-        {
-          method: "GET",
-          credentials: "include", // Include cookies in the request
-          mode: "cors", // Enable CORS
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      response = await response.json();
-      setResponse(response);
-    }
-
-    fetchReservation();
-  }, [user]);
+    // async function fetchReservation() {
+    //   let response = await fetch(
+    //     `http://localhost:3000/api/reservations/${reservationId}`,
+    //     {
+    //       method: "GET",
+    //       credentials: "include", // Include cookies in the request
+    //       mode: "cors", // Enable CORS
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //       },
+    //     }
+    //   );
+    //   response = await response.json();
+    //   setResponse(response);
+    // }
+    //
+    // fetchReservation();
+      FetchReservationById(reservationId).then((res) => {
+        setResponse(res);
+      })
+  }, []);
 
 ///////////////////////////////////////////////////
 

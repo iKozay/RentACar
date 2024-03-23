@@ -32,7 +32,7 @@ exports.branch_detail = [
   },
 ];
 exports.branch_create = [
-  authenticate,
+ authenticate,
   validateBranchData,
   async (req, res) => {
     if (req.user.role != "admin")

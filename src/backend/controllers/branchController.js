@@ -87,6 +87,10 @@ exports.branch_update = [
         updateObj.$set = { name };
       }
       if (location) {
+        const loc = await getGeocodeFromAddress(`${location.street}, ${location.city}, ${location.province}`);
+        if (!loc) return res.status(400).json({ error: "Address in not findable in the map" });
+        location.lat=loc.lat;
+        location.lon=loc.lon;
         updateObj.$set = { ...updateObj.$set, location }; // Update $set with location object
       }
       if (vehicles) {
@@ -116,6 +120,41 @@ exports.branch_update = [
   }
 ];
 
+exports.branch_append_reservation = [
+
+  async (req, res) => {
+    try {
+      const branchId = req.params.branchId; // Extract the branch ID from the request parameters
+      const reservationId = req.body.reservationId; // Extract the reservation ID from the request body
+
+      // Check if both branchId and reservationId are provided
+      if (!branchId || !reservationId) {
+        return res.status(400).json({ error: "Branch ID or Reservation ID is missing" });
+      }
+
+      // Find the branch by ID
+      const branch = await Branch.findById(branchId);
+
+      // Check if the branch exists
+      if (!branch) {
+        return res.status(404).json({ error: "Branch not found" });
+      }
+
+      // Append the reservationId to the reservations array of the branch
+      branch.reservations.push(reservationId);
+
+      // Save the updated branch
+      const updatedBranch = await branch.save();
+
+      // Respond with the updated branch data
+      res.status(200).json(updatedBranch);
+    } catch (error) {
+      console.error("Error appending reservation to branch:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+];
+
 exports.branch_count= async(req,res)=>{
   try {
     const count = await Branch.countDocuments({});
@@ -129,7 +168,18 @@ exports.branch_count= async(req,res)=>{
 exports.branch_delete = [
   authenticate,
   async (req,res)=>{
+       const id = req.params.branchId;
+       try{
+        const deleted =await  Branch.findByIdAndDelete(id);
+        if(!deleted)
+        {
+          return res.status(404).json({error:"No branch was found with the passed ID"});
+        }
+        res.status(200).json({message:"Successfully deleted branch "+id});
 
+       }catch(error){
+        res.status(500).json({error:"Internal server error"});
+       }
   }
 ]
 

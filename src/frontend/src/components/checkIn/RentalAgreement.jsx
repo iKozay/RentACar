@@ -1,9 +1,41 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
+import { UserContext } from "../../Pages/Root.jsx";
 import Popup from "reactjs-popup";
 import SignaturePad from "react-signature-canvas";
 import "./sigCanvas.css";
 
-export default function RentalAgreement({vehicle, user}) {
+export default function RentalAgreement({vehicle}) {
+
+/////////////////////////////////////////////////
+const [damageDescription, setDamageDescription] = useState('');
+const reservationId = window.location.pathname.split("/").pop();
+
+const { user } = useContext(UserContext);
+const [response, setResponse] = useState([]);
+
+useEffect(() => {
+  async function fetchReservation() {
+    let response = await fetch(
+      `http://localhost:3000/api/reservations/${reservationId}`,
+      {
+        method: "GET",
+        credentials: "include", // Include cookies in the request
+        mode: "cors", // Enable CORS
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    response = await response.json();
+    setResponse(response);
+  }
+
+  fetchReservation();
+}, [user]);
+
+///////////////////////////////////////////////////
+
 
   const [imageURL1, setImageURL1] = useState(null);
   const [imageURL2, setImageURL2] = useState(null);
@@ -13,50 +45,52 @@ export default function RentalAgreement({vehicle, user}) {
   const save1 = () => setImageURL1(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
   const save2 = () => setImageURL2(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
 
+  console.log(response);
+  if(response && response.userID && response.vin){
   return (
 
     <div className="container mx-auto p-8 max-w-screen-lg">
       <h1 className="text-2xl font-bold mb-6">Car Rental Agreement</h1>
 
       <div className="mb-8">
-        <h2 className="text-lg font-bold mb-2">Rental Agreement Number: [Unique Rental Agreement Number]</h2>
-        <p>This Rental Agreement ("Agreement") is entered into between Rentals.com, located at [Address], hereinafter referred to as the "Rental Company," and the individual or entity identified below, hereinafter referred to as the "Renter":</p>
+        <h2 className="text-lg font-bold mb-2">Rental Agreement Number: {response.userID._id}</h2>
+        <p>This Rental Agreement is entered into between Rentals.com, located at {response.vin.address}, hereinafter referred to as the "Rental Company," and the individual or entity identified below, hereinafter referred to as the "Renter":</p>
       </div>
 
       <div className="mb-8">
         <h2 className="text-lg font-bold mb-2">1. Renter's Information:</h2>
         <p>
-        Name: NAME <br/>
-        Address: ADDRESS <br/>
-        Contact Number: PHONE NUM <br/>
-        Email Address: EMAIL <br/>
-        Driver's License Number: DRIVERS LICENSE NUM <br/>
+        Name: {response.userID.full_name} <br/>
+        Address:  <br/>
+        Contact Number: {response.userID.phone_number} <br/>
+        Email Address: {response.userID.email} <br/>
+        Driver's License Number: A62S9 - SSE34O - 02 <br/>
         </p>
       </div>
 
       <div className="mb-8">
         <h2 className="text-lg font-bold mb-2">2. Vehicle Information:</h2>
         <p>
-        Make: VEHICLE.MAKE <br/>
-        Model: MODEL <br/>
-        Year: YEAR <br/>
-        License Plate Number: PLATE <br/>
-        Vehicle Identification Number (VIN): VIN <br/>
-        Color: COLOR <br/>
+        Make: {response.vin.make} <br/>
+        Model: {response.vin.model} <br/>
+        Year: 2018<br/>
+        License Plate Number: X7L 99P <br/>
+        Vehicle Identification Number (VIN): {response.vin._id} <br/>
+        Color: {response.vin.colour} <br/>
         </p>
       </div>
 
       <div className="mb-8">
         <h2 className="text-lg font-bold mb-2">3. Rental Details:</h2>
         <p>
-        Rental Start Date: <br/>
-        Rental End Date: <br/>
-        Pick-up Location: <br/>
-        Drop-off Location: <br/>
-        Rental Period: <br/>
-        Mileage Limit (if applicable): <br/>
-        Rental Rate: <br/>
-        Additional Services (if any): <br/>
+        Rental Start Date: {(new Date(response.pickupDate)).toDateString()}<br/>
+        Rental End Date: {(new Date(response.returnDate)).toDateString()}<br/>
+        Pick-up Location: {response.vin.address}<br/>
+        Drop-off Location: {response.vin.address}<br/>
+        Rental Period: {computeNumOfDays(response.pickupDate,response.returnDate)} days<br/>
+        Mileage Limit (if applicable): {response.vin.kilometrage} <br/>
+        Rental Rate: ${response.vin.price} / day <br/>
+        Additional Services (if any): None <br/>
         </p>
       </div>
 
@@ -175,4 +209,18 @@ export default function RentalAgreement({vehicle, user}) {
     </div>
 
   );
+}else{
+  return(
+    <div></div>
+  );
+}
 };
+
+
+export function computeNumOfDays(fromDate, toDate) {
+  const from = Date.parse(fromDate);
+  const to = new Date(toDate);
+  const diffTime = Math.abs(to - from);
+  const diffDays = Math.round(diffTime / (1000 * 3600 * 24));
+  return diffDays;
+}

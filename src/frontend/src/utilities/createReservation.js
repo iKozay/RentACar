@@ -2,7 +2,7 @@ import fetchData from "./fetchData"
 
 export default async function createReservation(vin,userId,pickupDate,returnDate,addons){
 
-    const response = await fetchData(`http://localhost:3000/api/reservations/`, {
+    let  response = await fetchData(`http://localhost:3000/api/reservations/`, {
     method: "POST",
     mode: "cors",
     credentials: "include",
@@ -20,6 +20,18 @@ export default async function createReservation(vin,userId,pickupDate,returnDate
     })
 });
     if(response.data){
+        const reservationId = response.data._id;
+        const currentBranch = JSON.parse(localStorage.getItem('branch'));
+       response= await fetchData(`http://localhost:3000/api/branches/reservations/${currentBranch.id}`,{
+        method:"PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+           reservationId
+        })
+       })
        console.log("Successfully created the reservation")
         return response.data;
     }

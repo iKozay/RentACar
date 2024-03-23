@@ -71,16 +71,18 @@ export default function Branch() {
     }
   }
   const handleDeleteBranch = async () => {
-    let response = await fetchData(`http://localhost:3000/api/reservations`, {
+    let response 
+    if(branch.reservations.length>0){
+    response= await fetchData(`http://localhost:3000/api/reservations`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify(branch.reservations),
-    });
+    });}
 
-    if (response.data) {
+    if ((response && response.data) || branch.reservations.length==0) {
       response = await fetchData(
         `http://localhost:3000/api/branches/${branchId}`,
         {
@@ -332,6 +334,7 @@ export default function Branch() {
                   id="name"
                   className="..."
                   defaultValue={branch.name}
+                  required
                 />
 
                 <label htmlFor="street" className="...">
@@ -341,6 +344,7 @@ export default function Branch() {
                   type="text"
                   name="street"
                   id="street"
+                  required
                   className="..."
                   defaultValue={branch.location.street}
                 />
@@ -352,6 +356,7 @@ export default function Branch() {
                   type="text"
                   name="postalCode"
                   id="postalCode"
+                  required
                   className="..."
                   defaultValue={branch.location["postal_code"]}
                 />
@@ -363,6 +368,7 @@ export default function Branch() {
                   type="text"
                   name="city"
                   id="city"
+                  required
                   className="..."
                   defaultValue={branch.location.city}
                 />
@@ -374,6 +380,7 @@ export default function Branch() {
                   type="text"
                   name="province"
                   id="province"
+                  required
                   className="..."
                   defaultValue={branch.location.province}
                 />

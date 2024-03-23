@@ -15,9 +15,17 @@ export default function AddBranch() {
     const province = document.getElementById("province").value;
 
     // Retrieve vehicle IDs and reservation IDs
-    const vehicleIds = document.getElementById("vehicleIds").value.split(",");
-    const reservationIds = document.getElementById("reservationIds").value.split(",");
-
+    const vehicleIds = document
+    .getElementById("vehicleIds")
+    .value!==""?document
+    .getElementById("vehicleIds")
+    .value.split(",")
+    .map((id) => id.trim()):undefined;
+    const reservationIds = document
+      .getElementById("reservationIds")
+      .value!==""? document.getElementById("reservationIds")
+      .value.split(",")
+      .map((id) => id.trim()):undefined;
     // Construct data object
     const newData = {
       name,
@@ -27,8 +35,8 @@ export default function AddBranch() {
         city,
         province,
       },
-      vehicles: vehicleIds ||[],
-      reservations: reservationIds||[],
+      vehicles: vehicleIds,
+      reservations: reservationIds,
     };
 
     // Make POST request to add a new branch

@@ -155,6 +155,41 @@ exports.branch_append_reservation = [
   },
 ];
 
+exports.branch_append_vehicle = [
+
+  async (req, res) => {
+    try {
+      const branchId = req.params.branchId; // Extract the branch ID from the request parameters
+      const vehicleId = req.body.vehicleId; // Extract the reservation ID from the request body
+
+      // Check if both branchId and reservationId are provided
+      if (!branchId || !vehicleId) {
+        return res.status(400).json({ error: "Branch ID or Reservation ID is missing" });
+      }
+
+      // Find the branch by ID
+      const branch = await Branch.findById(branchId);
+
+      // Check if the branch exists
+      if (!branch) {
+        return res.status(404).json({ error: "Branch not found" });
+      }
+
+      // Append the reservationId to the reservations array of the branch
+      branch.vehicles.push(vehicleId);
+
+      // Save the updated branch
+      const updatedBranch = await branch.save();
+
+      // Respond with the updated branch data
+      res.status(200).json(updatedBranch);
+    } catch (error) {
+      console.error("Error appending reservation to branch:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+];
+
 exports.branch_count= async(req,res)=>{
   try {
     const count = await Branch.countDocuments({});

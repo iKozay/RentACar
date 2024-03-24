@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import fetchData from "../utilities/fetchData";
 import Button from "../components/generalPurpose/Button";
 import ViewReservations from "../components/dashboard/ViewReservations";
+import ViewBranches
+ from "../components/dashboard/ViewBranches";
 export default function Vehicle() {
   const { vehicleId } = useParams();
   const [error, setError] = useState(false);
@@ -14,6 +16,10 @@ export default function Vehicle() {
   const [updateBtn, setUpdateBtn] = useState(false);
   const [deleting, setDeleting] = useState(null);
   const [updating, setUpdating] = useState(null);
+  const [addingToBranch,setAddingToBranch] = useState(null);
+  const [branches,setBranches]=useState(null);
+  const [branch,setBranch] = useState(null);
+  const [vehicleAdded,setVehicleAdded]=useState(false);
   const [showReservations, setShowReservations] = useState(false);
   useEffect(() => {
     async function fetchVehicle() {
@@ -49,7 +55,42 @@ export default function Vehicle() {
     }
     fetchVehicle();
   }, [vehicleId]);
+ 
+  useEffect(()=>{
+    async function fetchBranches (){
+      if(addingToBranch){
+      const response = await fetchData("http://localhost:3000/api/branches",{
+        method:"GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      setBranches(response.data);
+      }
+     
+    }
+    fetchBranches();
+  },[addingToBranch])
 
+  const handleAddVehicleToBranch=async (event)=>{
+    event && event.preventDefault();
+    console.log("here we go");
+    if(!branch)return setVehicleAdded(false);
+    const response = await fetchData(`http://localhost:3000/api/branches/vehicles/${branch.id}`,{
+      method:"PUT",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        vehicleId
+      })
+    }
+    )
+    if(response.data)return setVehicleAdded(true);
+    return setVehicleAdded(false);
+  }
   const handleClickUpdateVehicle = () => {
     setUpdateBtn(true);
   };
@@ -90,7 +131,7 @@ export default function Vehicle() {
     
     setDeleting(response);
   };
-
+    
   const handleUpdateVehicle = async (event) => {
     event.preventDefault();
 
@@ -143,7 +184,7 @@ export default function Vehicle() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-semibold mb-4">Vehicle Details</h1>
       {success ? (
-        !deleteBtn && !updateBtn ? (
+        !deleteBtn && !updateBtn && !addingToBranch ? (
           <div className="bg-white shadow-md rounded-lg overflow-hidden">
             <div className="p-6 flex flex-col lg:flex-row">
               <div className="w-full lg:w-1/2 lg:mr-6">
@@ -219,6 +260,9 @@ export default function Vehicle() {
                     text={"Delete"}
                     inline={true}
                   />
+                  <Button handler={setAddingToBranch} value={true} text={"Add to branch"} color={"green"}>
+
+                  </Button>
                 </div>
               </div>
             </div>
@@ -470,9 +514,25 @@ export default function Vehicle() {
               </form>
             </div>
           )
-        ) : (
-          ""
-        )
+        ) : addingToBranch?(
+          <>
+       <div className="border border-black-500 rounded-lg">
+      <ViewBranches branches={branches} handler={setBranch} style={`p-4 rounded-lg flex flex-col bg-gray-100 hover:bg-green-100`}/>
+        
+       </div>
+        <div className="mt-2">
+        <Button
+  handler={!vehicleAdded ? handleAddVehicleToBranch : null}
+  value={this}
+  text={vehicleAdded ? "Vehicle added successfully" : (branch ? `Add to ${branch.name}` : "Select a branch")}
+  color={"green"}
+  inline={true}
+/>
+
+         <Button text="Cancel" handler={setAddingToBranch} value={false} color={"blue"} inline={true}></Button>
+        </div>
+         </>
+        ):("")
       ) : loading ? (
         <h2 className="text-center text-gray-500">Loading...</h2>
       ) : error ? (

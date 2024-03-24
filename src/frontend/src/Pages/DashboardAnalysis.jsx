@@ -78,7 +78,7 @@ export default function DashboardAnalysis() {
               </div>
             </Link>
             <Link to="/dashboard/reservations">
-              <div className="bg-purple-200 p-6 rounded-lg shadow-md">
+              <div className="bg-purple-200 hover:bg-purple-300 p-6 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold mb-2">Reservations</h2>
                 <div className="text-3xl font-bold text-purple-800">{numbers.reservations}</div>
               </div>

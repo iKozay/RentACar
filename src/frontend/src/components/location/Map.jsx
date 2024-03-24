@@ -1,23 +1,21 @@
 import { TileLayer, MapContainer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useEffect ,useContext} from "react";
+import { useEffect, useContext } from "react";
 import { branchContext } from "../../Pages/BrowsingPage";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
 import isSelected from "../../utilities/isSelected";
 import handleChangeBranch from "../../utilities/handleChangeBranch";
 
-export default function Map({ location, branches, loc, setLoc}) {
+export default function Map({ location, branches, loc, setLoc }) {
+  const { setBranchName } = useContext(branchContext);
 
-  const {setBranchName} = useContext(branchContext);
-
-  useEffect(()=>{
-    function setter(){
-      setLoc([location.latitude,location.longitude]);
-
+  useEffect(() => {
+    function setter() {
+      setLoc([location.latitude, location.longitude]);
     }
     setter();
-  },[]);
+  }, []);
   const currentCity = location;
   // const loc = ;
   const redIcon = new L.Icon({
@@ -58,46 +56,42 @@ export default function Map({ location, branches, loc, setLoc}) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[location.latitude, location.longitude]} icon={redIcon}
+        <Marker
+          position={[location.latitude, location.longitude]}
+          icon={redIcon}
           eventHandlers={{
-            mouseover:(e)=>{
+            mouseover: (e) => {
               e.target.openPopup();
             },
-            mouseout:(e)=>{
+            mouseout: (e) => {
               e.target.closePopup();
             },
-            click:(e)=>{
-               const position=e.target.getLatLng();
-               setLoc([position.lat,position.lng])
-            }
-            
-          }}>
+            click: (e) => {
+              const position = e.target.getLatLng();
+              setLoc([position.lat, position.lng]);
+            },
+          }}
+        >
           <Popup>{currentCity.display_name}</Popup>
         </Marker>
         {branches.map((branch, index) => (
           <Marker
             key={index}
             position={branch.latLon}
-            icon={
-              isSelected(branch.name) ? selectedPurpleIcon : blueIcon
-            }
+            icon={isSelected(branch.name) ? selectedPurpleIcon : blueIcon}
             eventHandlers={{
               click: (e) => {
                 const position = e.target.getLatLng();
-                handleChangeBranch(branch.name,branch.id);
+                handleChangeBranch(branch.name, branch.id);
                 setBranchName(branch.name);
-               setLoc([position.lat,position.lng])
-
+                setLoc([position.lat, position.lng]);
               },
-              mouseover:(e)=>{
+              mouseover: (e) => {
                 e.target.openPopup();
               },
-              mouseout:(e)=>{
+              mouseout: (e) => {
                 e.target.closePopup();
-              }
-              ,
-
-
+              },
             }}
           >
             <Popup>{branch.name}</Popup>

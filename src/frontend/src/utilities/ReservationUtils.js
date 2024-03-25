@@ -49,10 +49,26 @@ export async function ModifyReservation(reservationID,pickupDate,returnDate, add
     }
 }
 
+
 function getBody(pickupDate,returnDate, addons, status){
-    if(addons==null || pickupDate==null || returnDate==null) {
+    if(addons==null && pickupDate==null && returnDate==null) {
         return {
             status: status
+        };
+    }else if(pickupDate==null && returnDate==null && status==null){
+        return {
+            addons: addons
+        };
+    }else if(addons==null && status==null){
+        return {
+            pickupDate: new Date(pickupDate), // Convert string to Date object
+            returnDate: new Date(returnDate) // Convert string to Date object
+        };
+    }else if(status==null){
+        return {
+            pickupDate: new Date(pickupDate), // Convert string to Date object
+            returnDate: new Date(returnDate), // Convert string to Date object
+            addons: addons
         };
     }else{
         return {
@@ -62,6 +78,10 @@ function getBody(pickupDate,returnDate, addons, status){
             addons: addons
         };
     }
+}
+
+export async function ChangeAddons(reservationID,addons){
+    await ModifyReservation(reservationID,null,null,addons,null);
 }
 
 export async function CancelReservation(reservationID){

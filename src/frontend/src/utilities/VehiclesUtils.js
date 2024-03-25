@@ -76,8 +76,7 @@ export async function FetchVehicleById(vehicleID) {
         return null;
 }
 
-export async function FetchVehiclesCurrentBranch() {
-    const branchID = localStorage.getItem("branchID");
+export async function FetchVehiclesByBranchId(branchID) {
     const response = await fetchData(`http://localhost:3000/api/vehicles/branch/${branchID}`, {
         method: "GET",
         credentials: "include",

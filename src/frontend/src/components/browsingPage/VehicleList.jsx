@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import SortFilterButtons from "./SortFilterButtons.jsx";
 import getBranch from "../../utilities/getBranch.js";
 import { branchContext } from "../../Pages/BrowsingPage";
-import {FetchVehiclesCurrentBranch} from "../../utilities/VehiclesUtils.js";
 export default function VehicleList() {
   const context = useContext(branchContext);
   const { branchName } = context || {}; 
@@ -13,28 +12,24 @@ export default function VehicleList() {
   const [sortedVehicles, setSortedVehicles] = useState([]);
 
   useEffect(() => {
-    // async function fetchVehicles() {
-    //   const response = await fetch(
-    //     `http://localhost:3000/api/branches/${getBranch().id}`,
-    //     {
-    //       method: "GET",
-    //       credentials: "include",
-    //       mode: "cors",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //       },
-    //     }
-    //   );
-    //   const branch = await response.json();
-    //   setVehicles(branch.vehicles);
-    //   setSortedVehicles(branch.vehicles); // Set sortedVehicles initially
-    // }
-    // fetchVehicles();
-        FetchVehiclesCurrentBranch().then((res) => {
-            setVehicles(res);
-            setSortedVehicles(res);
-        });
+    async function fetchVehicles() {
+      const response = await fetch(
+        `http://localhost:3000/api/branches/${getBranch().id}`,
+        {
+          method: "GET",
+          credentials: "include",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const branch = await response.json();
+      setVehicles(branch.vehicles);
+      setSortedVehicles(branch.vehicles); // Set sortedVehicles initially
+    }
+    fetchVehicles();
   }, [branchName]);
 
   const handleSortFilter = (sortedVehicles) => {

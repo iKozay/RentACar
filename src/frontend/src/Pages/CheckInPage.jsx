@@ -5,14 +5,19 @@ import MakeDeposit from "../components/checkIn/MakeDeposit"
 
 export default function CheckInPage() {
   const [page, setPage] = useState(0);
+  const [driversLicenseNum, setDriversLicenseNum] = useState('');
 
   const CheckInTitles = ["Information", "Rental Agreement", "Make Deposit"];
 
+  const handleDriversLicenseChange = (licenseNum) => {
+    setDriversLicenseNum(licenseNum);
+  };
+
   const PageDisplay = () => {
     if (page === 0) {
-      return <ClientInfo />;
+      return <ClientInfo onDriversLicenseChange={handleDriversLicenseChange} />;
     } else if (page === 1) {
-      return <RentalAgreement />;
+      return <RentalAgreement driversLicenseNum={driversLicenseNum}/>;
     } else {
       return <MakeDeposit />;
     }
@@ -47,7 +52,7 @@ export default function CheckInPage() {
           </button>
           <button
             className={`py-2 px-4 rounded ${
-              page === CheckInTitles.length - 1 ? "bg-blue-500 hover:bg-blue-600" : "bg-indigo-300 cursor-not-allowed"
+              page === CheckInTitles.length - 1 ? "bg-blue-500 hover:bg-blue-600" : "bg-indigo-300"
             }`}
             onClick={() => {
               if (page === CheckInTitles.length - 1) {

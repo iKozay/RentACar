@@ -17,8 +17,9 @@ export default function Branch() {
   const [updating, setUpdating] = useState(null);
   const [viewReservation, setViewReservation] = useState(false);
   const [viewVehicles, setViewVehicles] = useState(false);
+  const [refresh,setRefresh]=useState(false);
   useEffect(() => {
-    async function fetchUser() {
+    async function fetchBranch() {
       setLoading(true);
       const getBranch = await fetchData(
         `http://localhost:3000/api/branches/${branchId}`,
@@ -40,14 +41,14 @@ export default function Branch() {
       }
       setLoading(false);
     }
-    fetchUser();
+    fetchBranch();
   }, [branchId]);
 
-  const handleClickUpdateUser = () => {
+  const handleClickUpdateBranch = () => {
     setUpdateBtn(true);
   };
 
-  const handleClickDeleteUser = () => {
+  const handleClickDeleteBranch = () => {
     setDeleteBtn(true);
   };
   const handleCancelDelete = () => {
@@ -56,40 +57,91 @@ export default function Branch() {
   const handleCancelUpdate = () => {
     setUpdateBtn(false);
   };
-  const handleDeleteUser = async () => {
-    const response = await fetchData(
-      `http://localhost:3000/api/users/${customerId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+  const handleRefreshBranch = async()=>{
+    let response = await fetchData(`http://localhost:3000/api/branches/refresh/${branchId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    console.log(response);
+    if(response.data){
+      setRefresh(true);
+    }
+  }
+  const handleDeleteBranch = async () => {
+    let response 
+    if(branch.reservations.length>0){
+    response= await fetchData(`http://localhost:3000/api/reservations`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(branch.reservations),
+    });}
+
+    if ((response && response.data) || branch.reservations.length==0) {
+      response = await fetchData(
+        `http://localhost:3000/api/branches/${branchId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+    }
+
     setDeleting(response);
   };
 
-  const handleUpdateUser = async (event) => {
+  const handleUpdateBranch = async (event) => {
     event.preventDefault();
-    const updatedData = {
-      username: document.getElementById("username").value,
-      first_name: document.getElementById("firstName").value,
-      last_name: document.getElementById("lastName").value,
-      email: document.getElementById("email").value,
-      date_of_birth: document.getElementById("dateOfBirth").value,
-      role: document.getElementById("role").value,
-      profile_picture: document.getElementById("picture").value,
-      phone_number: document.getElementById("phoneNumber").value,
-    };
+    window.alert("here we are");
 
-    const passwordValue = document.getElementById("password").value.trim();
-    if (passwordValue !== "") {
-      updatedData.password = passwordValue;
+    // Check if branch data is available
+    if (!branch) {
+      console.error("Branch data is not available");
+      return;
     }
 
-    console.log(updatedData);
-    // Make PUT request to update customer information
+    // Retrieve values from form fields
+    const name = document.getElementById("name").value;
+    const street = document.getElementById("street").value;
+    const postalCode = document.getElementById("postalCode").value;
+    const city = document.getElementById("city").value;
+    const province = document.getElementById("province").value;
+    const vehicleIds = document
+      .getElementById("vehicleIds")
+      .value!==""?document
+      .getElementById("vehicleIds")
+      .value.split(",")
+      .map((id) => id.trim()):undefined;
+    const reservationIds = document
+      .getElementById("reservationIds")
+      .value!==""? document.getElementById("reservationIds")
+      .value.split(",")
+      .map((id) => id.trim()):undefined;
+
+    // Construct updatedData object
+    const updatedData = {
+      name,
+      location: {
+        street,
+        postal_code: postalCode,
+        city,
+        province,
+      },
+      vehicles: vehicleIds,
+      reservations: reservationIds
+    };
+
+    console.log("Updated Data:", updatedData);
+
+    // Make PUT request to update branch information
     const response = await fetchData(
       `http://localhost:3000/api/branches/${branchId}`,
       {
@@ -98,16 +150,16 @@ export default function Branch() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(updatedData), // Send updated data in the request body
+        body: JSON.stringify(updatedData),
       }
     );
-    console.log(response.error);
+
     setUpdating(response);
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-semibold mb-4">Customer Details</h1>
+      <div className="flex justify-between items-center"><h1 className="text-2xl font-semibold mb-4">Branch Details </h1><Button handler={handleRefreshBranch} text={refresh?"up to date":"refresh"} inline={true} color={refresh?"green":"blue"}/></div>
       {success ? (
         !deleteBtn && !updateBtn ? (
           <div className="bg-white shadow-md rounded-lg overflow-hidden">
@@ -124,63 +176,105 @@ export default function Branch() {
               <p className="text-medium font-semibold mb-2">Reservations</p>
               {viewReservation && (
                 <>
-                  {branch.reservations && <ViewReservations reservations={branch.reservations}/>}
-                  <Button handler={setViewReservation} value={false} color={"red"} text={"Minimize"}/>
+                  {branch.reservations && (
+                    <ViewReservations reservations={branch.reservations} />
+                  )}
+                  <Button
+                    handler={setViewReservation}
+                    value={false}
+                    color={"red"}
+                    text={"Minimize"}
+                  />
                 </>
               )}
-              {!viewReservation && <Button handler={setViewReservation} value={true} color={"green"} text={"view reservations"}/>}
+              {!viewReservation && (
+                <Button
+                  handler={setViewReservation}
+                  value={true}
+                  color={"green"}
+                  text={"view reservations"}
+                />
+              )}
 
               {viewVehicles && (
                 <>
-                  {
-                  branch.vehicles && (
+                  {branch.vehicles && (
                     <ViewVehicles vehicles={branch.vehicles} />
                   )}
-                  <Button handler={setViewVehicles} value={false} color={"red"} text={"Minimize"}/>
+                  <Button
+                    handler={setViewVehicles}
+                    value={false}
+                    color={"red"}
+                    text={"Minimize"}
+                  />
                 </>
               )}
-              {!viewVehicles && <Button handler={setViewVehicles} value={true} color={"blue"} text={"View Vehicles"}/>}
+              {!viewVehicles && (
+                <Button
+                  handler={setViewVehicles}
+                  value={true}
+                  color={"blue"}
+                  text={"View Vehicles"}
+                />
+              )}
             </div>
             <div className="flex justify-end p-6">
-              <button
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded mr-4"
-                onClick={handleClickUpdateUser}
-              >
-                Update
-              </button>
-              <button
-                className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
-                onClick={handleClickDeleteUser}
-              >
-                Delete
-              </button>
+              <Button
+                handler={handleClickUpdateBranch}
+                color={"blue"}
+                text={"Update"}
+                inline={true}
+              />
+              <Button
+                handler={handleClickDeleteBranch}
+                color={"red"}
+                text={"Delete"}
+                inline={true}
+              />
             </div>
           </div>
         ) : deleteBtn ? (
           deleting ? (
             deleting.data ? (
               <div className="bg-green-100 text-green-900 px-4 py-3 rounded-md mb-4">
-                Successfully deleted {customer.username}
+                Successfully deleted {branch.name}
               </div>
             ) : deleting.loading ? (
               <div className="bg-yellow-100 text-yellow-900 px-4 py-3 rounded-md mb-4">
-                Attempting to delete {customer.username}...
+                Attempting to delete {branch.name}...
               </div>
             ) : (
               <div className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">
-                Failed to delete {customer.username}
+                Failed to delete {branch.name}
               </div>
             )
           ) : (
             <div className="bg-white shadow-md rounded-lg overflow-hidden p-6">
               <p className="text-lg font-semibold mb-4">
                 Are you sure you want to delete{" "}
-                <span className="text-red-500">{customer.username}</span>?
+                <span className="text-red-500">{branch.name}</span>?
               </p>
+
+              {branch.reservations.length > 0 && (
+                <p className="text-lg font-semibold mb-4">
+                  <span
+                    className="text-red
+-500"
+                  >
+                    {branch.reservations.length}
+                  </span>{" "}
+                  associated reservations will be deleted
+                </p>
+              )}
+              {branch.reservations.length == 0 && (
+                <p className="text-lg font-semibold mb-4">
+                  No associated reservations
+                </p>
+              )}
               <div className="flex justify-end">
                 <button
                   className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-4"
-                  onClick={handleDeleteUser}
+                  onClick={handleDeleteBranch}
                 >
                   Delete
                 </button>
@@ -196,16 +290,16 @@ export default function Branch() {
         ) : updating ? (
           updating.data ? (
             <div className="bg-green-100 text-green-900 px-4 py-3 rounded-md mb-4">
-              Successfully updated {customer.username}
+              Successfully updated {branch.name}
             </div>
           ) : updating.loading ? (
             <div className="bg-yellow-100 text-yellow-900 px-4 py-3 rounded-md mb-4">
-              Attempting to update {customer.username}...
+              Attempting to update {branch.name}...
             </div>
           ) : (
             <div>
               <div className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">
-                Failed to update {customer.username}
+                Failed to update {branch.name}
               </div>
               {updating.error && (
                 <div className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">
@@ -224,154 +318,120 @@ export default function Branch() {
           )
         ) : (
           <div>
-            <p>Update customer {customer.username}:</p>
-            <form action="" className="mt-4">
-              <div className="mb-4">
+            <p>Update branch {branch.name}:</p>
+            <form action="" className="mt-4" onSubmit={handleUpdateBranch}>
+              <div className="grid grid-cols-1 gap-6 mt-3">
+                {/* Input fields for branch details */}
                 <label
-                  htmlFor="username"
+                  htmlFor="name"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Username
+                  Name
                 </label>
                 <input
                   type="text"
-                  name="username"
-                  id="username"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  defaultValue={customer.username}
+                  name="name"
+                  id="name"
+                  className="..."
+                  defaultValue={branch.name}
                   required
                 />
-                <label
-                  htmlFor="firstName"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  First name
+
+                <label htmlFor="street" className="...">
+                  Street
                 </label>
                 <input
                   type="text"
-                  name="firstName"
-                  id="firstName"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  defaultValue={customer["first_name"]}
+                  name="street"
+                  id="street"
                   required
+                  className="..."
+                  defaultValue={branch.location.street}
                 />
-                <label
-                  htmlFor="lastName"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Last name
+
+                <label htmlFor="postalCode" className="...">
+                  Postal Code
                 </label>
                 <input
                   type="text"
-                  name="lastName"
-                  id="lastName"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  defaultValue={customer["last_name"]}
+                  name="postalCode"
+                  id="postalCode"
                   required
+                  className="..."
+                  defaultValue={branch.location["postal_code"]}
                 />
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  defaultValue={customer["email"]}
-                  required
-                />
-                <label
-                  htmlFor="phoneNumber"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Email
+
+                <label htmlFor="city" className="...">
+                  City
                 </label>
                 <input
                   type="text"
-                  name="phoneNumber"
-                  id="phoneNumber"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  defaultValue={customer["phone_number"]}
+                  name="city"
+                  id="city"
                   required
+                  className="..."
+                  defaultValue={branch.location.city}
                 />
-                <label
-                  htmlFor="dateOfBirth"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Date of birth
-                </label>
-                <input
-                  type="date"
-                  name="dateOfBirth"
-                  id="dateOfBirth"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  defaultValue={
-                    new Date(customer["date_of_birth"])
-                      .toISOString()
-                      .split("T")[0]
-                  }
-                  required
-                />
-                <label
-                  htmlFor="role"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Role
+
+                <label htmlFor="province" className="...">
+                  Province
                 </label>
                 <input
                   type="text"
-                  name="role"
-                  id="role"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  defaultValue={customer["role"]}
+                  name="province"
+                  id="province"
                   required
+                  className="..."
+                  defaultValue={branch.location.province}
                 />
-                <label
-                  htmlFor="picture"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Profile picture
+
+                {/* Input fields for vehicle IDs and reservation IDs */}
+                <label htmlFor="vehicleIds" className="...">
+                  Vehicle IDs (comma-separated)
                 </label>
                 <input
                   type="text"
-                  name="picture"
-                  id="picture"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  defaultValue={customer["profile_picture"]}
-                  required
+                  name="vehicleIds"
+                  id="vehicleIds"
+                  className="..."
+                  defaultValue={branch.vehicles
+                    .map((vehicle) => vehicle._id)
+                    .join(",")}
                 />
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
+
+                <label htmlFor="reservationIds" className="...">
+                  Reservation IDs (comma-separated)
                 </label>
                 <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  placeholder="Enter new password to reset"
+                  type="text"
+                  name="reservationIds"
+                  id="reservationIds"
+                  className="..."
+                  defaultValue={branch.reservations
+                    .map((reservation) => reservation._id)
+                    .join(",")}
                 />
               </div>
 
-              <div className="flex justify-end">
-                <button
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded mr-4"
-                  onClick={handleUpdateUser}
-                >
-                  Update
-                </button>
-                <button
-                  className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded"
-                  onClick={handleCancelUpdate}
-                >
-                  Cancel
-                </button>
+              <div className="m-4">
+              <div className="mt-6 inline" >
+                  <button
+                    type="submit"
+                    className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded mr-4"
+                  >
+                    Update Branch
+                  </button>
+                </div>
+                {/* <Button handler={handleUpdateBranch} value={this}  color={"green"} text={"Update"} inline={true}/> */}
+                <Button
+                  handler={handleCancelUpdate}
+                  value={this}
+                  color={"blue"}
+                  text={"Cancel"}
+                  inline={true}
+                />
               </div>
+
             </form>
           </div>
         )

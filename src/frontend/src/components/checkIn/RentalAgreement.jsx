@@ -5,7 +5,7 @@ import SignaturePad from "react-signature-canvas";
 import "./sigCanvas.css";
 import {FetchReservationById} from "../../utilities/ReservationUtils.js";
 
-export default function RentalAgreement({vehicle}) {
+export default function RentalAgreement({vehicle, driversLicenseNum}) {
 
 /////////////////////////////////////////////////
 const [damageDescription, setDamageDescription] = useState('');
@@ -67,7 +67,7 @@ useEffect(() => {
         Address:  <br/>
         Contact Number: {response.userID.phone_number} <br/>
         Email Address: {response.userID.email} <br/>
-        Driver's License Number: A62S9 - SSE34O - 02 <br/>
+        Driver's License Number: {driversLicenseNum} <br/>
         </p>
       </div>
 
@@ -76,8 +76,8 @@ useEffect(() => {
         <p>
         Make: {response.vin.make} <br/>
         Model: {response.vin.model} <br/>
-        Year: 2018<br/>
-        License Plate Number: X7L 99P <br/>
+        Year: <br/>
+        License Plate Number:  <br/>
         Vehicle Identification Number (VIN): {response.vin._id} <br/>
         Color: {response.vin.colour} <br/>
         </p>

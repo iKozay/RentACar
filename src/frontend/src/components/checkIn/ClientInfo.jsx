@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from "../../Pages/Root.jsx";
 import {FetchReservationById} from "../../utilities/ReservationUtils.js";
 
-export default function ClientInfo(){
+export default function ClientInfo({ onDriversLicenseChange }){
 
   /////////////////////////////////////////////////
   const [damageDescription, setDamageDescription] = useState('');
+  const [driversLicenseNum, setDriversLicenseNum] = useState('');
   const reservationId = window.location.pathname.split("/").pop();
 
   const [response, setResponse] = useState([]);
@@ -39,7 +40,12 @@ export default function ClientInfo(){
   const handleDamageDescriptionChange = (event) => {
     setDamageDescription(event.target.value);
   };
-  console.log(response);
+  const handleDriversLicenseChange = (event) => {
+    const value = event.target.value;
+    setDriversLicenseNum(value);
+    onDriversLicenseChange(value);
+  };
+
   if(response && response.userID){
   return (
     <div className="container mx-auto p-8">
@@ -56,8 +62,17 @@ export default function ClientInfo(){
         <p>Make: {response.vin.make}</p>
         <p>Model: {response.vin.model}</p>
         <p>Color: {response.vin.colour}</p>
-        <p>Year: 2018</p>
-        <p>License Plate: X7L 99P</p>
+        <p>Year: </p>
+        <p>License Plate: </p>
+      </div>
+
+      <div className="mb-4">
+        <h2 className="text-lg font-bold mb-2">Valid Driving Permit:</h2>
+        <input className="w-full px-3 py-2 border rounded-md"
+        placeholder="Enter Driver's License Number"
+        value={driversLicenseNum}
+        onChange={handleDriversLicenseChange}>
+        </input>
       </div>
 
       <div className="mb-4">

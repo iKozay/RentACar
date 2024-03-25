@@ -18,13 +18,13 @@ const jwtOptions={
 
 const strategy = new JwtStrategy(jwtOptions, async (payload, done) => {
     try {
-        console.log("Payload:", payload);
+        // console.log("Payload:", payload);
         const user = await User.findById(payload.id);
         if (!user) {
-            console.log("User not found");
+            // console.log("User not found");
             return done(null, false);
         }
-        console.log("User found:", user);
+        // console.log("User found:", user);
         return done(null, user);
     } catch (error) {
         console.error("Error during authentication:", error);
@@ -42,14 +42,14 @@ module.exports = {
         console.log("Authentication middleware invoked");
         passport.authenticate('jwt', { session: false }, (err, user, info) => {
             if (err) {
-                console.error("Error during authentication:", err);
+                console.error("Error during authentication:");
                 return res.status(500).json({ error: "Internal Server Error" });
             }
             if (!user) {
                 console.log("User not authenticated");
                 return res.status(401).json({ error: "Unauthorized" });
             }
-            console.log("User authenticated:", user);
+            console.log("User authenticated:");
             req.user = user;
             next();
         })(req, res, next);

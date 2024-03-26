@@ -73,8 +73,8 @@ useEffect(() => {
         <p>
         Make: {response.vin.make} <br/>
         Model: {response.vin.model} <br/>
-        Year: <br/>
-        License Plate Number:  <br/>
+        Year: 2018{response.vin.year} <br/>
+        License Plate Number: P1P 4L0{response.vin.licensePlate} <br/>
         Vehicle Identification Number (VIN): {response.vin._id} <br/>
         Color: {response.vin.colour} <br/>
         </p>

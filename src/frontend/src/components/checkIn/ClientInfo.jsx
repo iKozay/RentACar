@@ -70,8 +70,8 @@ export default function ClientInfo({ onDriversLicenseChange, onHomeAddressChange
         <p>Make: {response.vin.make}</p>
         <p>Model: {response.vin.model}</p>
         <p>Color: {response.vin.colour}</p>
-        <p>Year: </p>
-        <p>License Plate: </p>
+        <p>Year: 2018{response.vin.year}</p>
+        <p>License Plate: P1P 4L0{response.vin.licensePlate}</p>
       </div>
 
       <div className="mb-4">

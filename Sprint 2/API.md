@@ -332,12 +332,18 @@ Delete a user by ID
    - **Required Headers**: Authorization
    - **Request Body**:
      ```json
-     {
-      "vin": "65e52b7f3a6b6fac482c8278",
-      "reservationDate": "2024-03-08T12:00:00Z",
-      "pickupDate": "2024-03-09T10:00:00Z",
-      "returnDate": "2024-03-10T10:00:00Z",
-      "userID": "65ef29928e591664663d138d"
+      {
+        "vin": "65e52b7f3a6b6fac482c8278",
+        "reservationDate": "2024-03-08T00:00:00.000Z",
+        "pickupDate": "2024-03-09T00:00:00.000Z",
+        "returnDate": "2024-03-10T00:00:00.000Z",
+        "userID": "65ef29928e591664663d138d",
+        "status": "not checked in",
+        "addons": {
+            "insurance": true,
+            "gps": true,
+            "childSeat": 2
+        }
      }
 
      ```
@@ -351,7 +357,8 @@ Delete a user by ID
      ```json
      {
        "pickupDate": "2024-03-12T10:00:00Z",
-       "returnDate": "2024-03-17T10:00:00Z"
+       "returnDate": "2024-03-17T10:00:00Z",
+       "status": "checked in"
      }
      ```
 
@@ -360,5 +367,68 @@ Delete a user by ID
    - **Method**: `DELETE`
    - **Description**: Cancels a reservation by its ID.
    - **Required Headers**: Authorization
+
+### API Endpoints for Transaction Management
+*replace userId or transactionId or reservationId with actual ID taken from database
+
+1. **Create a new transaction**
+    - **URL**: `http://localhost:3000/api/transactions/add`
+    - **Method**: `POST`
+    - **Description**: Creates a new transaction.
+    - **Required Headers**: Authorization
+    - **Request Body**:
+      ```json
+      {
+        "name": "Alice Smith",
+        "cardNumber": "1234567890123456",
+        "expiryDate": "12/22",
+        "cvv": "123",
+        "date": "2024-03-08T12:00:00Z",
+        "amount": 35000,
+        "reservationID": "65ef29928e591664663d138d",
+        "userID": "65ef29928e591664663d138d"
+      }
+      ```
+    - **Response**:
+    - `200 OK`: Returns transaction details in a JSON
+    - `400 bad request`: JSON object containing errors in request body
+    - `404`: User not found and/or Reservation not found
+
+2. **View all transactions**
+    - **URL**: `http://localhost:3000/api/transactions`
+    - **Method**: `GET`
+    - **Description**: Retrieves all transactions in the database.
+    - **Required Headers**: Authorization
+    - **Response**: 
+      * `200 OK`: Returns an array of transaction objects.
+
+3. **View a transaction by its ID**
+    - **URL**: `http://localhost:3000/api/transactions/transactionId`
+    - **Method**: `GET`
+    - **Description**: Retrieves a transaction by its ID.
+    - **Required Headers**: Authorization
+    - **Response**:
+        * `200 OK`: Returns transaction details in a JSON
+        * `404 Not found`: Transaction not found
+
+
+4. **View all transactions for a user**
+   - **URL**: `http://localhost:3000/api/transactions/user/userId`
+   - **Method**: `GET`
+   - **Description**: Retrieves all transactions associated with the specified user ID.
+   - **Required Headers**: Authorization
+   - **Response**: 
+     * `200 OK`: Returns an array of transaction objects.
+     * `404 Not found`: User not found
+
+5. **View all transactions for a reservation**
+   - **URL**: `http://localhost:3000/api/transactions/reservation/reservationId`
+   - **Method**: `GET`
+   - **Description**: Retrieves all transactions associated with the specified reservation ID.
+   - **Required Headers**: Authorization
+   - **Response**: 
+     * `200 OK`: Returns an array of transaction objects.
+     * `404 Not found`: Reservation not found
+
 
 

@@ -13,6 +13,7 @@ const cors = require('cors');
 const app = express();
 
 
+
 // initiating database connection
 // const mongoDB = process.env.MONGO_DB;
 // main().then(_=>console.log("Successfully connected to mongoDB.")).catch(err=>console.log(err));
@@ -57,6 +58,10 @@ app.use('/api/users',routes.usersRoute);
 app.use('/api/vehicles',routes.vehiclesRoute);
 app.use('/api/auth',routes.authRoute);
 app.use('/api/reservations',routes.reservationsRoute);
+app.use('/api/branches',routes.branchRoute);
+app.use('/api/transactions',routes.transactionsRoute);
+app.use('/api/reviews',routes.reviewsRoute);
+
 
 
 app.get('/test/fetch',(req,res)=>{// Just for testing purposes

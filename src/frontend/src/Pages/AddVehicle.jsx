@@ -2,14 +2,10 @@ import { useState } from "react";
 import fetchData from "../utilities/fetchData";
 
 export default function AddVehicle() {
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [updateBtn, setUpdateBtn] = useState(false);
+  
   const [adding, setAdding] = useState(null);
 
-  const handleClickUpdateVehicle = () => {
-    setUpdateBtn(true);
-  };
+
 
   const handleCreateVehicle = async (event) => {
     event.preventDefault();
@@ -17,6 +13,8 @@ export default function AddVehicle() {
     // Retrieve values from form fields
     const make = document.getElementById("make").value;
     const model = document.getElementById("model").value;
+    const licensePlate = document.getElementById("licensePlate").value;
+    const year = document.getElementById("year").value;
     const price = document.getElementById("price").value;
     const numberOfSeats = document.getElementById("numberOfSeats").value;
     const address = document.getElementById("address").value;
@@ -31,6 +29,8 @@ export default function AddVehicle() {
     const updatedData = {
       make,
       model,
+      licensePlate,
+      year,
       price,
       numberOfSeats,
       address,
@@ -114,6 +114,32 @@ export default function AddVehicle() {
                 type="text"
                 name="model"
                 id="model"
+                className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              />
+
+              <label
+                htmlFor="licensePlate"
+                className="block text-sm font-medium text-gray-700"
+              >
+                License Plate
+              </label>
+              <input
+                type="text"
+                name="licensePlate"
+                id="licensePlate"
+                className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              />
+
+              <label
+                htmlFor="year"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Year
+              </label>
+              <input
+                type="number"
+                name="year"
+                id="year"
                 className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
 
@@ -236,7 +262,7 @@ export default function AddVehicle() {
             <div className="mt-6">
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded mr-4"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded mr-4"
               >
                 Add Vehicle
               </button>

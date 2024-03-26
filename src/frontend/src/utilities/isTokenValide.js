@@ -1,6 +1,6 @@
 
-export default function isTokenValide(){
-    const response = fetch("http://localhost:3000/api/auth/checkToken",{
+export default async function isTokenValide(){
+    const response = await fetch("http://localhost:3000/api/auth/checkToken",{
         method:"GET",
         headers:{
             "Content-Type":"application/json",

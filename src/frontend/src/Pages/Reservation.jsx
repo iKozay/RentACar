@@ -16,13 +16,16 @@ export default function Reservation() {
   useEffect(() => {
     async function fetchReservation() {
       setLoading(true);
-      const reservationData = await fetchData(`http://localhost:3000/api/reservations/${reservationId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const reservationData = await fetchData(
+        `http://localhost:3000/api/reservations/${reservationId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       if (reservationData.data) {
         setReservation(reservationData.data);
         setLoading(false);
@@ -67,17 +70,17 @@ export default function Reservation() {
 
   const handleUpdateReservation = async (event) => {
     event.preventDefault();
-  
+
     const reservationDate = document.getElementById("reservationDate").value;
     const pickupDate = document.getElementById("pickupDate").value;
     const returnDate = document.getElementById("returnDate").value;
-  
+
     const updatedData = {
       reservationDate,
       pickupDate,
-      returnDate
+      returnDate,
     };
-  
+
     const response = await fetchData(
       `http://localhost:3000/api/reservations/${reservationId}`,
       {
@@ -89,7 +92,7 @@ export default function Reservation() {
         body: JSON.stringify(updatedData),
       }
     );
-  
+
     setUpdating(response);
   };
 
@@ -100,14 +103,13 @@ export default function Reservation() {
         !deleteBtn && !updateBtn ? (
           <div className="bg-white shadow-md rounded-lg overflow-hidden">
             <div className="p-6">
-              <img src={`${reservation.vin.Image}`} alt="Car" />
+              <img src={`${reservation.vin.Image}`} alt="Car" className="w-full max-h-96 object-cover mb-4" />
               <Link to={`../customers/${reservation.userID._id}`} className="text-blue-500 hover:underline">View Customer</Link>
               <p className="text-medium font-semibold mb-2">Reservation ID: {reservation._id}</p>
               <p className="text-gray-500 mb-2">Vehicle ID: <Link to={`../vehicles/${reservation.vin._id}`} className="text-blue-500 hover:underline">{reservation.vin._id}</Link></p>
               <p className="text-gray-500 mb-2">Reservation Date: {new Date(reservation.reservationDate).toLocaleString()}</p>
               <p className="text-gray-500 mb-2">Pickup Date: {new Date(reservation.pickupDate).toLocaleString()}</p>
               <p className="text-gray-500 mb-2">Return Date: {new Date(reservation.returnDate).toLocaleString()}</p>
-              
             </div>
             <div className="flex justify-end p-6">
               <button
@@ -125,111 +127,112 @@ export default function Reservation() {
             </div>
           </div>
         ) : deleteBtn ? (
+
             deleting ? (
-                deleting.data ? (
-                  <div className="bg-green-100 text-green-900 px-4 py-3 rounded-md mb-4">
-                    Successfully deleted reservation {reservation._id}
-                  </div>
-                ) : deleting.loading ? (
-                  <div className="bg-yellow-100 text-yellow-900 px-4 py-3 rounded-md mb-4">
-                    Attempting to delete reservation {reservation._id}...
-                  </div>
-                ) : (
-                  <div className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">
-                    Failed to delete reservation {reservation._id}
-                  </div>
-                )
+              deleting.data ? (
+                <div className="bg-green-100 text-green-900 px-4 py-3 rounded-md mb-4">
+                  Successfully deleted reservation {reservation._id}
+                </div>
+              ) : deleting.loading ? (
+                <div className="bg-yellow-100 text-yellow-900 px-4 py-3 rounded-md mb-4">
+                  Attempting to delete reservation {reservation._id}...
+                </div>
               ) : (
-                <div className="bg-white shadow-md rounded-lg overflow-hidden p-6">
-                  <p className="text-lg font-semibold mb-4">
-                    Are you sure you want to delete{" "}
-                    <span className="text-red-500">reservation {reservation._id}</span>?
-                  </p>
-                  <div className="flex justify-end">
-                    <button
-                      className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-4"
-                      onClick={handleDeleteReservation}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded"
-                      onClick={handleCancelDelete}
-                    >
-                      Cancel
-                    </button>
-                  </div>
+                <div className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">
+                  Failed to delete reservation {reservation._id}
                 </div>
               )
-        ) : updateBtn ? (
+            ) : (
+              <div className="bg-white shadow-md rounded-lg overflow-hidden p-6">
+                <p className="text-lg font-semibold mb-4">
+                  Are you sure you want to delete{" "}
+                  <span className="text-red-500">reservation {reservation._id}</span>?
+                </p>
+                <div className="flex justify-end">
+                  <button
+                    className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-4"
+                    onClick={handleDeleteReservation}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded"
+                    onClick={handleCancelDelete}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )
+          ) : updateBtn ? (
             updating ? (
-                updating.data ? (
-                  <div className="bg-green-100 text-green-900 px-4 py-3 rounded-md mb-4">
-                    Successfully updated reservation {reservation._id}
-                  </div>
-                ) : updating.loading ? (
-                  <div className="bg-yellow-100 text-yellow-900 px-4 py-3 rounded-md mb-4">
-                    Attempting to update reservation {reservation._id}...
-                  </div>
-                ) : (
-                  <div>
-                    <div className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">
-                      Failed to update reservation {reservation._id}
-                    </div>
-                    {updating.error && (
-                      <div className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">
-                        {updating.error.errors ? (
-                          <div>
-                            {updating.error.errors.map((message, index) => (
-                              <p key={index}>{message.msg}</p>
-                            ))}
-                          </div>
-                        ) : (
-                          <p>{updating.error.error}</p>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )
+              updating.data ? (
+                <div className="bg-green-100 text-green-900 px-4 py-3 rounded-md mb-4">
+                  Successfully updated reservation {reservation._id}
+                </div>
+              ) : updating.loading ? (
+                <div className="bg-yellow-100 text-yellow-900 px-4 py-3 rounded-md mb-4">
+                  Attempting to update reservation {reservation._id}...
+                </div>
               ) : (
                 <div>
-                  <p>Update customer reservation {reservation._id}:</p>
-                  <form onSubmit={handleUpdateReservation}>
-              <div className="grid grid-cols-1 gap-6 mt-6">
-                <label htmlFor="reservationDate" className="block text-sm font-medium text-gray-700">
-                  Reservation Date
-                </label>
-                <input type="datetime-local" name="reservationDate" id="reservationDate" defaultValue={new Date(reservation.reservationDate).toISOString().slice(0, 16)} className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-
-                <label htmlFor="pickupDate" className="block text-sm font-medium text-gray-700">
-                  Pickup Date
-                </label>
-                <input type="datetime-local" name="pickupDate" id="pickupDate" defaultValue={new Date(reservation.pickupDate).toISOString().slice(0, 16)} className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-
-                <label htmlFor="returnDate" className="block text-sm font-medium text-gray-700">
-                  Return Date
-                </label>
-                <input type="datetime-local" name="returnDate" id="returnDate" defaultValue={new Date(reservation.returnDate).toISOString().slice(0, 16)} className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-              </div>
-              <div className="mt-6">
-                <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded mr-4">
-                  Update Reservation
-                </button>
-              </div>
-            </form>
+                  <div className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">
+                    Failed to update reservation {reservation._id}
+                  </div>
+                  {updating.error && (
+                    <div className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">
+                      {updating.error.errors ? (
+                        <div>
+                          {updating.error.errors.map((message, index) => (
+                            <p key={index}>{message.msg}</p>
+                          ))}
+                        </div>
+                      ) : (
+                        <p>{updating.error.error}</p>
+                      )}
+                    </div>
+                  )}
                 </div>
               )
-            
+            ) : (
+              <div>
+                <p>Update customer reservation {reservation._id}:</p>
+                <form onSubmit={handleUpdateReservation}>
+                  <div className="grid grid-cols-1 gap-6 mt-6">
+                    <label htmlFor="reservationDate" className="block text-sm font-medium text-gray-700">
+                      Reservation Date
+                    </label>
+                    <input type="datetime-local" name="reservationDate" id="reservationDate" defaultValue={new Date(reservation.reservationDate).toISOString().slice(0, 16)} className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+  
+                    <label htmlFor="pickupDate" className="block text-sm font-medium text-gray-700">
+                      Pickup Date
+                    </label>
+                    <input type="datetime-local" name="pickupDate" id="pickupDate" defaultValue={new Date(reservation.pickupDate).toISOString().slice(0, 16)} className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+  
+                    <label htmlFor="returnDate" className="block text-sm font-medium text-gray-700">
+                      Return Date
+                    </label>
+                    <input type="datetime-local" name="returnDate" id="returnDate" defaultValue={new Date(reservation.returnDate).toISOString().slice(0, 16)} className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  </div>
+                  <div className="mt-6">
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded mr-4">
+                      Update Reservation
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )
+          ) : (
+            ""
+          )
+        ) : loading ? (
+          <h2 className="text-center text-gray-500">Loading...</h2>
+        ) : error ? (
+          <h2 className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">Error</h2>
         ) : (
           ""
-        )
-      ) : loading ? (
-        <h2 className="text-center text-gray-500">Loading...</h2>
-      ) : error ? (
-        <h2 className="bg-red-100 text-red-900 px-4 py-3 rounded-md mb-4">Error</h2>
-      ) : (
-        ""
-      )}
-    </div>
-  );
-}
+        )}
+      </div>
+    );
+  }
+  

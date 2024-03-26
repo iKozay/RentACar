@@ -1,6 +1,13 @@
 import React from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {UserContext} from "../../Pages/Root";
+import {useContext} from "react";
+import createReservation from "../../utilities/createReservation.js";
+import createTransaction from "../../utilities/createTransaction.js";
 
-export default function Payment({cancel, submit, vehicleID, userID}) {
+export default function Payment({setGoToPayment, vehicle, totalPrice}) {
+
+    const {user} = useContext(UserContext);
 
     const [cardName, setCardName] = React.useState('');
     const [cardNumber, setCardNumber] = React.useState('');
@@ -12,7 +19,33 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
         expDate: true,
         ccv: true
     });
-    // is valid function that sets color of input fields to red if invalid
+    const [paymentAnimation, setPaymentAnimation] = React.useState(false);
+    const [transactionDone, setTransactionDone] = React.useState(false);
+
+    // inline async function to process payment
+    const processPayment = async () => {
+        if(validate()) {
+            setPaymentAnimation(true);
+            if(user){
+                // get addons from local storage
+                const addons = {
+                    insurance: localStorage.getItem("insurance"),
+                    gps: localStorage.getItem("gps"),
+                    childSeat: localStorage.getItem("childSeat")
+                };
+                console.log(addons);
+                // create reservation
+                const reservationId = await createReservation(vehicle._id, user.id, vehicle.pickupDate, vehicle.returnDate, addons);
+                if(reservationId) {
+                    // create transaction
+                    await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservationId);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     const setValidColor = (isValid) => {
         if(isValid) {
             return "block w-full px-4 py-2 mt-2 placeholder:text-slate-400 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40";
@@ -32,9 +65,7 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
             });
             return false;
         }
-
         if(cardNumber.length !== 16) {
-            alert(cardNumber.length);
             setValid({
                 cardName: valid.cardName,
                 cardNumber: false,
@@ -44,7 +75,7 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
             valid = false;
         }
         if(expDate.length !== 5) {
-            setValidColor({
+            setValid({
                 cardName: valid.cardName,
                 cardNumber: valid.cardNumber,
                 expDate: false,
@@ -53,7 +84,7 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
             valid = false;
         }
         if(ccv.length !== 3) {
-            setValidColor({
+            setValid({
                 cardName: valid.cardName,
                 cardNumber: valid.cardNumber,
                 expDate: valid.expDate,
@@ -64,29 +95,22 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
         return valid;
     }
 
-    const processPayment = () => {
-        if(validate()){
-            // TODO: backend api call to process reservation
-            console.log('Processing payment');
-            submit();
-        }
-    }
-
     const onChangeCardName = (e) => {
         // make sure that name is only letters
         var name = e.target.value;
         var formattedName = name.replace(/[^a-zA-Z\s]/g, "");
-        setCardName(formattedName)
+        setCardName(formattedName);
         if(formattedName !== name) {
             e.target.value = formattedName;
             // set valid to true
-            setValid({
-                cardName: true,
-                cardNumber: valid.cardNumber,
-                expDate: valid.expDate,
-                ccv: valid.ccv
-            });
         }
+        setValid({
+            cardName: true,
+            cardNumber: valid.cardNumber,
+            expDate: valid.expDate,
+            ccv: valid.ccv
+        });
+
     }
 
     const onChangeCreditNumber = (e) => {
@@ -96,19 +120,24 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
         var formattedCardNumber = cardNumber.replace(/[^\d]/g, "");
         formattedCardNumber = formattedCardNumber.substring(0, 16);
 
+        // Add spaces to the card number
+        if (formattedCardNumber.length > 4) {
+            formattedCardNumber = formattedCardNumber.substring(0, 4) + ' ' + formattedCardNumber.substring(4, 8) + ' ' + formattedCardNumber.substring(8, 12) + ' ' + formattedCardNumber.substring(12, 16);
+        }
+
         // If the formmattedCardNumber is different to what is shown, change the value
         if (cardNumber !== formattedCardNumber) {
             e.target.value = formattedCardNumber;
-            e.target.length = formattedCardNumber.length;
-            setCardNumber(e.target.value)
+
+            setCardNumber(formattedCardNumber.replace(/\s/g, ''));
             // set valid to true
-            setValid({
-                cardName: valid.cardName,
-                cardNumber: true,
-                expDate: valid.expDate,
-                ccv: valid.ccv
-            });
         }
+        setValid({
+            cardName: valid.cardName,
+            cardNumber: true,
+            expDate: valid.expDate,
+            ccv: valid.ccv
+        });
     }
 
     const onChangeExpDate = (e) => {
@@ -125,14 +154,13 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
             e.target.value = formattedExp;
             e.target.length = formattedExp.length;
             // set valid to true
-            setValid({
-                cardName: valid.cardName,
-                cardNumber: valid.cardNumber,
-                expDate: true,
-                ccv: valid.ccv
-            });
-
         }
+        setValid({
+            cardName: valid.cardName,
+            cardNumber: valid.cardNumber,
+            expDate: true,
+            ccv: valid.ccv
+        });
         if(formattedExp.length === 5) {
             // now expiration date is valid
             setExpDate(formattedExp)
@@ -143,20 +171,30 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
         var ccv = e.target.value;
         var formattedCcv = ccv.replace(/[^\d]/g, "");
         formattedCcv = formattedCcv.substring(0, 3);
-        if(formattedCcv.length === 3) {
-            // now ccv is valid
-            setCcv(formattedCcv)
-        }
         if(formattedCcv !== ccv) {
             e.target.value = formattedCcv;
             e.target.length = formattedCcv.length;
             // set valid to true
-            setValid({
-                cardName: valid.cardName,
-                cardNumber: valid.cardNumber,
-                expDate: valid.expDate,
-                ccv: true,
-            });
+        }
+        setValid({
+            cardName: valid.cardName,
+            cardNumber: valid.cardNumber,
+            expDate: valid.expDate,
+            ccv: true,
+        });
+        if(formattedCcv.length === 3) {
+            // now ccv is valid
+            setCcv(formattedCcv)
+        }
+
+    }
+
+    const navigate = useNavigate()
+    async function delay(e) {
+        e.preventDefault();
+        if(await processPayment()) {
+            setTimeout(() => {navigate("/reservation/confirmation");}, 2000);
+            setPaymentAnimation(false);
         }
     }
 
@@ -179,8 +217,20 @@ export default function Payment({cancel, submit, vehicleID, userID}) {
                 </div>
             </div>
             <div className="flex justify-between mr-8 ml-8">
-                <button className="bg-blue-500 text-white p-2 rounded-lg w-20" onClick={cancel}>Cancel</button>
-                <button className="bg-blue-500 text-white p-2 rounded-lg w-20" onClick={processPayment}>Submit</button>
+                <button className={`bg-blue-500 text-white p-2 rounded-lg w-20`} onClick={(e)=>setGoToPayment(false)}>Back</button>
+                    <Link to={user?(`/reservation/confirmation`):'/login'} onClick={delay}>
+                        <button className={`${paymentAnimation && "inline-flex items-center disabled"} bg-blue-500 text-white p-2 rounded-lg w-20`}>
+                            {paymentAnimation?
+                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                            stroke-width="4"></circle>
+                                    <path className="opacity-75" fill="currentColor"
+                                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>:""
+                            }
+                            Pay</button>
+                    </Link>
             </div>
         </div>
     );

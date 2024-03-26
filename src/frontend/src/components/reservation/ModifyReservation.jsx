@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import {Link, useNavigation} from "react-router-dom";
 import ReservationDetails from "./ReservationDetails.jsx";
 import VehicleDetails from "./VehicleDetails.jsx";
 import { UserContext } from "../../Pages/Root.jsx";
@@ -11,7 +11,12 @@ export default function ModifyReservation() {
   const { user } = useContext(UserContext);
   const [response, setResponse] = useState([]);
   const [cancelled, setCancelled] = useState(false);
-  console.log(user);
+  //////////////////////////////////////////////////////////////
+    const isCSR = (user && user.role === "representative");
+    // const { navigation } = useNavigation();
+    // const routes = navigation.getState()?.routes;
+    // const isComingFromDashboard = routes[routes.length - 2]=== "/csr/dashboard";
+
   useEffect(() => {
     async function fetchReservation() {
       let response = await fetch(
@@ -28,7 +33,6 @@ export default function ModifyReservation() {
       );
       response = await response.json();
       setResponse(response);
-      console.log(response);
     }
 
     fetchReservation();
@@ -61,7 +65,7 @@ export default function ModifyReservation() {
             </thead>
             <tr>
               <td className={"w-1/2"}>
-                <VehicleDetails vehicle={response.vin} />
+                <VehicleDetails vehicle={response.vin}/>
               </td>
               <td className={"w-1/2"}>
                 <ReservationDetails reservation={response} />
@@ -69,7 +73,7 @@ export default function ModifyReservation() {
             </tr>
             <tr>
               <td>
-                <Link to="/user/reservation">
+                <Link to={isCSR?"/csr/dashboard":"/user/reservation"}>
                   <button className="mt-5 float-left bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
                     Back
                   </button>

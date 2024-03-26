@@ -1,43 +1,96 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import fetchData from "../utilities/fetchData";
-
+import Button from "../components/generalPurpose/Button";
+import ViewReservations from "../components/dashboard/ViewReservations";
+import ViewBranches
+ from "../components/dashboard/ViewBranches";
 export default function Vehicle() {
   const { vehicleId } = useParams();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [vehicle, setVehicle] = useState(null);
+  const [reservations, setReservations] = useState(null);
   const [deleteBtn, setDeleteBtn] = useState(false);
   const [updateBtn, setUpdateBtn] = useState(false);
   const [deleting, setDeleting] = useState(null);
   const [updating, setUpdating] = useState(null);
-
+  const [addingToBranch,setAddingToBranch] = useState(null);
+  const [branches,setBranches]=useState(null);
+  const [branch,setBranch] = useState(null);
+  const [vehicleAdded,setVehicleAdded]=useState(false);
+  const [showReservations, setShowReservations] = useState(false);
   useEffect(() => {
     async function fetchVehicle() {
       setLoading(true);
-      const vehicleData = await fetchData(
-        `http://localhost:3000/api/vehicles/vehicle/${vehicleId}`,
-        {
+      const [vehicleData, vehicleReservations] = await Promise.all([
+        fetchData(`http://localhost:3000/api/vehicles/vehicle/${vehicleId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
-      );
-      if (vehicleData.data) {
+        }),
+        fetchData(
+          `http://localhost:3000/api/reservations/vehicle/${vehicleId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        ),
+      ]);
+      if (vehicleData.data && vehicleReservations.data) {
         setVehicle(vehicleData.data);
+        setReservations(vehicleReservations.data);
         setLoading(false);
         setSuccess(true);
-      } else if (vehicleData.error) {
+      } else if (vehicleData.error || vehicleReservations.error) {
         setLoading(false);
         setError(true);
       }
     }
     fetchVehicle();
   }, [vehicleId]);
+ 
+  useEffect(()=>{
+    async function fetchBranches (){
+      if(addingToBranch){
+      const response = await fetchData("http://localhost:3000/api/branches",{
+        method:"GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      setBranches(response.data);
+      }
+     
+    }
+    fetchBranches();
+  },[addingToBranch])
 
+  const handleAddVehicleToBranch=async (event)=>{
+    event && event.preventDefault();
+    console.log("here we go");
+    if(!branch)return setVehicleAdded(false);
+    const response = await fetchData(`http://localhost:3000/api/branches/vehicles/${branch.id}`,{
+      method:"PUT",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        vehicleId
+      })
+    }
+    )
+    if(response.data)return setVehicleAdded(true);
+    return setVehicleAdded(false);
+  }
   const handleClickUpdateVehicle = () => {
     setUpdateBtn(true);
   };
@@ -55,19 +108,30 @@ export default function Vehicle() {
   };
 
   const handleDeleteVehicle = async () => {
-    const response = await fetchData(
-      `http://localhost:3000/api/vehicles/delete/${vehicleId}`,
-      {
+    let response = await 
+      fetchData(`http://localhost:3000/api/reservations/vehicle/${vehicleId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+      });
+      if (response.data) {
+        response = await fetchData(
+          `http://localhost:3000/api/vehicles/delete/${vehicleId}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
       }
-    );
+    
     setDeleting(response);
   };
-
+    
   const handleUpdateVehicle = async (event) => {
     event.preventDefault();
 
@@ -120,63 +184,89 @@ export default function Vehicle() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-semibold mb-4">Vehicle Details</h1>
       {success ? (
-        !deleteBtn && !updateBtn ? (
-            <div className="bg-white shadow-md rounded-lg overflow-hidden">
+        !deleteBtn && !updateBtn && !addingToBranch ? (
+          <div className="bg-white shadow-md rounded-lg overflow-hidden">
             <div className="p-6 flex flex-col lg:flex-row">
-                <div className="w-full lg:w-1/2 lg:mr-6">
-                    <div className="p-6">
-                        <img
-                            src={vehicle.Image}
-                            alt="Vehicle"
-                            className="object-contain max-h-64 w-full mb-4"
-                        />
-                        {/* Other vehicle details */}
-                    </div>
+              <div className="w-full lg:w-1/2 lg:mr-6">
+                <div className="p-6">
+                  <img
+                    src={vehicle.Image}
+                    alt="Vehicle"
+                    className="object-contain max-h-64 w-full mb-4"
+                  />
+                  {/* Other vehicle details */}
                 </div>
-                <div className="w-full lg:w-1/2">
-                    <div className="p-6">
-                        <p className="text-medium font-semibold mb-2">
-                            Vehicle ID: {vehicle._id}
-                        </p>
-                        <p className="text-gray-500 mb-2">Make: {vehicle.make}</p>
-                        <p className="text-gray-500 mb-2">Model: {vehicle.model}</p>
-                        <p className="text-gray-500 mb-2">Price: {vehicle.price}</p>
-                        <p className="text-gray-500 mb-2">
-                            Number of Seats: {vehicle.numberOfSeats}
-                        </p>
-                        <p className="text-gray-500 mb-2">Address: {vehicle.address}</p>
-                        <p className="text-gray-500 mb-2">Colour: {vehicle.colour}</p>
-                        <p className="text-gray-500 mb-2">
-                            Number of Doors: {vehicle.numberOfDoors}
-                        </p>
-                        <p className="text-gray-500 mb-2">
-                            Number of Baggage: {vehicle.numberOfBaggage}
-                        </p>
-                        <p className="text-gray-500 mb-2">
-                            Kilometrage: {vehicle.kilometrage}
-                        </p>
-                        <p className="text-gray-500 mb-2">
-                            Electrical or Fuel: {vehicle.electricalOrFuel}
-                        </p>
-                    </div>
-                    <div className="flex justify-end p-6">
-                        <button
-                            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded mr-4"
-                            onClick={handleClickUpdateVehicle}
-                        >
-                            Update
-                        </button>
-                        <button
-                            className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
-                            onClick={handleClickDeleteVehicle}
-                        >
-                            Delete
-                        </button>
-                    </div>
+              </div>
+              <div className="w-full lg:w-1/2">
+                <div className="p-6">
+                  <p className="text-medium font-semibold mb-2">
+                    Vehicle ID: {vehicle._id}
+                  </p>
+                  <p className="text-gray-500 mb-2">Make: {vehicle.make}</p>
+                  <p className="text-gray-500 mb-2">Model: {vehicle.model}</p>
+                  <p className="text-gray-500 mb-2">Price: {vehicle.price}</p>
+                  <p className="text-gray-500 mb-2">
+                    Number of Seats: {vehicle.numberOfSeats}
+                  </p>
+                  <p className="text-gray-500 mb-2">
+                    Address: {vehicle.address}
+                  </p>
+                  <p className="text-gray-500 mb-2">Colour: {vehicle.colour}</p>
+                  <p className="text-gray-500 mb-2">
+                    Number of Doors: {vehicle.numberOfDoors}
+                  </p>
+                  <p className="text-gray-500 mb-2">
+                    Number of Baggage: {vehicle.numberOfBaggage}
+                  </p>
+                  <p className="text-gray-500 mb-2">
+                    Kilometrage: {vehicle.kilometrage}
+                  </p>
+                  <p className="text-gray-500 mb-2">
+                    Electrical or Fuel: {vehicle.electricalOrFuel}
+                  </p>
+
+                  {showReservations && (
+                    <>
+                      <Button
+                        text={"minimize"}
+                        handler={setShowReservations}
+                        value={false}
+                        inline={true}
+                        color={"red"}
+                      />
+                      <ViewReservations reservations={reservations} />
+                    </>
+                  )}
+                  {!showReservations && (
+                    <Button
+                      text={"view reservations"}
+                      handler={setShowReservations}
+                      value={true}
+                      inline={true}
+                      color={"blue"}
+                    />
+                  )}
                 </div>
+                <div className="flex justify-end p-6">
+                  <Button
+                    handler={handleClickUpdateVehicle}
+                    color={"blue"}
+                    text={"Update"}
+                    inline={true}
+                  />
+                  <Button
+                    handler={handleClickDeleteVehicle}
+                    color={"red"}
+                    text={"Delete"}
+                    inline={true}
+                  />
+                  <Button handler={setAddingToBranch} value={true} text={"Add to branch"} color={"green"}>
+
+                  </Button>
+                </div>
+              </div>
             </div>
-        </div>
-        
+          </div>
         ) : deleteBtn ? (
           deleting ? (
             deleting.data ? (
@@ -198,20 +288,30 @@ export default function Vehicle() {
                 Are you sure you want to delete{" "}
                 <span className="text-red-500">vehicle {vehicle._id}</span>?
               </p>
+              {reservations.length > 0 && (
+                <p className="text-lg font-semibold mb-4">
+                  <span className="text-red-500">{reservations.length}</span>{" "}
+                  associated reservations will be deleted
+                </p>
+              )}
+              {reservations.length == 0 && (
+                <p className="text-lg font-semibold mb-4">
+                  No associated reservations
+                </p>
+              )}
               <div className="flex justify-end">
-                <button
-                  className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-4"
-                  onClick={handleDeleteVehicle}
-                >
-                  Delete
-                </button>
-                <button
-                  className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-
-                      2 rounded"
-                  onClick={handleCancelDelete}
-                >
-                  Cancel
-                </button>
+                <Button
+                  handler={handleDeleteVehicle}
+                  color={"red"}
+                  text={"Delete"}
+                  inline={true}
+                />
+                <Button
+                  handler={handleCancelDelete}
+                  color={"blue"}
+                  text={"Cancel"}
+                  inline={true}
+                />
               </div>
             </div>
           )
@@ -414,9 +514,25 @@ export default function Vehicle() {
               </form>
             </div>
           )
-        ) : (
-          ""
-        )
+        ) : addingToBranch?(
+          <>
+       <div className="border border-black-500 rounded-lg">
+      <ViewBranches branches={branches} handler={setBranch} style={`p-4 rounded-lg flex flex-col bg-gray-100 hover:bg-green-100`}/>
+        
+       </div>
+        <div className="mt-2">
+        <Button
+  handler={!vehicleAdded ? handleAddVehicleToBranch : null}
+  value={this}
+  text={vehicleAdded ? "Vehicle added successfully" : (branch ? `Add to ${branch.name}` : "Select a branch")}
+  color={"green"}
+  inline={true}
+/>
+
+         <Button text="Cancel" handler={setAddingToBranch} value={false} color={"blue"} inline={true}></Button>
+        </div>
+         </>
+        ):("")
       ) : loading ? (
         <h2 className="text-center text-gray-500">Loading...</h2>
       ) : error ? (

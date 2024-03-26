@@ -2,14 +2,10 @@ import { useState } from "react";
 import fetchData from "../utilities/fetchData";
 
 export default function AddVehicle() {
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [updateBtn, setUpdateBtn] = useState(false);
+  
   const [adding, setAdding] = useState(null);
 
-  const handleClickUpdateVehicle = () => {
-    setUpdateBtn(true);
-  };
+
 
   const handleCreateVehicle = async (event) => {
     event.preventDefault();
@@ -236,7 +232,7 @@ export default function AddVehicle() {
             <div className="mt-6">
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded mr-4"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded mr-4"
               >
                 Add Vehicle
               </button>

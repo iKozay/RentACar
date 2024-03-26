@@ -54,7 +54,7 @@ const vehicleSchema = new Schema({
     required: false,
   },
   
-  liscencePlate:{
+  licensePlate:{
     type: String,
     required: false,
   },
@@ -64,7 +64,7 @@ const vehicleSchema = new Schema({
     required: false,
   },
 
-  Avaibality:{
+  Availability:{
     type: String,
     required: false,
 

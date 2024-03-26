@@ -1,50 +1,43 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import { Link } from 'react-router-dom';
-import { UserContext } from "../../Pages/Root";
-import {useContext, useState, useEffect} from "react";
+import {useState} from "react";
+import {FetchReservationsByUserId} from "../../utilities/ReservationUtils.js";
+import {UserContext} from "../../Pages/Root.jsx";
 export default function ViewReservation() {
-    const {user} = useContext(UserContext);
     const [currentTab, setCurrentTab] = React.useState(0); // 0 for upcoming, 1 for past
-    const [response,setResponse] = useState([]);
-    console.log(user);
-    useEffect(()=>{
-        async function fetchReservations(){
-         let response = await fetch(`http://localhost:3000/api/reservations/user/${user.id}`,{
-             method: "GET",
-             credentials: "include", // Include cookies in the request
-             mode: "cors", // Enable CORS
-             headers: {
-               "Content-Type": "application/json",
-               "Authorization": `Bearer ${localStorage.getItem("token")}`,
-             }
-         });
-         response = await response.json();
-         setResponse(response);
-        }
+    const [response,setResponse] = useState(null);
 
-        fetchReservations();
-     },[user])
+    const {user} = useContext(UserContext);
+    useEffect(()=>{
+        if(user){
+            FetchReservationsByUserId(user.id).then((res) => {setResponse(res)});
+        }
+    },[user])
+
+
     const tabStyle = "p-3 transition duration-300 ease-in-out w-1/2";
     const selectedTab = (tab) => {
         return currentTab === tab ? " bg-white border-hidden" : " bg-zinc-300 hover:bg-zinc-400 border";
     }
     
-    return (
-        <div>
-            <div className="p-6 my-6 mx-10 bg-white rounded-md shadow-2xl shadow-stone-300">
-                <div>
-                    <Link to="/">
-                        <button className="float-right ml-20 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Make Reservation</button>
-                    </Link>
+    if(response){
+        return (
+            <div>
+                <div className="p-6 my-6 mx-10 bg-white rounded-md shadow-2xl shadow-stone-300">
+                    <div>
+                        <Link to="/">
+                            <button className="float-right ml-20 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Make Reservation</button>
+                        </Link>
+                    </div>
+                    <div className="overflow-hidden border">
+                        <button className={tabStyle+selectedTab(0)}  onClick={(e) => setCurrentTab(0)}>Upcoming</button>
+                        <button className={tabStyle+selectedTab(1)} onClick={(e) => setCurrentTab(1)}>Past</button>
+                    </div>
+                    {response && currentTab === 0 ? tabContent(currentTab === 0,response) : tabContent(currentTab === 0,response)}
                 </div>
-                <div className="overflow-hidden border">
-                    <button className={tabStyle+selectedTab(0)}  onClick={(e) => setCurrentTab(0)}>Upcoming</button>
-                    <button className={tabStyle+selectedTab(1)} onClick={(e) => setCurrentTab(1)}>Past</button>
-                </div>
-                {response && currentTab === 0 ? tabContent(currentTab === 0,response) : tabContent(currentTab === 0,response)}
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 function tabContent(upcoming,response) {

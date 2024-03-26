@@ -1,11 +1,12 @@
 import React, {useContext, useState} from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import modifyReservation from "../../utilities/modifyReservation";
+// import modifyReservation from "../../utilities/modifyReservation";
 import {UserContext} from "../../Pages/Root.jsx";
 import {Link} from "react-router-dom";
 import {addons} from "./AddonSelector.jsx";
 import Addon from "./Addon.jsx";
+import {ModifyReservation} from "../../utilities/ReservationUtils.js";
 
 export default function ReservationDetails({ reservation }) {
     const { user } = useContext(UserContext);
@@ -80,7 +81,8 @@ export default function ReservationDetails({ reservation }) {
 }
 
 async function modifyRsv(reservationId, fromDate, toDate, addons, status) {
-  await modifyReservation(reservationId, fromDate, toDate, addons, status);
+//  await modifyReservation(reservationId, fromDate, toDate, addons, status);
+  await ModifyReservation(reservationId, fromDate, toDate, addons, status);
 }
 
 function computeTotal(fromDate, toDate, price) {

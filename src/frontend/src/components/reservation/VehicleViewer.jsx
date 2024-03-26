@@ -2,7 +2,6 @@ import React from "react";
 import {useContext} from "react";
 import {UserContext} from "../../Pages/Root";
 import { Link } from 'react-router-dom';
-import createReservation from "../../utilities/createReservation";
 export default function VehicleViewer({vImage, dates, make,price,vehicleTotalPrice}) {
     //const {user} = useContext(UserContext);
     return (

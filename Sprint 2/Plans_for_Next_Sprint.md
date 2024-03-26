@@ -23,8 +23,8 @@ Goal: At the end of Sprint 3, the system will provide complete functionality for
 | Issue | User Story Title         | Story Points | Due Date | Associated Tasks       | Priority | Risk   | Responsible/Owner   |
 |-------|--------------------------|--------------|----------|------------------------|----------|--------|---------------------|
 | #122  | US-10: Find a Branch     | 3            | Mar. 25  | Implement Branch Locator Page, Implement Search Functionality, Handle Postal Code Search, Handle Airport Name/Code Search, Sort Branches by Proximity, Display Results, Handle No Results Found | Medium   | Medium | Mohamed & Zeiad      |
-| #125  | US-11: Check-in Process  | 5            | Mar. 25  | Verify Customer Information, Check Reservation Status, Create a New Reservation (if necessary), Review Rental Agreement, Process Payment, Complete Check-in Process   | High     | Medium | Abderahmane & Miskat |
-| #172  | US-12: Check-out Process | 7            | Mar. 25  | Confirm Return of Rental Vehicle, Verify Vehicle Details, Compare with Reservation Information, Inspect for Damages, Use Digital Inspection Tools, Document Damages, Review Additional Charges, Identify Late Fees, Fuel Charges, etc., Review Charges with Customer, Process Final Payment, Calculate Final Rental Cost, Collect Payment, Provide Receipt, Provide Necessary Documentation, Offer Digital Copies of Documents, Explain Terms and Conditions, Complete Check-out Process, Update Reservation Status, Return Deposited Funds, Hand Over Documentation, Express Gratitude to Customer | High     | High   | Matteo & Abderahmane|
+| #125  | US-11: Check-in Process  | 5            | Mar. 25  | Verify Customer Information, Check Reservation Status, Create a New Reservation (if necessary), Review Rental Agreement, Process BookingPayment, Complete Check-in Process   | High     | Medium | Abderahmane & Miskat |
+| #172  | US-12: Check-out Process | 7            | Mar. 25  | Confirm Return of Rental Vehicle, Verify Vehicle Details, Compare with Reservation Information, Inspect for Damages, Use Digital Inspection Tools, Document Damages, Review Additional Charges, Identify Late Fees, Fuel Charges, etc., Review Charges with Customer, Process Final BookingPayment, Calculate Final Rental Cost, Collect BookingPayment, Provide Receipt, Provide Necessary Documentation, Offer Digital Copies of Documents, Explain Terms and Conditions, Complete Check-out Process, Update Reservation Status, Return Deposited Funds, Hand Over Documentation, Express Gratitude to Customer | High     | High   | Matteo & Abderahmane|
 
 
 
@@ -38,7 +38,7 @@ Goal: At the end of Sprint 3, the system will provide complete functionality for
 | #125  | Check Reservation Status                 | 2            | US-11: Check-in Process | Medium   | 2                | None                    |
 | #125  | Create a New Reservation (if necessary)  | 3            | US-11: Check-in Process | High     | 3                | None                    |
 | #125  | Review Rental Agreement                  | 2            | US-11: Check-in Process | Medium   | 2                | None                    |
-| #125  | Process Payment                          | 3            | US-11: Check-in Process | High     | 3                | None                    |
+| #125  | Process BookingPayment                          | 3            | US-11: Check-in Process | High     | 3                | None                    |
 | #125  | Complete Check-in Process                | 2            | US-11: Check-in Process | Medium   | 3                | None                    |
 | #125  | Implement check-out process              | 5            | US-11: Check-in Process | High     | 3                | Complete Check-in Process|
 | #122  | Implement Branch Locator Page            | 3            | US-10: Find a Branch   | High     | 3                | None                    |
@@ -57,11 +57,11 @@ Goal: At the end of Sprint 3, the system will provide complete functionality for
 | #172  | Review Additional Charges                | 2            | US-12: Check-out Process | Medium   | 2                | Confirm Return of Rental Vehicle|
 | #172  | Identify Late Fees, Fuel Charges, etc.   | 2            | US-12: Check-out Process | Medium   | 2                | Confirm Return of Rental Vehicle|
 | #172  | Review Charges with Customer             | 2            | US-12: Check-out Process | Medium   | 2                | Confirm Return of Rental Vehicle|
-| #172  | Process Final Payment                    | 3            | US-12: Check-out Process | High     | 3                | Confirm Return of Rental Vehicle|
-| #172  | Calculate Final Rental Cost              | 2            | US-12: Check-out Process | Medium   | 2                | Process Final Payment, Review Additional Charges|
-| #172  | Collect Payment                          | 2            | US-12: Check-out Process | Medium   | 2                | Process Final Payment|
-| #172  | Provide Receipt                          | 2            | US-12: Check-out Process | Medium   | 2                | Collect Payment|
-| #172  | Provide Necessary Documentation          | 2            | US-12: Check-out Process | Medium   | 2                | Collect Payment|
+| #172  | Process Final BookingPayment                    | 3            | US-12: Check-out Process | High     | 3                | Confirm Return of Rental Vehicle|
+| #172  | Calculate Final Rental Cost              | 2            | US-12: Check-out Process | Medium   | 2                | Process Final BookingPayment, Review Additional Charges|
+| #172  | Collect BookingPayment                          | 2            | US-12: Check-out Process | Medium   | 2                | Process Final BookingPayment|
+| #172  | Provide Receipt                          | 2            | US-12: Check-out Process | Medium   | 2                | Collect BookingPayment|
+| #172  | Provide Necessary Documentation          | 2            | US-12: Check-out Process | Medium   | 2                | Collect BookingPayment|
 | #172  | Offer Digital Copies of Documents        | 2            | US-12: Check-out Process | Medium   | 2                | Provide Necessary Documentation|
 | #172  | Explain Terms and Conditions             | 2            | US-12: Check-out Process | Medium   | 2                | Provide Necessary Documentation|
 | #172  | Complete Check-out Process               | 2            | US-12: Check-out Process | Medium   | 3                | Provide Receipt, Explain Terms and Conditions|

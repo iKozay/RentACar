@@ -2,10 +2,17 @@ import React from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {UserContext} from "../../Pages/Root";
 import {useContext} from "react";
-import createReservation from "../../utilities/createReservation.js";
 import createTransaction from "../../utilities/createTransaction.js";
+import {ChangeAddons, CheckInReservation, CreateReservation, CheckOutReservation} from "../../utilities/ReservationUtils.js";
 
-export default function Payment({setGoToPayment, vehicle, totalPrice}) {
+export const PaymentTypes = {
+    NEW_RESERVATION: "NEW_RESERVATION",
+    MODIFY_RESERVATION_ADDONS: "MODIFY_RESERVATION_ADDONS",
+    DEPOSIT: "DEPOSIT",
+    REFUND: "REFUND"
+}
+
+export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, backButtonAction}) {
 
     const {user} = useContext(UserContext);
 
@@ -20,26 +27,46 @@ export default function Payment({setGoToPayment, vehicle, totalPrice}) {
         ccv: true
     });
     const [paymentAnimation, setPaymentAnimation] = React.useState(false);
-    const [transactionDone, setTransactionDone] = React.useState(false);
 
-    // inline async function to process payment
     const processPayment = async () => {
         if(validate()) {
             setPaymentAnimation(true);
             if(user){
-                // get addons from local storage
-                const addons = {
-                    insurance: localStorage.getItem("insurance"),
-                    gps: localStorage.getItem("gps"),
-                    childSeat: localStorage.getItem("childSeat")
-                };
-                console.log(addons);
-                // create reservation
-                const reservationId = await createReservation(vehicle._id, user.id, vehicle.pickupDate, vehicle.returnDate, addons);
-                if(reservationId) {
-                    // create transaction
-                    await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservationId);
-                    return true;
+                let addons = {};
+                let reservation = null;
+                switch (paymentType) {
+                    case PaymentTypes.NEW_RESERVATION:
+                        addons = {
+                            insurance: localStorage.getItem("insurance"),
+                            gps: localStorage.getItem("gps"),
+                            childSeat: localStorage.getItem("childSeat")
+                        };
+                        reservation = await CreateReservation(vehicle._id,user.id, vehicle.pickupDate, vehicle.returnDate, addons);
+                        if(reservation) {
+                            await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservation._id);
+                            return true;
+                        }
+                        return false;
+                    case PaymentTypes.MODIFY_RESERVATION_ADDONS:
+                        addons = {
+                            insurance: localStorage.getItem("insurance"),
+                            gps: localStorage.getItem("gps"),
+                            childSeat: localStorage.getItem("childSeat")
+                        };
+                        await ChangeAddons(reservationId, addons);
+                        await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservationId);
+                        return true;
+                    case PaymentTypes.DEPOSIT:
+                        await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservationId);
+                        await CheckInReservation(reservationId);
+                        return true;
+                    case PaymentTypes.REFUND:
+                        await createTransaction(cardName, cardNumber, expDate, ccv, -totalPrice, user.id, reservationId);
+                        await CheckOutReservation(reservationId);
+                        return true;
+                    default:
+                        return false;
+
                 }
             }
         }
@@ -193,8 +220,7 @@ export default function Payment({setGoToPayment, vehicle, totalPrice}) {
     async function delay(e) {
         e.preventDefault();
         if(await processPayment()) {
-            setTimeout(() => {navigate("/reservation/confirmation");}, 2000);
-            setPaymentAnimation(false);
+            setTimeout(() => {navigate("/reservation/confirmation");}, 1000);
         }
     }
 
@@ -214,23 +240,26 @@ export default function Payment({setGoToPayment, vehicle, totalPrice}) {
                         <label className="block text-sm font-semibold mt-2 text-gray-800 ">CVC/CCV</label>
                         <input placeholder="CVC" onChange={onChangeCcv} className={setValidColor(valid.ccv)}/>
                     </div>
+                    <div className="flex justify-center mt-4">
+                        <p className="text-lg font-semibold text-gray-800">Total: ${totalPrice}</p>
+                    </div>
                 </div>
             </div>
             <div className="flex justify-between mr-8 ml-8">
-                <button className={`bg-blue-500 text-white p-2 rounded-lg w-20`} onClick={(e)=>setGoToPayment(false)}>Back</button>
-                    <Link to={user?(`/reservation/confirmation`):'/login'} onClick={delay}>
-                        <button className={`${paymentAnimation && "inline-flex items-center disabled"} bg-blue-500 text-white p-2 rounded-lg w-20`}>
-                            {paymentAnimation?
-                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                            stroke-width="4"></circle>
-                                    <path className="opacity-75" fill="currentColor"
-                                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>:""
-                            }
-                            Pay</button>
-                    </Link>
+                <button className={`bg-blue-500 text-white p-2 rounded-lg w-20`} onClick={(e)=>backButtonAction()}>Back</button>
+                <Link to={user?(`/reservation/confirmation`):'/login'} onClick={delay}>
+                    <button className={`${paymentAnimation && "inline-flex items-center disabled"} bg-blue-500 text-white p-2 rounded-lg w-20`}>
+                        {paymentAnimation?
+                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                <path className="opacity-75" fill="currentColor"
+                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>:""
+                        }
+                        Pay</button>
+                </Link>
             </div>
         </div>
     );

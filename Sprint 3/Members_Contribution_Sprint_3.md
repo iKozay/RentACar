@@ -46,4 +46,5 @@ Members Contribution For Sprint 3
 | Task #282 create branch endpoint | 1h | backend |
 | Task #224 develop branch location search and display on map/ Task #225 implement search functionality | 3.5h | frontend-backend: added a map where branches can be located, and the customers own location is displayed |
 | Task #63 | 1h | backend: added routes to update the branch with a vehicle or a reservation, refresh a branch, and routes to return the number of vehicles, and reservatons |
+| Task #211 send email confirmation on successful reservation | 2h | backend |
 

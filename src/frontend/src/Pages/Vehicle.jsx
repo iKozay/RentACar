@@ -522,7 +522,7 @@ export default function Vehicle() {
        </div>
         <div className="mt-2">
         <Button
-  handler={!vehicleAdded ? handleAddVehicleToBranch : null}
+  handler={(!vehicleAdded && branch) ? handleAddVehicleToBranch : null}
   value={this}
   text={vehicleAdded ? "Vehicle added successfully" : (branch ? `Add to ${branch.name}` : "Select a branch")}
   color={"green"}

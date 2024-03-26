@@ -13,6 +13,7 @@ const cors = require('cors');
 const app = express();
 
 
+
 // initiating database connection
 // const mongoDB = process.env.MONGO_DB;
 // main().then(_=>console.log("Successfully connected to mongoDB.")).catch(err=>console.log(err));

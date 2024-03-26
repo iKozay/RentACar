@@ -3,8 +3,12 @@ Members Contribution For Sprint 3
 ### Zeiad Badawy - 40247477 - Scrum master/Front-end DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-|                             |           |                                                                 |
-|                             |           |                                                                 |
+|  Implemented Transactions Model, Controller and Route                           |    2h       |                                                                 |
+|           Implemented the unit testing for Transactions functionalities                  |    1h       |                                                                 |
+|           Transactions API Documentation                  |      1h     |                                                                 |
+|             CSR Dashboard                |      2h     |                                                                 |
+|            Check-out form for CSR                 |    2h       |                                                                 |
+|         Improved reservation form by adding addons features         |     3h      |                                                                 |
 
 
 ### Mohamed Saidi - 40248103 - Backend DEV

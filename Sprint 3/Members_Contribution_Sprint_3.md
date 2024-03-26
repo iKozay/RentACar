@@ -9,6 +9,7 @@ Members Contribution For Sprint 3
 |             CSR Dashboard                |      2h     |                                                                 |
 |            Check-out form for CSR                 |    2h       |                                                                 |
 |         Improved reservation form by adding addons features         |     3h      |                                                                 |
+|         Sequence Diagrams         |     3h      |                                                                 |
 
 
 ### Mohamed Saidi - 40248103 - Backend DEV
@@ -40,8 +41,8 @@ Members Contribution For Sprint 3
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
 | Implemented Check-in process    |     7h    |                                                                 |
-| Meeting minutes 1, 4        |   30 min  |                                                                 |
-| Created activity diagrams (US 11, 12)|    30 min     |                                                                 |
+| Meeting minutes 1, 4        |   1h  |                                                                 |
+| Created activity diagrams (US 11, 12)|    1h     |                                                                 |
 | Created US-13    |     30 min      |                                                                 |
 | acceptance tests for check-in    |     30 min     |                                                                 |
 

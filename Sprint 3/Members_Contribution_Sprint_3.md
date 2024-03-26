@@ -27,8 +27,12 @@ Members Contribution For Sprint 3
 ### Miskat Mahmud - 40250110 - Backend DEVe
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-|                             |           |                                                                 |
-|                             |           |                                                                 |
+| Activity Diagrams for 3 US                           | 2h           |  Merged everyone's                  |
+|     Changes in reservationModel.js, reservationController.js, reservationDataTest.js, reservationTest.js                        |  2h        |                                                           Added two new fields: status and addons.      |
+| Modified the test data accordingly to include status and addons.                   | 2h           |  Adjusted the test cases to match the new schema and data structure.                  |
+| Meeting minutes #2 and #5                      | 1h           |               |
+| Additional USER STORY                     | 1h           |       second driver        |
+|Debugging of backend changes                   | 4h           |      reservation module TASK 249      |
 
 
 

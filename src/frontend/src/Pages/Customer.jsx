@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import fetchData from "../utilities/fetchData";
+import ViewReservations from "../components/dashboard/ViewReservations";
+import Button from "../components/generalPurpose/Button";
 
 export default function Customer() {
   const { customerId } = useParams();
@@ -61,7 +63,18 @@ export default function Customer() {
     setUpdateBtn(false);
   };
   const handleDeleteUser = async () => {
-    const response = await fetchData(
+    let response = await fetchData(
+      `http://localhost:3000/api/reservations/user/${customerId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if(response.data){    
+      await fetchData(
       `http://localhost:3000/api/users/${customerId}`,
       {
         method: "DELETE",
@@ -71,6 +84,7 @@ export default function Customer() {
         },
       }
     );
+    }
     setDeleting(response);
   };
 
@@ -125,52 +139,7 @@ export default function Customer() {
               <p className="text-medium font-semibold mb-2">Reservations</p>
               {viewReservation && (
                 <>
-                  {reservations.map((reservation) => (
-                    <Link
-                      to={`../reservations/${reservation._id}`}
-                      key={reservation._id}
-                      className="border rounded p-4 mb-4 hover:border-gray-700 duration-200 block w-full"
-                      style={{
-                        textDecoration: "none",
-                        transition: "background-color 0.3s",
-                      }}
-                    >
-                      <div className="flex">
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Reservation ID:</strong> {reservation._id}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Vehicle ID:</strong> {reservation.vin._id}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Reservation Date:</strong>{" "}
-                          {new Date(
-                            reservation.reservationDate
-                          ).toLocaleString()}
-                        </div>
-                        <div
-                          className="mb-2 mr-2"
-                          style={{ fontWeight: "lighter" }}
-                        >
-                          <strong>Pickup Date:</strong>{" "}
-                          {new Date(reservation.pickupDate).toLocaleString()}
-                        </div>
-                        <div className="mb-2" style={{ fontWeight: "lighter" }}>
-                          <strong>Return Date:</strong>{" "}
-                          {new Date(reservation.returnDate).toLocaleString()}
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
+                  {reservations && <ViewReservations reservations={reservations}/>}
                   <button
                     onClick={() => setViewReservation(false)}
                     className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-2"
@@ -224,19 +193,19 @@ export default function Customer() {
                 Are you sure you want to delete{" "}
                 <span className="text-red-500">{customer.username}</span>?
               </p>
+              {reservations.length>0 &&<p className="text-lg font-semibold mb-4">
+              <span className="text-red-500">{reservations.length}</span> associated reservations will be  deleted
+              </p>}
+              {reservations.length==0 &&
+              <p className="text-lg font-semibold mb-4">
+                 No associated reservations
+              </p>
+              }
+             
               <div className="flex justify-end">
-                <button
-                  className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-4"
-                  onClick={handleDeleteUser}
-                >
-                  Delete
-                </button>
-                <button
-                  className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded"
-                  onClick={handleCancelDelete}
-                >
-                  Cancel
-                </button>
+              <Button handler={handleDeleteUser} inline={true} color={"red"} text={"Delete"}/>
+              <Button handler={handleCancelDelete} inline={true} color={"blue"} text={"Cancel"}/>
+           
               </div>
             </div>
           )

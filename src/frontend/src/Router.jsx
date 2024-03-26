@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Pages/Login";
 import Root from "./Pages/Root";
-import BrowsingPage from "./Pages/BrowsingPage"
+import BrowsingPage from "./Pages/BrowsingPage";
 import Signup from "./Pages/Signup.jsx";
 
 import MakeReservationPage from "./Pages/MakeReservationPage";
@@ -16,6 +16,18 @@ import Reservation from "./Pages/Reservation.jsx";
 import Vehicles from "./Pages/Vehicles.jsx";
 import Vehicle from "./Pages/Vehicle.jsx";
 import AddVehicle from "./Pages/AddVehicle.jsx";
+import LocationMap from "./Pages/LocationMap.jsx";
+import RepresentativeDashboard from "./Pages/RepresentativeDashboard.jsx";
+import Branches from "./Pages/Branches.jsx";
+import Branch from "./Pages/branch.jsx";
+
+import DashboardAnalysis from "./Pages/DashboardAnalysis.jsx";
+import Reservations from "./Pages/Reservations.jsx";
+
+import CheckInPage from "./Pages/CheckInPage.jsx";
+import AddBranch from "./Pages/AddBranch.jsx";
+import CheckOutPage from "./Pages/CheckOutPage.jsx";
+
 const Router = () => {
   const router = createBrowserRouter([
     {
@@ -45,7 +57,6 @@ const Router = () => {
         {
           path: "reservation/confirmation",
           element: <ConfirmationPage />,
-
         },
         {
           path: "user/reservation",
@@ -55,41 +66,77 @@ const Router = () => {
           path: "reservation/details/:reservationId",
           element: <ReservationDetailsPage />,
         },
-        { 
-            path:"dashboard",
-            element:<Dashboard/>,
-            children:[
-       
-                {
-                  path:"customers",
-                  element:<Customers/>
-                },
-                {
-                  path:"customers/:customerId",
-                  element:<Customer/>
-                },
-                {
-                  path:"account",
-                  element:<Account/>
-                },
-                {
-                  path:"reservations/:reservationId",
-                  element:<Reservation/>
-                },
-                {
-                  path:"vehicles",
-                  element:<Vehicles/>
-                }
-                ,{
-                  path:"vehicles/:vehicleId",
-                  element:<Vehicle/>
-                }
-                ,{
-                  path:"vehicles/add-vehicle",
-                  element:<AddVehicle/>
-                }
-              ]
-            }
+        {
+          path: "reservation/branches",
+          element: <LocationMap />,
+        },
+        {
+          path: "csr/dashboard",
+          element: <RepresentativeDashboard />,
+        },
+        {
+          path: "reservation/checkin/:reservationId",
+          element: <CheckInPage/>,
+        },
+        {
+          path: "reservation/checkout/:reservationId",
+          element: <CheckOutPage/>,
+        },
+
+        {
+          path: "dashboard",
+          element: <Dashboard />,
+          children: [
+            {
+              index:true,
+              element:<DashboardAnalysis/>
+            },
+            {
+              path: "customers",
+              element: <Customers />,
+            },
+            {
+              path: "customers/:customerId",
+              element: <Customer />,
+            },
+            {
+              path: "account",
+              element: <Account />,
+            },
+            {
+              path: "reservations/:reservationId",
+              element: <Reservation />,
+            },
+            {
+              path: "vehicles",
+              element: <Vehicles />,
+            },
+            {
+              path: "vehicles/:vehicleId",
+              element: <Vehicle />,
+            },
+            {
+              path: "vehicles/add-vehicle",
+              element: <AddVehicle />,
+            },
+            {
+              path: "branches",
+              element: <Branches />,
+            },
+            {
+              path: "branches/:branchId",
+              element: <Branch />,
+            },
+            {
+              path: "branches/add-branch",
+              element:<AddBranch/>
+            },
+            {
+              path: "reservations",
+              element: <Reservations/>,
+            },
+          ],
+        },
       ],
     },
   ]);

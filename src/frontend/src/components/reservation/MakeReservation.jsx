@@ -35,18 +35,13 @@ export default function MakeReservation() {
         fetchVehicle();
     }, [vehicleId]); // Fetch when vehicleId changes
 
-    const currentUser = {
-        id: 1
-        // other info here
-    };
-
 
     return (
         <div>
             {loading && <div>Loading</div>}
             {!loading && selectedVehicle && (
                 <div>
-                    <ReservationForm selectedVehicle={selectedVehicle} currentUser={currentUser} />
+                    <ReservationForm selectedVehicle={selectedVehicle} />
                 </div>
             )}
         </div>

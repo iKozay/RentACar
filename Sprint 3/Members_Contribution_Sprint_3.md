@@ -35,8 +35,11 @@ Members Contribution For Sprint 3
 ### Matteo Sansone - 40242278 - Front-end DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-|                             |           |                                                                 |
-|                             |           |                                                                 |
+| Implemented Check-in process    |     7h    |                                                                 |
+| Meeting minutes 1, 4        |   30 min  |                                                                 |
+| Created activity diagrams (US 11, 12)|    30 min     |                                                                 |
+| Created US-13    |     30 min      |                                                                 |
+| acceptance tests for check-in    |     30 min     |                                                                 |
 
 
 

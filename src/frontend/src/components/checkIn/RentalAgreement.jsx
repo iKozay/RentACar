@@ -4,7 +4,7 @@ import Popup from "reactjs-popup";
 import SignaturePad from "react-signature-canvas";
 import "./sigCanvas.css";
 
-export default function RentalAgreement({vehicle, driversLicenseNum}) {
+export default function RentalAgreement({vehicle, driversLicenseNum, homeAddress}) {
 
 /////////////////////////////////////////////////
 const [damageDescription, setDamageDescription] = useState('');
@@ -61,7 +61,7 @@ useEffect(() => {
         <h2 className="text-lg font-bold mb-2">1. Renter's Information:</h2>
         <p>
         Name: {response.userID.full_name} <br/>
-        Address:  <br/>
+        Address:  {homeAddress}<br/>
         Contact Number: {response.userID.phone_number} <br/>
         Email Address: {response.userID.email} <br/>
         Driver's License Number: {driversLicenseNum} <br/>

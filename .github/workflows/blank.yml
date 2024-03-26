@@ -39,6 +39,8 @@ jobs:
           echo "PORT=${{ vars.PORT }}" >> .env
           echo "JWT_SECRET=${{ vars.JWT_SECRET }}" >> .env
           echo "SESSION_SECRET=${{ vars.SESSION_SECRET }}" >> .env
+          echo "EMAIL_USER=${{ vars.EMAIL_USER }}" >> .env
+          echo "EMAIL_PASS=${{ vars.EMAIL_PASS }}" >> .env
           npm install
           npm run build --if-present
           npm run test --if-present

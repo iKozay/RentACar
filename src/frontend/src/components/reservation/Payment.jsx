@@ -35,10 +35,10 @@ export default function Payment({setGoToPayment, vehicle, totalPrice}) {
                 };
                 console.log(addons);
                 // create reservation
-                const reservation = await createReservation(vehicle._id, user.id, vehicle.pickupDate, vehicle.returnDate, addons);
-                if(reservation) {
+                const reservationId = await createReservation(vehicle._id, user.id, vehicle.pickupDate, vehicle.returnDate, addons);
+                if(reservationId) {
                     // create transaction
-                    await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservation._id);
+                    await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservationId);
                     return true;
                 }
             }

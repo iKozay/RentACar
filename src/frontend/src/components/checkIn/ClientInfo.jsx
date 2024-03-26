@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from "../../Pages/Root.jsx";
 import {FetchReservationById} from "../../utilities/ReservationUtils.js";
 
-export default function ClientInfo({ onDriversLicenseChange }){
+export default function ClientInfo({ onDriversLicenseChange, onHomeAddressChange }){
 
   /////////////////////////////////////////////////
   const [damageDescription, setDamageDescription] = useState('');
   const [driversLicenseNum, setDriversLicenseNum] = useState('');
+  const [homeAddress, setHomeAddress] = useState('');
   const reservationId = window.location.pathname.split("/").pop();
 
   const [response, setResponse] = useState([]);
@@ -45,6 +46,11 @@ export default function ClientInfo({ onDriversLicenseChange }){
     setDriversLicenseNum(value);
     onDriversLicenseChange(value);
   };
+  const handleHomeAddressChange = (event) => {
+    const value = event.target.value;
+    setHomeAddress(value);
+    onHomeAddressChange(value);
+  };
 
   if(response && response.userID){
   return (
@@ -55,6 +61,11 @@ export default function ClientInfo({ onDriversLicenseChange }){
         <p>Name: {response.userID.full_name}</p>
         <p>Email: {response.userID.email}</p>
         <p>Phone: {response.userID.phone_number}</p>
+        <p>Address: <input className=" px-3 py-0 border rounded-md"
+        placeholder="Home address"
+        value={homeAddress}
+        onChange={handleHomeAddressChange}>
+        </input></p>
       </div>
 
       <div className="mb-4">

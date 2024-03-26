@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const request = require("supertest");
 const app = require("../app");
 const userSchema = require('../models/userModel');
-const { adminUser, user1 } = require('../utils/userDataTest');
+const { adminUser, user1, user2 } = require('../utils/userDataTest');
 
 require("dotenv").config();
 
@@ -75,10 +75,10 @@ describe('User Routes', () => {
             const login = await request(app).post(`/api/auth/login`).send(adminUser);
             expect(login.status).toBe(201);
             const token = login.body.token;
-            const res = await request(app).post('/api/users/').set({'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json'}).send(user1);
+            const res = await request(app).post('/api/users/').set({'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json'}).send(user2);
             expect(res.status).toBe(201);
-            expect(res.body).toHaveProperty('username', user1.username);
-            await userSchema.deleteOne({username: user1.username});
+            expect(res.body).toHaveProperty('username', user2.username);
+            await userSchema.deleteOne({username: user2.username});
         });
     });
 

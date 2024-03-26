@@ -149,6 +149,8 @@ Follow these steps to set up and run the project:
    * MONGO_DB
    * JWT_SECRET
    * SESSION_SECRET
+   * EMAIL_USER
+   * EMAIL_PASS
 ## Usage
 
 Clearly explaining how users can use our web application. We will need to include information on how to navigate the interface, perform 

@@ -6,18 +6,22 @@ import MakeDeposit from "../components/checkIn/MakeDeposit"
 export default function CheckInPage() {
   const [page, setPage] = useState(0);
   const [driversLicenseNum, setDriversLicenseNum] = useState('');
+  const [homeAddress, setHomeAddress] = useState('');
 
   const CheckInTitles = ["Information", "Rental Agreement", "Make Deposit"];
 
   const handleDriversLicenseChange = (licenseNum) => {
     setDriversLicenseNum(licenseNum);
   };
+  const handleHomeAddressChange = (licenseNum) => {
+    setHomeAddress(licenseNum);
+  };
 
   const PageDisplay = () => {
     if (page === 0) {
-      return <ClientInfo onDriversLicenseChange={handleDriversLicenseChange} />;
+      return <ClientInfo onDriversLicenseChange={handleDriversLicenseChange} onHomeAddressChange={handleHomeAddressChange} />;
     } else if (page === 1) {
-      return <RentalAgreement driversLicenseNum={driversLicenseNum}/>;
+      return <RentalAgreement driversLicenseNum={driversLicenseNum} homeAddress={homeAddress}/>;
     } else {
       return <MakeDeposit />;
     }

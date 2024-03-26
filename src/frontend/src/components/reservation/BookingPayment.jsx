@@ -1,4 +1,4 @@
-import {PaymentForm,PaymentTypes} from "../payment/PaymentForm.jsx";
+import {PaymentForm,PaymentTypes} from "../generalPurpose/PaymentForm.jsx";
 
 export default function BookingPayment({setGoToPayment, vehicle, totalPrice}) {
     return(

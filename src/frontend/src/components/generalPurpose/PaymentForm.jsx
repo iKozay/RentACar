@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {UserContext} from "../../Pages/Root";
 import {useContext} from "react";
 import createTransaction from "../../utilities/createTransaction.js";
-import {ChangeAddons, CreateReservation} from "../../utilities/ReservationUtils.js";
+import {ChangeAddons, CheckInReservation, CreateReservation, CheckOutReservation} from "../../utilities/ReservationUtils.js";
 
 export const PaymentTypes = {
     NEW_RESERVATION: "NEW_RESERVATION",
@@ -57,8 +57,12 @@ export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, ba
                         await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservationId);
                         return true;
                     case PaymentTypes.DEPOSIT:
-                    case PaymentTypes.REFUND:
                         await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservationId);
+                        await CheckInReservation(reservationId);
+                        return true;
+                    case PaymentTypes.REFUND:
+                        await createTransaction(cardName, cardNumber, expDate, ccv, -totalPrice, user.id, reservationId);
+                        await CheckOutReservation(reservationId);
                         return true;
                     default:
                         return false;
@@ -235,6 +239,9 @@ export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, ba
                     <div className="mb-2 inline-block">
                         <label className="block text-sm font-semibold mt-2 text-gray-800 ">CVC/CCV</label>
                         <input placeholder="CVC" onChange={onChangeCcv} className={setValidColor(valid.ccv)}/>
+                    </div>
+                    <div className="flex justify-center mt-4">
+                        <p className="text-lg font-semibold text-gray-800">Total: ${totalPrice}</p>
                     </div>
                 </div>
             </div>

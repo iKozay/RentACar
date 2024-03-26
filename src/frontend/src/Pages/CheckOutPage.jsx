@@ -13,7 +13,7 @@ const PageDisplay = () => {
         if (page === 0) {
             return <CheckVehicle goToPayment={()=>{setPage(1)}} damageCost={damageCost} setDamageCost={setDamageCost} />;
         } else {
-            return <RefundForm back={()=>{setPage(0)}} totalPrice={500-damageCost}/>;
+            return <RefundForm backButtonAction={()=>{setPage(0)}} totalPrice={500-damageCost}/>;
         }
     };
 

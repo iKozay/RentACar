@@ -9,6 +9,7 @@ Members Contribution For Sprint 3
 |             CSR Dashboard                |      2h     |                                                                 |
 |            Check-out form for CSR                 |    2h       |                                                                 |
 |         Improved reservation form by adding addons features         |     3h      |                                                                 |
+|         Sequence Diagrams         |     3h      |                                                                 |
 
 
 ### Mohamed Saidi - 40248103 - Backend DEV

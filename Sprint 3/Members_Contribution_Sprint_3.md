@@ -19,6 +19,8 @@ Members Contribution For Sprint 3
 |  Update Vehicle Model                          |   1h        |              Liscence plate, color, etc                                                   | 
 |   get review by branch id                          | 30 min          |                                                                 |
 |   Change getAllVehicles route to permit passing a branch id. Then use branch ID to get vehicles|   45 min        |                                                                 |
+|  Activity Diagrams for two user stories                           |     1h      |           US- CRUD Vehicle and US- Browsing                                                      |
+
 
 
 

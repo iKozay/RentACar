@@ -3,42 +3,21 @@ import {Link, useNavigation} from "react-router-dom";
 import ReservationDetails from "./ReservationDetails.jsx";
 import VehicleDetails from "./VehicleDetails.jsx";
 import { UserContext } from "../../Pages/Root.jsx";
-import cancelReservation from "../../utilities/cancelReservation";
+import {CancelReservation, FetchReservationById, FetchReservationsByUserId} from "../../utilities/ReservationUtils.js";
 export default function ModifyReservation() {
-  // variable with the reservation id from url
   const reservationId = window.location.pathname.split("/").pop();
-  //////////////////////////////////////////////////////////////
   const { user } = useContext(UserContext);
-  const [response, setResponse] = useState([]);
+  const [response, setResponse] = useState(null);
   const [cancelled, setCancelled] = useState(false);
-  //////////////////////////////////////////////////////////////
-    const isCSR = (user && user.role === "representative");
-    // const { navigation } = useNavigation();
-    // const routes = navigation.getState()?.routes;
-    // const isComingFromDashboard = routes[routes.length - 2]=== "/csr/dashboard";
+  const isCSR = (user && user.role === "representative");
 
-  useEffect(() => {
-    async function fetchReservation() {
-      let response = await fetch(
-        `http://localhost:3000/api/reservations/${reservationId}`,
-        {
-          method: "GET",
-          credentials: "include", // Include cookies in the request
-          mode: "cors", // Enable CORS
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      response = await response.json();
-      setResponse(response);
+  useEffect(()=>{
+    if(user){
+        FetchReservationById(reservationId).then((res) => {setResponse(res)});
     }
+  },[])
 
-    fetchReservation();
-  }, [user]);
-  //////////////////////////////////////////////////////////////
-  if (response !== undefined && response.vin !== undefined) {
+  if (response && response.vin) {
     return (
       <div className="p-6 my-6 mx-10 bg-white rounded-md shadow-2xl shadow-stone-300">
         {cancelled && (
@@ -92,12 +71,11 @@ export default function ModifyReservation() {
         )}
       </div>
     );
+  }else{
+    return <div></div>
   }
 }
 
 async function cancel(reservationId) {
-  // show confirmation dialog
-
-    await cancelReservation(reservationId);
-
+    CancelReservation(reservationId);
 }

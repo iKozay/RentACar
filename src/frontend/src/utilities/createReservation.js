@@ -33,7 +33,7 @@ export default async function createReservation(vin,userId,pickupDate,returnDate
         })
        })
        console.log("Successfully created the reservation")
-        return response.data;
+        return reservationId;
     }
     else if(response.error){
         alert("failed to create the reservation");

@@ -1,16 +1,20 @@
 import Vehicle from "./Vehicle";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import SortFilterButtons from "./SortFilterButtons.jsx";
-
+import getBranch from "../../utilities/getBranch.js";
+import { branchContext } from "../../Pages/BrowsingPage";
 export default function VehicleList() {
+  const context = useContext(branchContext);
+  const { branchName } = context || {}; 
   const [vehicles, setVehicles] = useState([]);
+  const [trigger,setTrigger]=useState(false);
   const [sortedVehicles, setSortedVehicles] = useState([]);
 
   useEffect(() => {
     async function fetchVehicles() {
       const response = await fetch(
-        "http://localhost:3000/api/vehicles/vehicles",
+        `http://localhost:3000/api/branches/${getBranch().id}`,
         {
           method: "GET",
           credentials: "include",
@@ -21,18 +25,19 @@ export default function VehicleList() {
           },
         }
       );
-      const vehiclesList = await response.json();
-      setVehicles(vehiclesList);
-      setSortedVehicles(vehiclesList); // Set sortedVehicles initially
+      const branch = await response.json();
+      setVehicles(branch.vehicles);
+      setSortedVehicles(branch.vehicles); // Set sortedVehicles initially
     }
     fetchVehicles();
-  }, []);
+  }, [branchName]);
 
   const handleSortFilter = (sortedVehicles) => {
     setSortedVehicles(sortedVehicles);
   };
 
   return (
+   
     <div className="bg-white">
       <SortFilterButtons setVehicles={handleSortFilter} vehicles={vehicles} />
       <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -40,7 +45,7 @@ export default function VehicleList() {
         <h2 className="sr-only">Vehicles</h2>
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 lg:grid-cols-2 ">
-          {sortedVehicles.map((vehicle) => (
+          {sortedVehicles && sortedVehicles.map((vehicle) => (
             <NavLink key={vehicle._id} to={`../reservation/book/${vehicle._id}`}>
               <Vehicle vehicle={vehicle} />
             </NavLink>
@@ -48,5 +53,6 @@ export default function VehicleList() {
         </div>
       </div>
     </div>
+
   );
 }

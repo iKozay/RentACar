@@ -2,9 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import Map from "../components/location/Map";
 import fetchData from "../utilities/fetchData";
 import isSelected from "../utilities/isSelected";
-import { branchContext } from "../components/browsingPage/SearchBox";
+import { branchContext } from "./BrowsingPage";
 import handleChangeBranch from "../utilities/handleChangeBranch";
-import getGeocodeFromAddress from "../utilities/getGeocodeFromAddress";
 
 function LocationMap() {
   const { setBranchName } = useContext(branchContext);
@@ -13,79 +12,76 @@ function LocationMap() {
   const [loading, setLoading] = useState(false);
   const [branches, setBranches] = useState([]);
   const [branchNotFound, setBranchNotFound] = useState(false);
-  const [trigger, setTrigger] = useState(false);
   const [loc, setLoc] = useState([0, 0]);
-
   const [currentLocation, setCurrentLocation] = useState({
     latitude: 0,
     longitude: 0,
     display_name: "",
   });
 
-  const [lastFetchTime, setLastFetchTime] = useState(0);
-
   useEffect(() => {
-    // Function to get current city name
-    function getCurrentCityName(position) {
-      const url =
-        "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
-        position.coords.latitude +
-        "&lon=" +
-        position.coords.longitude;
-
-      fetch(url, {
-        method: "GET",
-        mode: "cors",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setCurrentLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            display_name: `${data.address.road}, ${data.address.city}, ${data.address.country}`,
-          });
-          setError(false);
-        })
-        .catch(() => {
-          setError(true);
-        })
-        .finally(() => setLoading(false));
-    }
-
     setLoading(true);
-    const currentTime = Date.now();
-    if (currentTime - lastFetchTime > 2000) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        getCurrentCityName(position);
-        setLastFetchTime(currentTime);
-      });
-    }
-  }, [lastFetchTime]);
-
-  useEffect(() => {
-    async function fetchBranches() {
-      const response = await fetchData("http://localhost:3000/api/branches", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      if (response.data) {
-        const updatedBranches = await Promise.all(
-          response.data.map(async (branch) => {
-            branch.latLng = await getGeocodeFromAddress(branch.address);
-            return branch;
-          })
-        );
-        setBranches(updatedBranches);
+    Promise.all([getCurrentLocation(), fetchBranchesData()])
+      .then(([locationData, branchesData]) => {
+        setCurrentLocation(locationData);
+        setBranches(branchesData);
         setBranchNotFound(false);
-      } else if (response.error) {
+      })
+      .catch(() => {
+        setError(true);
         setBranchNotFound(true);
-      }
-    }
-    fetchBranches();
+      })
+      .finally(() => setLoading(false));
   }, []);
+
+  // Function to get current city name
+  async function getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const url =
+            "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
+            position.coords.latitude +
+            "&lon=" +
+            position.coords.longitude;
+
+          fetch(url, {
+            method: "GET",
+            mode: "cors",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              resolve({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                display_name: `${data.address.road}, ${data.address.city}, ${data.address.country}`,
+              });
+            })
+            .catch(() => {
+              reject("Error fetching current location");
+            });
+        },
+        (error) => {
+          reject("Error getting current location");
+        }
+      );
+    });
+  }
+
+  async function fetchBranchesData() {
+    const response = await fetchData("http://localhost:3000/api/branches", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    if (response.data) {
+      return response.data;
+    } else {
+      throw new Error("Error fetching branches");
+    }
+  }
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
@@ -103,7 +99,6 @@ function LocationMap() {
                 branches={branches}
                 loc={loc}
                 setLoc={setLoc}
-          
               />
             </div>
             <div className="overflow-y-scroll p-3 border h-350">
@@ -118,8 +113,8 @@ function LocationMap() {
                       >
                         <button
                           onClick={() => {
-                            handleChangeBranch(branch.name);
-                            setTrigger(!trigger);
+                            handleChangeBranch(branch.name, branch.id);
+                            setLoc(branch.latLon);
                             setBranchName(branch.name);
                           }}
                         >
@@ -140,9 +135,9 @@ function LocationMap() {
                         className={`p-4 rounded-lg flex flex-col bg-gray-100 hover:bg-green-100`}
                       >
                         <button
-                          onClick={async () => {
-                            handleChangeBranch(branch.name);
-                            setLoc(branch.latLng);
+                          onClick={() => {
+                            handleChangeBranch(branch.name, branch.id);
+                            setLoc(branch.latLon);
                             setBranchName(branch.name);
                           }}
                         >

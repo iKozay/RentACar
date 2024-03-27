@@ -2,27 +2,30 @@ import React from "react";
 import {Link} from "react-router-dom";
 import Addon from "./Addon.jsx";
 
+const addons = [
+    {
+        name: "Insurance",
+        price: 10,
+        max: 1,
+        storageName: "insurance"
+    },
+    {
+        name: "GPS",
+        price: 5,
+        max: 1,
+        storageName: "gps"
+    },
+    {
+        name: "Child Seat",
+        price: 5,
+        max: 2,
+        storageName: "childSeat"
+    }
+];
+
+
 export default function AddonSelector({addonPrice, setAddonPrice, totalDays}) {
     // list of addons such as insurance, gps, etc
-    const addons = [
-        {
-            name: "Insurance",
-            price: 10,
-            max: 1
-        },
-        {
-            name: "GPS",
-            price: 5,
-            max: 1
-        },
-        {
-            name: "Child Seat",
-            price: 5,
-            max: 2
-        }
-    ];
-
-
 
     return (
         <div className={"p-3"}>
@@ -32,6 +35,7 @@ export default function AddonSelector({addonPrice, setAddonPrice, totalDays}) {
                     <div className="text-stone-600 mb-2">Add extra features to your reservation</div>
                     {
                         addons.map((a, index) => {
+                            localStorage.removeItem(a.storageName);
                             return <Addon key={index} addon={a} totalAddonPrice={addonPrice} setAddonPrice={setAddonPrice}/>
                         })
                     }
@@ -47,3 +51,5 @@ export default function AddonSelector({addonPrice, setAddonPrice, totalDays}) {
         </div>
     );
 }
+
+export {addons};

@@ -34,18 +34,17 @@ exports.user_detail = [
   res.status(200).json(user);
 })
 ];
+exports.customer_list = [ 
+  authenticate,// Authenticating the user
+  asyncHandler(async (req, res, next) => {
+  if(req.user.role!='admin') // only admins
 
-exports.customer_list = [
-  authenticate,
-  asyncHandler(async (req, res) => {
-    if (req.user.role !== 'admin') {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
+    return res.status(401).json({error:'unauthorized'})
 
-    const customers = await User.find({ role: 'customer' }).exec();
-    res.status(200).json(customers);
-  })
-];
+  const users = await User.find({role:"customer"}).sort({ last_name: 1 }).exec();
+  res.status(200).json(users || []);
+})];
+
 
 
 exports.user_create = [
@@ -167,3 +166,23 @@ exports.user_delete = asyncHandler(async (req,res,next) => {
       }
     }
 })
+
+exports.user_count= async(req,res)=>{
+  try {
+    const count = await User.countDocuments({});
+    res.json({ count });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+exports.customer_count= async(req,res)=>{
+  try {
+    const count = await User.countDocuments({role:"customer"});
+    res.json({ count });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}

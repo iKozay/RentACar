@@ -26,5 +26,6 @@ export default async function createTransaction(name,cardNumber, expDate, ccv, a
     }
     else if(response.error){
         alert("failed to create the transaction");
+        console.log(response.error);
     }
 }

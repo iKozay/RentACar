@@ -1,6 +1,6 @@
 
 import VehicleViewer from "./VehicleViewer.jsx";
-import Payment from "./Payment.jsx";
+import BookingPayment from "./BookingPayment.jsx";
 import AddonSelector from "./AddonSelector.jsx";
 import React from "react";
 import {Link} from "react-router-dom";
@@ -46,7 +46,7 @@ export default function ReservationForm({selectedVehicle}) {
                                         {goToPayment ?
                                             <div className="text-stone-600">
                                                 <p className={"float-left mr-2"}>Addons:</p>
-                                                <p className={"float-right"}> {(Math.round((0.14975*(addonPrice)) * 100) / 100).toFixed(2)}$</p>
+                                                <p className={"float-right"}> {(Math.round(((addonPrice)*(computeNumOfDays(selectedVehicle.pickupDate,selectedVehicle.returnDate))) * 100) / 100).toFixed(2)}$</p>
                                             </div> : ""
                                         }
                                         <div className="text-stone-600">
@@ -81,11 +81,12 @@ export default function ReservationForm({selectedVehicle}) {
             </div>
             {goToPayment &&
                 <div className={"w-full p-6 my-6 bg-white rounded-md shadow-2xl shadow-stone-300 lg:max-w-xl"}>
-                    <Payment setGoToPayment={setGoToPayment} vehicle={selectedVehicle} totalPrice={((Math.round((1.14975*(vehicleTotalPrice+addonPrice)) * 100) / 100).toFixed(2))}/>
+                    <BookingPayment setGoToPayment={setGoToPayment} vehicle={selectedVehicle} totalPrice={((Math.round((1.14975*(vehicleTotalPrice+addonPrice)) * 100) / 100).toFixed(2))}/>
                 </div>}
         </div>
     );
 }
+
 function computeNumOfDays(fromDate, toDate) {
     const from = Date.parse(fromDate);
     const to = new Date(toDate);

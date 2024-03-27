@@ -24,6 +24,28 @@ const reservationSchema = new Schema({
                         type: Schema.Types.ObjectId,
                         ref: 'User',
                         required: true
+                    },
+                    status: {
+                        type: String,
+                        enum: ['To Pickup', 'Checked In', 'Checked Out', 'Cancelled'],
+                        default: 'To Pickup'
+                    },
+                    addons: {
+                        insurance: {
+                            type: Number,
+                            required: true,
+                            default: 0
+                        },
+                        gps: {
+                            type: Number,
+                            required: true,
+                            default: 0
+                        },
+                        childSeat: {
+                            type: Number,
+                            required: true,
+                            default: 0
+                        }
                     }
                     }, { timestamps: true });
 

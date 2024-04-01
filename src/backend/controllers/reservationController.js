@@ -106,24 +106,7 @@ exports.create_reservation = asyncHandler(async (req, res) => {
       pickupDate:pickupDate.substring(0,10),
       returnDate:returnDate.substring(0,10),
     });
-    
-    if (!emailSent)
-      return res
-        .status(500)
-        .json({ error: "failed to send confirmation email" });
-    const emailSent = await sendConfirmationEmail(user.email, {
-      user: {
-        name: user.username,
-      },
-      vehicle: {
-        make: vehicle.make,
-        model: vehicle.model,
-      },
-      pickupDate:pickupDate.substring(0,10),
-      returnDate:returnDate.substring(0,10),
-    });
-    const newReservation = await reservation.save();
-    
+  
     if (!emailSent)
       return res
         .status(500)

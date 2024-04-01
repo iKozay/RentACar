@@ -24,6 +24,10 @@ const issueSchema = new Schema({
       enum: ['open', 'closed'], // Status of the issue
       default: 'open'
     },
+    seen: {
+      type: Boolean,
+      default: false
+  },
     replies: [{
       sender: {
         type: mongoose.Schema.Types.ObjectId,
@@ -37,7 +41,11 @@ const issueSchema = new Schema({
       createdAt: {
         type: Date,
         default: Date.now
-      }
+      },
+      seen: {
+        type: Boolean,
+        default: false
+    },
     }]
   });
 

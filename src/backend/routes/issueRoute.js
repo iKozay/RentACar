@@ -6,5 +6,5 @@ const issue_controller = require('../controllers/issueController');
 router.get('/',issue_controller.issue_list);
 router.get('/:issueId',issue_controller.issue_detail);
 router.get('/user/:userId',issue_controller.issue_list_user);
-
+router.post('/',issue_controller.issue_create);
 module.exports = router;

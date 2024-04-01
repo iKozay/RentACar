@@ -63,3 +63,21 @@ exports.issue_create = [
         }
     }
 ]
+
+exports.issue_delete = [
+    authenticate,
+    async (req, res) => {
+    try{
+        const issueId = req.params.issueId;
+        const deletedIssue = await Issue.findByIdAndDelete(issueId);
+
+        if(!deletedIssue) 
+            res.status(404).json({error:"Issue doesn't exist"});
+        else
+            return res.status(200).json({message:("successfully deleted issue " +issueId)})
+      } catch(error){
+        res.status(500).json({ error: 'Internal Server Error' });
+
+      }
+    }
+  ];

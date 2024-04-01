@@ -61,6 +61,7 @@ app.use('/api/reservations',routes.reservationsRoute);
 app.use('/api/branches',routes.branchRoute);
 app.use('/api/transactions',routes.transactionsRoute);
 app.use('/api/reviews',routes.reviewsRoute);
+app.use('/api/issues',routes.issueRoute);
 
 
 

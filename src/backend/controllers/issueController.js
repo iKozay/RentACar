@@ -81,3 +81,29 @@ exports.issue_delete = [
       }
     }
   ];
+
+
+
+  exports.issue_reply = async (req, res) => {
+      try {
+          const issueId = req.params.issueId;
+          const { sender, body } = req.body;
+  
+          if (!sender || !body)
+              return res.status(400).json({ error: "Some fields are not specified" });
+  
+          const issue = await Issue.findById(issueId);
+  
+          if (!issue)
+              return res.status(404).json({ error: "Issue not found" });
+  
+          issue.replies.push({ sender, body });
+          await issue.save(); // Save the updated issue
+  
+          return res.status(200).json({ message: "Reply successfully added" });
+      } catch (error) {
+          console.error('Error adding reply:', error);
+          return res.status(500).json({ error: 'Internal Server Error' });
+      }
+  };
+  

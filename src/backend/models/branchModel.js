@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const branchSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   location: {
-    street: String, 
+    street: String,
     postal_code: String,
     city: String,
     province: String,
@@ -24,14 +24,13 @@ const branchSchema = new Schema({
   }]
 });
 
-
-branchSchema.virtual('address').get(function() {
+branchSchema.virtual("address").get(function () {
   return `${this.location.street}, ${this.location.city}, ${this.location.province}`;
 });
 branchSchema.virtual('latLon').get(function(){
   return [this.location.lat,this.location.lon];
 })
 branchSchema.set("toJSON", { getters: true });
-const Branch = mongoose.model('Branch', branchSchema);
+const Branch = mongoose.model("Branch", branchSchema);
 
 module.exports = Branch;

@@ -94,6 +94,23 @@ exports.create_reservation = asyncHandler(async (req, res) => {
       return res.status(404).json({ error: "user or vehicle not found" });
 
     // Save the reservation to the database
+    
+    const emailSent = await sendConfirmationEmail(user.email, {
+      user: {
+        name: user.username,
+      },
+      vehicle: {
+        make: vehicle.make,
+        model: vehicle.model,
+      },
+      pickupDate:pickupDate.substring(0,10),
+      returnDate:returnDate.substring(0,10),
+    });
+    
+    if (!emailSent)
+      return res
+        .status(500)
+        .json({ error: "failed to send confirmation email" });
     const emailSent = await sendConfirmationEmail(user.email, {
       user: {
         name: user.username,
@@ -112,6 +129,7 @@ exports.create_reservation = asyncHandler(async (req, res) => {
         .status(500)
         .json({ error: "failed to send confirmation email" });
     // Send a success response with the newly created reservation
+    const newReservation = await reservation.save();
     res.status(201).json(newReservation);
   } catch (err) {
     // Handle any errors that occur during the process

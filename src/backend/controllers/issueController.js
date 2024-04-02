@@ -4,7 +4,13 @@ const { authenticate } = require("../config/passport");
 exports.issue_list = [
     async (req,res)=>{
         try{
-          const issues =await Issue.find({}).exec();
+            const issues = await Issue.find({}).populate({
+                path: 'replies',
+                populate: {
+                    path: 'sender',
+                    model: 'User' 
+                }
+            }).populate('sender').exec();
           res.status(200).json(issues||[]);
         }catch(error){
             res.status(500).json({ error: 'Internal Server Error' });
@@ -15,7 +21,13 @@ exports.issue_list = [
 exports.issue_detail = async (req,res)=>{
     try{
         const id = req.params.issueId;
-        const issue = await Issue.findById(id).exec();
+        const issue = await Issue.findById(id).populate({
+            path: 'replies',
+            populate: {
+                path: 'sender',
+                model: 'User' 
+            }
+        }).populate('sender').exec();
         if(issue !== null)
             return res.status(200).json(issue);
         else 
@@ -29,7 +41,13 @@ exports.issue_detail = async (req,res)=>{
 exports.issue_list_user = async (req,res)=>{
     try{
         const id = req.params.userId;
-        const userIssues = await Issue.find({sender:id}).exec();
+        const userIssues = await Issue.find({sender:id}).populate({
+            path: 'replies',
+            populate: {
+                path: 'sender',
+                model: 'User' 
+            }
+        }).populate('sender').exec();
             return res.status(200).json(userIssues||[]);
 
 
@@ -100,7 +118,7 @@ exports.issue_delete = [
           issue.replies.push({ sender, body });
           await issue.save(); // Save the updated issue
   
-          return res.status(200).json({ message: "Reply successfully added" });
+          return res.status(200).json(issue);
       } catch (error) {
           console.error('Error adding reply:', error);
           return res.status(500).json({ error: 'Internal Server Error' });

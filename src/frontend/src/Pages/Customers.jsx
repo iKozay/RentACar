@@ -56,7 +56,7 @@ export default function Customers() {
                         
                     ))
                 ) : (
-                    <div className="p-2">{loading ? "Loading..." : "Failed to load customers"}</div>
+                    <div className="p-2">{loading&&!error ? "Loading..." : "Failed to load customers"}</div>
                 )}
             </div>
         </div>

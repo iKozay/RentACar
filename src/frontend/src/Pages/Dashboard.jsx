@@ -67,6 +67,14 @@ export default function AdminVerification() {
                     Reservations
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="issues"
+                    className="block py-2 px-4 hover:bg-gray-700"
+                  >
+                    Issues
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>

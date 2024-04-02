@@ -5,6 +5,7 @@ const authRoute = require('./authRoute');
 const branchRoute = require('./branchRoute');
 const transactionsRoute = require('./transactionsRoute');
 const reviewsRoute =require('./reviewRoute');
+const issueRoute = require('./issueRoute');
 
 
 module.exports = {
@@ -14,5 +15,6 @@ module.exports = {
   reservationsRoute,
   branchRoute,
   transactionsRoute,
-  reviewsRoute
+  reviewsRoute,
+  issueRoute
 };

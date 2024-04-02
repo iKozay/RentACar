@@ -106,7 +106,7 @@ exports.create_reservation = asyncHandler(async (req, res) => {
       pickupDate:pickupDate.substring(0,10),
       returnDate:returnDate.substring(0,10),
     });
-    
+  
     if (!emailSent)
       return res
         .status(500)

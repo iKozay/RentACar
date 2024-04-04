@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import fetchData from "../utilities/fetchData";
 import { UserContext } from "./Root";
+import Button from "../components/generalPurpose/Button";
 export default function Issue() {
+  const scrollRef = useRef();
   const {user} = useContext(UserContext);
   const { issueId } = useParams();
   const [error, setError] = useState(false);
@@ -38,7 +40,11 @@ export default function Issue() {
     }
     fetchIssue();
   }, [issueId]);
-
+  useEffect(()=>{
+    if(scrollRef.current){
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  },[issue]);
   const handleClickDeleteIssue = async () => {
     const response = await fetchData(
       `http://localhost:3000/api/issues/${issueId}`,
@@ -95,6 +101,7 @@ export default function Issue() {
               <p className="text-gray-700">{issue.description}</p>
             </div>
             <div className="p-1">
+              <div ref={scrollRef} className="overflow-y-scroll h-80">
             {issue.replies.map((reply) => (
                 <div key={reply._id} className="mb-1 p-4 bg-gray-100">
                 <p className="text-gray-800">{reply.body}</p>
@@ -104,6 +111,7 @@ export default function Issue() {
                 </div>
                 </div>
             ))}
+            </div>
             </div>
 
             <div className="p-4">
@@ -117,12 +125,15 @@ export default function Issue() {
                   {!isTextAreaValid && (
                <p className="text-red-500">This field is required</p>
               )}
-              <button
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+            <button
+                className={`bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded`}
                 onClick={handleReply}
               >
                 Reply
               </button>
+              {/* <Button handler={(e)=>handleReply(e)}  text="Reply" color="blue" inline={true}/> */}
+              <Button handler={()=>setDeleteBtn(true)} color={"red"} text={"delete"} inline={true}/>
+
               {!replySucceeded&&<span className="text-red-500"> failed to send the reply</span>}
             </div>
           </div>
@@ -148,12 +159,8 @@ export default function Issue() {
                 <span className="text-red-500">issue {issueId}</span>?
               </p>
               <div className="flex justify-end">
-                <button
-                  className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mr-4"
-                  onClick={handleClickDeleteIssue}
-                >
-                  Delete
-                </button>
+              <Button handler={handleClickDeleteIssue} color={"red"} text={"delete"} inline={true}/>
+
                 <button
                   className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded"
                   onClick={() => setDeleteBtn(false)}

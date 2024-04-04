@@ -37,6 +37,7 @@ function showAccountButton(setToken,user){
                     <Link to="user/reservation"><p className={"p-2 block cursor-pointer hover:bg-gray-600"}/* onClick={()=> window.open("/user/reservation", "_self")}*/>My Reservations</p></Link>
                     {(user && user.role === "admin") &&  <Link to="dashboard"><p className={"p-2 block cursor-pointer hover:bg-slate-600"}>Admin Dashboard</p></Link>}
                     {(user && user.role === "representative") &&  <Link to="/csr/dashboard"><p className={"p-2 block cursor-pointer hover:bg-slate-600"}>CSR Dashboard</p></Link>}
+                    {(user && user.role === "customer") && <Link to="issues"><p className={"p-2 block cursor-pointer hover:bg-slate-600"}>Report an Issue</p></Link>}
                     <hr/>
                     <Link to="/"><p className={"p-2 block cursor-pointer hover:bg-slate-600"} onClick={()=>logoutAccount(setToken)}>Logout</p></Link>
                     

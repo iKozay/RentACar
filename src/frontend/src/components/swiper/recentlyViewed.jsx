@@ -38,7 +38,7 @@ const RecentlyViewed = ({recentlyViewed}) =>{
                 localStorage.setItem("vehicles", JSON.stringify(data.slice(0,4)));
 
                 setRecentVehicle(data.slice(0,4));
-                
+
                 }
         }
     }
@@ -52,15 +52,18 @@ const RecentlyViewed = ({recentlyViewed}) =>{
           <div className="recent-listings">
           <Swiper slides-per-view={3} spaceBetween={30} navigation={true} freeMode={true} modules={[Navigation, FreeMode]} className="mySwiper">
               {
-                recentlyViewed?.map((property, index) =>
+                recentVehicle?.map((vehicle, index) =>
                   <SwiperSlide key={index}>
                     <div className="recentproperty-card">
                       <Box sx={{ height: 400, width: 325, border: '1px dashed' }}>
 
                       
 
-                            <img src={""} alt="Photos" />
-                        
+                      <img
+            src={vehicle.Image}
+            alt={"car"}
+            className="rounded-lg h-full w-full object-cover object-center  group-hover:scale-105 group-hover:rotate-3 duration-200"
+          />                        
 
                       </Box>
                       <div className="recentproperty-card header">

@@ -44,7 +44,6 @@ export default function Vehicle() {
         ),
       ]);
       if (vehicleData.data && vehicleReservations.data) {
-        updateRecentlyViewedVehicle(data);
         setVehicle(vehicleData.data);
         setReservations(vehicleReservations.data);
         setLoading(false);
@@ -74,17 +73,7 @@ export default function Vehicle() {
     fetchBranches();
   },[addingToBranch])
 
-  const updateRecentlyViewedVehicle = (vehicle) =>{
-
-    let vehicles = JSON.parse(localStorage.getItem("vehicles") || "[]");
-
-    vehicles.pop();
-    console.log(vehicles)
-    vehicles.unshift(vehicle);
-
-    localStorage.setItem("vehicles", JSON.stringify(vehicles));
-    
-  }
+  
   const handleAddVehicleToBranch=async (event)=>{
     event && event.preventDefault();
     console.log("here we go");

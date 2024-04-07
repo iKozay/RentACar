@@ -1,0 +1,67 @@
+
+.recentlyViewedListings {
+   
+    align-items: center;
+
+}
+
+.recentlyViewedText {
+    color: #4d4d4d;
+    font-family: "DMSans-Regular", Helvetica;
+    font-size: 40px;
+    font-weight: 400;
+    padding: 15px; 
+    justify-content: center;
+    letter-spacing: -0.5px;
+    line-height: 70px;
+    opacity: 0.8;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.recent-listings{
+    position: relative;
+    align-content: center;
+    padding-bottom: 50px;
+    bottom: 205px;
+    display: flex;
+
+}
+
+
+.swiper {
+    width: 50%;
+    height: 50%;
+
+
+  
+ }
+
+.recentproperty-card {
+    object-fit: cover;
+
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 30px;
+    background: #ffffff00;
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+ }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+
+

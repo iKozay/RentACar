@@ -44,6 +44,7 @@ export default function Vehicle() {
         ),
       ]);
       if (vehicleData.data && vehicleReservations.data) {
+        updateRecentlyViewedVehicle(data);
         setVehicle(vehicleData.data);
         setReservations(vehicleReservations.data);
         setLoading(false);

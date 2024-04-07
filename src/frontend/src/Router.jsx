@@ -28,6 +28,8 @@ import CheckInPage from "./Pages/CheckInPage.jsx";
 import AddBranch from "./Pages/AddBranch.jsx";
 import CheckOutPage from "./Pages/CheckOutPage.jsx";
 import Issues from "./Pages/Issues.jsx";
+import AdminIssue from "./Pages/AdminIssue.jsx";
+import CustomerIssues from "./Pages/CustomerIssues.jsx";
 import Issue from "./Pages/Issue.jsx";
 
 const Router = () => {
@@ -51,6 +53,14 @@ const Router = () => {
         {
           path: "signup",
           element: <Signup />,
+        },
+        {
+          path: "issues",
+          element: <CustomerIssues />,
+        },
+        {
+          path: "issues/:issueId",
+          element: <Issue />,
         },
         {
           path: "reservation/book/:vehicleId",
@@ -78,11 +88,11 @@ const Router = () => {
         },
         {
           path: "reservation/checkin/:reservationId",
-          element: <CheckInPage/>,
+          element: <CheckInPage />,
         },
         {
           path: "reservation/checkout/:reservationId",
-          element: <CheckOutPage/>,
+          element: <CheckOutPage />,
         },
 
         {
@@ -90,8 +100,8 @@ const Router = () => {
           element: <Dashboard />,
           children: [
             {
-              index:true,
-              element:<DashboardAnalysis/>
+              index: true,
+              element: <DashboardAnalysis />,
             },
             {
               path: "customers",
@@ -131,20 +141,20 @@ const Router = () => {
             },
             {
               path: "branches/add-branch",
-              element:<AddBranch/>
+              element: <AddBranch />,
             },
             {
               path: "reservations",
-              element: <Reservations/>,
+              element: <Reservations />,
             },
             {
-              path:"issues",
-              element:<Issues/>
+              path: "issues",
+              element: <Issues />,
             },
             {
-              path:"issues/:issueId",
-              element:<Issue/>
-            }
+              path: "issues/:issueId",
+              element: <AdminIssue />,
+            },
           ],
         },
       ],

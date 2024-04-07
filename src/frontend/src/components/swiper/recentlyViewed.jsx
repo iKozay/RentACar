@@ -29,7 +29,7 @@ const RecentlyViewed = ({recentVehicle}) =>{
                 recentVehicle?.map((vehicle, index) =>
                   <SwiperSlide key={index}>
                     <div className="recent-card">
-                      <Box sx={{ height: 400, width: 325, border: '1px dashed',color :'gold' }}>
+                      <Box sx={{ height: 400, width: 325, border: '1px dashed',color :"#D35400" }}>
 
                             <Link to={`../reservation/book/${vehicle._id}`}>
 
@@ -46,7 +46,7 @@ const RecentlyViewed = ({recentVehicle}) =>{
                     </div>
                     <div className="recent-card">
                      
-                      <p>{vehicle.make} : {vehicle.price}<span style={{ color: "gold" }}> $</span></p>
+                      <p>{vehicle.make} : {vehicle.price}<span style={{ color: "#D35400" }}> $</span></p>
                     </div>
                   </SwiperSlide>
                 )

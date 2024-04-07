@@ -44,9 +44,10 @@ export default function MakeReservation() {
         let vehicles = JSON.parse(localStorage.getItem("vehicles") || "[]");
     
         vehicles.pop();
-        console.log(vehicles)
+        
         vehicles.unshift(vehicle);
-    
+
+
         localStorage.setItem("vehicles", JSON.stringify(vehicles));
         
       }

@@ -73,6 +73,17 @@ export default function Vehicle() {
     fetchBranches();
   },[addingToBranch])
 
+  const updateRecentlyViewedVehicle = (vehicle) =>{
+
+    let vehicles = JSON.parse(localStorage.getItem("vehicles") || "[]");
+
+    vehicles.pop();
+    console.log(vehicles)
+    vehicles.unshift(vehicle);
+
+    localStorage.setItem("vehicles", JSON.stringify(vehicles));
+    
+  }
   const handleAddVehicleToBranch=async (event)=>{
     event && event.preventDefault();
     console.log("here we go");

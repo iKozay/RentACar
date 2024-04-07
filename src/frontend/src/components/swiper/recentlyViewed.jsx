@@ -10,6 +10,8 @@ import "./swiper.css";
 
 
 const RecentlyViewed = ({recentlyViewed}) =>{
+
+    const [recentVehicle, setRecentVehicle] = useState([]);
     
     return (
     <div>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import fetchData from "../utilities/fetchData";
 import { useState, useEffect } from "react";
+import FmdBadIcon from "@mui/icons-material/FmdBad";
 
 export default function Issues() {
   const [error, setError] = useState(false);
@@ -45,14 +46,28 @@ export default function Issues() {
             <Link
               key={issue._id}
               to={`${issue._id}`}
-              className={`flex items-center p-4 ${
+              className={`flex justify-between  p-4 ${
                 index % 2 === 0 ? "bg-gray-200" : "bg-white"
               } border border-gray-300 hover:border-gray-700 rounded-md`}
               style={{ textDecoration: "none" }}
             >
-              <div className="flex-1">{issue.sender.username}</div>
-              <div className="flex-1">{issue.subject}</div>
-              <div className="flex-1">{issue.createdAt.substring(0, 10)}</div>
+              <div>
+                <div className="flex-1">{issue.sender.username}</div>
+                <div className="flex-1">{issue.subject}</div>
+                <div className="flex-1">{issue.createdAt.substring(0, 10)}</div>
+              </div>
+              {/* <div className="indicator">
+  <span className="indicator-item badge badge-primary">new</span> 
+  <div className="grid w-32 h-32 bg-base-300 place-items-center">content</div>
+</div> */}
+              <FmdBadIcon
+                className="text-red-500 text-3xl"
+                style={{
+                  fontSize: "35px",
+                  transition: "font-size 200ms",
+                  ":hover": { fontSize: "40px" },
+                }}
+              ></FmdBadIcon>
             </Link>
           ))
         ) : (

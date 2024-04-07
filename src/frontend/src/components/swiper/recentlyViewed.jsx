@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React , {useState, useEffect} from 'react';
 
 import {Box} from "@mui/material";
 
@@ -12,6 +12,37 @@ import "./swiper.css";
 const RecentlyViewed = ({recentlyViewed}) =>{
 
     const [recentVehicle, setRecentVehicle] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async() => {
+
+            let vehicles = JSON.parse(localStorage.getItem("vehicles") || "[]");
+
+            if (vehicles.length ===4){
+                setRecentVehicle(vehicles);
+            }
+            else {
+
+                const response = await fetchData(
+                    "http://localhost:3000/api/vehicles/vehicles",
+                    {
+                      method: "GET",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                      },
+                    }
+                  );            
+                const data = await response.json();
+
+                localStorage.setItem("vehicles", JSON.stringify(data.slice(0,4)));
+
+                setRecentVehicle(data.slice(0,4));
+                
+                }
+        }
+    }
+    )
     
     return (
     <div>

@@ -4,7 +4,7 @@ const colors = require('tailwindcss/colors');
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx,css}",
   ],
   theme: {
     extend: {
@@ -13,6 +13,8 @@ export default {
       }
     },
   },
-  plugins: [forms,require('@tailwindcss/aspect-ratio'), require('@tailwindcss/forms'),],
+  plugins: [forms,require('@tailwindcss/aspect-ratio'), require('@tailwindcss/forms'),  
+  
+  require('tailwindcss/nesting')(require('postcss-nesting')),],
 }
 

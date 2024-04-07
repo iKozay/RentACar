@@ -1,6 +1,4 @@
 .recentlyViewedListings {
-    position: relative;
-    bottom: 225px;
     margin: auto;
     display: flex;
     justify-content: center;
@@ -23,4 +21,11 @@
     justify-content: center;
     align-items: center;
 
+}
+
+.recent-card{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

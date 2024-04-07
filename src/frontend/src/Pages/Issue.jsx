@@ -3,7 +3,7 @@ import { useState, useEffect, useContext, useRef } from "react";
 import fetchData from "../utilities/fetchData";
 import { UserContext } from "./Root";
 import Button from "../components/generalPurpose/Button";
-export default function Issue() {
+export default function Issue({admin=false}) {
   const scrollRef = useRef();
   const {user} = useContext(UserContext);
   const { issueId } = useParams();
@@ -102,14 +102,18 @@ export default function Issue() {
             </div>
             <div className="p-1">
               <div ref={scrollRef} className="overflow-y-scroll h-80">
-            {issue.replies.map((reply) => (
-                <div key={reply._id} className="mb-1 p-4 bg-gray-100">
+            {
+            issue.replies.map((reply) => (
+                <>
+                {reply.sender._id!==user.id && !reply.seen && <hr className="bg-red-500 h-1 mt-1 mb-1"/>}
+                <div key={reply._id} className={`mb-1 p-4 ${reply.sender._id===user.id?"bg-blue-100":"bg-gray-100"}`}>
                 <p className="text-gray-800">{reply.body}</p>
                 <div className="flex justify-between mt-2">
                     <p className="text-sm text-gray-500">{new Date(reply.createdAt).toLocaleString()}</p>
                     <p className="text-sm text-gray-500">Posted by: {reply.sender.username}</p>
                 </div>
                 </div>
+                </>
             ))}
             </div>
             </div>
@@ -123,7 +127,7 @@ export default function Issue() {
                 required
               ></textarea>
                   {!isTextAreaValid && (
-               <p className="text-red-500">This field is required</p>
+              <p className="text-red-500">This field is required</p>
               )}
             <button
                 className={`bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded`}
@@ -132,7 +136,7 @@ export default function Issue() {
                 Reply
               </button>
               {/* <Button handler={(e)=>handleReply(e)}  text="Reply" color="blue" inline={true}/> */}
-              <Button handler={()=>setDeleteBtn(true)} color={"red"} text={"delete"} inline={true}/>
+              {admin && <Button handler={()=>setDeleteBtn(true)} color={"red"} text={"delete"} inline={true}/>}
 
               {!replySucceeded&&<span className="text-red-500"> failed to send the reply</span>}
             </div>
@@ -181,3 +185,4 @@ export default function Issue() {
     </div>
   );
 }
+

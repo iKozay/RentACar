@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, useContext, useRef } from "react";
 import fetchData from "../utilities/fetchData";
 import { UserContext } from "./Root";
@@ -45,13 +45,11 @@ export default function Issue({ admin = false }) {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
-              body: JSON.stringify({ userId: user.id }) // Corrected JSON.stringify
+              body: JSON.stringify({ userId: user.id }), // Corrected JSON.stringify
             }
           );
           if (seenData.data) setIssue(seenData.data);
         }, 2000);
-      
-      
       } else if (issueData.error) {
         setLoading(false);
         setError(true);
@@ -63,7 +61,7 @@ export default function Issue({ admin = false }) {
     return () => {
       clearTimeout(fetchTimeout); // Cleanup function to clear the timeout
     };
-  }, [issueId,user.id]);
+  }, [issueId, user.id]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -108,6 +106,7 @@ export default function Issue({ admin = false }) {
       if (issueData.data) {
         setReplySucceeded(true);
         setIssue(issueData.data);
+        setTextAreaValue("");
         console.log(issue.sender);
       } else if (issueData.error) {
         setReplySucceeded(false);
@@ -117,7 +116,7 @@ export default function Issue({ admin = false }) {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-semibold mb-4">Issue Details</h1>
-      {success ? (
+      {success && user ? (
         !deleteBtn ? (
           <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg overflow-hidden">
             <div className="p-4">
@@ -159,13 +158,14 @@ export default function Issue({ admin = false }) {
                 rows="3"
                 placeholder="Type your reply here..."
                 onChange={(e) => setTextAreaValue(e.target.value)}
+                value={textAreaValue}
                 required
               ></textarea>
               {!isTextAreaValid && (
                 <p className="text-red-500">This field is required</p>
               )}
               <button
-                className={`bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded`}
+                className={`bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded`}
                 onClick={handleReply}
               >
                 Reply
@@ -178,7 +178,9 @@ export default function Issue({ admin = false }) {
                   inline={true}
                 />
               )}
-
+              <Link to={admin ? "/dashboard/issues" : "/issues"}>
+                <Button text="Back" color="blue" inline={"true"} />
+              </Link>
               {!replySucceeded && (
                 <span className="text-red-500"> failed to send the reply</span>
               )}

@@ -56,7 +56,7 @@ const Router = () => {
         },
         {
           path: "issues",
-          element: <CustomerIssues />,
+          element: <CustomerIssues/>,
         },
         {
           path: "issues/:issueId",

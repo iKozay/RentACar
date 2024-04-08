@@ -22,9 +22,13 @@ export default function MakeReservation() {
                 });
                 if (!response.ok) {
                     throw new Error("Failed to fetch vehicle");
+
                 }
+
                 const vehicleData = await response.json();
+                updateRecentlyViewedVehicle(vehicleData);
                 setSelectedVehicle(vehicleData);
+
             } catch (error) {
                 console.error("Error fetching vehicle:", error);
                 // Handle error (e.g., display error message)
@@ -35,6 +39,18 @@ export default function MakeReservation() {
         fetchVehicle();
     }, [vehicleId]); // Fetch when vehicleId changes
 
+    const updateRecentlyViewedVehicle = (vehicle) =>{
+
+        let vehicles = JSON.parse(localStorage.getItem("vehicles") || "[]");
+    
+        vehicles.pop();
+        
+        vehicles.unshift(vehicle);
+
+
+        localStorage.setItem("vehicles", JSON.stringify(vehicles));
+        
+      }
 
     return (
         <div>

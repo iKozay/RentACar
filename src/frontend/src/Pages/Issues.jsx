@@ -173,13 +173,15 @@ export default function Issues({ admin = true }) {
           </button>
         </form>
       )}
-      <Button
-        handler={setIssueDialog}
-        value={issueDialog ? false : true}
-        color={issueDialog ? "red" : "green"}
-        text={issueDialog ? "Close" : "Open an issue"}
-        inline={true}
-      />
+{
+  !admin &&       <Button
+  handler={setIssueDialog}
+  value={issueDialog ? false : true}
+  color={issueDialog ? "red" : "green"}
+  text={issueDialog ? "Close" : "Open an issue"}
+  inline={true}
+/>
+}
       <Link to={admin ? "/dashboard" : "/"}>
         <Button text="Back" color="blue" inline={true} />
       </Link>

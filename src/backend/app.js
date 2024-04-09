@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const routes = require('./routes');
 const passport = require('./config/passport');
-
+const cache = require('express-cache-headers');
 const cors = require('cors');
 const app = express();
 
@@ -22,7 +22,7 @@ const app = express();
 // }
 
 // Initializing middlewares 
-
+app.use(cache(30)); 
 app.use(session({
   secret:process.env.SESSION_SECRET,
   resave: false,

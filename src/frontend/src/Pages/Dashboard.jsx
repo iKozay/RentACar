@@ -1,15 +1,22 @@
-import { useContext } from "react";
+import { useContext,useEffect,useState } from "react";
 import { Navigate, Outlet, Link } from "react-router-dom";
 import { UserContext } from "./Root";
-
+import notifications from "../utilities/notifications";
 export default function AdminVerification() {
   const { user } = useContext(UserContext);
-
+  const [notification,setNotification]=useState(false);
   // Redirect to homepage if user is not an admin
+
+  useEffect(()=>{
+     async function notificationFetch(){
+      const notify = await notifications(user.id);
+      setNotification(notify);
+     }
+     notificationFetch();
+  })
   if (!user || user.role !== "admin") {
     return <Navigate to="/" replace />;
   }
-
   return (
     <div className="bg-gray-800 h-full">
       <div className="flex h-screen">
@@ -27,7 +34,7 @@ export default function AdminVerification() {
                   Account
                 </Link>
               </li> */}
-               <li>
+                <li>
                   <Link
                     to="/dashboard"
                     className="block py-2 px-4 hover:bg-gray-700"
@@ -70,9 +77,12 @@ export default function AdminVerification() {
                 <li>
                   <Link
                     to="issues"
-                    className="block py-2 px-4 hover:bg-gray-700"
+                    className="flex items-center justify-between block py-2 px-4 hover:bg-gray-700"
                   >
-                    Issues
+                    Issues{" "}
+                    {(notification) && (
+                      <span><div className="mt-1 mr-5 w-3 h-3 rounded-full bg-red-500"></div></span>
+                    )}
                   </Link>
                 </li>
               </ul>

@@ -17,6 +17,7 @@
     "dotenv": "^16.4.5",
     "express": "~4.16.1",
     "express-async-handler": "^1.2.0",
+    "express-cache-headers": "^0.1.4",
     "express-validator": "^7.0.1",
     "jest": "^29.7.0",
     "jsonwebtoken": "^9.0.2",

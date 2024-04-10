@@ -1,5 +1,5 @@
 import React from 'react';
-export default function Addon({addon, totalAddonPrice,setAddonPrice}) {
+export default function Addon({addon, totalAddonPrice,setAddonPrice, setModify}) {
     const [quantity, setQuantity] = React.useState(
         localStorage.getItem(addon.storageName) !== null ? parseInt(localStorage.getItem(addon.storageName)) : 0
     );
@@ -15,12 +15,15 @@ export default function Addon({addon, totalAddonPrice,setAddonPrice}) {
         if(quantity < addon.max) {
             setQuantity(quantity+1);
             setAddonPrice(totalAddonPrice+addon.price);
+            setModify(true);
+            
         }
     }
     const decrement = () => {
         if(quantity > 0) {
             setQuantity(quantity-1);
             setAddonPrice(totalAddonPrice-addon.price);
+            setModify(true);
             // localStorage.setItem(addon.storageName, quantity);
         }
     }

@@ -1,5 +1,5 @@
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
 
 const jwtSecret = process.env.JWT_SECRET;
@@ -38,7 +38,7 @@ module.exports = {
   // authenticate:passport.authenticate('jwt',{session:false})
   authenticate: (req, res, next) => {
     console.log('Authentication middleware invoked');
-    passport.authenticate('jwt', { session: false }, (err, user, info) => {
+    passport.authenticate('jwt', { session: false }, (err, user) => {
       if (err) {
         console.error('Error during authentication:');
         return res.status(500).json({ error: 'Internal Server Error' });
@@ -49,7 +49,7 @@ module.exports = {
       }
       console.log('User authenticated:');
       req.user = user;
-      next();
+      return next();
     })(req, res, next);
   },
 };

@@ -1,5 +1,4 @@
 const asyncHandler = require('express-async-handler');
-const { body, validationResult } = require('express-validator');
 const Reservation = require('../models/reservationModel');
 const { authenticate } = require('../config/passport');
 // View a reservation by reservation ID
@@ -16,7 +15,7 @@ exports.view_reservation = asyncHandler(async (req, res) => {
   if (!reservation) {
     return res.status(404).json({ error: 'Reservation not found' });
   }
-  res.status(200).json(reservation);
+  return res.status(200).json(reservation);
 });
 
 // view all reservations
@@ -25,7 +24,7 @@ exports.view_all_reservations = asyncHandler(async (req, res) => {
     .populate('userID')
     .populate('vin')
     .exec();
-  res.status(200).json(reservations);
+  return res.status(200).json(reservations);
 });
 
 // View all reservations for a user
@@ -113,10 +112,10 @@ exports.create_reservation = asyncHandler(async (req, res) => {
     }
     // Send a success response with the newly created reservation
     const newReservation = await reservation.save();
-    res.status(201).json(newReservation);
+    return res.status(201).json(newReservation);
   } catch (err) {
     // Handle any errors that occur during the process
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 });
 
@@ -126,9 +125,9 @@ exports.modify_reservation = asyncHandler(async (req, res) => {
   const updates = req.body;
   try {
     // Ensure that the 'vin' property is updated correctly if necessary
-    if (updates.vin) {
-      updates.vin = updates.vin; // Assuming the 'vin' property is provided in the request body
-    }
+    // if (updates.vin) {
+    //   updates.vin = updates.vin; // Assuming the 'vin' property is provided in the request body
+    // }
     const updatedReservation = await Reservation.findByIdAndUpdate(
       reservationId,
       updates,
@@ -150,9 +149,9 @@ exports.cancel_reservation = asyncHandler(async (req, res) => {
     if (!canceledReservation) {
       return res.status(404).json({ error: 'Reservation not found' });
     }
-    res.status(200).json({ message: 'Reservation canceled successfully' });
+    return res.status(200).json({ message: 'Reservation canceled successfully' });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 });
 exports.reservation_count = async (req, res) => {
@@ -170,10 +169,10 @@ exports.delete_vehicle_reservations = [
   authenticate,
   asyncHandler(async (req, res) => {
     const { vehicleId } = req.params;
-    const reservations = await Reservation.deleteMany({
+    await Reservation.deleteMany({
       vin: vehicleId,
     }).exec();
-    res
+    return res
       .status(200)
       .json({
         message:
@@ -188,10 +187,10 @@ exports.delete_user_reservations = [
   authenticate,
   asyncHandler(async (req, res) => {
     const { userId } = req.params;
-    const reservations = await Reservation.deleteMany({
+    await Reservation.deleteMany({
       userId,
     }).exec();
-    res
+    return res
       .status(200)
       .json({
         message:
@@ -216,9 +215,9 @@ exports.delete_reservations = [
           .json({ message: 'No reservations found with the provided IDs.' });
       }
 
-      res.status(200).json({ message: 'Reservations deleted successfully.' });
+      return res.status(200).json({ message: 'Reservations deleted successfully.' });
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      return res.status(500).json({ message: err.message });
     }
   },
 ];

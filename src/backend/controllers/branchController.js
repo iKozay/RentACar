@@ -39,7 +39,7 @@ exports.branch_create = [
   authenticate,
   validateBranchData,
   async (req, res) => {
-    if (req.user.role != 'admin') return res.status(401).json({ error: 'unauthorized' });
+    if (req.user.role !== 'admin') return res.status(401).json({ error: 'unauthorized' });
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -63,10 +63,10 @@ exports.branch_create = [
       branch.location.lat = location.lat;
       branch.location.lon = location.lon;
       await branch.save();
-      res.status(201).json(branch);
+      return res.status(201).json(branch);
     } catch (error) {
       console.error('Error creating branch:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
@@ -113,10 +113,10 @@ exports.branch_update = [
       }
 
       // Respond with the updated branch data
-      res.status(200).json(updatedBranch);
+      return res.status(200).json(updatedBranch);
     } catch (error) {
       console.error('Error updating branch:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
@@ -148,10 +148,10 @@ exports.branch_append_reservation = [
       const updatedBranch = await branch.save();
 
       // Respond with the updated branch data
-      res.status(200).json(updatedBranch);
+      return res.status(200).json(updatedBranch);
     } catch (error) {
       console.error('Error appending reservation to branch:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
@@ -183,10 +183,10 @@ exports.branch_append_vehicle = [
       const updatedBranch = await branch.save();
 
       // Respond with the updated branch data
-      res.status(200).json(updatedBranch);
+      return res.status(200).json(updatedBranch);
     } catch (error) {
       console.error('Error appending reservation to branch:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
@@ -210,9 +210,9 @@ exports.branch_delete = [
       if (!deleted) {
         return res.status(404).json({ error: 'No branch was found with the passed ID' });
       }
-      res.status(200).json({ message: `Successfully deleted branch ${id}` });
+      return res.status(200).json({ message: `Successfully deleted branch ${id}` });
     } catch (error) {
-      res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ error: 'Internal server error' });
     }
   },
 ];
@@ -264,9 +264,9 @@ exports.branch_refresh = async (req, res) => {
       await branch.save();
     }
 
-    res.status(200).json({ message: 'Branch refreshed successfully' });
+    return res.status(200).json({ message: 'Branch refreshed successfully' });
   } catch (error) {
     console.error('Error refreshing branch:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 };

@@ -29,10 +29,10 @@ const branchSchema = new Schema({
   ],
 });
 
-branchSchema.virtual('address').get(function () {
+branchSchema.virtual('address').get(function getAddress() {
   return `${this.location.street}, ${this.location.city}, ${this.location.province}`;
 });
-branchSchema.virtual('latLon').get(function () {
+branchSchema.virtual('latLon').get(function getLatLon() {
   return [this.location.lat, this.location.lon];
 });
 branchSchema.set('toJSON', { getters: true });

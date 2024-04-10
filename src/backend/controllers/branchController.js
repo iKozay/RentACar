@@ -1,10 +1,10 @@
-const Branch = require("../models/branchModel");
-const { validationResult } = require("express-validator");
-const { authenticate } = require("./../config/passport");
-const { validateBranchData } = require("./../middlewares/branchValidation");
-const getGeocodeFromAddress=require('./../utils/getGeocodeFromAddress');
+const { validationResult } = require('express-validator');
+const Branch = require('../models/branchModel');
+const { authenticate } = require('../config/passport');
+const { validateBranchData } = require('../middlewares/branchValidation');
+const getGeocodeFromAddress = require('../utils/getGeocodeFromAddress');
 const Vehicle = require('../models/vehicleModel');
-const Reservation = require("../models/reservationModel");
+const Reservation = require('../models/reservationModel');
 
 exports.branch_list = [
 
@@ -13,8 +13,8 @@ exports.branch_list = [
       const branches = await Branch.find({}).sort({ name: 1 }).exec();
       res.status(200).json(branches);
     } catch (error) {
-      console.log("Error" + error);
-      res.status(500).json({ error: "MongoDB server Error" });
+      console.log(`Error${error}`);
+      res.status(500).json({ error: 'MongoDB server Error' });
     }
   },
 ];
@@ -23,23 +23,23 @@ exports.branch_detail = [
   async (req, res) => {
     try {
       const branch = await Branch.findById(req.params.branchId).populate('vehicles reservations').exec();
-      if (branch === null)
+      if (branch === null) {
         res
           .status(400)
-          .json({ error: "branch " + req.params.branchId + " doesn't exist" });
+          .json({ error: `branch ${req.params.branchId} doesn't exist` });
+      }
       res.status(200).json(branch);
     } catch (error) {
-      console.log("Error" + error);
-      res.status(500).json({ error: "MongoDB server Error" });
+      console.log(`Error${error}`);
+      res.status(500).json({ error: 'MongoDB server Error' });
     }
   },
 ];
 exports.branch_create = [
- authenticate,
+  authenticate,
   validateBranchData,
   async (req, res) => {
-    if (req.user.role != "admin")
-      return res.status(401).json({ error: "unauthorized" });
+    if (req.user.role != 'admin') return res.status(401).json({ error: 'unauthorized' });
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -55,18 +55,18 @@ exports.branch_create = [
         street: req.body.location.street,
       },
       vehicles: req.body.vehicles || [],
-      reservations:req.body.reservations || []
+      reservations: req.body.reservations || [],
     });
     try {
       const location = await getGeocodeFromAddress(branch.address);
-      if (!location) return res.status(400).json({ error: "Address in not findable in the map" });
-      branch.location.lat=location.lat;
-      branch.location.lon=location.lon;
+      if (!location) return res.status(400).json({ error: 'Address in not findable in the map' });
+      branch.location.lat = location.lat;
+      branch.location.lon = location.lon;
       await branch.save();
       res.status(201).json(branch);
     } catch (error) {
-      console.error("Error creating branch:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      console.error('Error creating branch:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
@@ -75,12 +75,13 @@ exports.branch_update = [
   authenticate,
   async (req, res) => {
     try {
-
-      const id  = req.params.branchId; // Extract the branch ID from the request parameters
+      const id = req.params.branchId; // Extract the branch ID from the request parameters
       console.log(id);
       // Extract all fields from the request body
-      const { name, location, vehicles, reservations } = req.body;
-  
+      const {
+        name, location, vehicles, reservations,
+      } = req.body;
+
       // Construct the update object
       const updateObj = {};
       if (name) {
@@ -88,9 +89,9 @@ exports.branch_update = [
       }
       if (location) {
         const loc = await getGeocodeFromAddress(`${location.street}, ${location.city}, ${location.province}`);
-        if (!loc) return res.status(400).json({ error: "Address in not findable in the map" });
-        location.lat=loc.lat;
-        location.lon=loc.lon;
+        if (!loc) return res.status(400).json({ error: 'Address in not findable in the map' });
+        location.lat = loc.lat;
+        location.lon = loc.lon;
         updateObj.$set = { ...updateObj.$set, location }; // Update $set with location object
       }
       if (vehicles) {
@@ -99,37 +100,37 @@ exports.branch_update = [
       if (reservations) {
         updateObj.$set = { ...updateObj.$set, reservations }; // Update $set with reservations array
       }
-  
+
       // Update the branch by ID with the constructed update object
       const updatedBranch = await Branch.findByIdAndUpdate(
         id,
         updateObj,
-        { new: true } // To return the updated document
+        { new: true }, // To return the updated document
       );
-  
+
       if (!updatedBranch) {
-        return res.status(404).json({ message: "Branch not found" });
+        return res.status(404).json({ message: 'Branch not found' });
       }
-  
+
       // Respond with the updated branch data
       res.status(200).json(updatedBranch);
     } catch (error) {
-      console.error("Error updating branch:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      console.error('Error updating branch:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
-  }
+  },
 ];
 
 exports.branch_append_reservation = [
 
   async (req, res) => {
     try {
-      const branchId = req.params.branchId; // Extract the branch ID from the request parameters
-      const reservationId = req.body.reservationId; // Extract the reservation ID from the request body
+      const { branchId } = req.params; // Extract the branch ID from the request parameters
+      const { reservationId } = req.body; // Extract the reservation ID from the request body
 
       // Check if both branchId and reservationId are provided
       if (!branchId || !reservationId) {
-        return res.status(400).json({ error: "Branch ID or Reservation ID is missing" });
+        return res.status(400).json({ error: 'Branch ID or Reservation ID is missing' });
       }
 
       // Find the branch by ID
@@ -137,7 +138,7 @@ exports.branch_append_reservation = [
 
       // Check if the branch exists
       if (!branch) {
-        return res.status(404).json({ error: "Branch not found" });
+        return res.status(404).json({ error: 'Branch not found' });
       }
 
       // Append the reservationId to the reservations array of the branch
@@ -149,8 +150,8 @@ exports.branch_append_reservation = [
       // Respond with the updated branch data
       res.status(200).json(updatedBranch);
     } catch (error) {
-      console.error("Error appending reservation to branch:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      console.error('Error appending reservation to branch:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
@@ -159,12 +160,12 @@ exports.branch_append_vehicle = [
 
   async (req, res) => {
     try {
-      const branchId = req.params.branchId; // Extract the branch ID from the request parameters
-      const vehicleId = req.body.vehicleId; // Extract the reservation ID from the request body
+      const { branchId } = req.params; // Extract the branch ID from the request parameters
+      const { vehicleId } = req.body; // Extract the reservation ID from the request body
 
       // Check if both branchId and reservationId are provided
       if (!branchId || !vehicleId) {
-        return res.status(400).json({ error: "Branch ID or Reservation ID is missing" });
+        return res.status(400).json({ error: 'Branch ID or Reservation ID is missing' });
       }
 
       // Find the branch by ID
@@ -172,7 +173,7 @@ exports.branch_append_vehicle = [
 
       // Check if the branch exists
       if (!branch) {
-        return res.status(404).json({ error: "Branch not found" });
+        return res.status(404).json({ error: 'Branch not found' });
       }
 
       // Append the reservationId to the reservations array of the branch
@@ -184,13 +185,13 @@ exports.branch_append_vehicle = [
       // Respond with the updated branch data
       res.status(200).json(updatedBranch);
     } catch (error) {
-      console.error("Error appending reservation to branch:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      console.error('Error appending reservation to branch:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
 
-exports.branch_count= async(req,res)=>{
+exports.branch_count = async (req, res) => {
   try {
     const count = await Branch.countDocuments({});
     res.json({ count });
@@ -198,25 +199,23 @@ exports.branch_count= async(req,res)=>{
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-}
+};
 
 exports.branch_delete = [
   authenticate,
-  async (req,res)=>{
-       const id = req.params.branchId;
-       try{
-        const deleted =await  Branch.findByIdAndDelete(id);
-        if(!deleted)
-        {
-          return res.status(404).json({error:"No branch was found with the passed ID"});
-        }
-        res.status(200).json({message:"Successfully deleted branch "+id});
-
-       }catch(error){
-        res.status(500).json({error:"Internal server error"});
-       }
-  }
-]
+  async (req, res) => {
+    const id = req.params.branchId;
+    try {
+      const deleted = await Branch.findByIdAndDelete(id);
+      if (!deleted) {
+        return res.status(404).json({ error: 'No branch was found with the passed ID' });
+      }
+      res.status(200).json({ message: `Successfully deleted branch ${id}` });
+    } catch (error) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+];
 
 exports.branch_refresh = async (req, res) => {
   const id = req.params.branchId;
@@ -225,13 +224,13 @@ exports.branch_refresh = async (req, res) => {
     const branch = await Branch.findById(id);
 
     if (!branch) {
-      return res.status(404).json({ error: "Branch not found" });
+      return res.status(404).json({ error: 'Branch not found' });
     }
 
     let modified = false;
 
     // Check vehicles
-    const vehicleExistenceChecks = branch.vehicles.map(async vehicleId => {
+    const vehicleExistenceChecks = branch.vehicles.map(async (vehicleId) => {
       const vehicleExists = await Vehicle.exists({ _id: vehicleId });
       if (!vehicleExists) {
         modified = true;
@@ -241,7 +240,7 @@ exports.branch_refresh = async (req, res) => {
     });
 
     // Check reservations
-    const reservationExistenceChecks = branch.reservations.map(async reservationId => {
+    const reservationExistenceChecks = branch.reservations.map(async (reservationId) => {
       const reservationExists = await Reservation.exists({ _id: reservationId });
       if (!reservationExists) {
         modified = true;
@@ -253,7 +252,7 @@ exports.branch_refresh = async (req, res) => {
     // Await all existence checks
     const [vehicleResults, reservationResults] = await Promise.all([
       Promise.all(vehicleExistenceChecks),
-      Promise.all(reservationExistenceChecks)
+      Promise.all(reservationExistenceChecks),
     ]);
 
     // Update vehicles and reservations arrays
@@ -265,9 +264,9 @@ exports.branch_refresh = async (req, res) => {
       await branch.save();
     }
 
-    res.status(200).json({ message: "Branch refreshed successfully" });
+    res.status(200).json({ message: 'Branch refreshed successfully' });
   } catch (error) {
-    console.error("Error refreshing branch:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error('Error refreshing branch:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };

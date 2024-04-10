@@ -18,10 +18,14 @@ const userSchema = new Schema({
       validator(birthDate) {
         const minAge = 18;// minimum age
         const today = new Date();
-        const maxBirthDate = new Date(today.getFullYear() - minAge, today.getMonth(), today.getDate());
+        const maxBirthDate = new Date(
+          today.getFullYear() - minAge,
+          today.getMonth(),
+          today.getDate(),
+        );
         return birthDate < maxBirthDate;
       },
-      message: (props) => 'Users must be at least 18 years old.',
+      message: () => 'Users must be at least 18 years old.',
 
     },
   },
@@ -33,10 +37,10 @@ const userSchema = new Schema({
   },
   profile_picture: { type: String },
 }, { timestamps: true });
-userSchema.virtual('full_name').get(function () {
+userSchema.virtual('full_name').get(function getFullName() {
   return `${this.first_name} ${this.last_name}`;
 });
-userSchema.virtual('url').get(function () {
+userSchema.virtual('url').get(function getURL() {
   return `/api/users/${this._id}`;
 });
 

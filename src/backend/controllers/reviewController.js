@@ -6,18 +6,18 @@ const addReview = async (req, res) => {
   const review = new Review(req.body);
   try {
     const newReview = await review.save();
-    res.status(201).json(newReview);
+    return res.status(201).json(newReview);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 };
 
 const getReviews = async (req, res) => {
   try {
     const reviews = await Review.find();
-    res.status(200).json(reviews);
+    return res.status(200).json(reviews);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -29,9 +29,9 @@ const getReviewsByBranchID = async (req, res) => {
     if (!review) {
       return res.status(404).json({ messahe: `Reviews not found with Branch id ${id}` });
     }
-    res.status(200).json(review);
+    return res.status(200).json(review);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -49,9 +49,9 @@ const deleteReview = [
       if (!review) {
         return res.status(404).json({ message: `Cannot find any review with id ${id} to delete.` });
       }
-      res.status(200).json(review);
+      return res.status(200).json(review);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      return res.status(500).json({ message: err.message });
     }
   }];
 
@@ -72,19 +72,19 @@ const updateReview = async (req, res) => {
       return res.status(404).json({ message: `Review not found with id ${id}` });
     }
 
-    res.status(200).json(ureview);
+    return res.status(200).json(ureview);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
 const getCount = async (req, res) => {
   try {
     const count = await Review.countDocuments({});
-    res.json({ count });
+    return res.json({ count });
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 

@@ -1,6 +1,5 @@
-const { body, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
-const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const { promisify } = require('util');
 const {
@@ -17,7 +16,7 @@ const jwtSecret = process.env.JWT_SECRET;
 exports.auth_signup = [
   validateUserData,
 
-  async (req, res, next) => {
+  async (req, res) => {
     console.log(req.body);
     try {
       const errors = validationResult(req);
@@ -40,7 +39,7 @@ exports.auth_signup = [
       });
       await user.save();
 
-      res.status(201).json(user);
+      return res.status(201).json(user);
     } catch (error) {
       if (error.code === 11000) {
         console.log(error);
@@ -53,7 +52,7 @@ exports.auth_signup = [
 
 exports.auth_login = [
   validateLoginData,
-  async (req, res, next) => {
+  async (req, res) => {
     try {
       const { username, password } = req.body;
       const user = await User.findOne({ username });
@@ -87,8 +86,10 @@ exports.auth_login = [
           {
             // This token is stored on the cookies (secured) at the frontend
             // This token is used in requests from the frontend to generate accessTokens
-            // The difference is that this token is not accessible in the clientSide (stored in the cookie)
-            // so no body can access it from there, and it is used to generate the short-lived access tokens
+            // The difference is that this token is not accessible in the clientSide
+            // (stored in the cookie)
+            // so no body can access it from there, and it is used to generate the short-lived
+            // access tokens
             // which are the ones that are required for the backend routes.
 
             id: user._id,
@@ -107,19 +108,19 @@ exports.auth_login = [
           secure: true,
           // sameSite:"none"
         });
-        res.status(201).json({ token: accessToken });
+        return res.status(201).json({ token: accessToken });
       } catch (error) {
         return res
           .status(501)
           .json({ error: 'error creating JSON Web Tokens' });
       }
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
 
-exports.auth_refreshToken = async (req, res, next) => {
+exports.auth_refreshToken = async (req, res) => {
   const { refreshToken } = req.cookies;
 
   if (!refreshToken) {
@@ -146,9 +147,9 @@ exports.auth_refreshToken = async (req, res, next) => {
       },
     );
 
-    res.status(200).json({ token: accessToken });
+    return res.status(200).json({ token: accessToken });
   } catch (error) {
-    res.status(401).json({ error: 'Invalid refresh token' });
+    return res.status(401).json({ error: 'Invalid refresh token' });
   }
 };
 
@@ -159,11 +160,11 @@ exports.auth_checkToken = [
 ];
 exports.auth_logout = [
   // authenticate,
-  (req, res, next) => {
+  (req, res) => {
     try {
       // res.clearCookie("refreshToken");
 
-      req.session.destroy((err) => {
+      return req.session.destroy((err) => {
         if (err) {
           return res.status(501).json({ error: 'Error destroying session' });
         }

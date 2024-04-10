@@ -30,9 +30,9 @@ const getVehicle = async (req, res) => {
     if (!vehicle) {
       return res.status(404).json({ message: `Vehicle not found with id ${id}` });
     }
-    res.status(200).json(vehicle);
+    return res.status(200).json(vehicle);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -50,30 +50,30 @@ const deleteVehicle = [
       if (!vehicle) {
         return res.status(404).json({ message: `Cannot find any vehicle with id ${id} to delete.` });
       }
-      res.status(200).json(vehicle);
+      return res.status(200).json(vehicle);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      return res.status(500).json({ message: err.message });
     }
   }];
 
-const deleteVehicles = [
-  authenticate,
-  async (req, res) => {
-    try {
-      const ids = req.body;
+// const deleteVehicles = [
+//   authenticate,
+//   async (req, res) => {
+//     try {
+//       const ids = req.body;
 
-      const vehicles = await Vehicle.deleteMany({ _id: { $in: ids } });
+//       const vehicles = await Vehicle.deleteMany({ _id: { $in: ids } });
 
-      if (!vehicles.deletedCount) {
-        return res.status(404).json({ message: 'No vehicles found with the provided IDs.' });
-      }
+//       if (!vehicles.deletedCount) {
+//         return res.status(404).json({ message: 'No vehicles found with the provided IDs.' });
+//       }
 
-      res.status(200).json({ message: 'Vehicles deleted successfully.' });
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  },
-];
+//       return res.status(200).json({ message: 'Vehicles deleted successfully.' });
+//     } catch (err) {
+//       return res.status(500).json({ message: err.message });
+//     }
+//   },
+// ];
 
 /**
  * Updates vehicle from the database
@@ -93,9 +93,9 @@ const updateVehicle = async (req, res) => {
     if (!uvehicle) {
       return res.status(404).json({ messahe: `Vehicle not found with id ${id}` });
     }
-    res.status(200).json(uvehicle);
+    return res.status(200).json(uvehicle);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -121,12 +121,18 @@ const getVehiclesByBranchId = async (req, res) => {
 
     const vehicles = await Vehicle.find({ _id: { $in: vehicleIds } });
 
-    res.status(200).json(vehicles);
+    return res.status(200).json(vehicles);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
 module.exports = {
-  getCount, addVehicle, deleteVehicle, getVehicles, getVehicle, updateVehicle, getVehiclesByBranchId,
+  getCount,
+  addVehicle,
+  deleteVehicle,
+  getVehicles,
+  getVehicle,
+  updateVehicle,
+  getVehiclesByBranchId,
 };

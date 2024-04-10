@@ -23,7 +23,7 @@ const transporter = nodemailer.createTransport({
 async function sendConfirmationEmail(email, reservationDetails) {
   console.log(process.env.EMAIL_USER);
   console.log(process.env.EMAIL_PASS);
-  transporter.verify((error, success) => {
+  transporter.verify((error) => {
     if (error) {
       console.log(error);
     } else {

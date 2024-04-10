@@ -1,7 +1,14 @@
 const express = require('express');
 
 const {
-  getVehiclesByBranchId, deleteVehicles, addVehicle, deleteVehicle, getVehicles, getCount, getVehicle, updateVehicle,
+  getVehiclesByBranchId,
+  // deleteVehicles,
+  addVehicle,
+  deleteVehicle,
+  getVehicles,
+  getCount,
+  getVehicle,
+  updateVehicle,
 } = require('../controllers/vehicleController');
 
 const router = express.Router();

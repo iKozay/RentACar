@@ -8,7 +8,7 @@ export default function RepresentativeDashboard() {
     const [searchable,setSearchable] = useState([]);
     const [filter,setFilter] = useState("Username");
 
-    if (user && user.role !== "representative") {
+    if (!user || user.role !== "representative") {
         return <Navigate to="/" replace />;
     }
 

@@ -53,7 +53,7 @@ export default function ReservationDetails({ reservation }) {
             addons.map((a, index) => {
               localStorage.setItem(a.storageName, parseInt(reservation.addons[a.storageName]));
 
-              return <Addon key={index} addon={a} totalAddonPrice={addonPrice} setAddonPrice={setAddonPrice}/>
+              return <Addon key={index} addon={a} totalAddonPrice={addonPrice} setAddonPrice={setAddonPrice} setModify={setModify}/>
             })
           }
         </div>

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-export default function SortFilterButtons({ setVehicles, vehicles }) {
+export default function SortFilterButtons({ allVehicles, sortedVehicles, setVehicles}) {
 
   const [isOpen1, setIsOpen1] = useState(false);
   const [selectedCategory1, setSelectedCategory1] = useState(null);
@@ -16,12 +16,48 @@ export default function SortFilterButtons({ setVehicles, vehicles }) {
 
   const buttonRef4 = useRef(null);
 
+  const [filter , setFilter] = useState({
+    numberOfSeats: null,
+    numberOfDoors: null,
+    price: null
+  });
+
   const resetAllFilters = () => {
-    setVehicles(vehicles);
-    handleCategoryClick1(null);
-    handleCategoryClick2(null);
-    handleCategoryClick3(null);
+    setSelectedCategory1(null);
+    setSelectedCategory2(null);
+    setSelectedCategory3(null);
+    setVehicles(allVehicles);
   }
+  const filterVehicles = (numberOfSeats, numberOfDoors, price) => {
+    setFilter({
+        numberOfSeats: numberOfSeats,
+        numberOfDoors: numberOfDoors,
+        price: price
+    });
+    let filteredVehicles = allVehicles;
+    if(numberOfSeats !== null){
+      filteredVehicles = filteredVehicles.filter((vehicle) => vehicle.numberOfSeats === numberOfSeats);
+    }
+    if(numberOfDoors !== null){
+      filteredVehicles = filteredVehicles.filter((vehicle) => vehicle.numberOfDoors === numberOfDoors);
+    }
+
+    // sort the filtered vehicles
+    sortVehicles(filter.price);
+
+    setVehicles(filteredVehicles);
+  }
+
+    const sortVehicles = (price) => {
+      if(price !== null){
+        if(price === 1){
+          setVehicles(sortedVehicles.sort((a, b) => a.price - b.price));
+        }
+        if(price === 2){
+          setVehicles(sortedVehicles.sort((a, b) => b.price - a.price));
+        }
+      }
+    }
 
   const toggleDropdown1 = () => {
     setIsOpen1(!isOpen1);
@@ -35,51 +71,48 @@ export default function SortFilterButtons({ setVehicles, vehicles }) {
     setIsOpen3(!isOpen3);
   }
 
-  const handleCategoryClick1 = (category) => {
+  const handleFilterBySeats = (category) => {
     if(category!==null){
-      const sortedVehicles = vehicles.filter((vehicle) => vehicle.numberOfSeats === category);
-      setVehicles(sortedVehicles);
+      // const sortedVehicles = vehicles.filter((vehicle) => vehicle.numberOfSeats === category);
+      // setVehicles(sortedVehicles);
       setSelectedCategory1(category + " seats");
-      setIsOpen1(false);
     }else{
-        setVehicles(vehicles);
-        setSelectedCategory1(category);
-        setIsOpen1(false);
+        // setVehicles(vehicles);
+        setSelectedCategory1(null);
     }
-    
+    setIsOpen1(false);
+    filterVehicles(category, filter.numberOfDoors, filter.price);
   };
 
-  const handleCategoryClick2 = (category) => {
+  const handleFilterByDoors = (category) => {
     if(category!==null){
-      const sortedVehicles = vehicles.filter((vehicle) => vehicle.numberOfDoors === category);
-      setVehicles(sortedVehicles);
+      // const sortedVehicles = vehicles.filter((vehicle) => vehicle.numberOfDoors === category);
+      // setVehicles(sortedVehicles);
       setSelectedCategory2(category + " Doors");
-      setIsOpen2(false);
     }else{
-        setVehicles(vehicles);
-        setSelectedCategory2(category);
-        setIsOpen2(false);
+        // setVehicles(vehicles);
+        setSelectedCategory2(null);
     }
-
+    setIsOpen2(false);
+    filterVehicles(filter.numberOfSeats, category, filter.price);
   };
 
-  const handleCategoryClick3 = (category) => {
+  const handleSortByPrice = (category) => {
     if(category!==null){
-      const sortedVehicles = vehicles.filter((vehicle) => vehicle.price === category);
-      setVehicles(sortedVehicles);
+      // const sortedVehicles = vehicles.filter((vehicle) => vehicle.price === category);
+      // setVehicles(sortedVehicles);
       if(category === 1){
         setSelectedCategory3("Low to High");
       }
       if(category === 2){
         setSelectedCategory3("High to Low");
       }
-      setIsOpen3(false);
     }else{
-        setVehicles(vehicles);
-        setSelectedCategory3(category);
-        setIsOpen3(false);
+        // setVehicles(vehicles);
+        setSelectedCategory3(null);
     }
-
+    setIsOpen3(false);
+    filterVehicles(filter.numberOfSeats, filter.numberOfDoors, category);
   };
 
   return (
@@ -113,35 +146,35 @@ export default function SortFilterButtons({ setVehicles, vehicles }) {
               <li>
                 <div
                     className={`cursor-pointer ${selectedCategory1 === 'reset' ? 'font-medium text-neutral-900' : ''}`}
-                    onClick={() => handleCategoryClick1(null)}>
+                    onClick={() => handleFilterBySeats(null)}>
                   Reset
                 </div>
               </li>
               <li>
                 <div
                   className={`cursor-pointer ${selectedCategory1 === '2 seats' ? 'font-medium text-neutral-900' : ''}`}
-                  onClick={() => handleCategoryClick1(2)}>
+                  onClick={() => handleFilterBySeats(2)}>
                   2 seats
                 </div>
               </li>
               <li>
                 <div
                   className={`cursor-pointer ${selectedCategory1 === '4 seats' ? 'font-medium text-neutral-900' : ''}`}
-                  onClick={() => handleCategoryClick1(4)}>
+                  onClick={() => handleFilterBySeats(4)}>
                   4 seats
                 </div>
               </li>
               <li>
                 <div
                     className={`cursor-pointer ${selectedCategory1 === '5 seats' ? 'font-medium text-neutral-900' : ''}`}
-                    onClick={() => handleCategoryClick1(5)}>
+                    onClick={() => handleFilterBySeats(5)}>
                   5 seats
                 </div>
               </li>
               <li>
                 <div
                   className={`cursor-pointer ${selectedCategory1 === '6 seats' ? 'font-medium text-neutral-900' : ''}`}
-                  onClick={() => handleCategoryClick1(6)}>
+                  onClick={() => handleFilterBySeats(6)}>
                   6 seats
                 </div>
               </li>
@@ -174,21 +207,21 @@ export default function SortFilterButtons({ setVehicles, vehicles }) {
               <li>
                 <div
                     className={`cursor-pointer ${selectedCategory2 === 'Reset' ? 'font-medium text-neutral-900' : ''}`}
-                    onClick={() => handleCategoryClick2(null)}>
+                    onClick={() => handleFilterByDoors(null)}>
                   Reset
                 </div>
               </li>
               <li>
                 <div
                     className={`cursor-pointer ${selectedCategory2 === '2 Doors' ? 'font-medium text-neutral-900' : ''}`}
-                    onClick={() => handleCategoryClick2(2)}>
+                    onClick={() => handleFilterByDoors(2)}>
                   2 Doors
                 </div>
               </li>
               <li>
                 <div
                   className={`cursor-pointer ${selectedCategory2 === '4 Doors' ? 'font-medium text-neutral-900' : ''}`}
-                  onClick={() => handleCategoryClick2(4)}>
+                  onClick={() => handleFilterByDoors(4)}>
                   4 Doors
                 </div>
               </li>
@@ -196,7 +229,6 @@ export default function SortFilterButtons({ setVehicles, vehicles }) {
           </div>
         )}
 
-        {/* Button 3
         <button ref={buttonRef3} onClick={toggleDropdown3} className="text-white bg-neutral-700 hover:bg-neutral-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-8 w-36"
           type="button">
           {selectedCategory3 || 'Sort by Price'}
@@ -207,7 +239,7 @@ export default function SortFilterButtons({ setVehicles, vehicles }) {
         </button>
 
         {isOpen3 && (
-          
+
           <div
             style={{
               position: 'absolute',
@@ -221,27 +253,27 @@ export default function SortFilterButtons({ setVehicles, vehicles }) {
               <li>
                 <div
                     className={`cursor-pointer ${selectedCategory3 === 'Reset' ? 'font-medium text-neutral-900' : ''}`}
-                    onClick={() => handleCategoryClick3(null)}>
+                    onClick={() => handleSortByPrice(null)}>
                   Reset
                 </div>
               </li>
               <li>
                 <div
                   className={`cursor-pointer ${selectedCategory3 === 'Low to High' ? 'font-medium text-neutral-900' : ''}`}
-                  onClick={() => handleCategoryClick3(1)}>
+                  onClick={() => handleSortByPrice(1)}>
                   Low to High
                 </div>
               </li>
               <li>
                 <div
                   className={`cursor-pointer ${selectedCategory3 === 'High to Low' ? 'font-medium text-neutral-900' : ''}`}
-                  onClick={() => handleCategoryClick3(2)}>
+                  onClick={() => handleSortByPrice(2)}>
                   High to Low
                 </div>
               </li>
             </ul>
           </div>
-        )} */}
+        )}
 
         {/* Button 4 */}
         <button ref={buttonRef4} onClick={resetAllFilters} className="text-white bg-neutral-700 hover:bg-neutral-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex mr-8"

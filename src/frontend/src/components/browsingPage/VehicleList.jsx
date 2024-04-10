@@ -32,14 +32,10 @@ export default function VehicleList() {
     fetchVehicles();
   }, [branchName]);
 
-  const handleSortFilter = (sortedVehicles) => {
-    setSortedVehicles(sortedVehicles);
-  };
-
   return (
    
     <div className="bg-white">
-      <SortFilterButtons setVehicles={handleSortFilter} vehicles={vehicles} />
+      <SortFilterButtons allVehicles={vehicles} sortedVehicles={sortedVehicles} setVehicles={(v)=>{setSortedVehicles(v)}} />
       <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <hr className="my-8"/>
         <h2 className="sr-only">Vehicles</h2>

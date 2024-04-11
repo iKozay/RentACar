@@ -7,7 +7,7 @@ import { branchContext } from "../../Pages/BrowsingPage";
 
 export default function SearchBox() {
   const {branchName, setBranchName} = useContext(branchContext);
-  const [dateRange, setDateRange] = useState([new Date(), new Date()]);
+  const [dateRange, setDateRange] = useState([new Date(), new Date(new Date().setDate(new Date().getDate() + 7))]);
  
   const [expandMap, setExpandMap] = useState(false);
 

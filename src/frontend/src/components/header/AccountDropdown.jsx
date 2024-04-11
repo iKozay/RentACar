@@ -84,7 +84,7 @@ function showAccountButton(setToken, user, notification) {
                   : "hover:bg-slate-600"
               }
             >
-              <p className={"p-2 block cursor-pointer "}>Issues </p>
+              <p className={"p-2 block cursor-pointer hover:bg-slate-600"}>Issues </p>
               {notification && (
                 <span>
                   <div className="mt-1 mr-5 w-3 h-3 rounded-full bg-red-500"></div>

@@ -1,0 +1,59 @@
+Project Name: A Car Rental Web Application for SOEN 341
+Team Name: GazaBrigade
+
+Sprint: 2
+Meeting Number: 2
+Date: February 16
+Duration: 30 mins
+Meeting Mode: In Person
+Meeting Location: Concordia Hall Building
+
+Members:
+
+    Zeiad Badawy (40247477) (Present InPerson)
+    Abdel-Rahman Khalifa (40253332) (Present InPerson)
+    Miskat Mahmud (40250110) (Present InPerson)
+    Mohamed Saidi (40248103) (Present InPerson)
+    Matteo Sansone (40242278) (Present InPerson)
+
+The meeting was called to start at 6:25, February 16, 2024.
+
+Meeting Agenda
+
+    - Discuss designs.
+    - Review database schema.
+    - Discuss plan to start coding.
+
+Discussion Points
+
+    - Post designs.
+    - What options to add to vehicles in database
+    - Look at how frontend and backend relate.
+
+Summary of Discussion:
+
+    - Include attributes in vehicle database.
+    - Create a locations table and link to vehicle.
+    - Use component based architecture
+
+
+Action Items assigned:
+
+    - Matteo & Zeiad to start frontend
+    - Miskat and Mohamed to start backend
+    - Abdel-Rahman to start CRUD
+
+Decision Taken:
+
+    - Create new table for location (address, branch) and link to vehicle database.
+    - Add attributes to vehicle: fuel type, number of passengers, transmission.
+
+Next Steps:
+
+     - Apply component based architecture to frontend.
+
+To Do element:
+
+     - Start coding
+
+The Meeting was adjourned at 6:45.

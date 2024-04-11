@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - development
+  pull_request:
+    branches:
+      - main
+      - development
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install src file dependencies
+        working-directory: src
+        run: npm install
+        
+      - name: Install frontend dependencies
+        working-directory: src/frontend
+        run: npm install
+        
+      - name: Install backend dependencies
+        working-directory: src/backend
+        run: |
+          touch .env
+          echo "MONGO_DB=${{ vars.MONGO_DB }}" >> .env
+          echo "PORT=${{ vars.PORT }}" >> .env
+          echo "JWT_SECRET=${{ vars.JWT_SECRET }}" >> .env
+          echo "SESSION_SECRET=${{ vars.SESSION_SECRET }}" >> .env
+          echo "EMAIL_USER=${{ vars.EMAIL_USER }}" >> .env
+          echo "EMAIL_PASS=${{ vars.EMAIL_PASS }}" >> .env
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+          
+                  
+      - name: Start backend and frontend server
+        working-directory: src
+        run: npm start

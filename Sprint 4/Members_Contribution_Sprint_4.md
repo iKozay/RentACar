@@ -43,10 +43,8 @@ Members Contribution For Sprint 4
 ### Abdel-Rahman Khalifa - 40253332 - Fullstack DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-||  |                                                                                                       |
-| |    |    |
-|  |  |  |
-|  | |  |
-|  |  | |
-|  |  |  |
-||  |  |
+| Task #349/implement issue schema and backend endpoints| 2h  | backend                                     |
+| Task #352/create issues section in admin dashboard|  3h |   frontend                                      |
+| Task #356/report an issue section for customers| 4h  | frontend |
+| Task #367 add eslint to react and express directories | 1h |  frontend/backend |
+|  Acceptance tests for U-14| 30min | documentation |

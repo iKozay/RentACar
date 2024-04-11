@@ -61,14 +61,14 @@ export default function MyAccount() {
             profile_picture: document.getElementById("picture").value,
             phone_number: document.getElementById("phoneNumber").value,
         };
-
+    
         const passwordValue = document.getElementById("password").value.trim();
         if (passwordValue !== "") {
             updatedData.password = passwordValue;
         }
-
+    
         try {
-            const response = await fetchData(`http://localhost:3000/api/users/${userId}`, {
+            const response = await fetchData(`http://localhost:3000/api/users/${user.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -76,26 +76,42 @@ export default function MyAccount() {
                 },
                 body: JSON.stringify(updatedData),
             });
-            console.log(response.error);
-            setNewNewUserData(response);
+            if (response.data) {
+                // Update user data state if the request is successful
+                setUserData(response.data);
+                // Reset the update button state
+                setUpdateBtn(false);
+            } else if (response.error) {
+                console.error("Error updating userData data:", response.error);
+            }
         } catch (error) {
             console.error("Error updating userData data:", error);
         }
-    };
+    };    
 
     return (
         <div className="max-w-md mx-auto mt-8 p-8 bg-gray-100 rounded-lg shadow-md">
             <h1 className="text-2xl font-semibold mb-4">Account Management</h1>
+            <div className="flex justify-center mb-4">
+                <div className="w-20 h-20 rounded-full overflow-hidden">
+                    <img
+                    src={userData ? userData.profile_picture : "/default-profile-picture.jpg"}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                    />
+                </div>
+            </div>
             <div className="mb-4">
                 <h2 className="text-lg font-medium mb-2">Personal Information</h2>
                 {success ? (
                     !updateBtn ? (
                         <div>
-                            <p>Name: {userData.full_name} </p>
-                            <p>Username: {userData.username} </p>
-                            <p>Email: {userData.email} </p>
-                            <p>Phone Number: {userData.phone_number} </p>
-                            <p>Date of Birth: </p>
+                            <p className="text-gray-800 py-2">Name: {userData.full_name} </p>
+                            <p className="text-gray-800 py-2">Username: {userData.username} </p>
+                            <p className="text-gray-800 py-2">Email: {userData.email} </p>
+                            <p className="text-gray-800 py-2">Phone Number: {userData.phone_number} </p>
+                            <p className="text-gray-800 py-2">Date of Birth: {new Date(userData["date_of_birth"]).toISOString().split("T")[0]} </p>
+                            <br/>
                             <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded" onClick={handleClickUpdateUser}>Update</button>
                         </div>
                     ) : (
@@ -163,7 +179,7 @@ export default function MyAccount() {
                                 htmlFor="phoneNumber"
                                 className="block text-sm font-medium text-gray-700"
                                 >
-                                Email
+                                Phone Number
                                 </label>
                                 <input
                                 type="text"
@@ -235,8 +251,6 @@ export default function MyAccount() {
                                 </button>
                             </div>
                             </form>
-                            <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded" onClick={handleCancelUpdate}>Cancel</button>
-                            <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded" onClick={handleUpdateUser}>Save</button>
                         </div>
                     )
                 ) : loading ? (

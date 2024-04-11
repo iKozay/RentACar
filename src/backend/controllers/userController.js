@@ -132,7 +132,7 @@ exports.user_update = [
       const updatedUser = await User.findOneAndUpdate(
         { _id: req.params.userId },
         updates,
-        { new: true }
+        { new: true },
       );
       if (!updatedUser) {
         return res.status(404).json({ error: 'User not found' });

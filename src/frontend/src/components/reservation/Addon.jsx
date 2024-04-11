@@ -15,7 +15,7 @@ export default function Addon({addon, totalAddonPrice,setAddonPrice, setModify})
         if(quantity < addon.max) {
             setQuantity(quantity+1);
             setAddonPrice(totalAddonPrice+addon.price);
-            setModify(true);
+            setModify();
             
         }
     }
@@ -23,7 +23,7 @@ export default function Addon({addon, totalAddonPrice,setAddonPrice, setModify})
         if(quantity > 0) {
             setQuantity(quantity-1);
             setAddonPrice(totalAddonPrice-addon.price);
-            setModify(true);
+            setModify();
             // localStorage.setItem(addon.storageName, quantity);
         }
     }
@@ -41,7 +41,7 @@ export default function Addon({addon, totalAddonPrice,setAddonPrice, setModify})
                                   d="M1 1h16"/>
                         </svg>
                     </button>
-                    <input className="bg-white border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5"
+                    <input id={addon.storageName} className="bg-white border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5"
                            required value={quantity}/>
                     <button
                         onClick={increment}

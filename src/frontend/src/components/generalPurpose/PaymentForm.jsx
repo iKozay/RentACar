@@ -12,7 +12,7 @@ export const PaymentTypes = {
     REFUND: "REFUND"
 }
 
-export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, backButtonAction}) {
+export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, backButtonAction, onPaymentAction}) {
 
     const {user} = useContext(UserContext);
 
@@ -220,6 +220,9 @@ export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, ba
     async function delay(e) {
         e.preventDefault();
         if(await processPayment()) {
+            if(onPaymentAction){
+                onPaymentAction();
+            }
             setTimeout(() => {navigate("/reservation/confirmation");}, 1000);
         }
     }

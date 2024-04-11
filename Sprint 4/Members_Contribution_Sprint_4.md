@@ -34,11 +34,6 @@ Members Contribution For Sprint 4
 |-----------------------------|-----------|-----------------------------------------------------------------|
 |             Created the 'My Account' page             |     6h    |              |
 |             Meeting Minutes                |  30m   |                                                                 |
-| |         |                                                                 |
-|    |         |                                                                 |
-|     |          |                                                                 |
-
-
 
 ### Abdel-Rahman Khalifa - 40253332 - Fullstack DEV
 | Item                        | Time      | Notes (If needed)                                               |

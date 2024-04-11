@@ -15,9 +15,9 @@ exports.issue_list = [
         })
         .populate('sender')
         .exec();
-      res.status(200).json(issues || []);
+      return res.status(200).json(issues || []);
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
@@ -40,7 +40,7 @@ exports.issue_detail = [
       if (issue !== null) return res.status(200).json(issue);
       return res.status(404).json({ error: 'Not found' });
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
@@ -62,7 +62,7 @@ exports.issue_list_user = [
         .exec();
       return res.status(200).json(userIssues || []);
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
@@ -86,9 +86,9 @@ exports.issue_create = [
         replies: [],
       });
       issue.save();
-      res.status(200).json(issue);
+      return res.status(200).json(issue);
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
@@ -107,7 +107,7 @@ exports.issue_delete = [
           .json({ message: `successfully deleted issue ${issueId}` });
       }
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 ];
@@ -167,7 +167,7 @@ exports.issue_seen = [
       });
       issue.seen = true;
       await issue.save();
-      res.status(200).json(issue);
+      return res.status(200).json(issue);
     } catch (error) {
       console.error('Error marking replies as seen:', error);
       return res.status(500).json({ error: 'Internal Server Error' });

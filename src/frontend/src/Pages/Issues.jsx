@@ -86,8 +86,8 @@ export default function Issues({ admin = true }) {
           </div>
         )}
         {success ? (
-          issues.map((issue, index) => (
-            <div key={issue._id}>
+          issues && issues.map((issue, index) => (
+            issue && <div key={issue._id}>
               {admin ? (
                 <Link
                   to={`${issue._id}`}
@@ -97,13 +97,13 @@ export default function Issues({ admin = true }) {
                   style={{ textDecoration: "none" }}
                 >
                   <div>
-                    <div className="flex-1">{issue.sender?.username}</div>
+                    <div className="flex-1">{issue && issue.sender?issue.sender.username:""}</div>
                     <div className="flex-1">{issue.subject}</div>
                     <div className="flex-1">
                       {issue.createdAt.substring(0, 10)}
                     </div>
                   </div>
-                  {((!issue.seen && issue.replies[issue.replies.length-1].sender._id!=user.id) || issue.replies.length === 0) && (
+                  {((!issue.seen && issue.replies.length>0 && issue.replies[issue.replies.length-1].sender._id!=user.id) || issue.replies.length === 0) && (
                     <FmdBadIcon
                       className="text-red-500 text-3xl"
                       style={{
@@ -127,7 +127,7 @@ export default function Issues({ admin = true }) {
                       </h2>
                       <p className="text-gray-600">{issue.description}</p>
                     </div>
-                    {!issue.seen && issue.replies[issue.replies.length-1].sender._id!=user.id && (
+                     {!issue.seen && issue.replies.length>0 && issue.replies[issue.replies.length-1].sender._id!=user.id && (
                       <FmdBadIcon
                         className="text-red-500 text-3xl"
                         style={{
@@ -136,7 +136,7 @@ export default function Issues({ admin = true }) {
                           ":hover": { fontSize: "40px" },
                         }}
                       />
-                    )}
+                    )} 
                   </Link>
                 </>
               )}

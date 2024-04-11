@@ -20,12 +20,10 @@ Members Contribution For Sprint 4
 ### Miskat Mahmud - 40250110 - Backend DEVe
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-|                            |            |                    |
-|                            |          |                                                                 |
-|                   |            |                    |
-|                       |            |               |
-|                   |            |             |
-|                   |            |           |
+|   Presentation slides                         |   8h    |   Worded on the presentation slides                  |
+|   unit testing of backend routes                     |    2h  |                                            |
+|   fixes | 1h | backend |
+
 
 
 

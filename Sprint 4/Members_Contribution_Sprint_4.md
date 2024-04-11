@@ -3,13 +3,9 @@ Members Contribution For Sprint 4
 ### Zeiad Badawy - 40247477 - Scrum master/Front-end DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-|                           |           |                                                                 |
-|                           |           |                                                                 |
-|                            |           |                                                                 |
-|                           |           |                                                                 |
-|                            |           |                                                                 |
-|                 |           |                                                                 |
-|                 |           |                                                                 |
+|          Adding payment feature when modifying reservation                 |    4h       |                                                                 |
+|          Refactoring code and fixing bugs                 |     3h      |                                                                 |
+
 
 
 ### Mohamed Saidi - 40248103 - Backend DEV

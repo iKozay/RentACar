@@ -1,20 +1,20 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 // Creating a new schema for the property model for the make an offer.
 
 const reviewSchema = new Schema({
   userID: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
   },
 
   rating: {
     type: Number,
     required: false,
     min: 0,
-    max: 5
+    max: 5,
   },
 
   comment: {
@@ -22,13 +22,11 @@ const reviewSchema = new Schema({
     required: false,
   },
 
-
   branchID: {
     type: Schema.Types.ObjectId,
-    ref: 'Branch'
-  }
-
+    ref: 'Branch',
+  },
 
 });
 
-module.exports = mongoose.model("Review", reviewSchema);
+module.exports = mongoose.model('Review', reviewSchema);

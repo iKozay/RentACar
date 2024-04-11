@@ -1,49 +1,48 @@
-const asyncHandler = require("express-async-handler");
-const { body, validationResult } = require("express-validator");
-const Reservation = require("../models/reservationModel");
-const { authenticate } = require("../config/passport");
+const asyncHandler = require('express-async-handler');
+const Reservation = require('../models/reservationModel');
+const { authenticate } = require('../config/passport');
 // View a reservation by reservation ID
-const { sendConfirmationEmail } = require("../config/emailService");
-const User = require("../models/userModel");
-const Vehicle = require("../models/vehicleModel");
+const { sendConfirmationEmail } = require('../config/emailService');
+const User = require('../models/userModel');
+const Vehicle = require('../models/vehicleModel');
 
 exports.view_reservation = asyncHandler(async (req, res) => {
-  const reservationId = req.params.reservationId;
+  const { reservationId } = req.params;
   const reservation = await Reservation.findById(reservationId)
-    .populate("userID")
-    .populate("vin")
+    .populate('userID')
+    .populate('vin')
     .exec();
   if (!reservation) {
-    return res.status(404).json({ error: "Reservation not found" });
+    return res.status(404).json({ error: 'Reservation not found' });
   }
-  res.status(200).json(reservation);
+  return res.status(200).json(reservation);
 });
 
 // view all reservations
 exports.view_all_reservations = asyncHandler(async (req, res) => {
   const reservations = await Reservation.find({})
-    .populate("userID")
-    .populate("vin")
+    .populate('userID')
+    .populate('vin')
     .exec();
-  res.status(200).json(reservations);
+  return res.status(200).json(reservations);
 });
 
 // View all reservations for a user
 exports.view_user_reservations = asyncHandler(async (req, res) => {
-  const userId = req.params.userId;
+  const { userId } = req.params;
   const reservations = await Reservation.find({ userID: userId })
-    .populate("userID")
-    .populate("vin")
+    .populate('userID')
+    .populate('vin')
     .exec();
   res.status(200).json(reservations);
 });
 
 // View vehicle reservations
 exports.view_vehicle_reservations = asyncHandler(async (req, res) => {
-  const vehicleId = req.params.vehicleId;
+  const { vehicleId } = req.params;
   const reservations = await Reservation.find({ vin: vehicleId })
-    .populate("userID")
-    .populate("vin")
+    .populate('userID')
+    .populate('vin')
     .exec();
   res.status(200).json(reservations);
 });
@@ -56,20 +55,20 @@ exports.create_reservation = asyncHandler(async (req, res) => {
     pickupDate,
     returnDate,
     userID,
-    status = "To Pickup",
+    status = 'To Pickup',
     addons,
   } = req.body;
 
   // Check if all required fields are present in the request body
   if (
-    !vin ||
-    !reservationDate ||
-    !pickupDate ||
-    !returnDate ||
-    !userID ||
-    !addons
+    !vin
+    || !reservationDate
+    || !pickupDate
+    || !returnDate
+    || !userID
+    || !addons
   ) {
-    return res.status(400).json({ message: "All fields are required" });
+    return res.status(400).json({ message: 'All fields are required' });
   }
 
   try {
@@ -90,48 +89,49 @@ exports.create_reservation = asyncHandler(async (req, res) => {
     // console.log("User:", user);
     // console.log("Vehicle:", vehicle);
 
-    if (!user || !vehicle)
-      return res.status(404).json({ error: "user or vehicle not found" });
+    if (!user || !vehicle) return res.status(404).json({ error: 'user or vehicle not found' });
 
     // Save the reservation to the database
-    const newReservation = await reservation.save();
-    // const emailSent = await sendConfirmationEmail(user.email, {
-    //   user: {
-    //     name: user.username,
-    //   },
-    //   vehicle: {
-    //     make: vehicle.make,
-    //     model: vehicle.model,
-    //   },
-    //   pickupDate:pickupDate.substring(0,10),
-    //   returnDate:returnDate.substring(0,10),
-    // });
-    //
-    // if (!emailSent)
-    //   return res
-    //     .status(500)
-    //     .json({ error: "failed to send confirmation email" });
+
+    const emailSent = await sendConfirmationEmail(user.email, {
+      user: {
+        name: user.username,
+      },
+      vehicle: {
+        make: vehicle.make,
+        model: vehicle.model,
+      },
+      pickupDate: pickupDate.substring(0, 10),
+      returnDate: returnDate.substring(0, 10),
+    });
+
+    if (!emailSent) {
+      return res
+        .status(500)
+        .json({ error: 'failed to send confirmation email' });
+    }
     // Send a success response with the newly created reservation
-    res.status(201).json(newReservation);
+    const newReservation = await reservation.save();
+    return res.status(201).json(newReservation);
   } catch (err) {
     // Handle any errors that occur during the process
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 });
 
 // Modify a reservation
 exports.modify_reservation = asyncHandler(async (req, res) => {
-  const reservationId = req.params.reservationId;
+  const { reservationId } = req.params;
   const updates = req.body;
   try {
     // Ensure that the 'vin' property is updated correctly if necessary
-    if (updates.vin) {
-      updates.vin = updates.vin; // Assuming the 'vin' property is provided in the request body
-    }
+    // if (updates.vin) {
+    //   updates.vin = updates.vin; // Assuming the 'vin' property is provided in the request body
+    // }
     const updatedReservation = await Reservation.findByIdAndUpdate(
       reservationId,
       updates,
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedReservation);
   } catch (err) {
@@ -141,17 +141,17 @@ exports.modify_reservation = asyncHandler(async (req, res) => {
 
 // Cancel a reservation
 exports.cancel_reservation = asyncHandler(async (req, res) => {
-  const reservationId = req.params.reservationId;
+  const { reservationId } = req.params;
   try {
     const canceledReservation = await Reservation.findByIdAndDelete(
-      reservationId
+      reservationId,
     );
     if (!canceledReservation) {
-      return res.status(404).json({ error: "Reservation not found" });
+      return res.status(404).json({ error: 'Reservation not found' });
     }
-    res.status(200).json({ message: "Reservation canceled successfully" });
+    return res.status(200).json({ message: 'Reservation canceled successfully' });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 });
 exports.reservation_count = async (req, res) => {
@@ -159,8 +159,8 @@ exports.reservation_count = async (req, res) => {
     const count = await Reservation.countDocuments({});
     res.json({ count });
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
@@ -168,16 +168,16 @@ exports.reservation_count = async (req, res) => {
 exports.delete_vehicle_reservations = [
   authenticate,
   asyncHandler(async (req, res) => {
-    const vehicleId = req.params.vehicleId;
-    const reservations = await Reservation.deleteMany({
+    const { vehicleId } = req.params;
+    await Reservation.deleteMany({
       vin: vehicleId,
     }).exec();
-    res
+    return res
       .status(200)
       .json({
         message:
-          "successfully deleted reservations associated with vehicle: " +
-          vehicleId,
+          `successfully deleted reservations associated with vehicle: ${
+            vehicleId}`,
       });
   }),
 ];
@@ -186,15 +186,15 @@ exports.delete_vehicle_reservations = [
 exports.delete_user_reservations = [
   authenticate,
   asyncHandler(async (req, res) => {
-    const userId = req.params.userId;
-    const reservations = await Reservation.deleteMany({
-      userId: userId,
+    const { userId } = req.params;
+    await Reservation.deleteMany({
+      userId,
     }).exec();
-    res
+    return res
       .status(200)
       .json({
         message:
-          "successfully deleted reservations associated with user: " + userId,
+          `successfully deleted reservations associated with user: ${userId}`,
       });
   }),
 ];
@@ -212,12 +212,12 @@ exports.delete_reservations = [
       if (!reservations.deletedCount) {
         return res
           .status(404)
-          .json({ message: "No reservations found with the provided IDs." });
+          .json({ message: 'No reservations found with the provided IDs.' });
       }
 
-      res.status(200).json({ message: "Reservations deleted successfully." });
+      return res.status(200).json({ message: 'Reservations deleted successfully.' });
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      return res.status(500).json({ message: err.message });
     }
   },
 ];

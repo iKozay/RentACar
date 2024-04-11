@@ -1,5 +1,5 @@
 import React from 'react';
-export default function Addon({addon, totalAddonPrice,setAddonPrice}) {
+export default function Addon({addon, totalAddonPrice,setAddonPrice, setModify}) {
     const [quantity, setQuantity] = React.useState(
         localStorage.getItem(addon.storageName) !== null ? parseInt(localStorage.getItem(addon.storageName)) : 0
     );
@@ -15,12 +15,15 @@ export default function Addon({addon, totalAddonPrice,setAddonPrice}) {
         if(quantity < addon.max) {
             setQuantity(quantity+1);
             setAddonPrice(totalAddonPrice+addon.price);
+            setModify(addon.storageName, quantity+1);
+            
         }
     }
     const decrement = () => {
         if(quantity > 0) {
             setQuantity(quantity-1);
             setAddonPrice(totalAddonPrice-addon.price);
+            setModify(addon.storageName, quantity-1);
             // localStorage.setItem(addon.storageName, quantity);
         }
     }
@@ -38,7 +41,7 @@ export default function Addon({addon, totalAddonPrice,setAddonPrice}) {
                                   d="M1 1h16"/>
                         </svg>
                     </button>
-                    <input className="bg-white border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5"
+                    <input id={addon.storageName} className="bg-white border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5"
                            required value={quantity}/>
                     <button
                         onClick={increment}

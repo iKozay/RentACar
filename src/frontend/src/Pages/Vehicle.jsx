@@ -73,6 +73,7 @@ export default function Vehicle() {
     fetchBranches();
   },[addingToBranch])
 
+  
   const handleAddVehicleToBranch=async (event)=>{
     event && event.preventDefault();
     console.log("here we go");

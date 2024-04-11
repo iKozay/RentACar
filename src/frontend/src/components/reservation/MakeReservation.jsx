@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
 import ReservationForm from "./ReservationForm.jsx";
-import { useParams} from "react-router-dom";
+import {Link, Navigate, useParams} from "react-router-dom";
+import {UserContext} from "../../Pages/Root.jsx";
 
 export default function MakeReservation() {
 
     const [selectedVehicle, setSelectedVehicle] = useState(null);
     const [loading, setLoading] = useState(true);
     const { vehicleId } = useParams(); // Extract vehicleId from URL params
-
+    const {user} = useContext(UserContext);
     useEffect(() => {
         async function fetchVehicle() {
             try {
@@ -22,9 +23,13 @@ export default function MakeReservation() {
                 });
                 if (!response.ok) {
                     throw new Error("Failed to fetch vehicle");
+
                 }
+
                 const vehicleData = await response.json();
+                updateRecentlyViewedVehicle(vehicleData);
                 setSelectedVehicle(vehicleData);
+
             } catch (error) {
                 console.error("Error fetching vehicle:", error);
                 // Handle error (e.g., display error message)
@@ -35,7 +40,21 @@ export default function MakeReservation() {
         fetchVehicle();
     }, [vehicleId]); // Fetch when vehicleId changes
 
+    const updateRecentlyViewedVehicle = (vehicle) =>{
 
+        let vehicles = JSON.parse(localStorage.getItem("vehicles") || "[]");
+    
+        vehicles.pop();
+        
+        vehicles.unshift(vehicle);
+
+
+        localStorage.setItem("vehicles", JSON.stringify(vehicles));
+        
+      }
+    if(!user){
+        return <Navigate to="/login" />;
+    }
     return (
         <div>
             {loading && <div>Loading</div>}

@@ -1,6 +1,6 @@
 import Vehicle from "./Vehicle";
 import { useState, useEffect, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import {Link} from "react-router-dom";
 import SortFilterButtons from "./SortFilterButtons.jsx";
 import getBranch from "../../utilities/getBranch.js";
 import { branchContext } from "../../Pages/BrowsingPage";
@@ -32,23 +32,19 @@ export default function VehicleList() {
     fetchVehicles();
   }, [branchName]);
 
-  const handleSortFilter = (sortedVehicles) => {
-    setSortedVehicles(sortedVehicles);
-  };
-
   return (
    
     <div className="bg-white">
-      <SortFilterButtons setVehicles={handleSortFilter} vehicles={vehicles} />
+      <SortFilterButtons allVehicles={vehicles} sortedVehicles={sortedVehicles} setVehicles={(v)=>{setSortedVehicles(v)}} />
       <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <hr className="my-8"/>
         <h2 className="sr-only">Vehicles</h2>
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 lg:grid-cols-2 ">
           {sortedVehicles && sortedVehicles.map((vehicle) => (
-            <NavLink key={vehicle._id} to={`../reservation/book/${vehicle._id}`}>
+            <Link key={vehicle._id} to={`../reservation/book/${vehicle._id}`}>
               <Vehicle vehicle={vehicle} />
-            </NavLink>
+            </Link>
           ))}
         </div>
       </div>

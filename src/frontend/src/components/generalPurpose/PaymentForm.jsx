@@ -9,10 +9,11 @@ export const PaymentTypes = {
     NEW_RESERVATION: "NEW_RESERVATION",
     MODIFY_RESERVATION_ADDONS: "MODIFY_RESERVATION_ADDONS",
     DEPOSIT: "DEPOSIT",
-    REFUND: "REFUND"
+    REFUND: "REFUND",
+    MODIFY_RESERVATION: "MODIFY_RESERVATION"
 }
 
-export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, backButtonAction}) {
+export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, backButtonAction, onPaymentAction}) {
 
     const {user} = useContext(UserContext);
 
@@ -63,6 +64,15 @@ export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, ba
                     case PaymentTypes.REFUND:
                         await createTransaction(cardName, cardNumber, expDate, ccv, -totalPrice, user.id, reservationId);
                         await CheckOutReservation(reservationId);
+                        return true;
+                    case PaymentTypes.MODIFY_RESERVATION:
+                        addons = {
+                            insurance: localStorage.getItem("insurance"),
+                            gps: localStorage.getItem("gps"),
+                            childSeat: localStorage.getItem("childSeat")
+                        };
+                        await onPaymentAction(addons);
+                        await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservationId);
                         return true;
                     default:
                         return false;

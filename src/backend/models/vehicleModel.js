@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 // Creating a new schema for the property model for the make an offer.
 
@@ -15,9 +15,9 @@ const vehicleSchema = new Schema({
     required: false,
   },
   year: {
-        type: Number,
-        required: false,
-    },
+    type: Number,
+    required: false,
+  },
   price: {
     type: Number,
     required: false,
@@ -32,15 +32,15 @@ const vehicleSchema = new Schema({
   },
   address: {
     type: String,
-    default: false
+    default: false,
 
   },
   colour: {
     type: String,
-    default: false
+    default: false,
 
   },
- numberOfDoors: {
+  numberOfDoors: {
     type: Number,
     required: false,
   },
@@ -53,27 +53,27 @@ const vehicleSchema = new Schema({
     type: Number,
     required: false,
   },
-  
-  licensePlate:{
+
+  licensePlate: {
     type: String,
     required: false,
   },
 
-  electricalOrFuel:{
+  electricalOrFuel: {
     type: String,
     required: false,
   },
 
-  Availability:{
+  Availability: {
     type: String,
     required: false,
 
   },
-  Image:{
+  Image: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 
 });
 
-module.exports = mongoose.model("Vehicle", vehicleSchema);
+module.exports = mongoose.model('Vehicle', vehicleSchema);

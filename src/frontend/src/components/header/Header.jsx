@@ -1,4 +1,3 @@
-import React from "react";
 import AccountDropdown from "./AccountDropdown";
 import { Link } from 'react-router-dom';
 

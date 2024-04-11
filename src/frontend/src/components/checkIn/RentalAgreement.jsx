@@ -136,11 +136,7 @@ useEffect(() => {
         <h2 className="text-lg font-bold mb-2">8. Signatures:</h2>
         <p className='font-bold my-1'>Rental company</p>
         
-        <Popup
-        modal
-        trigger={<button className='bg-transparent text-blue-500 hover:underline'>Electronic Signature: </button>}
-        closeOnDocumentClick={false}>
-        {close => (
+        {(
           <>
             <SignaturePad
               ref={sigCanvas}
@@ -148,12 +144,9 @@ useEffect(() => {
                 className: "signatureCanvas"
               }}
             />
-            <button className='mx-1' onClick={save1}>Save</button>
-            <button className='mx-1' onClick={clear}>Clear</button>
-            <button className='mx-1' onClick={close}>Close</button>
+            <button className='mx-1 float-right' onClick={clear}>Clear</button>
           </>
         )}
-      </Popup>
       {imageURL1 ? (
         <img
           src={imageURL1}
@@ -163,50 +156,41 @@ useEffect(() => {
       ) : null}
       <br/>
       
-        <label>Print Name: </label>
-        <input className="border-2 border-blue-200 rounded px-2 py-1 my-1"></input>
-        <br/>
-
-        <label>Date: </label>
-        <input className="border-2 border-blue-200 rounded px-2 py-1 my-1"></input>
-        <br/>
+        <div className={"flex justify-center"}>
+            <label className="mr-5 mt-2">Print Name: </label>
+            <input className="border-2 border-blue-200 rounded px-2 py-1 my-1"></input>
+            <label className="ml-5 mt-2">Date: {new Date().toLocaleDateString()}</label>
+            <br/>
+        </div>
 
         <p className='font-bold my-1'>Renter</p>
 
-        <Popup
-        modal
-        trigger={<button className='bg-transparent text-blue-500 hover:underline'>Electronic Signature: </button>}
-        closeOnDocumentClick={false}>
-        {close => (
-          <>
-            <SignaturePad
-              ref={sigCanvas}
-              canvasProps={{
-                className: "signatureCanvas"
-              }}
-            />
-            <button className='mx-1' onClick={save2}>Save</button>
-            <button className='mx-1' onClick={clear}>Clear</button>
-            <button className='mx-1' onClick={close}>Close</button>
-          </>
-        )}
-      </Popup>
-      {imageURL2 ? (
-        <img
-          src={imageURL2}
-          alt="my signature"
-          className='h-10 my-2'
-        />
-      ) : null}
-      <br/>
-        
-        <label>Print Name: </label>
-        <input className="border-2 border-blue-200 rounded px-2 py-1 my-1"></input>
-        <br/>
+          {(
+              <>
+                  <SignaturePad
+                      ref={sigCanvas}
+                      canvasProps={{
+                          className: "signatureCanvas"
+                      }}
+                  />
+                  <button className='mx-1 float-right' onClick={clear}>Clear</button>
+              </>
+          )}
+          {imageURL1 ? (
+              <img
+                  src={imageURL1}
+                  alt="signature"
+                  className='h-10 my-2'
+              />
+          ) : null}
+          <br/>
 
-        <label>Date: </label>
-        <input className="border-2 border-blue-200 rounded px-2 py-1 my-1"></input>
-        <br/>
+          <div className={"flex justify-center"}>
+              <label className="mr-5 mt-2">Print Name: </label>
+              <input className="border-2 border-blue-200 rounded px-2 py-1 my-1"></input>
+              <label className="ml-5 mt-2">Date: {new Date().toLocaleDateString()}</label>
+              <br/>
+          </div>
 
       </div>
     </div>

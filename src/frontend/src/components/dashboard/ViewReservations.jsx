@@ -22,7 +22,7 @@ export default function ViewReservations({ reservations }) {
               </div>
               <div className="flex items-center mb-2">
                 <strong className="mr-2 text-gray-700">Vehicle ID:</strong>
-                <span className="text-blue-600">{reservation.vin._id}</span>
+                <span className="text-blue-600">{reservation.vin?reservation.vin._id:"No car associated"}</span>
               </div>
               <div className="flex items-center mb-2">
                 <strong className="mr-2 text-gray-700">

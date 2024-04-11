@@ -9,7 +9,8 @@ export const PaymentTypes = {
     NEW_RESERVATION: "NEW_RESERVATION",
     MODIFY_RESERVATION_ADDONS: "MODIFY_RESERVATION_ADDONS",
     DEPOSIT: "DEPOSIT",
-    REFUND: "REFUND"
+    REFUND: "REFUND",
+    MODIFY_RESERVATION: "MODIFY_RESERVATION"
 }
 
 export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, backButtonAction, onPaymentAction}) {
@@ -63,6 +64,15 @@ export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, ba
                     case PaymentTypes.REFUND:
                         await createTransaction(cardName, cardNumber, expDate, ccv, -totalPrice, user.id, reservationId);
                         await CheckOutReservation(reservationId);
+                        return true;
+                    case PaymentTypes.MODIFY_RESERVATION:
+                        addons = {
+                            insurance: localStorage.getItem("insurance"),
+                            gps: localStorage.getItem("gps"),
+                            childSeat: localStorage.getItem("childSeat")
+                        };
+                        await onPaymentAction(addons);
+                        await createTransaction(cardName, cardNumber, expDate, ccv, totalPrice, user.id, reservationId);
                         return true;
                     default:
                         return false;
@@ -220,9 +230,6 @@ export function PaymentForm({paymentType, vehicle, totalPrice, reservationId, ba
     async function delay(e) {
         e.preventDefault();
         if(await processPayment()) {
-            if(onPaymentAction){
-                onPaymentAction();
-            }
             setTimeout(() => {navigate("/reservation/confirmation");}, 1000);
         }
     }

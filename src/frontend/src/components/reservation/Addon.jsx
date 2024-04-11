@@ -15,7 +15,7 @@ export default function Addon({addon, totalAddonPrice,setAddonPrice, setModify})
         if(quantity < addon.max) {
             setQuantity(quantity+1);
             setAddonPrice(totalAddonPrice+addon.price);
-            setModify();
+            setModify(addon.storageName, quantity+1);
             
         }
     }
@@ -23,7 +23,7 @@ export default function Addon({addon, totalAddonPrice,setAddonPrice, setModify})
         if(quantity > 0) {
             setQuantity(quantity-1);
             setAddonPrice(totalAddonPrice-addon.price);
-            setModify();
+            setModify(addon.storageName, quantity-1);
             // localStorage.setItem(addon.storageName, quantity);
         }
     }

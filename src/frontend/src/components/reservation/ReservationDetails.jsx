@@ -24,17 +24,19 @@ export default function ReservationDetails({ reservation }) {
   const [addonPrice, setAddonPrice] = React.useState(0);
   const [showPaymentForm, setShowPaymentForm] = React.useState(false);
   const [payment, setPayment] = React.useState(0);
-  const [newTotalPrice, setNewTotalPrice] = React.useState(0);
   const previousTotalPrice = computeTotal(new Date(reservation.pickupDate), new Date(reservation.returnDate), reservation.vin.price) + parseInt(reservation.addons[addons[0].storageName])*addons[0].price + parseInt(reservation.addons[addons[1].storageName])*addons[1].price + parseInt(reservation.addons[addons[2].storageName])*addons[2].price;
-
-  const updateTotalPrice = () => {
+  console.log(reservation)
+  const updateTotalPrice = (addonName,addonQuantity) => {
       setModify(true);
+      // update local storage
+        if(addonName) {
+            localStorage.setItem(addonName, addonQuantity);
+        }
+        console.log(localStorage.getItem(addonName));
   }
   const handleModifyRsv = () => {
-    // await modifyRsv(reservation._id, fromDate, toDate, reservation.addons, reservation.status);
-    // await modifyRsv(reservation._id, fromDate, toDate, reservation.addons, reservation.status);setModify(false);
     setPayment(computeTotal(fromDate, toDate, reservation.vin.price) + addonPrice*computeNumOfDays(fromDate,toDate)-previousTotalPrice);
-    if (payment !== 0) {
+    if ((computeTotal(fromDate, toDate, reservation.vin.price) + addonPrice*computeNumOfDays(fromDate,toDate)-previousTotalPrice) !== 0) {
       setShowPaymentForm(true);
     }else{
       modifyRsv(reservation._id, fromDate, toDate, reservation.addons, reservation.status);
@@ -42,6 +44,13 @@ export default function ReservationDetails({ reservation }) {
     }
   };
     const isCSR = (user && user.role === "representative");
+
+    // temp
+  if(modify && showPaymentForm){
+    console.log("insurances",localStorage.getItem("insurance"));
+    console.log("gps",localStorage.getItem("gps"));
+    console.log("childSeat",localStorage.getItem("childSeat"));
+  }
 
   return (
     <div className={"pl-3"}>
@@ -59,7 +68,7 @@ export default function ReservationDetails({ reservation }) {
         minDate={new Date()}
         onChange={(update) => {
           setDateRange(update);
-          updateTotalPrice();
+          updateTotalPrice(null,0);
         }}
       />
       <div className="flex">
@@ -68,7 +77,11 @@ export default function ReservationDetails({ reservation }) {
           <div className="text-stone-600 mb-2">Add extra features to your reservation</div>
           {
             addons.map((a, index) => {
-              localStorage.setItem(a.storageName, parseInt(reservation.addons[a.storageName]));
+              if(!modify){
+                localStorage.setItem(a.storageName, parseInt(reservation.addons[a.storageName]));
+              }else{
+                localStorage.setItem(a.storageName, parseInt(localStorage.getItem(a.storageName)));
+              }
               return <Addon key={index} addon={a} totalAddonPrice={addonPrice} setAddonPrice={setAddonPrice} setModify={updateTotalPrice}/>
             })
           }
@@ -112,7 +125,7 @@ export default function ReservationDetails({ reservation }) {
               payment>0?<div className={"flex justify-center"}><h1 className="text-2xl font-bold">Make a Deposit</h1></div>:
                   <div className={"flex justify-center"}><h1 className="text-2xl font-bold">Make a Refund</h1></div>
             }
-            <PaymentForm paymentType={payment>0?PaymentTypes.DEPOSIT:PaymentTypes.REFUND} vehicle={reservation.vin} totalPrice={Math.abs(payment)} backButtonAction={()=>{setShowPaymentForm(false)}} onPaymentAction={async ()=>{await modifyRsv(reservation._id, fromDate, toDate, reservation.addons, reservation.status);setModify(false);}} reservationId={reservation._id}/>
+            <PaymentForm paymentType={PaymentTypes.MODIFY_RESERVATION} vehicle={reservation.vin} totalPrice={Math.abs(payment)} backButtonAction={()=>{setShowPaymentForm(false)}} onPaymentAction={async (newAddons)=>{await modifyRsv(reservation._id, fromDate, toDate, newAddons, reservation.status)}} reservationId={reservation._id}/>
           </Modal>
       )
       }
@@ -122,6 +135,7 @@ export default function ReservationDetails({ reservation }) {
 
 async function modifyRsv(reservationId, fromDate, toDate, addons, status) {
 //  await modifyReservation(reservationId, fromDate, toDate, addons, status);
+  console.log(addons);
   await ModifyReservation(reservationId, fromDate, toDate, addons, status);
 }
 

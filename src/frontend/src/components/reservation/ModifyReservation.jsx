@@ -15,7 +15,7 @@ export default function ModifyReservation() {
     if(user){
         FetchReservationById(reservationId).then((res) => {setResponse(res)});
     }
-  },[])
+  },[user])
 
   if (response && response.vin) {
     return (

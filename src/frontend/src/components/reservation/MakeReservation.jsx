@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
 import ReservationForm from "./ReservationForm.jsx";
-import { useParams} from "react-router-dom";
+import {Link, Navigate, useParams} from "react-router-dom";
+import {UserContext} from "../../Pages/Root.jsx";
 
 export default function MakeReservation() {
 
     const [selectedVehicle, setSelectedVehicle] = useState(null);
     const [loading, setLoading] = useState(true);
     const { vehicleId } = useParams(); // Extract vehicleId from URL params
-
+    const {user} = useContext(UserContext);
     useEffect(() => {
         async function fetchVehicle() {
             try {
@@ -51,7 +52,9 @@ export default function MakeReservation() {
         localStorage.setItem("vehicles", JSON.stringify(vehicles));
         
       }
-
+    if(!user){
+        return <Navigate to="/login" />;
+    }
     return (
         <div>
             {loading && <div>Loading</div>}

@@ -8,14 +8,16 @@ import notifications from "../../utilities/notifications";
 
 export default function AccountDropdown() {
   const [notification, setNotification] = useState(false);
+  const { user, setToken, token } = useContext(UserContext);
   useEffect(() => {
     async function notificationFetch() {
       const notify = await notifications(user.id);
       setNotification(notify);
     }
-    notificationFetch();
+    if(user){
+      notificationFetch();
+    }
   });
-  const { user, setToken, token } = useContext(UserContext);
 
   // const token = localStorage.getItem("token");
   const isLoggedIn = token !== null;
@@ -47,9 +49,11 @@ function showAccountButton(setToken, user, notification) {
             "absolute overflow-auto z-10 bg-gray-800 text-white p-2 right-4"
           }
         >
+        <Link to="user/MyAccount">
           <p className={"p-2 block cursor-pointer hover:bg-gray-600"}>
             My Account
           </p>
+        </Link>
           <Link to="user/reservation">
             <p
               className={

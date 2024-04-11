@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LocationMap from "../../Pages/LocationMap";
-import Modal from "./Modal"; // Import the Modal component
+import Modal from "../generalPurpose/Modal";
 import { branchContext } from "../../Pages/BrowsingPage";
 
 export default function SearchBox() {

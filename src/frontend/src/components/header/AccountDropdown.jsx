@@ -8,14 +8,16 @@ import notifications from "../../utilities/notifications";
 
 export default function AccountDropdown() {
   const [notification, setNotification] = useState(false);
+  const { user, setToken, token } = useContext(UserContext);
   useEffect(() => {
     async function notificationFetch() {
       const notify = await notifications(user.id);
       setNotification(notify);
     }
-    notificationFetch();
+    if(user){
+      notificationFetch();
+    }
   });
-  const { user, setToken, token } = useContext(UserContext);
 
   // const token = localStorage.getItem("token");
   const isLoggedIn = token !== null;

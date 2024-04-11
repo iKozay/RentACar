@@ -20,18 +20,16 @@ exports.user_list = [
 exports.user_detail = [
   authenticate,
   asyncHandler(async (req, res) => {
-    if(req.user.role!='admin')
 
-      return res.status(401).json({error:'unauthorized'})
-
-
-
-  const userId = req.params.userId;
-  const user = await User.findById(userId).exec();
-  if (user === null) {
-    res.status(404).json({ error: "User doesn't exist" });
-  }
-  res.status(200).json(user);
+    // if admin or user is trying to get his own details
+    if(req.user.role==='admin' || req.user._id==req.params.userId) {
+      const userId = req.params.userId;
+      const user = await User.findById(userId).exec();
+      if (user === null) {
+        res.status(404).json({error: "User doesn't exist"});
+      }
+      res.status(200).json(user);
+    }
 })
 ];
 exports.customer_list = [ 

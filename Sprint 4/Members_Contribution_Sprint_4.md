@@ -32,8 +32,8 @@ Members Contribution For Sprint 4
 ### Matteo Sansone - 40242278 - Front-end DEV
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
-|     |         |                                                                 |
-|       |     |                                                                 |
+|             Created the 'My Account' page             |     6h    |              |
+|             Meeting Minutes                |  30m   |                                                                 |
 | |         |                                                                 |
 |    |         |                                                                 |
 |     |          |                                                                 |

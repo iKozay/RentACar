@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import fetchData from "../utilities/fetchData";
 import { useParams } from "react-router-dom";
+import {UserContext} from "./Root.jsx";
 
 export default function MyAccount() {
-    const { userId } = useParams();
-    const [userData, setUserData] = useState(null);
+    const { user } = useContext(UserContext);
+    const [newUserData, setNewNewUserData] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
 
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [updateBtn, setUpdateBtn] = useState(false);
-    const [user, setUser] = useState(null);
+    const [userData, setUserData] = useState(null);
+
 
     useEffect(() => {
         async function fetchUser() {
             setLoading(true);
             try {
-                const response = await fetchData(`http://localhost:3000/api/users/${userId}`, {
+                const response = await fetchData(`http://localhost:3000/api/users/${user.id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -25,20 +27,20 @@ export default function MyAccount() {
                     },
                 });
                 if (response.data) {
-                    setUser(response.data);
+                    setUserData(response.data);
                     setSuccess(true);
                 } else if (response.error) {
                     setError(true);
                 }
             } catch (error) {
-                console.error("Error fetching user data:", error);
+                console.error("Error fetching userData data:", error);
                 setError(true);
             } finally {
                 setLoading(false);
             }
         }
         fetchUser();
-    }, [userId]);
+    }, [user]);
 
     const handleClickUpdateUser = () => {
         setUpdateBtn(true);
@@ -75,9 +77,9 @@ export default function MyAccount() {
                 body: JSON.stringify(updatedData),
             });
             console.log(response.error);
-            setUserData(response);
+            setNewNewUserData(response);
         } catch (error) {
-            console.error("Error updating user data:", error);
+            console.error("Error updating userData data:", error);
         }
     };
 
@@ -89,16 +91,16 @@ export default function MyAccount() {
                 {success ? (
                     !updateBtn ? (
                         <div>
-                            <p>Name: {user.full_name} </p>
-                            <p>Username: {user.username} </p>
-                            <p>Email: {user.email} </p>
-                            <p>Phone Number: {user.phone_number} </p>
+                            <p>Name: {userData.full_name} </p>
+                            <p>Username: {userData.username} </p>
+                            <p>Email: {userData.email} </p>
+                            <p>Phone Number: {userData.phone_number} </p>
                             <p>Date of Birth: </p>
                             <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded" onClick={handleClickUpdateUser}>Update</button>
                         </div>
                     ) : (
                         <div>
-                            <p>Update User {user.username}:</p>
+                            <p>Update User {userData.username}:</p>
                             <form action="" className="mt-4">
                             <div className="mb-4">
                                 <label
@@ -112,7 +114,7 @@ export default function MyAccount() {
                                 name="username"
                                 id="username"
                                 className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                defaultValue={user.username}
+                                defaultValue={userData.username}
                                 required
                                 />
                                 <label
@@ -126,7 +128,7 @@ export default function MyAccount() {
                                 name="firstName"
                                 id="firstName"
                                 className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                defaultValue={user["first_name"]}
+                                defaultValue={userData["first_name"]}
                                 required
                                 />
                                 <label
@@ -140,7 +142,7 @@ export default function MyAccount() {
                                 name="lastName"
                                 id="lastName"
                                 className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                defaultValue={user["last_name"]}
+                                defaultValue={userData["last_name"]}
                                 required
                                 />
                                 <label
@@ -154,7 +156,7 @@ export default function MyAccount() {
                                 name="email"
                                 id="email"
                                 className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                defaultValue={user["email"]}
+                                defaultValue={userData["email"]}
                                 required
                                 />
                                 <label
@@ -168,7 +170,7 @@ export default function MyAccount() {
                                 name="phoneNumber"
                                 id="phoneNumber"
                                 className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                defaultValue={user["phone_number"]}
+                                defaultValue={userData["phone_number"]}
                                 required
                                 />
                                 <label
@@ -183,7 +185,7 @@ export default function MyAccount() {
                                 id="dateOfBirth"
                                 className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 defaultValue={
-                                    new Date(user["date_of_birth"])
+                                    new Date(userData["date_of_birth"])
                                     .toISOString()
                                     .split("T")[0]
                                 }
@@ -200,7 +202,7 @@ export default function MyAccount() {
                                 name="picture"
                                 id="picture"
                                 className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                defaultValue={user["profile_picture"]}
+                                defaultValue={userData["profile_picture"]}
                                 required
                                 />
                                 <label

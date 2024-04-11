@@ -23,11 +23,11 @@ user-friendly interactions to enhance the efficiency and convenience of renting 
 ## Team & Roles
 
 
-* Zeiad Badawy -  40247477 - <strong>Scrum master/Front-end DEV</strong>
-* Mohamed Saidi - 40248103 - <strong>Backend DEV</strong>
-* Miskat Mahmud - 40250110 - <strong>Backend DEV</strong>
-* Matteo Sansone - 40242278 - <strong>Front-end DEV</strong>
-* Abdel-Rahman Khalifa - 40253332 - <strong>Fullstack DEV</strong>
+* Zeiad Badawy (iKozay) -  40247477 - <strong>Scrum master/Front-end DEV</strong>
+* Mohamed Saidi (Mohadgb) - 40248103 - <strong>Backend DEV</strong>
+* Miskat Mahmud (codedsami) - 40250110 - <strong>Backend DEV</strong>
+* Matteo Sansone (MSan35) - 40242278 - <strong>Front-end DEV</strong>
+* Abdel-Rahman Khalifa (AbdelrahmanWM) - 40253332 - <strong>Fullstack DEV</strong>
 
 
 

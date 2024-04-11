@@ -49,9 +49,11 @@ function showAccountButton(setToken, user, notification) {
             "absolute overflow-auto z-10 bg-gray-800 text-white p-2 right-4"
           }
         >
+        <Link to="user/MyAccount">
           <p className={"p-2 block cursor-pointer hover:bg-gray-600"}>
             My Account
           </p>
+        </Link>
           <Link to="user/reservation">
             <p
               className={

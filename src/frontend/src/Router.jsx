@@ -31,6 +31,7 @@ import Issues from "./Pages/Issues.jsx";
 import AdminIssue from "./Pages/AdminIssue.jsx";
 import CustomerIssues from "./Pages/CustomerIssues.jsx";
 import Issue from "./Pages/Issue.jsx";
+import MyAccount from "./Pages/MyAccount";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -73,6 +74,10 @@ const Router = () => {
         {
           path: "user/reservation",
           element: <ViewReservationPage />,
+        },
+        {
+          path: "user/MyAccount",
+          element: <MyAccount />,
         },
         {
           path: "reservation/details/:reservationId",

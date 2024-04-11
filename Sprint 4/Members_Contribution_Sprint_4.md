@@ -4,7 +4,7 @@ Members Contribution For Sprint 4
 | Item                        | Time      | Notes (If needed)                                               |
 |-----------------------------|-----------|-----------------------------------------------------------------|
 |          Adding payment feature when modifying reservation                 |    4h       |                                                                 |
-|          Refactoring code and fixing bugs                 |     3h      |                                                                 |
+|          Refactoring code and fixing bugs                 |     5h      |                                                                 |
 
 
 

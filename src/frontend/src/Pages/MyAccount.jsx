@@ -129,6 +129,8 @@ export default function MyAccount() {
                                 type="text"
                                 name="username"
                                 id="username"
+                                readOnly
+                                disabled
                                 className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 defaultValue={userData.username}
                                 required

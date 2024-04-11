@@ -1,19 +1,19 @@
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  service:"gmail",
-  host: "smtp.gmail.com",
+  service: 'gmail',
+  host: 'smtp.gmail.com',
   port: 587,
   secure: false,
-// host: "smtp-mail.outlook.com", // hostname
-//     secureConnection: false, // TLS requires secureConnection to be false
-//     port: 587, // port for secure SMTP
-//     tls: {
-//         ciphers:'SSLv3'
-//     },
-// host: 'smtp.zohocloud.ca',
-// port: 465,
-// secure: true, //ssl
+  // host: "smtp-mail.outlook.com", // hostname
+  //     secureConnection: false, // TLS requires secureConnection to be false
+  //     port: 587, // port for secure SMTP
+  //     tls: {
+  //         ciphers:'SSLv3'
+  //     },
+  // host: 'smtp.zohocloud.ca',
+  // port: 465,
+  // secure: true, //ssl
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -23,18 +23,18 @@ const transporter = nodemailer.createTransport({
 async function sendConfirmationEmail(email, reservationDetails) {
   console.log(process.env.EMAIL_USER);
   console.log(process.env.EMAIL_PASS);
-  transporter.verify(function(error, success) {
+  transporter.verify((error) => {
     if (error) {
-          console.log(error);
+      console.log(error);
     } else {
-          console.log('Server is ready to take our messages');
+      console.log('Server is ready to take our messages');
     }
   });
   try {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Reservation Confirmation",
+      subject: 'Reservation Confirmation',
       html: `
         <p>Dear ${reservationDetails.user.name},</p>
         <p>Your reservation has been successfully confirmed.</p>
@@ -48,10 +48,10 @@ async function sendConfirmationEmail(email, reservationDetails) {
       `,
     };
     const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent:", info.response);
+    console.log('Email sent:', info.response);
     return true;
   } catch (error) {
-    console.log("Error sending email " + error);
+    console.log(`Error sending email ${error}`);
     return false;
   }
 }

@@ -6,13 +6,12 @@ const logger = require('morgan');
 const session = require('express-session');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const routes = require('./routes');
-const passport = require('./config/passport');
 const cache = require('express-cache-headers');
 const cors = require('cors');
+const routes = require('./routes');
+const passport = require('./config/passport');
+
 const app = express();
-
-
 
 // initiating database connection
 // const mongoDB = process.env.MONGO_DB;
@@ -21,12 +20,12 @@ const app = express();
 //     await mongoose.connect(mongoDB);
 // }
 
-// Initializing middlewares 
-app.use(cache(30)); 
+// Initializing middlewares
+app.use(cache(30));
 app.use(session({
-  secret:process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
 }));
 
 app.use(logger('dev'));
@@ -35,17 +34,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 // app.use(passport.initialize());
 // Routers middleware set up
 const corsOptions = {
   origin: 'http://localhost:5173',
-  credentials: true
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
-app.use('*',cors(corsOptions));// Enable cross origin resource sharing for all routes 
+app.use('*', cors(corsOptions));// Enable cross origin resource sharing for all routes
 app.use(passport.initialize);
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // Replace with your React app's origin
@@ -54,36 +51,32 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/users',routes.usersRoute);
-app.use('/api/vehicles',routes.vehiclesRoute);
-app.use('/api/auth',routes.authRoute);
-app.use('/api/reservations',routes.reservationsRoute);
-app.use('/api/branches',routes.branchRoute);
-app.use('/api/transactions',routes.transactionsRoute);
-app.use('/api/reviews',routes.reviewsRoute);
-app.use('/api/issues',routes.issueRoute);
+app.use('/api/users', routes.usersRoute);
+app.use('/api/vehicles', routes.vehiclesRoute);
+app.use('/api/auth', routes.authRoute);
+app.use('/api/reservations', routes.reservationsRoute);
+app.use('/api/branches', routes.branchRoute);
+app.use('/api/transactions', routes.transactionsRoute);
+app.use('/api/reviews', routes.reviewsRoute);
+app.use('/api/issues', routes.issueRoute);
 
-
-
-app.get('/test/fetch',(req,res)=>{// Just for testing purposes
-  res.sendFile(path.join(__dirname,"/public/fetch.html"));
-})
-
+app.get('/test/fetch', (req, res) => { // Just for testing purposes
+  res.sendFile(path.join(__dirname, '/public/fetch.html'));
+});
 
 // Error handling middleware functions (for standard error returns)
-app.use(function(req, res, next) {
-    next(createError(404));
-  });
-  
-  // error handler
-  app.use(function(err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
-    // send JSON error response
-    res.status(err.status || 500).json({ error: err.message });
-  });
+app.use((req, res, next) => {
+  next(createError(404));
+});
 
+// error handler
+app.use((err, req, res, next) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // send JSON error response
+  res.status(err.status || 500).json({ error: err.message });
+});
 
 module.exports = app;

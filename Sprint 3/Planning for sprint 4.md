@@ -16,7 +16,7 @@
 | #201  | US-13: Email Communication             | 5            | [Due Date] | Implement Email Sending Functionality, Design Email Templates, Integrate Email System with Admin Interface, Handle Email Responses | High     | High   | Abdel-Rahman |
 | #202  | US-14: Direct Chatting System          | 8            | [Due Date] | Develop Chat Interface, Implement Real-time Messaging Functionality, Handle User Authentication, Manage Message History, Integrate with Customer Support Interface | High     | High   | Mohammed/Samy |
 | #203  | US-15: Multiple Persons in Reservation | 3            | [Due Date] | Update Reservation Data Model, Modify Booking Process, Adjust Payment Handling, Validate Data Entry for Multiple Persons | Medium   | Medium | Zeyad |
-| #204  | US-16: Project Refactoring             | 5            | [Due Date] | Identify Code Smells and Technical Debt, Refactor Key Components, Improve Code Readability and Maintainability, Document Refactored Code | High     | Medium | Mattio |
+| #204  | US-16: Project Refactoring             | 5            | [Due Date] | Identify Code Smells and Technical Debt, Refactor Key Components, Improve Code Readability and Maintainability, Document Refactored Code | High     | Medium | Matteo |
 
 ## Task Breakdown
 

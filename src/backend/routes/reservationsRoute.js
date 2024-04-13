@@ -1,3 +1,5 @@
+//this file contains all the routes needed for the reservation related routes
+
 const express = require('express');
 
 const router = express.Router();

@@ -16,6 +16,8 @@ afterEach(async () => {
   await mongoose.connection.close();
 });
 
+
+//test for returning a specific reseravation
 describe('Reservation Routes', () => {
   describe('GET /api/reservations/:reservationId', () => {
     it('should return a specific reservation', async () => {
@@ -26,12 +28,17 @@ describe('Reservation Routes', () => {
     });
   });
 
+
+  //test for returning all users
   describe('GET /api/reservations/', () => {
     it('should return all reservations', async () => {
       const res = await request(app).get('/api/reservations/');
       expect(res.status).toBe(200);
     });
   });
+
+
+//test for retrieving a reservation for an user
 
   describe('GET /api/reservations/user/:userId', () => {
     it('should return all reservations for a specific user', async () => {
@@ -41,6 +48,8 @@ describe('Reservation Routes', () => {
     });
   });
 
+
+  //test for creating a reservation
   describe('POST /api/reservations', () => {
     it('should create a new reservation', async () => {
       const res = await request(app).post('/api/reservations').send(reservation);
@@ -60,6 +69,8 @@ describe('Reservation Routes', () => {
     });
   });
 
+
+//test for updating a reservation
   describe('PUT /api/reservations/:reservationId', () => {
     it('should update an existing reservation', async () => {
       const newReservation = await Reservation.create(reservation);
@@ -76,6 +87,8 @@ describe('Reservation Routes', () => {
     });
   });
 
+
+  //test for deleting a reservation
   describe('DELETE /api/reservations/:reservationId', () => {
     it('should delete an existing reservation', async () => {
       const newReservation = await Reservation.create(reservation);

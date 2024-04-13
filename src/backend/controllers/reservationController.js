@@ -86,8 +86,7 @@ exports.create_reservation = asyncHandler(async (req, res) => {
     const user = await User.findById(reservation.userID).exec();
     const vehicle = await Vehicle.findById(reservation.vin).exec();
 
-    // console.log("User:", user);
-    // console.log("Vehicle:", vehicle);
+ 
 
     if (!user || !vehicle) return res.status(404).json({ error: 'user or vehicle not found' });
 
@@ -124,10 +123,7 @@ exports.modify_reservation = asyncHandler(async (req, res) => {
   const { reservationId } = req.params;
   const updates = req.body;
   try {
-    // Ensure that the 'vin' property is updated correctly if necessary
-    // if (updates.vin) {
-    //   updates.vin = updates.vin; // Assuming the 'vin' property is provided in the request body
-    // }
+  
     const updatedReservation = await Reservation.findByIdAndUpdate(
       reservationId,
       updates,

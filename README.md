@@ -10,14 +10,14 @@ operations, including managing vehicles, user accounts, and reservations. Overal
 user-friendly interactions to enhance the efficiency and convenience of renting vehicles.
 
 ## Table of Contents
-1. [Team & Roles](https://github.com/iKozay/RentACar-soen341#team--roles)
-2. [Technologies](https://github.com/iKozay/RentACar-soen341#technologies)
-3. [Features](https://github.com/iKozay/RentACar-soen341#features)
-4. [Installation](https://github.com/iKozay/RentACar-soen341?tab=readme-ov-file#installation)
-5. [Usage](https://github.com/iKozay/RentACar-soen341?tab=readme-ov-file#usage)
-6. [Contributing](https://github.com/iKozay/RentACar-soen341?tab=readme-ov-file#contributing)
-7. [License](https://github.com/iKozay/RentACar-soen341?tab=readme-ov-file#license)
-8. [Contact](https://github.com/iKozay/RentACar-soen341?tab=readme-ov-file#contact)
+1. [Team & Roles](https://github.com/iKozay/RentACar#team--roles)
+2. [Technologies](https://github.com/iKozay/RentACar#technologies)
+3. [Features](https://github.com/iKozay/RentACar#features)
+4. [Installation](https://github.com/iKozay/RentACar?tab=readme-ov-file#installation)
+5. [Usage](https://github.com/iKozay/RentACar?tab=readme-ov-file#usage)
+6. [Contributing](https://github.com/iKozay/RentACar?tab=readme-ov-file#contributing)
+7. [License](https://github.com/iKozay/RentACar?tab=readme-ov-file#license)
+8. [Contact](https://github.com/iKozay/RentACar?tab=readme-ov-file#contact)
    
 
 ## Team & Roles
@@ -56,7 +56,7 @@ The following are the major frameworks we will be using to develop the project:
 [MongoDB-url]:https://www.mongodb.com/
 [GoogleMaps]: https://img.shields.io/badge/Google%20Maps-black?style=for-the-badge&logo=google-maps&logoColor=aqua
 [GoogleMaps-url]: https://developers.google.com/maps
-See [Technology Stack](https://github.com/iKozay/RentACar-soen341/wiki/Project-Approach-and-Technology-Stack-Selection#3-technology-stack) in Wiki for more details.
+See [Technology Stack](https://github.com/iKozay/RentACar/wiki/Project-Approach-and-Technology-Stack-Selection#3-technology-stack) in Wiki for more details.
 
 
 ## Features
@@ -132,11 +132,11 @@ Follow these steps to set up and run the project:
 1. **Clone the Repository:**
    Clone the project repository to your local machine using the following command:
    ```bash
-   git clone https://github.com/iKozay/RentACar-soen341.git
+   git clone https://github.com/iKozay/RentACar.git
 2. **Change to the Project Directory:**
    Navigate into the project **src** directory  with the command:
    ```bash
-   cd RentACar-soen341/src
+   cd RentACar/src
 3. **Install Dependencies:**
    Install project dependencies using the following command:
    ```bash
@@ -160,9 +160,9 @@ actions, and any other relevant usage details.
 
 ## Contributing
 
-Please review the [Git Rules](https://github.com/iKozay/RentACar-soen341/wiki/Git-Rules) section on our Wiki page for guidelines on contributions
+Please review the [Git Rules](https://github.com/iKozay/RentACar/wiki/Git-Rules) section on our Wiki page for guidelines on contributions
 
 ## License
 
-[Apache-2.0 license](https://github.com/iKozay/RentACar-soen341?tab=Apache-2.0-1-ov-file#)
+[Apache-2.0 license](https://github.com/iKozay/RentACar?tab=Apache-2.0-1-ov-file#)
 

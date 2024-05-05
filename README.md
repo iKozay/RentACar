@@ -23,11 +23,11 @@ user-friendly interactions to enhance the efficiency and convenience of renting 
 ## Team & Roles
 
 
-* Zeiad Badawy (iKozay) -  40247477 - <strong>Scrum master/Front-end DEV</strong>
-* Mohamed Saidi (Mohadgb) - 40248103 - <strong>Backend DEV</strong>
-* Miskat Mahmud (codedsami) - 40250110 - <strong>Backend DEV</strong>
-* Matteo Sansone (MSan35) - 40242278 - <strong>Front-end DEV</strong>
-* Abdel-Rahman Khalifa (AbdelrahmanWM) - 40253332 - <strong>Fullstack DEV</strong>
+* Zeiad Badawy (iKozay) - <strong>Scrum master/Front-end DEV</strong>
+* Mohamed Saidi (Mohadgb) - <strong>Backend DEV</strong>
+* Miskat Mahmud (codedsami) - <strong>Backend DEV</strong>
+* Matteo Sansone (MSan35) - <strong>Front-end DEV</strong>
+* Abdel-Rahman Khalifa (AbdelrahmanWM) - <strong>Fullstack DEV</strong>
 
 
 
@@ -166,11 +166,3 @@ Please review the [Git Rules](https://github.com/iKozay/RentACar-soen341/wiki/Gi
 
 [Apache-2.0 license](https://github.com/iKozay/RentACar-soen341?tab=Apache-2.0-1-ov-file#)
 
-## Contact
-
-Contact Information For Team Members:
-1. Miskat Mahmud (email: miskat.mahmud@mail.concordia.ca)
-2. Abdel-Rahman Khalifa (email: abdelrahmanwaleed0000@gmail.com)
-3. Zeiad Badawy (email: zeiadbadawy@gmail.com)
-4. Matteo Sansone (email: matteo.sansone@mail.concordia.ca)
-5. Mohamed Saidi (email: saidimoha.pro@gmail.com)
